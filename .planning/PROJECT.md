@@ -7,16 +7,24 @@
 **Repo:** https://github.com/mostafazke/alchemica
 **Stack:** SvelteKit + Svelte 5 + TypeScript + Vite 8 + vite-plugin-pwa
 
-## Next Milestone: v3 — (Not yet defined)
+## Current Milestone: v3 — Revenue & Native
 
-Run `/gsd-new-milestone` to define the v3 scope. Candidates from backlog:
-- **Capacitor native wrapper** (iOS + Android app store — prerequisite for monetization)
-- **Cloud save** (Google/Apple sign-in, cross-device sync)
-- **Monetization** (AdMob rewarded ads + remove-ads IAP)
-- **In-app content editor** (add elements/reactions without code changes)
-- **Streak bonuses** (combo multiplier during active streak)
+**Goal:** Wrap Alchemica as a native Android app and turn the engagement built in v2 into sustainable revenue.
 
-## Current Milestone: v2 — SHIPPED ✓
+**Target features:**
+- Capacitor native wrapper (Android / Google Play)
+- AdMob rewarded ads — watch ad to earn 1 free hint (MOTZ-01)
+- Remove-ads one-time IAP ($2.99–$4.99) — MOTZ-02
+- Hint bundle IAP — purchase 10 hints — MOTZ-03
+- Streak bonus — higher combo multiplier during active streak (STRK-05)
+
+**Key constraints:**
+- Capacitor prerequisite for AdMob and IAP
+- PWA (web) must remain fully functional alongside native
+- Save format needs v3 migration for IAP state (purchasedNoAds, hintBalance)
+- iOS deferred — Android-only in v3
+
+## Previous Milestone: v2 — SHIPPED ✓
 
 <details>
 <summary>v2 scope (Achievements & Daily Hook — shipped 2026-05-02)</summary>
@@ -77,19 +85,23 @@ Players can open the game on any device, pick up where they left off, and feel t
 - ✓ STRK-01–04: Streak display, increment, reset, persist — Phases 6 + 7 + 8
 </details>
 
-### Active (v3 — Not yet defined)
+### Active (v3 — Revenue & Native)
 
-Run `/gsd-new-milestone` to plan Milestone v3.
+- MOTZ-01: AdMob rewarded ad grants 1 free hint
+- MOTZ-02: Remove-ads one-time IAP ($2.99–$4.99)
+- MOTZ-03: Hint bundle IAP — purchase 10 hints
+- STRK-05: Streak bonus — higher combo multiplier during active streak
+- PLAT-01: Capacitor native wrapper for Android (Google Play)
 
 ### Out of Scope
 
-- Native iOS/Android app store distribution — v3 (Capacitor wrapper, after hook proven)
-- Backend / server-side storage — localStorage sufficient; cloud sync is v3
+- iOS App Store distribution — v3 Android-only; iOS in v4 after Google Play proven
+- Backend / server-side storage — localStorage sufficient; cloud sync is v4
 - Real-time multiplayer — requires backend + accounts; v4+
-- In-app editor — JSON/TS config sufficient for v2; editor is v3+
-- Monetization (ads, IAP) — v3 after engagement metrics established
-- User accounts / leaderboards — v3+ requires cloud infrastructure
-- Push notifications — requires backend or native; v3+
+- In-app editor — JSON/TS config sufficient for v3; editor is v4+
+- User accounts / leaderboards — v4+ requires cloud infrastructure
+- Push notifications — requires backend or native; v4+
+- Cloud save — v4 (requires accounts/backend)
 
 ## Context
 
@@ -118,7 +130,7 @@ Run `/gsd-new-milestone` to plan Milestone v3.
 | In-app editor deferred to v2 | Adds significant complexity; config file sufficient for controlled content growth in v1 | — Pending |
 
 ---
-*Last updated: 2026-05-02 after initialization*
+*Last updated: 2026-05-02 — Milestone v3 started (Revenue & Native)*
 
 ## Evolution
 

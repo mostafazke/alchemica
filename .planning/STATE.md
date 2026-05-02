@@ -6,14 +6,14 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 **Core value:** Players can open the game on any device, pick up where they left off, and feel the satisfaction of discovering a new element — even with no internet connection.
 
-**Current focus:** Milestone v2 archived ✓. Run `/gsd-new-milestone` to define v3.
+**Current focus:** Milestone v3 — Revenue & Native. Defining requirements → roadmap.
 
 ## Current Position
 
-Phase: —
+Phase: Not started (defining requirements)
 Plan: —
-Status: Milestone v2 archived
-Last activity: 2026-05-02 — Milestone v2 archived. ROADMAP.md compressed, REQUIREMENTS.md reset for v3, PROJECT.md updated. git tag v2.
+Status: Defining requirements
+Last activity: 2026-05-02 — Milestone v3 started (Revenue & Native)
 
 ## Milestone Status
 
@@ -21,7 +21,7 @@ Last activity: 2026-05-02 — Milestone v2 archived. ROADMAP.md compressed, REQU
 |-----------|--------|--------|--------------|
 | v1 — Mobile PWA | ✅ SHIPPED | 5 | 27/27 |
 | v2 — Achievements & Daily Hook | ✅ SHIPPED | 3 (6–8) | 21/21 |
-| v3 — TBD | ⏳ Not started | — | — |
+| v3 — Revenue & Native | 🔄 In progress | — | — |
 
 ## Session Log
 
