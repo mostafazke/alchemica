@@ -6,16 +6,16 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 **Core value:** Players can open the game on any device, pick up where they left off, and feel the satisfaction of discovering a new element — even with no internet connection.
 
-**Current focus:** Milestone v3 — Revenue & Native. Phase 9 complete (9 plans including 2 gap-closure fixes). Ready for Phase 10.
+**Current focus:** Milestone v3 — Revenue & Native. Phase 10 complete (2 plans). Ready for Phase 11.
 
 ## Current Position
 
-Phase: 10 of 12 (Streak Bonus)
+Phase: 11 of 12 (AdMob Rewarded Ads)
 Plan: 0/0 plans (not yet planned)
-Status: Ready — Phase 9 complete, gap-closure fixes verified
-Last activity: 2026-05-03 — Phase 9 gaps closed (shelf scroll + Android icon fix), Phase 9 marked complete
+Status: Ready — Phase 10 complete
+Last activity: 2026-05-03 — Phase 10 executed (streak bonus combo cap + 🔥 TopBar indicator)
 
-Progress: [██░░░░░░░░] 25% (v3)
+Progress: [███░░░░░░░] 50% (v3)
 
 ## Milestone Status
 
@@ -50,3 +50,4 @@ None. Phase 9 research resolved key risks: install Capacitor 8 (not 6) to match 
 - 2026-05-02: Phases 6–8 complete. Milestone v2 shipped (git tag v2).
 - 2026-05-03: Phase 9 executed. Capacitor 8 installed, android/ platform created, haptics upgraded, icons generated, signed AAB built (14.8MB). All automated gates GREEN. Human device verification pending.
 - 2026-05-03: Phase 9 UAT complete (5 pass / 2 issues). Gaps diagnosed and fixed: shelf scroll (CSS flex chain) + Android icon (regenerated foreground PNGs, navy background). Phase 9 ✅ COMPLETE.
+- 2026-05-03: Phase 10 executed. Streak bonus: getComboMax() exported, dynamic combo cap (8+streak, max 11), TopBar 🔥 indicator. 15/15 tests GREEN. Phase 10 ✅ COMPLETE.
