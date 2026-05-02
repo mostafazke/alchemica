@@ -26,3 +26,4 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 - 2026-05-02: Project initialized. Requirements defined (27 v1). Roadmap created (5 phases). Ready for Phase 1.
 - 2026-05-02: Phase 1 complete. 5/5 plans executed. Svelte 5 + Vite 6 project scaffolded, all 32 elements ported, stores with localStorage, 9 UI components, particle system. Game is fully playable.
+- 2026-05-02: Migrated to SvelteKit scaffold. Upgraded to Vite 8 + @sveltejs/vite-plugin-svelte v7 + TypeScript v6 + Vitest v4. Removed Paraglide (i18n) and Drizzle/libSQL (DB). Added ESLint/Prettier/Playwright. adapter-static for PWA static export. App.svelte → routes/+page.svelte. Build: 0 errors.

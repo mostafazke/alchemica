@@ -1,6 +1,6 @@
 # Summary: 01-03 — Svelte Stores with localStorage Persistence
 
-**Status:** Complete  
+**Status:** Complete
 **Commit:** feat(01-03)
 
 ## What Was Built

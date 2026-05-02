@@ -1,6 +1,6 @@
 # Summary: 01-02 — Port Element and Reaction Data
 
-**Status:** Complete  
+**Status:** Complete
 **Commit:** feat(01-02)
 
 ## What Was Built

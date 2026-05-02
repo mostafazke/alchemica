@@ -1,6 +1,6 @@
 # Summary: 01-05 — Canvas Particle System
 
-**Status:** Complete  
+**Status:** Complete
 **Commit:** feat(01-05)
 
 ## What Was Built
