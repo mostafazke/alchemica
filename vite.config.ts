@@ -20,6 +20,7 @@ export default defineConfig({
 				theme_color: '#0d1b2e',
 				background_color: '#0d1b2e',
 				display: 'standalone',
+				display_override: ['window-controls-overlay', 'standalone', 'minimal-ui'],
 				start_url: '/',
 				lang: 'en',
 				orientation: 'landscape',
@@ -44,6 +45,9 @@ export default defineConfig({
 						form_factor: 'narrow',
 						label: 'Alchemica element lab — mobile',
 					},
+				],
+				protocol_handlers: [
+					{ protocol: 'web+alchemica', url: '/?share=%s' }
 				]
 			},
 			workbox: {
