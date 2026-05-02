@@ -16,11 +16,11 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 | 2 | Mobile Layout & Responsive Design | ✓ Complete | 5/5 |
 | 3 | Touch, Persistence & Save/Load | ✓ Complete | 5/5 |
 | 4 | Content Expansion & Hint System | ✓ Complete | 5/5 |
-| 5 | PWA, Offline & Polish | ○ Pending | 5 |
+| 5 | PWA, Offline & Polish | ✓ Complete | 5/5 |
 
-**Progress:** 4/5 phases complete
+**Progress:** 5/5 phases complete — **Milestone 1 DONE**
 
-**Current focus:** Phase 5 — PWA, Offline & Polish
+**Current focus:** Milestone complete. Ready for next milestone or production deploy.
 
 ## Session Log
 
@@ -30,3 +30,5 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 - 2026-05-02: Phase 2 complete. 5/5 plans executed. CSS Grid layout with 3 breakpoints, BottomSheet component, category-grouped shelf with collapsible sections, 44px+ touch targets, touch-action: manipulation everywhere, viewport meta updated. Build: 0 errors.
 - 2026-05-02: Phase 3 complete. 5/5 plans executed. touch.ts (hapticSuccess/Fail, createLongPress, createSwipeHandler), ElementDetail.svelte popover on long-press, ElementCard long-press wired, Shelf swipe tab cycling, storage.ts (versioned export/import JSON), SettingsPanel.svelte with Export/Import UI, BottomBar Settings button, haptics in MixingChamber. Build: 0 errors, 0 warnings.
 - 2026-05-02: Phase 4 complete. 5/5 plans executed. 30 new elements added (62 total), ice reaction fixed (water+wind), salt recipe fixed, getHint() engine, hintCooldownEndsAt store, HintButton.svelte (30s countdown + overlay), share.ts (Web Share API + clipboard fallback), share button in DiscoveryItem and ResultDisplay. Build: 0 errors, 0 warnings.
+- 2026-05-02: Phase 5 complete. 5/5 plans executed. vite-plugin-pwa configured (injectRegister auto, clientsClaim, cleanupOutdatedCaches, maskable icon, categories), icons generated (192+512px, pure Node.js, dark navy + gold "A"), OfflineIndicator.svelte (online/offline events, animated toast), apple-touch-icon in app.html, 0 CDN refs in build. Build: 0 errors, 0 warnings. PWA precaches 18 entries.
+- 2026-05-02: Phase 5 shipped — PR #1 (https://github.com/mostafazke/alchemica/pull/1). Repo: mostafazke/alchemica. Milestone 1 complete.
