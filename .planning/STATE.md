@@ -6,24 +6,26 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 **Core value:** Players can open the game on any device, pick up where they left off, and feel the satisfaction of discovering a new element — even with no internet connection.
 
-**Current focus:** Milestone v2 started — defining requirements
+**Current focus:** Milestone v2 — Achievements & Daily Hook (roadmap ready, Phase 6 up next)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 6
 Plan: —
-Status: Defining requirements
-Last activity: 2026-05-02 — Milestone v2 started
+Status: Not started
+Last activity: 2026-05-02 — v2 roadmap created (3 phases, 21 requirements)
 
 ## Phase Status (v2)
 
 | Phase | Name | Status | Plans |
 |-------|------|--------|-------|
-| 6 | TBD | Not started | 0/0 |
+| 6 | Data Foundation & Save Schema | Not started | 0/0 |
+| 7 | Achievement Engine & Daily Logic | Not started | 0/0 |
+| 8 | Achievement & Daily UI | Not started | 0/0 |
 
-**Progress:** 0/? phases complete — v2 in planning
+**Progress:** 0/3 phases complete — v2 in planning
 
-**Current focus:** ✅ Milestone v1 archived. Run `/gsd-new-milestone` for v2.
+**Current focus:** Run `/gsd-plan-phase 6` to create the Phase 6 plan.
 
 ## Session Log
 
@@ -38,3 +40,4 @@ Last activity: 2026-05-02 — Milestone v2 started
 - 2026-05-02: Milestone v1 audit gaps fixed — iron→lava+air (2-element), hydrogen→steam+plasma, TopBar count dynamic, hintCooldownEndsAt persisted. Commit 3d06e9e.
 - 2026-05-02: Milestone v1 archived. ROADMAP.md collapsed, REQUIREMENTS.md traceability updated, PROJECT.md Current State added. Archives at .planning/milestones/v1-ROADMAP.md + v1-REQUIREMENTS.md. Git tag v1 created.
 - 2026-05-02: Milestone v2 started (Achievements & Progression). Goals: discovery badges, TopBar %, achievement gallery, unlock toast, chime sound. localStorage only, 61 elements, phases 6+.
+- 2026-05-02: Milestone v2 roadmap created. 3 phases (6–8), 21 requirements mapped, 0 orphans. Phase 6 ready for planning.

@@ -12,140 +12,62 @@ Full archive: [.planning/milestones/v1-ROADMAP.md](milestones/v1-ROADMAP.md)
 
 ---
 
-## Milestone v2 — (Not yet planned)
+## Milestone v2 — Achievements & Daily Hook
 
-Run `/gsd-new-milestone` to define v2 requirements and roadmap.
+3 phases · 21 requirements · localStorage only · no new runtime dependencies
 
-Known v2 candidates:
-- Self-host Space Mono font (completes ARCH-07 design intent)
-- Achievement system (PROG-01)
-- Discovery percentage on homescreen (PROG-02)
-- Cloud save sync (SOCL-01)
-- In-app content editor (CMS-01/CMS-02)
-- Native iOS/Android via Capacitor (PLAT-01)
-- Sound effects with mute toggle (PLAT-02)
-- Lighthouse PWA ≥ 90 audit (requires deployed URL)
-- Real-device offline test
+### Phases
 
-
-**Goal:** Migrate the working game from a single HTML file into a Svelte + TypeScript project with identical gameplay. The game must be playable at the end of this phase — every element, reaction, score, and combo working exactly as before.
-
-**Requirements:** ARCH-01, ARCH-02, ARCH-03, ARCH-04, ARCH-07, CONT-04, GAME-01, GAME-07
-
-**Success Criteria:**
-1. `npm run dev` serves the game and all 32 elements are selectable and combinable
-2. All ~45 reactions produce correct results with correct scoring and combo tracking
-3. Game state (unlocked elements, discoveries, score) persists across page refresh via localStorage
-4. Elements and reactions are defined exclusively in `lib/data/elements.ts` and `lib/data/reactions.ts` — no element data in component files
-5. Fonts load locally with no network requests in production build
-
-**Plans:**
-1. Scaffold Vite + Svelte 5 + TypeScript project, configure Vite, set up directory structure
-2. Port element and reaction data to typed TypeScript files (`elements.ts`, `reactions.ts`, `types.ts`)
-3. Build Svelte stores (`game.ts`) with localStorage persistence and versioned save format
-4. Build UI components: `App.svelte`, `TopBar.svelte`, `Shelf.svelte`, `ElementCard.svelte`, `MixingChamber.svelte`, `Slot.svelte`, `ResultDisplay.svelte`, `DiscoveryLog.svelte`, `BottomBar.svelte`
-5. Port particle system to `lib/effects/particles.ts` and wire to Svelte component lifecycle
-
-**UI hint:** yes
+- [ ] **Phase 6: Data Foundation & Save Schema** — Types, stores, v1→v2 migration ladder, TopBar counter
+- [ ] **Phase 7: Achievement Engine & Daily Logic** — Badge award logic, daily challenge engine, streak logic, sound utility
+- [ ] **Phase 8: Achievement & Daily UI** — Toast, gallery, daily challenge display, BottomBar integration, mute toggle
 
 ---
 
-## Phase 2: Mobile Layout & Responsive Design
+## Phase Details
 
-**Goal:** Make the game fully usable on mobile. The 3-column desktop layout collapses to a mobile-optimized single-column layout with a bottom sheet for discoveries. All touch targets meet 44px minimum.
+### Phase 6: Data Foundation & Save Schema
 
-**Requirements:** LAYT-01, LAYT-02, LAYT-03, LAYT-04, LAYT-05, TOUC-04, GAME-02
+**Goal**: The app can store, migrate, and surface v2 progress data without losing any v1 player saves
+**Depends on**: Phase 5 (v1 codebase stable)
+**Requirements**: ACHV-05, ACHV-06, PROG-01, STRK-04
+**Success Criteria** (what must be TRUE):
+  1. A player with an existing v1 save loads the app and sees all their elements still unlocked — no data loss
+  2. The TopBar shows "42/61 discovered" (or the correct count) at all times, including on first load
+  3. A player who had 25+ elements in v1 immediately has the correct achievements pre-earned on first v2 load — without taking any action
+  4. Earned achievements and streak survive a full page reload and browser restart
+  5. Saving and loading with `earnedAchievements` as a `Set<string>` round-trips correctly through JSON (no `{}` corruption)
+**Plans**: TBD
 
-**Success Criteria:**
-1. On a 375px-wide viewport the layout is single column with no horizontal overflow
-2. Discoveries panel slides up as a bottom sheet on mobile portrait; renders as a sidebar on desktop
-3. Every tappable element (cards, slots, React button, tabs) has a minimum 44×44px touch area
-4. Element shelf groups elements by category with visible section headers
-5. React button spans full width at 52px height on mobile
-6. Double-tap zoom does not trigger on element cards or slots
+### Phase 7: Achievement Engine & Daily Logic
 
-**Plans:**
-1. Convert lab-wrapper to CSS Grid with `grid-template-areas` and 3 responsive breakpoints
-2. Build `BottomSheet.svelte` component with CSS slide-up animation and drag handle
-3. Implement category-grouped shelf with section headers and collapsible groups
-4. Audit and enforce 44px touch targets across all interactive elements
-5. Add `touch-action: manipulation` and viewport meta tag; test on real device viewport sizes
+**Goal**: The game can detect milestone crossings, award badges, run a date-seeded daily challenge, and track a multi-day streak — all as headless engine logic with no UI coupling
+**Depends on**: Phase 6
+**Requirements**: ACHV-01, ACHV-02, ACHV-03, ACHV-04, DALY-02, DALY-03, DALY-04, STRK-02, STRK-03
+**Success Criteria** (what must be TRUE):
+  1. Discovering the 10th, 25th, 50th, and 61st elements each trigger exactly one badge award (no re-fire on repeat reactions or save import)
+  2. The daily challenge target is identical for all players on the same calendar date and changes at midnight
+  3. Completing today's daily challenge (creating the target element) is detected automatically with no extra player action
+  4. Completed daily challenge state survives a page reload — the challenge does not re-appear as incomplete
+  5. Completing a daily challenge on two consecutive calendar days increments the streak to 2; missing a day resets it to 0
+  6. The chime sound plays through the Web Audio API without requiring page interaction beyond the normal React button tap (iOS-safe)
+**Plans**: TBD
 
-**UI hint:** yes
+### Phase 8: Achievement & Daily UI
 
----
-
-## Phase 3: Touch, Persistence & Save/Load
-
-**Goal:** Complete the touch interaction layer and give players full control over their save data. Haptic feedback, long-press details, swipe gestures, and export/import are all functional.
-
-**Requirements:** TOUC-01, TOUC-02, TOUC-03, GAME-05, GAME-06
-
-**Success Criteria:**
-1. Tapping React button on a mobile device produces a vibration pulse on successful reaction
-2. Long-pressing an element card for 500ms shows a detail card with name, formula, description, and recipe
-3. Swiping left/right on the shelf tab row switches between All / Basic / Found filters
-4. Player can tap "Export Save" and receive a downloadable JSON file with their full game state
-5. Player can upload a previously exported JSON file and have their progress fully restored
-6. Importing a save from an older version schema shows a compatibility warning (not a crash)
-
-**Plans:**
-1. Build `lib/utils/touch.ts` — long-press detector, swipe handler, haptic helper (Vibration API wrapper)
-2. Build `ElementDetail.svelte` tooltip/popover component wired to long-press events
-3. Wire swipe handler to shelf tab switching
-4. Build `lib/utils/storage.ts` — versioned save format, export-to-JSON, import-from-JSON with schema validation
-5. Add Export / Import buttons to settings panel or bottom bar
-
-**UI hint:** yes
-
----
-
-## Phase 4: Content Expansion & Hint System
-
-**Goal:** Grow the element library from 32 to 60+ elements with accurate scientific content, add a hint system, and wire up the Web Share API for sharing discoveries.
-
-**Requirements:** GAME-03, GAME-04, CONT-01, CONT-02, CONT-03
-
-**Success Criteria:**
-1. Game contains 60+ elements with valid reaction chains — every new element is reachable through combinations
-2. All elements have accurate scientific descriptions (≥1 sentence) and correct chemical formulas
-3. All elements are assigned to one of 8 categories with consistent category rules
-4. Tapping "Hint" reveals a valid unused combination after a 30-second cooldown (button shows countdown)
-5. Tapping Share on a discovered element invokes Web Share API (or falls back to clipboard copy on unsupported browsers)
-
-**Plans:**
-1. Design and write 28+ new elements with reactions — validate full discovery tree (no orphaned elements)
-2. Review and improve all 32 existing element descriptions and formulas for scientific accuracy
-3. Build hint engine in `lib/game/reactions.ts` — find a valid unused combination, expose with cooldown timer
-4. Build `HintButton.svelte` with countdown display and disable state
-5. Build share utility in `lib/utils/share.ts` — Web Share API with clipboard fallback; add share trigger to `DiscoveryItem.svelte` and result display
-
-**UI hint:** yes
-
----
-
-## Phase 5: PWA, Offline & Polish
-
-**Goal:** Ship the game as a fully installable, offline-capable PWA. Service worker caches all assets, the manifest enables homescreen install, and the production build has no CDN dependencies.
-
-**Requirements:** ARCH-05, ARCH-06, PWA-01, PWA-02, PWA-03
-
-**Success Criteria:**
-1. Disabling network after first load does not break any game functionality — all assets served from cache
-2. Chrome and Safari both show "Add to Home Screen" / install prompt for the app
-3. Installed app opens in standalone mode (no browser chrome)
-4. An offline/online status indicator appears in the UI when the network connection is lost
-5. `npm run build` produces a dist/ with no external CDN references (verified with `grep -r 'cdn\|googleapis\|gstatic' dist/`)
-6. Lighthouse PWA score ≥ 90 on mobile
-
-**Plans:**
-1. Configure `vite-plugin-pwa` with Workbox GenerateSW strategy; define runtime caching rules for all asset types
-2. Create `public/manifest.json` with name, short_name, icons (192px + 512px), theme_color, background_color, display: standalone
-3. Create PWA icons (SVG → PNG export at 192px and 512px); place in `public/icons/`
-4. Build `OfflineIndicator.svelte` — subscribes to `navigator.onLine` events; shows/hides toast
-5. Run Lighthouse audit; fix any PWA score gaps; verify full offline flow on real device
-
-**UI hint:** yes
+**Goal**: Players can see their discovery count pulse on milestones, open an achievement gallery, receive toast notifications on badge unlock, hear a mutable chime, view today's daily challenge, and see their streak
+**Depends on**: Phase 7
+**Requirements**: PROG-02, PROG-03, PROG-04, PROG-05, PROG-06, DALY-01, DALY-05, STRK-01
+**Success Criteria** (what must be TRUE):
+  1. When a milestone badge unlocks, the TopBar counter briefly pulses (visible animation, resolves within ~1s)
+  2. Tapping the Achievements button in the BottomBar opens a full-screen gallery showing all 4 badges — earned ones display at full opacity with emoji, locked ones are dimmed with a lock icon
+  3. When an achievement unlocks, a toast appears at the top of the screen with the badge emoji and name, then auto-dismisses after 2.5 seconds
+  4. The achievement unlock chime can be muted via a toggle in the Settings panel — the setting persists across reloads
+  5. On app launch, the current day's daily challenge is visible in the UI showing the target element name
+  6. Completing today's daily challenge shows a distinct visual confirmation (different from the normal reaction result display)
+  7. The player's current streak count is visible in the UI at all times
+**Plans**: TBD
+**UI hint**: yes
 
 ---
 
@@ -153,24 +75,30 @@ Known v2 candidates:
 
 | Phase | Requirements | Count |
 |-------|-------------|-------|
-| Phase 1 | ARCH-01, ARCH-02, ARCH-03, ARCH-04, ARCH-07, CONT-04, GAME-01, GAME-07 | 8 |
-| Phase 2 | LAYT-01, LAYT-02, LAYT-03, LAYT-04, LAYT-05, TOUC-04, GAME-02 | 7 |
-| Phase 3 | TOUC-01, TOUC-02, TOUC-03, GAME-05, GAME-06 | 5 |
-| Phase 4 | GAME-03, GAME-04, CONT-01, CONT-02, CONT-03 | 5 |
-| Phase 5 | ARCH-05, ARCH-06, PWA-01, PWA-02, PWA-03 | 3 (5 incl. polish) |
+| Phase 6 | ACHV-05, ACHV-06, PROG-01, STRK-04 | 4 |
+| Phase 7 | ACHV-01, ACHV-02, ACHV-03, ACHV-04, DALY-02, DALY-03, DALY-04, STRK-02, STRK-03 | 9 |
+| Phase 8 | PROG-02, PROG-03, PROG-04, PROG-05, PROG-06, DALY-01, DALY-05, STRK-01 | 8 |
 
-**Total:** 27 v1 requirements → 27 mapped → 0 unmapped ✓
+**Total:** 21 v2 requirements → 21 mapped → 0 unmapped ✓
+
+---
+
+## Progress Table
+
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 6. Data Foundation & Save Schema | 0/0 | Not started | - |
+| 7. Achievement Engine & Daily Logic | 0/0 | Not started | - |
+| 8. Achievement & Daily UI | 0/0 | Not started | - |
 
 ---
 
 ## Dependency Order
 
 ```
-Phase 1 (Scaffold + Engine)
-  └─► Phase 2 (Mobile Layout)       — needs working Svelte components
-        └─► Phase 3 (Touch + Save)  — needs layout finalized
-              └─► Phase 4 (Content) — needs stable game engine
-                    └─► Phase 5 (PWA) — needs complete app to cache
+Phase 6 (Data Foundation & Save Schema)
+  └─► Phase 7 (Achievement Engine & Daily Logic)  — needs stores + types + migration safe
+        └─► Phase 8 (Achievement & Daily UI)       — needs engine to emit events + computed values
 ```
 
 Phases must run sequentially — each depends on the previous being stable.

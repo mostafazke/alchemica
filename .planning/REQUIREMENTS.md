@@ -169,6 +169,27 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PWA-01 | Phase 5 | ✅ Complete |
 | PWA-02 | Phase 5 | ✅ Complete |
 | PWA-03 | Phase 5 | ✅ Complete |
+| ACHV-01 | Phase 7 | Pending |
+| ACHV-02 | Phase 7 | Pending |
+| ACHV-03 | Phase 7 | Pending |
+| ACHV-04 | Phase 7 | Pending |
+| ACHV-05 | Phase 6 | Pending |
+| ACHV-06 | Phase 6 | Pending |
+| PROG-01 | Phase 6 | Pending |
+| PROG-02 | Phase 8 | Pending |
+| PROG-03 | Phase 8 | Pending |
+| PROG-04 | Phase 8 | Pending |
+| PROG-05 | Phase 8 | Pending |
+| PROG-06 | Phase 8 | Pending |
+| DALY-01 | Phase 8 | Pending |
+| DALY-02 | Phase 7 | Pending |
+| DALY-03 | Phase 7 | Pending |
+| DALY-04 | Phase 7 | Pending |
+| DALY-05 | Phase 8 | Pending |
+| STRK-01 | Phase 8 | Pending |
+| STRK-02 | Phase 7 | Pending |
+| STRK-03 | Phase 7 | Pending |
+| STRK-04 | Phase 6 | Pending |
 
 **v1 Coverage:**
 - v1 requirements: 27 total
@@ -177,10 +198,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 - Archived: [.planning/milestones/v1-REQUIREMENTS.md](milestones/v1-REQUIREMENTS.md)
 
 **v2 Coverage:**
-- v2 requirements: 20 total
-- Mapped to phases: TBD (roadmap pending)
+- v2 requirements: 21 total
+- Mapped to phases: 21 ✅
 - Completed: 0
 
 ---
 *v1 requirements defined: 2026-05-02 | Completed and archived: 2026-05-02*
-*v2 requirements defined: 2026-05-02*
+*v2 requirements defined: 2026-05-02 | Roadmap created: 2026-05-02*
