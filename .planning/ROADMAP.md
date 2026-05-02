@@ -1,7 +1,7 @@
 # Roadmap: Alchemica
 
 **Project:** Alchemica — Mobile-first element combination PWA
-**Updated:** 2026-05-02
+**Updated:** 2026-05-03
 
 ---
 
@@ -45,7 +45,16 @@ Full archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
   2. The Google Play submission checklist is satisfied: correct app ID, icons, splash screen, signed AAB
   3. The existing web PWA build deploys and functions identically — no features broken by Capacitor addition
   4. Game state (saves, achievements, streak) persists correctly inside the native container
-**Plans**: TBD
+**Plans**: 7 plans
+
+Plans:
+- [ ] 09-01-PLAN.md — Wave 0: Haptics test scaffold (touch.test.ts)
+- [ ] 09-02-PLAN.md — Wave 1: Capacitor 8 install, capacitor.config.ts, npm scripts, .gitignore
+- [ ] 09-03-PLAN.md — Wave 2: Haptics upgrade in touch.ts (@capacitor/haptics + web fallback)
+- [ ] 09-04-PLAN.md — Wave 2: Android platform (npx cap add android), orientation lock, JDK config
+- [ ] 09-05-PLAN.md — Wave 3: Icon/splash asset generation (@capacitor/assets)
+- [ ] 09-06-PLAN.md — Wave 3: Keystore generation, Gradle signing config, signed AAB build
+- [ ] 09-07-PLAN.md — Wave 4: PLAT-03 regression gate (full test suite + web build verification)
 
 ### Phase 10: Streak Bonus
 **Goal**: Players on an active daily streak gain a higher combo multiplier cap, visually surfaced in the UI
@@ -90,7 +99,7 @@ Full archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
 |-------|-----------|----------------|--------|-----------|
 | 1–5. Mobile PWA | v1 | 25/25 | Complete | 2026-05-02 |
 | 6–8. Achievements & Daily | v2 | 16/16 | Complete | 2026-05-02 |
-| 9. Capacitor Native Shell | v3 | 0/? | Not started | - |
+| 9. Capacitor Native Shell | v3 | 0/7 | Planned | - |
 | 10. Streak Bonus | v3 | 0/? | Not started | - |
 | 11. AdMob Rewarded Ads | v3 | 0/? | Not started | - |
 | 12. IAP & Purchase Logic | v3 | 0/? | Not started | - |
