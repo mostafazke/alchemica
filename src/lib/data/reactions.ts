@@ -26,6 +26,9 @@ export const REACTIONS: Record<string, string> = {
   'water+air': 'cloud',
   'air+water': 'cloud',
 
+  'water+wind': 'ice',
+  'wind+water': 'ice',
+
   'cloud+earth': 'rain',
   'earth+cloud': 'rain',
 
@@ -76,6 +79,95 @@ export const REACTIONS: Record<string, string> = {
 
   'steam+iron': 'steam_engine',
   'iron+steam': 'steam_engine',
+
+  // ── Phase 4 new reactions ─────────────────────────────────────────────────
+  'earth+earth': 'stone',
+
+  'steam+earth': 'fog',
+  'earth+steam': 'fog',
+
+  'ice+wind': 'snow',
+  'wind+ice': 'snow',
+
+  'rain+rain': 'flood',
+
+  'rain+earth': 'wood',
+  'earth+rain': 'wood',
+
+  'wood+fire': 'ash',
+  'fire+wood': 'ash',
+
+  'wood+earth': 'coal',
+  'earth+wood': 'coal',
+
+  'coal+fire': 'carbon',
+  'fire+coal': 'carbon',
+
+  'iron+carbon': 'steel',
+  'carbon+iron': 'steel',
+
+  'mud+earth': 'clay',
+  'earth+mud': 'clay',
+
+  'clay+fire': 'brick',
+  'fire+clay': 'brick',
+
+  'volcano+earth': 'sulfur',
+  'earth+volcano': 'sulfur',
+
+  'water+sulfur': 'acid',
+  'sulfur+water': 'acid',
+
+  'earth+lightning': 'copper',
+  'lightning+earth': 'copper',
+
+  'copper+iron': 'bronze',
+  'iron+copper': 'bronze',
+
+  'sand+acid': 'gold',
+  'acid+sand': 'gold',
+
+  'earth+sunlight': 'plant',
+  'sunlight+earth': 'plant',
+
+  'plant+wind': 'seed',
+  'wind+plant': 'seed',
+
+  'seed+earth': 'tree',
+  'earth+seed': 'tree',
+
+  'earth+coal': 'oil',
+  'coal+earth': 'oil',
+
+  'oil+steam': 'plastic',
+  'steam+oil': 'plastic',
+
+  'fire+oil': 'explosion',
+  'oil+fire': 'explosion',
+
+  'explosion+steel': 'rocket',
+  'steel+explosion': 'rocket',
+
+  'lightning+copper': 'electricity',
+  'copper+lightning': 'electricity',
+
+  'electricity+magnet': 'motor',
+  'magnet+electricity': 'motor',
+
+  'water+sunlight': 'life',
+  'sunlight+water': 'life',
+
+  'life+earth': 'animal',
+  'earth+life': 'animal',
+
+  'animal+fire': 'human',
+  'fire+animal': 'human',
+
+  'human+steel': 'city',
+  'steel+human': 'city',
+
+  'wind+storm': 'tornado',
+  'storm+wind': 'tornado',
 };
 
 /**

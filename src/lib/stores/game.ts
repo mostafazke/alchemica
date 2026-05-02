@@ -44,6 +44,9 @@ export const score = writable<number>(saved?.score ?? 0);
 
 export const lastSuccess = writable<boolean>(false);
 
+/** Unix timestamp (ms) when the hint cooldown expires. 0 = no cooldown active. */
+export const hintCooldownEndsAt = writable<number>(0);
+
 // --- Auto-save on change ---
 
 function saveToStorage(): void {

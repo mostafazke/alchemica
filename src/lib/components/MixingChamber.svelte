@@ -6,6 +6,7 @@
   import { applyReaction } from '../game/reactions.js';
   import { initParticles, triggerSuccessParticles, triggerFailParticles } from '../effects/particles.js';
   import { hapticSuccess, hapticFail } from '../utils/touch.js';
+  import HintButton from './HintButton.svelte';
 
   let canvasEl: HTMLCanvasElement;
   let result: string | null = $state(null);
@@ -58,6 +59,7 @@
     {/if}
   </button>
 
+  <HintButton />
   <ResultDisplay {result} {isNew} {attempted} />
 </section>
 

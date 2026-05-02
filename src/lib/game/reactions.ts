@@ -4,6 +4,26 @@ import { get } from 'svelte/store';
 import { unlockedElements, discoveries, combo, score, lastSuccess } from '../stores/game.js';
 import type { Discovery } from '../types.js';
 
+/**
+ * Returns the first valid unused reaction hint, or null if none available.
+ * "Valid" = both input elements are unlocked AND the result is not yet unlocked.
+ */
+export function getHint(unlocked: Set<string>): { a: string; b: string; result: string } | null {
+  const seen = new Set<string>();
+  for (const [key, result] of Object.entries(REACTIONS)) {
+    const [a, b] = key.split('+');
+    // Deduplicate: skip the reverse pair (b+a already covered by a+b)
+    const canonical = a <= b ? `${a}+${b}` : `${b}+${a}`;
+    if (seen.has(canonical)) continue;
+    seen.add(canonical);
+
+    if (unlocked.has(result)) continue;          // already discovered
+    if (!unlocked.has(a) || !unlocked.has(b)) continue; // ingredients not available
+    return { a, b, result };
+  }
+  return null;
+}
+
 export function resolveReaction(a: string, b: string): { result: string | null; isNew: boolean } {
   const key = `${a}+${b}`;
   const result = REACTIONS[key] ?? null;
