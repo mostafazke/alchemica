@@ -1,18 +1,31 @@
 <script lang="ts">
+  import TopBar from './lib/components/TopBar.svelte';
+  import Shelf from './lib/components/Shelf.svelte';
+  import MixingChamber from './lib/components/MixingChamber.svelte';
+  import DiscoveryLog from './lib/components/DiscoveryLog.svelte';
+  import BottomBar from './lib/components/BottomBar.svelte';
 </script>
 
-<main>
-  <p>Alchemica loading…</p>
-</main>
+<div class="app">
+  <TopBar />
+  <div class="lab-wrapper">
+    <Shelf />
+    <MixingChamber />
+    <DiscoveryLog />
+  </div>
+  <BottomBar />
+</div>
 
 <style>
-  main {
+  .app {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: #0d1b2e;
-    color: #4af0c0;
-    font-family: 'Space Mono', monospace;
+    flex-direction: column;
+    height: 100%;
+  }
+  .lab-wrapper {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    min-height: 0;
   }
 </style>
