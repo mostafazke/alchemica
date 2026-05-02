@@ -2,10 +2,19 @@ import { REACTIONS } from '../data/reactions.js';
 import { ELEMENTS } from '../data/elements.js';
 import { get } from 'svelte/store';
 import { unlockedElements, discoveries, combo, score, lastSuccess } from '../stores/game.js';
+import { streakCount } from '../stores/achievements.js';
 import type { Discovery, AchievementId } from '../types.js';
 import { checkAchievements } from './achievements.js';
 import { completeDailyChallenge } from './daily.js';
 import { dailyChallengeTarget, dailyCompleted } from '../stores/daily.js';
+
+/**
+ * Returns the combo cap for the given streak count.
+ * Base cap is 8x; +1x per streak day up to a maximum of 11x.
+ */
+export function getComboMax(streak: number): number {
+  return Math.min(8 + streak, 11);
+}
 
 /**
  * Returns the first valid unused reaction hint, or null if none available.
@@ -41,7 +50,8 @@ export function applyReaction(a: string, b: string): { result: string | null; is
   if (result) {
     const currentCombo = get(combo);
     const wasSuccess = get(lastSuccess);
-    const newCombo = wasSuccess ? Math.min(currentCombo + 1, 8) : 1;
+    const cap = getComboMax(get(streakCount));
+    const newCombo = wasSuccess ? Math.min(currentCombo + 1, cap) : 1;
     const isNew = !get(unlockedElements).has(result);
 
     combo.set(newCombo);

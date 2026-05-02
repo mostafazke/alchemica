@@ -1,7 +1,7 @@
 <script lang="ts">
   import { score, combo, unlockedElements } from '../stores/game.js';
   import { resetGame } from '../stores/game.js';
-  import { earnedAchievements } from '../stores/achievements.js';
+  import { earnedAchievements, streakCount } from '../stores/achievements.js';
   import { ELEMENTS } from '../data/elements.js';
 
   let pulseActive = $state(false);
@@ -21,7 +21,7 @@
   <div class="top-bar-title">⚗️ Alchemica</div>
   <div class="top-bar-stats">
     <span class="stat" class:badge-pulse={pulseActive}>{$unlockedElements.size}/{Object.keys(ELEMENTS).length} discovered</span>
-    <span class="stat combo" class:pulse={$combo > 1}>x{$combo}</span>
+    <span class="stat combo" class:pulse={$combo > 1} class:streak={$streakCount >= 1}>x{$combo}{$streakCount >= 1 ? ' 🔥' : ''}</span>
     <span class="stat score">{$score}</span>
     <button class="reset-btn" onclick={resetGame} title="Reset game">↺</button>
   </div>
@@ -61,6 +61,10 @@
     font-size: 15px;
     font-weight: 700;
     transition: transform 0.1s;
+  }
+  .stat.combo.streak {
+    color: #ff8c42;
+    text-shadow: 0 0 8px #ff8c4260;
   }
   .stat.score { color: #4af0c0; }
   .stat.badge-pulse {
