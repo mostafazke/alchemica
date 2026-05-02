@@ -12,14 +12,17 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 | Phase | Name | Status | Plans |
 |-------|------|--------|-------|
-| 1 | Foundation — Svelte Scaffold & Game Engine | ○ Pending | 5 |
+| 1 | Foundation — Svelte Scaffold & Game Engine | ✓ Complete | 5/5 |
 | 2 | Mobile Layout & Responsive Design | ○ Pending | 5 |
 | 3 | Touch, Persistence & Save/Load | ○ Pending | 5 |
 | 4 | Content Expansion & Hint System | ○ Pending | 5 |
 | 5 | PWA, Offline & Polish | ○ Pending | 5 |
 
-**Progress:** 0/5 phases complete
+**Progress:** 1/5 phases complete
+
+**Current focus:** Phase 2 — Mobile Layout & Responsive Design
 
 ## Session Log
 
 - 2026-05-02: Project initialized. Requirements defined (27 v1). Roadmap created (5 phases). Ready for Phase 1.
+- 2026-05-02: Phase 1 complete. 5/5 plans executed. Svelte 5 + Vite 6 project scaffolded, all 32 elements ported, stores with localStorage, 9 UI components, particle system. Game is fully playable.

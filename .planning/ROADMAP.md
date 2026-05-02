@@ -8,7 +8,7 @@
 
 ---
 
-## Phase 1: Foundation — Svelte Scaffold & Game Engine
+## Phase 1: Foundation — Svelte Scaffold & Game Engine ✓ COMPLETE
 
 **Goal:** Migrate the working game from a single HTML file into a Svelte + TypeScript project with identical gameplay. The game must be playable at the end of this phase — every element, reaction, score, and combo working exactly as before.
 
