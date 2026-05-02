@@ -6,14 +6,14 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 **Core value:** Players can open the game on any device, pick up where they left off, and feel the satisfaction of discovering a new element — even with no internet connection.
 
-**Current focus:** Milestone v3 — Revenue & Native. Phase 9 executed (7/7 plans complete). Pending human verification on Android device (Plans 09-04, 09-05).
+**Current focus:** Milestone v3 — Revenue & Native. Phase 9 complete (9 plans including 2 gap-closure fixes). Ready for Phase 10.
 
 ## Current Position
 
-Phase: 9 of 12 (Capacitor Native Shell)
-Plan: 7/7 plans complete
-Status: Pending human verification (Android device launch test)
-Last activity: 2026-05-03 — Phase 9 executed (all 7 plans; automated gates GREEN)
+Phase: 10 of 12 (Streak Bonus)
+Plan: 0/0 plans (not yet planned)
+Status: Ready — Phase 9 complete, gap-closure fixes verified
+Last activity: 2026-05-03 — Phase 9 gaps closed (shelf scroll + Android icon fix), Phase 9 marked complete
 
 Progress: [██░░░░░░░░] 25% (v3)
 
@@ -49,3 +49,4 @@ None. Phase 9 research resolved key risks: install Capacitor 8 (not 6) to match 
 - 2026-05-02: Phases 1–5 complete. Milestone v1 shipped (PR #1, git tag v1).
 - 2026-05-02: Phases 6–8 complete. Milestone v2 shipped (git tag v2).
 - 2026-05-03: Phase 9 executed. Capacitor 8 installed, android/ platform created, haptics upgraded, icons generated, signed AAB built (14.8MB). All automated gates GREEN. Human device verification pending.
+- 2026-05-03: Phase 9 UAT complete (5 pass / 2 issues). Gaps diagnosed and fixed: shelf scroll (CSS flex chain) + Android icon (regenerated foreground PNGs, navy background). Phase 9 ✅ COMPLETE.
