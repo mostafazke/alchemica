@@ -12,20 +12,20 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 Phase: 6
 Plan: —
-Status: Context gathered
-Last activity: 2026-05-02 — Phase 6 context gathered (4 areas discussed)
+Status: Ready to execute
+Last activity: 2026-05-02 — Phase 6 planned (4 plans, 4 waves, verification passed)
 
 ## Phase Status (v2)
 
 | Phase | Name | Status | Plans |
 |-------|------|--------|-------|
-| 6 | Data Foundation & Save Schema | Not started | 0/0 |
+| 6 | Data Foundation & Save Schema | Ready to execute | 4/4 |
 | 7 | Achievement Engine & Daily Logic | Not started | 0/0 |
 | 8 | Achievement & Daily UI | Not started | 0/0 |
 
 **Progress:** 0/3 phases complete — v2 in planning
 
-**Current focus:** Run `/gsd-plan-phase 6` to create the Phase 6 plan.
+**Current focus:** Run `/gsd-execute-phase 6` to execute the Phase 6 plans.
 
 ## Session Log
 
@@ -42,3 +42,4 @@ Last activity: 2026-05-02 — Phase 6 context gathered (4 areas discussed)
 - 2026-05-02: Milestone v2 started (Achievements & Progression). Goals: discovery badges, TopBar %, achievement gallery, unlock toast, chime sound. localStorage only, 61 elements, phases 6+.
 - 2026-05-02: Milestone v2 roadmap created. 3 phases (6–8), 21 requirements mapped, 0 orphans. Phase 6 ready for planning.
 - 2026-05-02: Phase 6 context gathered. Decisions: same key + version bump, earnedAchievements+streak stores in achievements.ts, TopBar → "42/61 discovered", Set serialized as array, AchievementId typed union. Ready for planning.
+- 2026-05-02: Phase 6 planned. 4 plans in 4 waves: types (W1) → achievements store (W2) → game.ts+storage.ts migration (W3) → TopBar counter (W4). Verification passed. 4/4 requirements covered (ACHV-05, ACHV-06, PROG-01, STRK-04).
