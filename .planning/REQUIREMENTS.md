@@ -70,8 +70,8 @@
 | PLAT-03 | Phase 9 | Pending |
 | STRK-05 | Phase 10 | Done |
 | STRK-06 | Phase 10 | Done |
-| MOTZ-01 | Phase 11 | Pending |
-| MOTZ-04 | Phase 11 | Pending |
+| MOTZ-01 | Phase 11 | Done |
+| MOTZ-04 | Phase 11 | Done |
 | MOTZ-02 | Phase 12 | Pending |
 | MOTZ-03 | Phase 12 | Pending |
 | MOTZ-05 | Phase 12 | Pending |

@@ -29,7 +29,7 @@ Full archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
 
 - [x] **Phase 9: Capacitor Native Shell** - Android app via Capacitor; Google Play-ready build ✅
 - [x] **Phase 10: Streak Bonus** ✅ - Higher combo multiplier during active streak, visually indicated
-- [ ] **Phase 11: AdMob Rewarded Ads** - Rewarded video ad grants 1 hint; graceful unavailability handling
+- [x] **Phase 11: AdMob Rewarded Ads** ✅ - Rewarded video ad grants 1 hint; graceful unavailability handling
 - [ ] **Phase 12: IAP & Purchase Logic** - Remove-ads IAP, hint bundle IAP, purchase restore
 
 ---
@@ -117,8 +117,8 @@ Plans:
 | PLAT-03 | Phase 9 | Pending |
 | STRK-05 | Phase 10 | Done |
 | STRK-06 | Phase 10 | Done |
-| MOTZ-01 | Phase 11 | Pending |
-| MOTZ-04 | Phase 11 | Pending |
+| MOTZ-01 | Phase 11 | Done |
+| MOTZ-04 | Phase 11 | Done |
 | MOTZ-02 | Phase 12 | Pending |
 | MOTZ-03 | Phase 12 | Pending |
 | MOTZ-05 | Phase 12 | Pending |

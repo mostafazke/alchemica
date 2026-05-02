@@ -6,16 +6,16 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 **Core value:** Players can open the game on any device, pick up where they left off, and feel the satisfaction of discovering a new element — even with no internet connection.
 
-**Current focus:** Milestone v3 — Revenue & Native. Phase 10 complete (2 plans). Ready for Phase 11.
+**Current focus:** Milestone v3 — Revenue & Native. Phase 11 complete (5 plans). Ready for Phase 12.
 
 ## Current Position
 
-Phase: 11 of 12 (AdMob Rewarded Ads)
+Phase: 12 of 12 (IAP & Purchase Logic)
 Plan: 0/0 plans (not yet planned)
-Status: Ready — Phase 10 complete
-Last activity: 2026-05-03 — Phase 10 executed (streak bonus combo cap + 🔥 TopBar indicator)
+Status: Ready — Phase 11 complete
+Last activity: 2026-05-03 — Phase 11 executed (AdMob rewarded ads — hintBalance + Watch Ad UX)
 
-Progress: [███░░░░░░░] 50% (v3)
+Progress: [██████░░░░] 75% (v3)
 
 ## Milestone Status
 
@@ -50,4 +50,4 @@ None. Phase 9 research resolved key risks: install Capacitor 8 (not 6) to match 
 - 2026-05-02: Phases 6–8 complete. Milestone v2 shipped (git tag v2).
 - 2026-05-03: Phase 9 executed. Capacitor 8 installed, android/ platform created, haptics upgraded, icons generated, signed AAB built (14.8MB). All automated gates GREEN. Human device verification pending.
 - 2026-05-03: Phase 9 UAT complete (5 pass / 2 issues). Gaps diagnosed and fixed: shelf scroll (CSS flex chain) + Android icon (regenerated foreground PNGs, navy background). Phase 9 ✅ COMPLETE.
-- 2026-05-03: Phase 10 executed. Streak bonus: getComboMax() exported, dynamic combo cap (8+streak, max 11), TopBar 🔥 indicator. 15/15 tests GREEN. Phase 10 ✅ COMPLETE.
+- 2026-05-03: Phase 11 executed. AdMob rewarded ads: @capacitor-community/admob@8 installed, hintBalance store, admob.ts service module, HintButton Watch-Ad UI. Build + cap sync GREEN. Phase 11 ✅ COMPLETE (UAT pending).
