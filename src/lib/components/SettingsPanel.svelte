@@ -1,5 +1,7 @@
 <script lang="ts">
   import { unlockedElements, discoveries, score } from '../stores/game.js';
+  import { earnedAchievements, streakCount, lastCompletedDate } from '../stores/achievements.js';
+  import type { AchievementId } from '../types.js';
   import { downloadSave, importSave } from '../utils/storage.js';
 
   let { open = false, onClose }: {
@@ -30,6 +32,9 @@
         setUnlocked: (keys) => unlockedElements.set(new Set(keys)),
         setDiscoveries: (d) => discoveries.set(d),
         setScore: (n) => score.set(n),
+        setEarnedAchievements: (ids: AchievementId[]) => earnedAchievements.set(new Set(ids)),
+        setStreakCount: (n) => streakCount.set(n),
+        setLastCompletedDate: (d) => lastCompletedDate.set(d),
       });
 
       if (result.ok) {

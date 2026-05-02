@@ -10,22 +10,22 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 ## Current Position
 
-Phase: 6
+Phase: 8
 Plan: —
-Status: Ready to execute
-Last activity: 2026-05-02 — Phase 6 planned (4 plans, 4 waves, verification passed)
+Status: Not started
+Last activity: 2026-05-02 — Phase 7 executed (5/5 plans, build 0 errors)
 
 ## Phase Status (v2)
 
 | Phase | Name | Status | Plans |
 |-------|------|--------|-------|
-| 6 | Data Foundation & Save Schema | Ready to execute | 4/4 |
-| 7 | Achievement Engine & Daily Logic | Not started | 0/0 |
+| 6 | Data Foundation & Save Schema | Complete | 4/4 |
+| 7 | Achievement Engine & Daily Logic | Complete | 5/5 |
 | 8 | Achievement & Daily UI | Not started | 0/0 |
 
-**Progress:** 0/3 phases complete — v2 in planning
+**Progress:** 2/3 phases complete — v2 in progress
 
-**Current focus:** Run `/gsd-execute-phase 6` to execute the Phase 6 plans.
+**Current focus:** Run `/gsd-next` to discuss and plan Phase 8 (Achievement & Daily UI).
 
 ## Session Log
 
@@ -43,3 +43,7 @@ Last activity: 2026-05-02 — Phase 6 planned (4 plans, 4 waves, verification pa
 - 2026-05-02: Milestone v2 roadmap created. 3 phases (6–8), 21 requirements mapped, 0 orphans. Phase 6 ready for planning.
 - 2026-05-02: Phase 6 context gathered. Decisions: same key + version bump, earnedAchievements+streak stores in achievements.ts, TopBar → "42/61 discovered", Set serialized as array, AchievementId typed union. Ready for planning.
 - 2026-05-02: Phase 6 planned. 4 plans in 4 waves: types (W1) → achievements store (W2) → game.ts+storage.ts migration (W3) → TopBar counter (W4). Verification passed. 4/4 requirements covered (ACHV-05, ACHV-06, PROG-01, STRK-04).
+- 2026-05-02: Phase 6 complete. 4/4 plans executed. AchievementId+SaveDataV2 types, achievements.ts stores, v1→v2 migration in game.ts+storage.ts (earnedAchievements, streakCount, lastCompletedDate), TopBar "N/62 discovered". Build: 0 errors, 0 warnings.
+- 2026-05-02: Phase 7 context gathered. Decisions: checkAchievements() inside applyReaction(), applyReaction returns newBadge+dailyCompleted, backfillAchievements() on init, date-seeded daily challenge (non-basic pool, local date, deterministic hash), streak via lastCompletedDate diff, sound.ts Web Audio oscillator iOS-safe. 4 new files planned.
+- 2026-05-02: Phase 7 planned. 5 plans in 3 waves: achievements+sound+daily-logic (W1) → daily-stores (W2) → reactions+game integration (W3). Verification passed. 9/9 requirements covered (ACHV-01–04, ACHV-06, DALY-02–04, STRK-02/03, PROG-06).
+- 2026-05-02: Phase 7 complete. 5/5 plans executed. game/achievements.ts (checkAchievements+backfillAchievements), effects/sound.ts (Web Audio chime, iOS-safe), game/daily.ts (getTodayDateStr+getDailyChallengeKey+completeDailyChallenge), stores/daily.ts (dailyChallengeTarget+dailyCompleted derived), reactions.ts+game.ts integration (newBadge+dailyCompleted return, backfill on init). Build: 0 errors, 0 warnings.

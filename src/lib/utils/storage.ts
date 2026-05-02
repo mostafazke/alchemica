@@ -4,8 +4,10 @@
  */
 import { get } from 'svelte/store';
 import { unlockedElements, discoveries, score } from '../stores/game.js';
+import { earnedAchievements, streakCount, lastCompletedDate } from '../stores/achievements.js';
+import type { AchievementId } from '../types.js';
 
-export const EXPORT_VERSION = 1;
+export const EXPORT_VERSION = 2;
 
 export interface SaveFile {
   version: number;
@@ -14,6 +16,9 @@ export interface SaveFile {
     unlockedElements: string[];
     discoveries: Array<{ key: string; recipe: string; timestamp: number }>;
     score: number;
+    earnedAchievements: string[];      // serialized as array (D-13)
+    streakCount: number;               // D-03
+    lastCompletedDate: string | null;  // D-03
   };
 }
 
@@ -34,6 +39,9 @@ export function exportSave(): string {
       unlockedElements: [...get(unlockedElements)],
       discoveries: get(discoveries),
       score: get(score),
+      earnedAchievements: [...get(earnedAchievements)],  // Set → array (D-13)
+      streakCount: get(streakCount),
+      lastCompletedDate: get(lastCompletedDate),
     },
   };
   return JSON.stringify(save, null, 2);
@@ -66,6 +74,9 @@ export function importSave(
     setUnlocked: (keys: string[]) => void;
     setDiscoveries: (d: SaveFile['data']['discoveries']) => void;
     setScore: (n: number) => void;
+    setEarnedAchievements: (ids: AchievementId[]) => void;
+    setStreakCount: (n: number) => void;
+    setLastCompletedDate: (d: string | null) => void;
   }
 ): ImportResult {
   let parsed: unknown;
@@ -128,10 +139,29 @@ export function importSave(
   // score
   const scoreVal = typeof data.score === 'number' ? data.score : 0;
 
+  // earnedAchievements — default empty if missing (v1 saves lack this field)
+  const rawAchievements = data.earnedAchievements;
+  const achievementsArr: AchievementId[] = Array.isArray(rawAchievements)
+    ? (rawAchievements as unknown[]).filter((x): x is AchievementId =>
+        typeof x === 'string' &&
+        ['badge_10', 'badge_25', 'badge_50', 'badge_61'].includes(x as string)
+      )
+    : [];
+
+  // streakCount — default 0 if missing
+  const streakVal = typeof data.streakCount === 'number' ? data.streakCount : 0;
+
+  // lastCompletedDate — default null if missing
+  const lastDateVal =
+    typeof data.lastCompletedDate === 'string' ? data.lastCompletedDate : null;
+
   // Apply to stores
   stores.setUnlocked(unlockedArr);
   stores.setDiscoveries(discArr);
   stores.setScore(scoreVal);
+  stores.setEarnedAchievements(achievementsArr);
+  stores.setStreakCount(streakVal);
+  stores.setLastCompletedDate(lastDateVal);
 
   return { ok: true, warning };
 }

@@ -19,7 +19,7 @@ Full archive: [.planning/milestones/v1-ROADMAP.md](milestones/v1-ROADMAP.md)
 ### Phases
 
 - [ ] **Phase 6: Data Foundation & Save Schema** — Types, stores, v1→v2 migration ladder, TopBar counter
-- [ ] **Phase 7: Achievement Engine & Daily Logic** — Badge award logic, daily challenge engine, streak logic, sound utility
+- [x] **Phase 7: Achievement Engine & Daily Logic** *(planned)* — Badge award logic, daily challenge engine, streak logic, sound utility
 - [ ] **Phase 8: Achievement & Daily UI** — Toast, gallery, daily challenge display, BottomBar integration, mute toggle
 
 ---

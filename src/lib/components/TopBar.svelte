@@ -7,7 +7,7 @@
 <header class="top-bar">
   <div class="top-bar-title">⚗️ Alchemica</div>
   <div class="top-bar-stats">
-    <span class="stat">🔬 {$unlockedElements.size}/{Object.keys(ELEMENTS).length}</span>
+    <span class="stat">{$unlockedElements.size}/{Object.keys(ELEMENTS).length} discovered</span>
     <span class="stat combo" class:pulse={$combo > 1}>x{$combo}</span>
     <span class="stat score">{$score}</span>
     <button class="reset-btn" onclick={resetGame} title="Reset game">↺</button>

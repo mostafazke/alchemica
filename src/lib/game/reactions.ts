@@ -2,7 +2,10 @@ import { REACTIONS } from '../data/reactions.js';
 import { ELEMENTS } from '../data/elements.js';
 import { get } from 'svelte/store';
 import { unlockedElements, discoveries, combo, score, lastSuccess } from '../stores/game.js';
-import type { Discovery } from '../types.js';
+import type { Discovery, AchievementId } from '../types.js';
+import { checkAchievements } from './achievements.js';
+import { completeDailyChallenge } from './daily.js';
+import { dailyChallengeTarget, dailyCompleted } from '../stores/daily.js';
 
 /**
  * Returns the first valid unused reaction hint, or null if none available.
@@ -31,7 +34,7 @@ export function resolveReaction(a: string, b: string): { result: string | null; 
   return { result, isNew };
 }
 
-export function applyReaction(a: string, b: string): { result: string | null; isNew: boolean } {
+export function applyReaction(a: string, b: string): { result: string | null; isNew: boolean; newBadge: AchievementId | null; dailyCompleted: boolean } {
   const key = `${a}+${b}`;
   const result = REACTIONS[key] ?? null;
 
@@ -47,6 +50,8 @@ export function applyReaction(a: string, b: string): { result: string | null; is
     const points = isNew ? 100 * newCombo : 10 * newCombo;
     score.update((s) => s + points);
 
+    let newBadge: AchievementId | null = null;
+
     if (isNew) {
       unlockedElements.update((s) => { s.add(result); return new Set(s); });
       const discovery: Discovery = {
@@ -55,15 +60,25 @@ export function applyReaction(a: string, b: string): { result: string | null; is
         timestamp: Date.now(),
       };
       discoveries.update((d) => [discovery, ...d]);
+      // Check milestone badges after element unlock
+      newBadge = checkAchievements(get(unlockedElements).size);
     } else {
       // Still need to trigger the store update for reactivity (element already known)
       unlockedElements.update((s) => new Set(s));
     }
 
-    return { result, isNew };
+    // Check daily challenge completion — fires on any successful reaction producing the
+    // target element, regardless of whether it is a new discovery (DALY-02)
+    let dailyCompletedFlag = false;
+    if (!get(dailyCompleted) && result === get(dailyChallengeTarget)) {
+      completeDailyChallenge();
+      dailyCompletedFlag = true;
+    }
+
+    return { result, isNew, newBadge, dailyCompleted: dailyCompletedFlag };
   } else {
     lastSuccess.set(false);
     combo.set(1);
-    return { result: null, isNew: false };
+    return { result: null, isNew: false, newBadge: null, dailyCompleted: false };
   }
 }
