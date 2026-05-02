@@ -1,13 +1,26 @@
 <script lang="ts">
   import { score, combo, unlockedElements } from '../stores/game.js';
   import { resetGame } from '../stores/game.js';
+  import { earnedAchievements } from '../stores/achievements.js';
   import { ELEMENTS } from '../data/elements.js';
+
+  let pulseActive = $state(false);
+  let prevEarnedSize = $earnedAchievements.size;
+
+  $effect(() => {
+    const size = $earnedAchievements.size;
+    if (size > prevEarnedSize) {
+      pulseActive = true;
+      setTimeout(() => { pulseActive = false; }, 800);
+    }
+    prevEarnedSize = size;
+  });
 </script>
 
 <header class="top-bar">
   <div class="top-bar-title">⚗️ Alchemica</div>
   <div class="top-bar-stats">
-    <span class="stat">{$unlockedElements.size}/{Object.keys(ELEMENTS).length} discovered</span>
+    <span class="stat" class:badge-pulse={pulseActive}>{$unlockedElements.size}/{Object.keys(ELEMENTS).length} discovered</span>
     <span class="stat combo" class:pulse={$combo > 1}>x{$combo}</span>
     <span class="stat score">{$score}</span>
     <button class="reset-btn" onclick={resetGame} title="Reset game">↺</button>
@@ -50,6 +63,15 @@
     transition: transform 0.1s;
   }
   .stat.score { color: #4af0c0; }
+  .stat.badge-pulse {
+    animation: badge-pulse 0.8s ease;
+  }
+  @keyframes badge-pulse {
+    0%   { transform: scale(1);    color: #8ab4d4; }
+    30%  { transform: scale(1.25); color: #e8b84b; }
+    60%  { transform: scale(1.1);  color: #e8b84b; }
+    100% { transform: scale(1);    color: #8ab4d4; }
+  }
   .reset-btn {
     background: transparent;
     border: 1px solid #1a3a5a;

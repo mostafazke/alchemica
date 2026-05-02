@@ -3,6 +3,7 @@
   import { earnedAchievements, streakCount, lastCompletedDate } from '../stores/achievements.js';
   import type { AchievementId } from '../types.js';
   import { downloadSave, importSave } from '../utils/storage.js';
+  import { soundMuted } from '../stores/settings.js';
 
   let { open = false, onClose }: {
     open: boolean;
@@ -64,6 +65,20 @@
     <div class="panel-header">
       <span class="panel-title">Settings</span>
       <button class="panel-close" onclick={onClose} aria-label="Close settings">✕</button>
+    </div>
+
+    <div class="panel-section panel-section-sound">
+      <div class="section-label">Sound</div>
+      <label class="mute-toggle">
+        <input
+          type="checkbox"
+          checked={$soundMuted}
+          onchange={(e) => soundMuted.set((e.target as HTMLInputElement).checked)}
+        />
+        <span class="mute-label">
+          {$soundMuted ? '🔇 Achievement chime muted' : '🔊 Achievement chime on'}
+        </span>
+      </label>
     </div>
 
     <div class="panel-section">
@@ -169,4 +184,28 @@
   .import-status.ok { background: #0a2a1a; color: #4af0c0; border: 1px solid #4af0c040; }
   .import-status.error { background: #2a0a0a; color: #ff6b6b; border: 1px solid #ff6b6b40; }
   .save-hint { font-size: 11px; color: #2a4060; line-height: 1.5; }
+  .panel-section-sound {
+    border-bottom: 1px solid #1a2e4a;
+  }
+  .mute-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+  .mute-toggle input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #4af0c0;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .mute-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: #8ab4d4;
+    user-select: none;
+  }
 </style>

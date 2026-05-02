@@ -12,8 +12,8 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 Phase: 8
 Plan: —
-Status: Not started
-Last activity: 2026-05-02 — Phase 7 executed (5/5 plans, build 0 errors)
+Status: Complete
+Last activity: 2026-05-02 — Phase 8 executed (7/7 plans, build 0 errors). Milestone v2 complete.
 
 ## Phase Status (v2)
 
@@ -21,11 +21,11 @@ Last activity: 2026-05-02 — Phase 7 executed (5/5 plans, build 0 errors)
 |-------|------|--------|-------|
 | 6 | Data Foundation & Save Schema | Complete | 4/4 |
 | 7 | Achievement Engine & Daily Logic | Complete | 5/5 |
-| 8 | Achievement & Daily UI | Not started | 0/0 |
+| 8 | Achievement & Daily UI | Complete | 7/7 |
 
-**Progress:** 2/3 phases complete — v2 in progress
+**Progress:** 3/3 phases complete — Milestone v2 complete ✓
 
-**Current focus:** Run `/gsd-next` to discuss and plan Phase 8 (Achievement & Daily UI).
+**Current focus:** Run `/gsd-next` to archive milestone or start v3.
 
 ## Session Log
 
@@ -47,3 +47,6 @@ Last activity: 2026-05-02 — Phase 7 executed (5/5 plans, build 0 errors)
 - 2026-05-02: Phase 7 context gathered. Decisions: checkAchievements() inside applyReaction(), applyReaction returns newBadge+dailyCompleted, backfillAchievements() on init, date-seeded daily challenge (non-basic pool, local date, deterministic hash), streak via lastCompletedDate diff, sound.ts Web Audio oscillator iOS-safe. 4 new files planned.
 - 2026-05-02: Phase 7 planned. 5 plans in 3 waves: achievements+sound+daily-logic (W1) → daily-stores (W2) → reactions+game integration (W3). Verification passed. 9/9 requirements covered (ACHV-01–04, ACHV-06, DALY-02–04, STRK-02/03, PROG-06).
 - 2026-05-02: Phase 7 complete. 5/5 plans executed. game/achievements.ts (checkAchievements+backfillAchievements), effects/sound.ts (Web Audio chime, iOS-safe), game/daily.ts (getTodayDateStr+getDailyChallengeKey+completeDailyChallenge), stores/daily.ts (dailyChallengeTarget+dailyCompleted derived), reactions.ts+game.ts integration (newBadge+dailyCompleted return, backfill on init). Build: 0 errors, 0 warnings.
+- 2026-05-02: Phase 8 context gathered. 15 decisions: gallery=full-screen overlay, 2×2 badge grid, 4th BottomBar button (Achievements), toast=top-center queue 2.5s, daily challenge below MixingChamber, gold banner on completion, streak in DailyChallenge component, soundMuted in new stores/settings.ts, toast queue in stores/toast.ts, 3 new components (AchievementToast, AchievementGallery, DailyChallenge) + 1 new data file + 5 modified files.
+- 2026-05-02: Phase 8 planned. 7 plans in 3 waves: data+stores (W1) → 3 new components + TopBar/BottomBar mods (W2) → MixingChamber+Settings wiring + page wiring (W3). Verification passed. 8/8 requirements covered (PROG-02–06, DALY-01, DALY-05, STRK-01).
+- 2026-05-02: Phase 8 complete. 7/7 plans executed. badges.ts+settings.ts+toast.ts (W1), AchievementToast+AchievementGallery+DailyChallenge+TopBar pulse+BottomBar 4-button (W2), MixingChamber badge→toast wiring+chime+SettingsPanel mute toggle++page.svelte full integration (W3). Build: 0 errors. Milestone v2 complete.

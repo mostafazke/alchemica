@@ -1,11 +1,13 @@
 <script lang="ts">
   import { discoveries } from '../stores/game.js';
 
-  let { shelfOpen = false, onToggleShelf, discoverySheetOpen = false, onToggleDiscoveries, settingsOpen = false, onToggleSettings }: {
+  let { shelfOpen = false, onToggleShelf, discoverySheetOpen = false, onToggleDiscoveries, achievementsOpen = false, onToggleAchievements, settingsOpen = false, onToggleSettings }: {
     shelfOpen?: boolean;
     onToggleShelf?: () => void;
     discoverySheetOpen?: boolean;
     onToggleDiscoveries?: () => void;
+    achievementsOpen?: boolean;
+    onToggleAchievements?: () => void;
     settingsOpen?: boolean;
     onToggleSettings?: () => void;
   } = $props();
@@ -20,7 +22,6 @@
   >
     🧪 <span class="bar-btn-label">Elements</span>
   </button>
-  <span class="bottom-stat">{$discoveries.length} discovered</span>
   <button
     class="bar-btn"
     class:active={discoverySheetOpen}
@@ -31,6 +32,14 @@
     {#if $discoveries.length > 0}
       <span class="disc-badge">{$discoveries.length}</span>
     {/if}
+  </button>
+  <button
+    class="bar-btn"
+    class:active={achievementsOpen}
+    onclick={onToggleAchievements}
+    aria-label="Open achievements"
+  >
+    🏆 <span class="bar-btn-label">Badges</span>
   </button>
   <button
     class="bar-btn"
@@ -50,17 +59,12 @@
     background: #0d1b2e;
     border-top: 1px solid #1a2e4a;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 0 max(8px, env(safe-area-inset-right, 8px)) env(safe-area-inset-bottom, 0px) max(8px, env(safe-area-inset-left, 8px));
     flex-shrink: 0;
   }
   @media (max-width: 1024px) {
     .bottom-bar { display: flex; }
-  }
-  .bottom-stat {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: #4a6080;
   }
   .bar-btn {
     position: relative;

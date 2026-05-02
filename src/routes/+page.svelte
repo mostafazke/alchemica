@@ -6,10 +6,14 @@
 	import BottomBar from '$lib/components/BottomBar.svelte';
 	import BottomSheet from '$lib/components/BottomSheet.svelte';
 	import SettingsPanel from '$lib/components/SettingsPanel.svelte';
+	import AchievementGallery from '$lib/components/AchievementGallery.svelte';
+	import AchievementToast from '$lib/components/AchievementToast.svelte';
+	import DailyChallenge from '$lib/components/DailyChallenge.svelte';
 
 	let shelfOpen = $state(false);
 	let discoverySheetOpen = $state(false);
 	let settingsOpen = $state(false);
+	let achievementsOpen = $state(false);
 </script>
 
 <div class="app">
@@ -19,7 +23,10 @@
 		<div class="shelf-container" class:open={shelfOpen}>
 			<Shelf />
 		</div>
-		<MixingChamber />
+		<div class="center-col">
+			<MixingChamber />
+			<DailyChallenge />
+		</div>
 		<div class="discoveries-container">
 			<DiscoveryLog />
 		</div>
@@ -29,6 +36,8 @@
 		onToggleShelf={() => shelfOpen = !shelfOpen}
 		{discoverySheetOpen}
 		onToggleDiscoveries={() => discoverySheetOpen = !discoverySheetOpen}
+		{achievementsOpen}
+		onToggleAchievements={() => achievementsOpen = !achievementsOpen}
 		{settingsOpen}
 		onToggleSettings={() => settingsOpen = !settingsOpen}
 	/>
@@ -36,6 +45,8 @@
 		<DiscoveryLog />
 	</BottomSheet>
 	<SettingsPanel open={settingsOpen} onClose={() => settingsOpen = false} />
+	<AchievementGallery open={achievementsOpen} onClose={() => achievementsOpen = false} />
+	<AchievementToast />
 </div>
 
 <style>
@@ -113,5 +124,13 @@
 		.discoveries-container {
 			display: none;
 		}
+	}
+	.center-col {
+		grid-area: chamber;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		min-height: 0;
+		align-items: center;
 	}
 </style>
