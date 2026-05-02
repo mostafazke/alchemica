@@ -19,8 +19,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 16px;
-    height: 52px;
+    padding: env(safe-area-inset-top, 0px) max(16px, env(safe-area-inset-right, 16px)) 0 max(16px, env(safe-area-inset-left, 16px));
+    min-height: calc(52px + env(safe-area-inset-top, 0px));
     background: #0d1b2e;
     border-bottom: 1px solid #1a2e4a;
     flex-shrink: 0;
@@ -64,4 +64,9 @@
   .reset-btn:hover { color: #ff6b6b; border-color: #ff6b6b40; }
   @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.3)} }
   .combo.pulse { animation: pulse 0.3s ease; }
+  @media (max-width: 360px) {
+    .top-bar-stats { gap: 8px; }
+    .top-bar-title { font-size: 14px; }
+    .stat { font-size: 11px; }
+  }
 </style>

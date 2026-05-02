@@ -45,15 +45,16 @@
 <style>
   .bottom-bar {
     display: none;
-    height: 56px;
+    min-height: 56px;
+    height: auto;
     background: #0d1b2e;
     border-top: 1px solid #1a2e4a;
     align-items: center;
     justify-content: space-between;
-    padding: 0 8px;
+    padding: 0 max(8px, env(safe-area-inset-right, 8px)) env(safe-area-inset-bottom, 0px) max(8px, env(safe-area-inset-left, 8px));
     flex-shrink: 0;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     .bottom-bar { display: flex; }
   }
   .bottom-stat {

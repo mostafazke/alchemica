@@ -118,4 +118,17 @@
       gap: 16px;
     }
   }
+  /* Landscape on phones: compress vertical spacing */
+  @media (orientation: landscape) and (max-height: 520px) {
+    .mixing-chamber {
+      gap: 8px;
+      padding: 8px 20px;
+      justify-content: center;
+    }
+    .react-btn {
+      min-height: 44px;
+      padding: 8px 32px;
+      font-size: 13px;
+    }
+  }
 </style>

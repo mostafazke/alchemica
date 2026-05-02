@@ -64,4 +64,8 @@
       padding: 6px;
     }
   }
+  @media (orientation: landscape) and (max-height: 520px) {
+    .slot { width: 80px; height: 80px; }
+    .slot-icon { width: 34px; height: 34px; font-size: 20px; }
+  }
 </style>

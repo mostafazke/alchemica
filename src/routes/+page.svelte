@@ -65,7 +65,7 @@
 		display: none;
 	}
 
-	/* Tablet: 2-column (shelf + chamber, discoveries hidden) */
+	/* Tablet: shelf sidebar + chamber; discoveries via bottom sheet */
 	@media (max-width: 1024px) {
 		.lab-wrapper {
 			grid-template-columns: 200px 1fr;
@@ -84,9 +84,9 @@
 		}
 		.shelf-container {
 			position: fixed;
-			top: 56px;
+			top: calc(52px + env(safe-area-inset-top, 0px));
 			left: 0;
-			bottom: 64px;
+			bottom: calc(56px + env(safe-area-inset-bottom, 0px));
 			width: 260px;
 			z-index: 200;
 			transform: translateX(-100%);

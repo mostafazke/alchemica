@@ -88,4 +88,13 @@
   .result-error { font-size: 13px; color: #ff6060; }
   .result-tip { font-size: 10px; color: #2a3550; }
   .result-idle { font-size: 12px; color: #2a3550; }
+  @media (max-width: 768px) {
+    .result-display { min-height: 120px; }
+  }
+  @media (orientation: landscape) and (max-height: 520px) {
+    .result-display { min-height: 60px; padding: 10px 16px; gap: 4px; }
+    .result-icon { font-size: 26px; }
+    .result-name { font-size: 14px; }
+    .result-desc { font-size: 10px; }
+  }
 </style>

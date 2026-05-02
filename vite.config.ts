@@ -3,14 +3,16 @@ import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import basicSsl from '@vitejs/plugin-basic-ssl';
 
 export default defineConfig({
 	plugins: [
 		tailwindcss(),
+		basicSsl(),
 		sveltekit(),
 		VitePWA({
 			registerType: 'autoUpdate',
-			injectRegister: 'auto',
+			injectRegister: 'script',
 			manifest: {
 				name: 'Alchemica',
 				short_name: 'Alchemica',
@@ -20,21 +22,45 @@ export default defineConfig({
 				display: 'standalone',
 				start_url: '/',
 				lang: 'en',
-				orientation: 'any',
+				orientation: 'landscape',
 				categories: ['games', 'entertainment'],
 				icons: [
 					{ src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
 					{ src: '/icon-512.png', sizes: '512x512', type: 'image/png' },
 					{ src: '/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+				],
+				screenshots: [
+					{
+						src: '/screenshot-wide.png',
+						sizes: '1280x800',
+						type: 'image/png',
+						form_factor: 'wide',
+						label: 'Alchemica element lab — desktop',
+					},
+					{
+						src: '/screenshot-narrow.png',
+						sizes: '390x844',
+						type: 'image/png',
+						form_factor: 'narrow',
+						label: 'Alchemica element lab — mobile',
+					},
 				]
 			},
 			workbox: {
 				globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
 				cleanupOutdatedCaches: true,
 				clientsClaim: true
+			},
+			devOptions: {
+				enabled: true,
+				type: 'module',
 			}
 		})
 	],
+	server: {
+		https: true,
+		host: true,
+	},
 	test: {
 		expect: { requireAssertions: true },
 		projects: [
