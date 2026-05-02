@@ -10,20 +10,28 @@ export default defineConfig({
 		sveltekit(),
 		VitePWA({
 			registerType: 'autoUpdate',
+			injectRegister: 'auto',
 			manifest: {
 				name: 'Alchemica',
 				short_name: 'Alchemica',
-				description: 'Element combination puzzle game',
+				description: 'Element combination puzzle game — discover all elements!',
 				theme_color: '#0d1b2e',
 				background_color: '#0d1b2e',
 				display: 'standalone',
+				start_url: '/',
+				lang: 'en',
+				orientation: 'any',
+				categories: ['games', 'entertainment'],
 				icons: [
 					{ src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
-					{ src: '/icon-512.png', sizes: '512x512', type: 'image/png' }
+					{ src: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+					{ src: '/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
 				]
 			},
 			workbox: {
-				globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}']
+				globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+				cleanupOutdatedCaches: true,
+				clientsClaim: true
 			}
 		})
 	],
