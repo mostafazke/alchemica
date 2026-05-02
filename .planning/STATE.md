@@ -6,14 +6,14 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 **Core value:** Players can open the game on any device, pick up where they left off, and feel the satisfaction of discovering a new element — even with no internet connection.
 
-**Current focus:** Milestone v3 — Revenue & Native. Roadmap created. Phase 9 ready for planning.
+**Current focus:** Milestone v3 — Revenue & Native. Phase 9 planned (7 plans, 4 waves). Ready to execute.
 
 ## Current Position
 
 Phase: 9 of 12 (Capacitor Native Shell)
-Plan: — (not yet planned)
-Status: Ready to plan
-Last activity: 2026-05-02 — Milestone v3 roadmap created (4 phases, 11 requirements, 0 orphans)
+Plan: 7 plans ready (09-01 through 09-07)
+Status: Ready to execute
+Last activity: 2026-05-02 — Phase 9 planned (7 plans, 4 waves + Wave 0)
 
 Progress: [░░░░░░░░░░] 0% (v3)
 
@@ -41,7 +41,7 @@ None.
 
 ### Blockers/Concerns
 
-None yet. Capacitor integration is the highest-risk phase — AdMob + IAP Capacitor plugins may require specific native config steps; gather context before planning Phase 9.
+None. Phase 9 research resolved key risks: install Capacitor 8 (not 6) to match android-36 SDK; orientation lock goes in AndroidManifest.xml (not capacitor.config.ts); icon source needs 1024×1024 — all addressed in plans.
 
 ## Session Log
 
