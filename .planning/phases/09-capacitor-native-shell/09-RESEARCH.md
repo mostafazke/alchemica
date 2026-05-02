@@ -728,22 +728,25 @@ This is a greenfield Capacitor install — no prior native app exists, no migrat
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Does the developer have a 1024×1024 app icon source file for @capacitor/assets?**
    - What we know: `static/icon-192.png` and `static/icon-512.png` exist but are too small (512px min required is 1024px)
    - What's unclear: Whether a 1024×1024 master icon exists or needs to be created from scratch
    - Recommendation: Plan should include a task to create `assets/icon-only.png` at 1024×1024 before running `npx capacitor-assets generate`
+   - **Resolution:** Plan 09-05 creates `assets/icon-only.png` at 1024×1024 using ImageMagick, Node canvas, or manual copy. Multiple fallback methods provided.
 
 2. **Will the cap:build script work on Windows without modification?**
    - What we know: `cd android && ./gradlew bundleRelease` uses bash-style chaining
    - What's unclear: npm scripts on Windows run via `sh` (Git Bash) when available; if not, `./gradlew` needs to be `gradlew.bat`
    - Recommendation: Use `npx cap build android --keystorepath ... ` or document the Windows workaround in the plan
+   - **Resolution:** Plan 09-02 Task 3 uses `&&` chaining in the npm script which works via Git Bash subprocess in npm scripts on Windows. Fallback: `cd android; gradlew.bat bundleRelease`.
 
 3. **Capacitor version: latest (v8) vs CONTEXT.md framing of "Capacitor 6"**
    - What we know: CONTEXT.md says "Capacitor 6 (latest)" but npm `latest` tag is 8.3.1; environment has android-36 (matches Cap 8), not android-34 (Cap 6 requirement)
    - What's unclear: Whether the user prefers a specific version for stability reasons
    - Recommendation: Plan should use `@latest` (v8) with a note explaining why; if the user specifically wants v6, they must first install SDK platform 34 via `sdkmanager "platforms;android-34"`
+   - **Resolution:** Plans install `@capacitor/*@latest` (v8.3.1) because the installed environment has android-36 SDK which matches Cap 8's compileSdk 36. This is documented in Plan 09-02 Task 1.
 
 ---
 
