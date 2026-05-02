@@ -20,6 +20,11 @@ const config: CapacitorConfig = {
       backgroundColor: '#0d1b2e',  // matches vite.config.ts background_color
       overlaysWebView: false,
     },
+    AdMob: {
+      // Test App ID — replace with real ID from admob.google.com before Play Store submission
+      appIdAndroid: 'ca-app-pub-3940256099942544~3347511713',
+      isTesting: true,
+    },
   },
 };
 
