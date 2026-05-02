@@ -63,7 +63,21 @@
 
 ## Traceability
 
-*(Filled by roadmapper)*
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| PLAT-01 | Phase 9 | Pending |
+| PLAT-02 | Phase 9 | Pending |
+| PLAT-03 | Phase 9 | Pending |
+| STRK-05 | Phase 10 | Pending |
+| STRK-06 | Phase 10 | Pending |
+| MOTZ-01 | Phase 11 | Pending |
+| MOTZ-04 | Phase 11 | Pending |
+| MOTZ-02 | Phase 12 | Pending |
+| MOTZ-03 | Phase 12 | Pending |
+| MOTZ-05 | Phase 12 | Pending |
+| MOTZ-06 | Phase 12 | Pending |
+
+**Coverage: 11/11 v3 requirements mapped. No orphans.**
 
 ---
 
