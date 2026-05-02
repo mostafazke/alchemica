@@ -6,19 +6,22 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 **Core value:** Players can open the game on any device, pick up where they left off, and feel the satisfaction of discovering a new element — even with no internet connection.
 
-**Current focus:** Not started — ready to begin Phase 1
+**Current focus:** Milestone v2 started — defining requirements
 
-## Current Status
+## Current Position
+
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-05-02 — Milestone v2 started
+
+## Phase Status (v2)
 
 | Phase | Name | Status | Plans |
 |-------|------|--------|-------|
-| 1 | Foundation — Svelte Scaffold & Game Engine | ✓ Complete | 5/5 |
-| 2 | Mobile Layout & Responsive Design | ✓ Complete | 5/5 |
-| 3 | Touch, Persistence & Save/Load | ✓ Complete | 5/5 |
-| 4 | Content Expansion & Hint System | ✓ Complete | 5/5 |
-| 5 | PWA, Offline & Polish | ✓ Complete | 5/5 |
+| 6 | TBD | Not started | 0/0 |
 
-**Progress:** 5/5 phases complete — **Milestone 1 DONE**
+**Progress:** 0/? phases complete — v2 in planning
 
 **Current focus:** ✅ Milestone v1 archived. Run `/gsd-new-milestone` for v2.
 
@@ -34,3 +37,4 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 - 2026-05-02: Phase 5 shipped — PR #1 (https://github.com/mostafazke/alchemica/pull/1). Repo: mostafazke/alchemica. Milestone 1 complete.
 - 2026-05-02: Milestone v1 audit gaps fixed — iron→lava+air (2-element), hydrogen→steam+plasma, TopBar count dynamic, hintCooldownEndsAt persisted. Commit 3d06e9e.
 - 2026-05-02: Milestone v1 archived. ROADMAP.md collapsed, REQUIREMENTS.md traceability updated, PROJECT.md Current State added. Archives at .planning/milestones/v1-ROADMAP.md + v1-REQUIREMENTS.md. Git tag v1 created.
+- 2026-05-02: Milestone v2 started (Achievements & Progression). Goals: discovery badges, TopBar %, achievement gallery, unlock toast, chime sound. localStorage only, 61 elements, phases 6+.

@@ -2,15 +2,26 @@
 
 ## Current State
 
-**Version:** v1 — SHIPPED 2026-05-02
-**Repo:** https://github.com/mostafazke/alchemica (PR #1 merged)
+**Latest shipped:** v1 — 2026-05-02 (61 elements, offline PWA, 27/27 requirements)
+**Repo:** https://github.com/mostafazke/alchemica (PR #1 merged, tag v1)
 **Stack:** SvelteKit + Svelte 5 + TypeScript + Vite 8 + vite-plugin-pwa
-**Elements:** 61 (4 basic + 57 discoverable)
-**Requirements:** 27/27 v1 satisfied
 
-The game is a fully installable, offline-capable PWA. Players combine elements to discover new ones, progress saves to localStorage, and the app installs to home screen on iOS/Android/desktop.
+## Current Milestone: v2 — Achievements & Progression
 
-**Next Milestone:** v2 — not yet planned. Run `/gsd-new-milestone` to begin.
+**Goal:** Make discovery progress feel rewarding through achievement badges and visible progress tracking.
+
+**Target features:**
+- Discovery milestone badges (10, 25, 50, all 61) — emoji + name + unlock condition
+- Discovery % counter in TopBar (e.g. "42/61 discovered")
+- Achievement gallery — earned vs locked badges, accessible from BottomBar
+- Achievement unlock toast notification
+- Badge unlock sound effect (short chime, mutable)
+- Achievements persisted to localStorage (versioned save schema bump)
+
+**Constraints:**
+- Element count stays at 61 — no content expansion in v2
+- localStorage only — no cloud sync
+- Phases continue numbering from v1 (Phase 6+)
 
 ---
 
@@ -24,51 +35,37 @@ Players can open the game on any device, pick up where they left off, and feel t
 
 ## Requirements
 
-### Validated
+### Validated (v1 — SHIPPED)
 
 - ✓ 32 elements with 2-element reaction system — existing prototype
 - ✓ Canvas particle effects on reaction — existing prototype
 - ✓ Score + combo system (100pts × combo new, 10pts × combo known, 8x max) — existing prototype
 - ✓ Discovery log showing formula and recipe — existing prototype
 - ✓ Element shelf with All / Basic / Found filter tabs — existing prototype
+- ✓ Migrated to SvelteKit + Svelte 5 + TypeScript + Vite — Phase 1
+- ✓ Responsive layout (mobile/tablet/desktop), 44px+ touch targets, bottom sheet — Phase 2
+- ✓ Haptic feedback, long-press element detail, swipe tab switching — Phase 3
+- ✓ localStorage save/load with versioned export/import — Phase 3
+- ✓ 61 elements, category shelf, hint system (30s cooldown) — Phase 4
+- ✓ Web Share API + clipboard fallback — Phase 4
+- ✓ PWA: service worker, offline-capable, installable, manifest — Phase 5
 
-### Active
+### Active (v2 — Achievements & Progression)
 
-**Migration & Architecture**
-- [ ] Migrate from single HTML to Svelte + TypeScript + Vite project structure
-- [ ] Elements and reactions extracted to typed TypeScript data files (editable without touching component code)
-- [ ] Game state centralized in Svelte stores with auto-save to localStorage
-- [ ] Identical gameplay preserved through migration
+**Achievement System**
+- [ ] Achievement definitions in typed TS config (id, name, emoji, condition, threshold)
+- [ ] Achievement engine evaluates unlock conditions on every game event
+- [ ] Discovery milestones: 10, 25, 50, 61 elements discovered
+- [ ] Achievement state persisted to localStorage (versioned schema)
 
-**Mobile UX**
-- [ ] Responsive layout: single-column on mobile portrait, 2-column on landscape, 3-column on desktop
-- [ ] Touch targets minimum 44×44px (Apple HIG)
-- [ ] Bottom sheet / drawer for discoveries panel on mobile
-- [ ] Haptic feedback on successful reaction (Vibration API)
-- [ ] Swipe gesture for tab switching on mobile
+**Progress Display**
+- [ ] TopBar shows discovery count (e.g. "42/61 discovered")
+- [ ] Achievement gallery screen (earned ✓ / locked 🔒 badges)
+- [ ] Achievement unlock toast notification
 
-**PWA & Offline**
-- [ ] Service worker caches all assets (vite-plugin-pwa + Workbox)
-- [ ] Game fully playable offline after first load
-- [ ] Add-to-homescreen manifest (name, icon, theme color)
-- [ ] Progress persists across sessions (localStorage save/load)
-
-**Content & Discovery**
-- [ ] Expanded element library beyond 32 (target: 60+ elements)
-- [ ] Expanded reaction set to match new elements
-- [ ] Hint system: player can reveal one hint per cooldown period
-- [ ] Category tabs / filter with visual grouping in shelf
-- [ ] Share button: share a discovered element or full progress (Web Share API)
-
-**Data-Driven Content System**
-- [ ] Elements and reactions defined in a standalone JSON/TS config file with no coupling to UI
-- [ ] In-app editor UI (v2): add/edit/delete elements and reactions without code changes
-
-**Polish**
-- [ ] Self-hosted fonts (offline support, no CDN dependency)
-- [ ] Particle count scales down on low-end devices (navigator.hardwareConcurrency)
-- [ ] Notification toast for new discovery
-- [ ] Smooth animations: result pop, discovery slide-in, combo pulse
+**Sound**
+- [ ] Badge unlock sound effect (short chime)
+- [ ] Mute toggle in settings (extends existing SettingsPanel)
 
 ### Out of Scope
 
