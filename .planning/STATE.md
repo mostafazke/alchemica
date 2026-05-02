@@ -12,8 +12,8 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 Phase: 6
 Plan: —
-Status: Not started
-Last activity: 2026-05-02 — v2 roadmap created (3 phases, 21 requirements)
+Status: Context gathered
+Last activity: 2026-05-02 — Phase 6 context gathered (4 areas discussed)
 
 ## Phase Status (v2)
 
@@ -41,3 +41,4 @@ Last activity: 2026-05-02 — v2 roadmap created (3 phases, 21 requirements)
 - 2026-05-02: Milestone v1 archived. ROADMAP.md collapsed, REQUIREMENTS.md traceability updated, PROJECT.md Current State added. Archives at .planning/milestones/v1-ROADMAP.md + v1-REQUIREMENTS.md. Git tag v1 created.
 - 2026-05-02: Milestone v2 started (Achievements & Progression). Goals: discovery badges, TopBar %, achievement gallery, unlock toast, chime sound. localStorage only, 61 elements, phases 6+.
 - 2026-05-02: Milestone v2 roadmap created. 3 phases (6–8), 21 requirements mapped, 0 orphans. Phase 6 ready for planning.
+- 2026-05-02: Phase 6 context gathered. Decisions: same key + version bump, earnedAchievements+streak stores in achievements.ts, TopBar → "42/61 discovered", Set serialized as array, AchievementId typed union. Ready for planning.
