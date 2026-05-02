@@ -47,8 +47,14 @@ export const REACTIONS: Record<string, string> = {
   'lava+earth': 'volcano',
   'earth+lava': 'volcano',
 
+  'lava+air': 'iron',
+  'air+lava': 'iron',
+
   'water+plasma': 'oxygen',
   'plasma+water': 'oxygen',
+
+  'steam+plasma': 'hydrogen',
+  'plasma+steam': 'hydrogen',
 
   'cloud+plasma': 'storm',
   'plasma+cloud': 'storm',

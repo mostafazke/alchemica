@@ -45,7 +45,11 @@ export const score = writable<number>(saved?.score ?? 0);
 export const lastSuccess = writable<boolean>(false);
 
 /** Unix timestamp (ms) when the hint cooldown expires. 0 = no cooldown active. */
-export const hintCooldownEndsAt = writable<number>(0);
+export const hintCooldownEndsAt = writable<number>(
+  typeof localStorage !== 'undefined'
+    ? Number(localStorage.getItem('alchemica_hint_cooldown') ?? 0)
+    : 0
+);
 
 // --- Auto-save on change ---
 
@@ -68,6 +72,9 @@ function saveToStorage(): void {
 unlockedElements.subscribe(saveToStorage);
 discoveries.subscribe(saveToStorage);
 score.subscribe(saveToStorage);
+hintCooldownEndsAt.subscribe((v) => {
+  try { localStorage.setItem('alchemica_hint_cooldown', String(v)); } catch { /* ignore */ }
+});
 
 // --- Reset ---
 

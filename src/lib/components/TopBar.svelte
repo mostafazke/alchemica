@@ -1,12 +1,13 @@
 <script lang="ts">
   import { score, combo, unlockedElements } from '../stores/game.js';
   import { resetGame } from '../stores/game.js';
+  import { ELEMENTS } from '../data/elements.js';
 </script>
 
 <header class="top-bar">
   <div class="top-bar-title">⚗️ Alchemica</div>
   <div class="top-bar-stats">
-    <span class="stat">🔬 {$unlockedElements.size}/32</span>
+    <span class="stat">🔬 {$unlockedElements.size}/{Object.keys(ELEMENTS).length}</span>
     <span class="stat combo" class:pulse={$combo > 1}>x{$combo}</span>
     <span class="stat score">{$score}</span>
     <button class="reset-btn" onclick={resetGame} title="Reset game">↺</button>
