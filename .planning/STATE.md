@@ -6,16 +6,16 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 **Core value:** Players can open the game on any device, pick up where they left off, and feel the satisfaction of discovering a new element — even with no internet connection.
 
-**Current focus:** Milestone v3 — Revenue & Native. Phase 9 planned (7 plans, 4 waves). Ready to execute.
+**Current focus:** Milestone v3 — Revenue & Native. Phase 9 executed (7/7 plans complete). Pending human verification on Android device (Plans 09-04, 09-05).
 
 ## Current Position
 
 Phase: 9 of 12 (Capacitor Native Shell)
-Plan: 7 plans ready (09-01 through 09-07)
-Status: Ready to execute
-Last activity: 2026-05-02 — Phase 9 planned (7 plans, 4 waves + Wave 0)
+Plan: 7/7 plans complete
+Status: Pending human verification (Android device launch test)
+Last activity: 2026-05-03 — Phase 9 executed (all 7 plans; automated gates GREEN)
 
-Progress: [░░░░░░░░░░] 0% (v3)
+Progress: [██░░░░░░░░] 25% (v3)
 
 ## Milestone Status
 
@@ -48,4 +48,4 @@ None. Phase 9 research resolved key risks: install Capacitor 8 (not 6) to match 
 - 2026-05-02: Project initialized. Requirements defined (27 v1). Roadmap created (5 phases). Ready for Phase 1.
 - 2026-05-02: Phases 1–5 complete. Milestone v1 shipped (PR #1, git tag v1).
 - 2026-05-02: Phases 6–8 complete. Milestone v2 shipped (git tag v2).
-- 2026-05-02: Milestone v3 started. Requirements defined (11 req). Roadmap created (4 phases, 9–12).
+- 2026-05-03: Phase 9 executed. Capacitor 8 installed, android/ platform created, haptics upgraded, icons generated, signed AAB built (14.8MB). All automated gates GREEN. Human device verification pending.

@@ -27,7 +27,7 @@ Full archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
 
 ### Phases
 
-- [ ] **Phase 9: Capacitor Native Shell** - Android app via Capacitor; Google Play-ready build
+- [x] **Phase 9: Capacitor Native Shell** - Android app via Capacitor; Google Play-ready build
 - [ ] **Phase 10: Streak Bonus** - Higher combo multiplier during active streak, visually indicated
 - [ ] **Phase 11: AdMob Rewarded Ads** - Rewarded video ad grants 1 hint; graceful unavailability handling
 - [ ] **Phase 12: IAP & Purchase Logic** - Remove-ads IAP, hint bundle IAP, purchase restore
@@ -48,13 +48,13 @@ Full archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
 **Plans**: 7 plans
 
 Plans:
-- [ ] 09-01-PLAN.md — Wave 0: Haptics test scaffold (touch.test.ts)
-- [ ] 09-02-PLAN.md — Wave 1: Capacitor 8 install, capacitor.config.ts, npm scripts, .gitignore
-- [ ] 09-03-PLAN.md — Wave 2: Haptics upgrade in touch.ts (@capacitor/haptics + web fallback)
-- [ ] 09-04-PLAN.md — Wave 2: Android platform (npx cap add android), orientation lock, JDK config
-- [ ] 09-05-PLAN.md — Wave 3: Icon/splash asset generation (@capacitor/assets)
-- [ ] 09-06-PLAN.md — Wave 3: Keystore generation, Gradle signing config, signed AAB build
-- [ ] 09-07-PLAN.md — Wave 4: PLAT-03 regression gate (full test suite + web build verification)
+- [x] 09-01-PLAN.md — Wave 0: Haptics test scaffold (touch.test.ts)
+- [x] 09-02-PLAN.md — Wave 1: Capacitor 8 install, capacitor.config.ts, npm scripts, .gitignore
+- [x] 09-03-PLAN.md — Wave 2: Haptics upgrade in touch.ts (@capacitor/haptics + web fallback)
+- [x] 09-04-PLAN.md — Wave 2: Android platform (npx cap add android), orientation lock, JDK config
+- [x] 09-05-PLAN.md — Wave 3: Icon/splash asset generation (@capacitor/assets)
+- [x] 09-06-PLAN.md — Wave 3: Keystore generation, Gradle signing config, signed AAB build
+- [x] 09-07-PLAN.md — Wave 4: PLAT-03 regression gate (full test suite + web build verification)
 
 ### Phase 10: Streak Bonus
 **Goal**: Players on an active daily streak gain a higher combo multiplier cap, visually surfaced in the UI
