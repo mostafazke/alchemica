@@ -20,7 +20,7 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 **Progress:** 5/5 phases complete — **Milestone 1 DONE**
 
-**Current focus:** Milestone complete. Ready for next milestone or production deploy.
+**Current focus:** ✅ Milestone v1 archived. Run `/gsd-new-milestone` for v2.
 
 ## Session Log
 
@@ -32,3 +32,5 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 - 2026-05-02: Phase 4 complete. 5/5 plans executed. 30 new elements added (62 total), ice reaction fixed (water+wind), salt recipe fixed, getHint() engine, hintCooldownEndsAt store, HintButton.svelte (30s countdown + overlay), share.ts (Web Share API + clipboard fallback), share button in DiscoveryItem and ResultDisplay. Build: 0 errors, 0 warnings.
 - 2026-05-02: Phase 5 complete. 5/5 plans executed. vite-plugin-pwa configured (injectRegister auto, clientsClaim, cleanupOutdatedCaches, maskable icon, categories), icons generated (192+512px, pure Node.js, dark navy + gold "A"), OfflineIndicator.svelte (online/offline events, animated toast), apple-touch-icon in app.html, 0 CDN refs in build. Build: 0 errors, 0 warnings. PWA precaches 18 entries.
 - 2026-05-02: Phase 5 shipped — PR #1 (https://github.com/mostafazke/alchemica/pull/1). Repo: mostafazke/alchemica. Milestone 1 complete.
+- 2026-05-02: Milestone v1 audit gaps fixed — iron→lava+air (2-element), hydrogen→steam+plasma, TopBar count dynamic, hintCooldownEndsAt persisted. Commit 3d06e9e.
+- 2026-05-02: Milestone v1 archived. ROADMAP.md collapsed, REQUIREMENTS.md traceability updated, PROJECT.md Current State added. Archives at .planning/milestones/v1-ROADMAP.md + v1-REQUIREMENTS.md. Git tag v1 created.

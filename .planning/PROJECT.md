@@ -1,5 +1,19 @@
 # Alchemica
 
+## Current State
+
+**Version:** v1 — SHIPPED 2026-05-02
+**Repo:** https://github.com/mostafazke/alchemica (PR #1 merged)
+**Stack:** SvelteKit + Svelte 5 + TypeScript + Vite 8 + vite-plugin-pwa
+**Elements:** 61 (4 basic + 57 discoverable)
+**Requirements:** 27/27 v1 satisfied
+
+The game is a fully installable, offline-capable PWA. Players combine elements to discover new ones, progress saves to localStorage, and the app installs to home screen on iOS/Android/desktop.
+
+**Next Milestone:** v2 — not yet planned. Run `/gsd-new-milestone` to begin.
+
+---
+
 ## What This Is
 
 Alchemica is a mobile-first element combination puzzle game (Little Alchemy-style) built as a PWA. Players discover new elements by combining two from a growing library, unlocking a chain of reactions across categories like fire, water, earth, metal, and energy. It is a public-facing game rebuilt from a single HTML prototype into a scalable Svelte + TypeScript application with offline support, persistent progress, and an expandable content system.

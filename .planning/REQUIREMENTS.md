@@ -91,43 +91,44 @@
 Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
-|-------------|-------|--------|
-| ARCH-01 | Phase 1 | Pending |
-| ARCH-02 | Phase 1 | Pending |
-| ARCH-03 | Phase 1 | Pending |
-| ARCH-04 | Phase 1 | Pending |
-| ARCH-05 | Phase 5 | Pending |
-| ARCH-06 | Phase 5 | Pending |
-| ARCH-07 | Phase 1 | Pending |
-| LAYT-01 | Phase 2 | Pending |
-| LAYT-02 | Phase 2 | Pending |
-| LAYT-03 | Phase 2 | Pending |
-| LAYT-04 | Phase 2 | Pending |
-| LAYT-05 | Phase 2 | Pending |
-| TOUC-01 | Phase 3 | Pending |
-| TOUC-02 | Phase 3 | Pending |
-| TOUC-03 | Phase 3 | Pending |
-| TOUC-04 | Phase 2 | Pending |
-| GAME-01 | Phase 1 | Pending |
-| GAME-02 | Phase 2 | Pending |
-| GAME-03 | Phase 4 | Pending |
-| GAME-04 | Phase 4 | Pending |
-| GAME-05 | Phase 3 | Pending |
-| GAME-06 | Phase 3 | Pending |
-| GAME-07 | Phase 1 | Pending |
-| CONT-01 | Phase 4 | Pending |
-| CONT-02 | Phase 4 | Pending |
-| CONT-03 | Phase 4 | Pending |
-| CONT-04 | Phase 1 | Pending |
-| PWA-01 | Phase 5 | Pending |
-| PWA-02 | Phase 5 | Pending |
-| PWA-03 | Phase 5 | Pending |
+|-------------|-------|---------|
+| ARCH-01 | Phase 1 | ✅ Complete |
+| ARCH-02 | Phase 1 | ✅ Complete |
+| ARCH-03 | Phase 1 | ✅ Complete |
+| ARCH-04 | Phase 1 | ✅ Complete |
+| ARCH-05 | Phase 5 | ✅ Complete |
+| ARCH-06 | Phase 5 | ✅ Complete |
+| ARCH-07 | Phase 1 | ✅ Complete |
+| LAYT-01 | Phase 2 | ✅ Complete |
+| LAYT-02 | Phase 2 | ✅ Complete |
+| LAYT-03 | Phase 2 | ✅ Complete |
+| LAYT-04 | Phase 2 | ✅ Complete |
+| LAYT-05 | Phase 2 | ✅ Complete |
+| TOUC-01 | Phase 3 | ✅ Complete |
+| TOUC-02 | Phase 3 | ✅ Complete |
+| TOUC-03 | Phase 3 | ✅ Complete |
+| TOUC-04 | Phase 2 | ✅ Complete |
+| GAME-01 | Phase 1 | ✅ Complete |
+| GAME-02 | Phase 2 | ✅ Complete |
+| GAME-03 | Phase 4 | ✅ Complete |
+| GAME-04 | Phase 4 | ✅ Complete |
+| GAME-05 | Phase 3 | ✅ Complete |
+| GAME-06 | Phase 3 | ✅ Complete |
+| GAME-07 | Phase 1 | ✅ Complete |
+| CONT-01 | Phase 4 | ✅ Complete |
+| CONT-02 | Phase 4 | ✅ Complete |
+| CONT-03 | Phase 4 | ✅ Complete |
+| CONT-04 | Phase 1 | ✅ Complete |
+| PWA-01 | Phase 5 | ✅ Complete |
+| PWA-02 | Phase 5 | ✅ Complete |
+| PWA-03 | Phase 5 | ✅ Complete |
 
 **Coverage:**
 - v1 requirements: 27 total
 - Mapped to phases: 27
-- Unmapped: 0 ✓
+- Completed: 27 ✅
+- Archived: [.planning/milestones/v1-REQUIREMENTS.md](milestones/v1-REQUIREMENTS.md)
 
 ---
 *Requirements defined: 2026-05-02*
-*Last updated: 2026-05-02 after initial definition*
+*Completed and archived: 2026-05-02*

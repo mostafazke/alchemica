@@ -1,14 +1,32 @@
 # Roadmap: Alchemica
 
 **Project:** Alchemica — Mobile-first element combination PWA
-**Created:** 2026-05-02
-**Granularity:** Standard
-**Total phases:** 5
-**Requirements covered:** 27/27 ✓
+**Updated:** 2026-05-02
 
 ---
 
-## Phase 1: Foundation — Svelte Scaffold & Game Engine ✓ COMPLETE
+## ✅ Milestone v1 — Mobile PWA (SHIPPED 2026-05-02)
+
+5 phases · 25 plans · 61 elements · 27/27 requirements · PR #1 · git tag v1
+Full archive: [.planning/milestones/v1-ROADMAP.md](milestones/v1-ROADMAP.md)
+
+---
+
+## Milestone v2 — (Not yet planned)
+
+Run `/gsd-new-milestone` to define v2 requirements and roadmap.
+
+Known v2 candidates:
+- Self-host Space Mono font (completes ARCH-07 design intent)
+- Achievement system (PROG-01)
+- Discovery percentage on homescreen (PROG-02)
+- Cloud save sync (SOCL-01)
+- In-app content editor (CMS-01/CMS-02)
+- Native iOS/Android via Capacitor (PLAT-01)
+- Sound effects with mute toggle (PLAT-02)
+- Lighthouse PWA ≥ 90 audit (requires deployed URL)
+- Real-device offline test
+
 
 **Goal:** Migrate the working game from a single HTML file into a Svelte + TypeScript project with identical gameplay. The game must be playable at the end of this phase — every element, reaction, score, and combo working exactly as before.
 
