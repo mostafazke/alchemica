@@ -6,26 +6,22 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 **Core value:** Players can open the game on any device, pick up where they left off, and feel the satisfaction of discovering a new element — even with no internet connection.
 
-**Current focus:** Milestone v2 — Achievements & Daily Hook (roadmap ready, Phase 6 up next)
+**Current focus:** Milestone v2 archived ✓. Run `/gsd-new-milestone` to define v3.
 
 ## Current Position
 
-Phase: 8
+Phase: —
 Plan: —
-Status: Complete
-Last activity: 2026-05-02 — Phase 8 executed (7/7 plans, build 0 errors). Milestone v2 complete.
+Status: Milestone v2 archived
+Last activity: 2026-05-02 — Milestone v2 archived. ROADMAP.md compressed, REQUIREMENTS.md reset for v3, PROJECT.md updated. git tag v2.
 
-## Phase Status (v2)
+## Milestone Status
 
-| Phase | Name | Status | Plans |
-|-------|------|--------|-------|
-| 6 | Data Foundation & Save Schema | Complete | 4/4 |
-| 7 | Achievement Engine & Daily Logic | Complete | 5/5 |
-| 8 | Achievement & Daily UI | Complete | 7/7 |
-
-**Progress:** 3/3 phases complete — Milestone v2 complete ✓
-
-**Current focus:** Run `/gsd-next` to archive milestone or start v3.
+| Milestone | Status | Phases | Requirements |
+|-----------|--------|--------|--------------|
+| v1 — Mobile PWA | ✅ SHIPPED | 5 | 27/27 |
+| v2 — Achievements & Daily Hook | ✅ SHIPPED | 3 (6–8) | 21/21 |
+| v3 — TBD | ⏳ Not started | — | — |
 
 ## Session Log
 
@@ -40,6 +36,17 @@ Last activity: 2026-05-02 — Phase 8 executed (7/7 plans, build 0 errors). Mile
 - 2026-05-02: Milestone v1 audit gaps fixed — iron→lava+air (2-element), hydrogen→steam+plasma, TopBar count dynamic, hintCooldownEndsAt persisted. Commit 3d06e9e.
 - 2026-05-02: Milestone v1 archived. ROADMAP.md collapsed, REQUIREMENTS.md traceability updated, PROJECT.md Current State added. Archives at .planning/milestones/v1-ROADMAP.md + v1-REQUIREMENTS.md. Git tag v1 created.
 - 2026-05-02: Milestone v2 started (Achievements & Progression). Goals: discovery badges, TopBar %, achievement gallery, unlock toast, chime sound. localStorage only, 61 elements, phases 6+.
+- 2026-05-02: Milestone v2 roadmap created. 3 phases (6–8), 21 requirements mapped, 0 orphans. Phase 6 ready for planning.
+- 2026-05-02: Phase 6 context gathered. Decisions: same key + version bump, earnedAchievements+streak stores in achievements.ts, TopBar → "42/61 discovered", Set serialized as array, AchievementId typed union. Ready for planning.
+- 2026-05-02: Phase 6 planned. 4 plans in 4 waves: types (W1) → achievements store (W2) → game.ts+storage.ts migration (W3) → TopBar counter (W4). Verification passed. 4/4 requirements covered (ACHV-05, ACHV-06, PROG-01, STRK-04).
+- 2026-05-02: Phase 6 complete. 4/4 plans executed. AchievementId+SaveDataV2 types, achievements.ts stores, v1→v2 migration in game.ts+storage.ts (earnedAchievements, streakCount, lastCompletedDate), TopBar "N/62 discovered". Build: 0 errors, 0 warnings.
+- 2026-05-02: Phase 7 context gathered. Decisions: checkAchievements() inside applyReaction(), applyReaction returns newBadge+dailyCompleted, backfillAchievements() on init, date-seeded daily challenge (non-basic pool, local date, deterministic hash), streak via lastCompletedDate diff, sound.ts Web Audio oscillator iOS-safe. 4 new files planned.
+- 2026-05-02: Phase 7 planned. 5 plans in 3 waves: achievements+sound+daily-logic (W1) → daily-stores (W2) → reactions+game integration (W3). Verification passed. 9/9 requirements covered (ACHV-01–04, ACHV-06, DALY-02–04, STRK-02/03, PROG-06).
+- 2026-05-02: Phase 7 complete. 5/5 plans executed. game/achievements.ts (checkAchievements+backfillAchievements), effects/sound.ts (Web Audio chime, iOS-safe), game/daily.ts (getTodayDateStr+getDailyChallengeKey+completeDailyChallenge), stores/daily.ts (dailyChallengeTarget+dailyCompleted derived), reactions.ts+game.ts integration (newBadge+dailyCompleted return, backfill on init). Build: 0 errors, 0 warnings.
+- 2026-05-02: Phase 8 context gathered. 15 decisions: gallery=full-screen overlay, 2×2 badge grid, 4th BottomBar button (Achievements), toast=top-center queue 2.5s, daily challenge below MixingChamber, gold banner on completion, streak in DailyChallenge component, soundMuted in new stores/settings.ts, toast queue in stores/toast.ts, 3 new components (AchievementToast, AchievementGallery, DailyChallenge) + 1 new data file + 5 modified files.
+- 2026-05-02: Phase 8 planned. 7 plans in 3 waves: data+stores (W1) → 3 new components + TopBar/BottomBar mods (W2) → MixingChamber+Settings wiring + page wiring (W3). Verification passed. 8/8 requirements covered (PROG-02–06, DALY-01, DALY-05, STRK-01).
+- 2026-05-02: Phase 8 complete. 7/7 plans executed. badges.ts+settings.ts+toast.ts (W1), AchievementToast+AchievementGallery+DailyChallenge+TopBar pulse+BottomBar 4-button (W2), MixingChamber badge→toast wiring+chime+SettingsPanel mute toggle++page.svelte full integration (W3). Build: 0 errors. Milestone v2 complete.
+- 2026-05-02: Milestone v2 archived. ROADMAP.md compressed, REQUIREMENTS.md reset to v3 scaffold, PROJECT.md updated (Current State v2, Next Milestone v3 TBD). Archives at .planning/milestones/v2-ROADMAP.md + v2-REQUIREMENTS.md. Git tag v2.
 - 2026-05-02: Milestone v2 roadmap created. 3 phases (6–8), 21 requirements mapped, 0 orphans. Phase 6 ready for planning.
 - 2026-05-02: Phase 6 context gathered. Decisions: same key + version bump, earnedAchievements+streak stores in achievements.ts, TopBar → "42/61 discovered", Set serialized as array, AchievementId typed union. Ready for planning.
 - 2026-05-02: Phase 6 planned. 4 plans in 4 waves: types (W1) → achievements store (W2) → game.ts+storage.ts migration (W3) → TopBar counter (W4). Verification passed. 4/4 requirements covered (ACHV-05, ACHV-06, PROG-01, STRK-04).

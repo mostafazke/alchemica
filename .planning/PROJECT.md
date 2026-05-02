@@ -2,28 +2,39 @@
 
 ## Current State
 
-**Latest shipped:** v1 — 2026-05-02 (61 elements, offline PWA, 27/27 requirements)
-**Repo:** https://github.com/mostafazke/alchemica (PR #1 merged, tag v1)
+**Latest shipped:** v2 — 2026-05-02 (achievements, daily challenge, streak, 21/21 requirements)
+**Previous:** v1 — 2026-05-02 (61 elements, offline PWA, 27/27 requirements)
+**Repo:** https://github.com/mostafazke/alchemica
 **Stack:** SvelteKit + Svelte 5 + TypeScript + Vite 8 + vite-plugin-pwa
 
-## Current Milestone: v2 — Achievements & Daily Hook
+## Next Milestone: v3 — (Not yet defined)
+
+Run `/gsd-new-milestone` to define the v3 scope. Candidates from backlog:
+- **Capacitor native wrapper** (iOS + Android app store — prerequisite for monetization)
+- **Cloud save** (Google/Apple sign-in, cross-device sync)
+- **Monetization** (AdMob rewarded ads + remove-ads IAP)
+- **In-app content editor** (add elements/reactions without code changes)
+- **Streak bonuses** (combo multiplier during active streak)
+
+## Current Milestone: v2 — SHIPPED ✓
+
+<details>
+<summary>v2 scope (Achievements & Daily Hook — shipped 2026-05-02)</summary>
 
 **Goal:** Give players a reason to come back every day — achievement milestones for long-term progress and a daily challenge with streak for daily habit.
 
-**Target features:**
-- Discovery milestone badges (10, 25, 50, 61 discovered) — emoji + name + unlock condition
-- TopBar "42/61 discovered" counter
-- Achievement gallery — earned ✓ / locked 🔒 badges, accessible from BottomBar
-- Achievement unlock toast + short chime (mutable)
-- Daily challenge — target element to discover, resets every calendar day, date-seeded
-- Streak counter — consecutive days completing the daily challenge
-- Achievements + streak persisted to localStorage (versioned schema bump v1→v2)
+**Shipped:**
+- Discovery milestone badges (10, 25, 50, 61 discovered) — Apprentice / Alchemist / Sage / Grand Master
+- TopBar "N/61 discovered" counter with gold pulse on milestone
+- Achievement gallery (BottomBar 🏆 Badges button, 2×2 earned/locked grid)
+- Achievement unlock toast (top-center, FIFO, 2.5s auto-dismiss)
+- Achievement chime (iOS-safe Web Audio, mutable in Settings)
+- Daily challenge (date-seeded, auto-completes, gold banner, persists)
+- Streak counter (consecutive daily completions, persisted)
+- v1→v2 save migration (backward-compatible, zero data loss, backfill)
 
-**Constraints:**
-- Element count stays at 61 — no content expansion in v2
-- localStorage only — no cloud sync, no backend
-- Phases continue numbering from v1 (Phase 6+)
-- Revenue model deferred to v3 (Capacitor + AdMob after hook proven)
+Archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
+</details>
 
 ---
 
@@ -37,7 +48,10 @@ Players can open the game on any device, pick up where they left off, and feel t
 
 ## Requirements
 
-### Validated (v1 — SHIPPED)
+### Validated (v1 — SHIPPED) & (v2 — SHIPPED)
+
+<details>
+<summary>v1 validated (27 requirements)</summary>
 
 - ✓ 32 elements with 2-element reaction system — existing prototype
 - ✓ Canvas particle effects on reaction — existing prototype
@@ -51,25 +65,21 @@ Players can open the game on any device, pick up where they left off, and feel t
 - ✓ 61 elements, category shelf, hint system (30s cooldown) — Phase 4
 - ✓ Web Share API + clipboard fallback — Phase 4
 - ✓ PWA: service worker, offline-capable, installable, manifest — Phase 5
+</details>
 
-### Active (v2 — Achievements & Daily Hook)
+<details>
+<summary>v2 validated (21 requirements)</summary>
 
-**Achievement System**
-- [ ] ACHV-01–04: Discovery milestone badges (10 / 25 / 50 / 61 elements)
-- [ ] ACHV-05: Achievement state persisted to localStorage (versioned schema v1→v2)
-- [ ] ACHV-06: Back-calculate earned achievements from v1 save on first v2 load
+- ✓ ACHV-01–04: Discovery milestone badges (10 / 25 / 50 / 61 elements) — Phase 7
+- ✓ ACHV-05–06: Achievement persistence + v1→v2 backfill — Phase 6
+- ✓ PROG-01–06: TopBar counter, pulse, gallery, toast, chime (mutable) — Phases 6 + 8
+- ✓ DALY-01–05: Daily challenge display, auto-complete, date-seeded, persisted, visual confirm — Phases 7 + 8
+- ✓ STRK-01–04: Streak display, increment, reset, persist — Phases 6 + 7 + 8
+</details>
 
-**Progress Display**
-- [ ] PROG-01–02: TopBar "42/61 discovered" counter with milestone pulse
-- [ ] PROG-03–04: Achievement gallery (earned / locked) via BottomBar
-- [ ] PROG-05–06: Unlock toast + chime (mutable via Settings)
+### Active (v3 — Not yet defined)
 
-**Daily Challenge**
-- [ ] DALY-01–03: Daily target element, auto-complete on discovery, resets each calendar day
-- [ ] DALY-04–05: Completed state persists; visual confirmation on completion
-
-**Streak**
-- [ ] STRK-01–04: Streak counter displayed, increments daily, resets on miss, persisted
+Run `/gsd-new-milestone` to plan Milestone v3.
 
 ### Out of Scope
 
