@@ -5,9 +5,11 @@
 	import DiscoveryLog from '$lib/components/DiscoveryLog.svelte';
 	import BottomBar from '$lib/components/BottomBar.svelte';
 	import BottomSheet from '$lib/components/BottomSheet.svelte';
+	import SettingsPanel from '$lib/components/SettingsPanel.svelte';
 
 	let shelfOpen = $state(false);
 	let discoverySheetOpen = $state(false);
+	let settingsOpen = $state(false);
 </script>
 
 <div class="app">
@@ -27,10 +29,13 @@
 		onToggleShelf={() => shelfOpen = !shelfOpen}
 		{discoverySheetOpen}
 		onToggleDiscoveries={() => discoverySheetOpen = !discoverySheetOpen}
+		{settingsOpen}
+		onToggleSettings={() => settingsOpen = !settingsOpen}
 	/>
 	<BottomSheet open={discoverySheetOpen} onClose={() => discoverySheetOpen = false}>
 		<DiscoveryLog />
 	</BottomSheet>
+	<SettingsPanel open={settingsOpen} onClose={() => settingsOpen = false} />
 </div>
 
 <style>

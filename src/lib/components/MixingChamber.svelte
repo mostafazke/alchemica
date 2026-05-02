@@ -5,6 +5,7 @@
   import { slots, combo } from '../stores/game.js';
   import { applyReaction } from '../game/reactions.js';
   import { initParticles, triggerSuccessParticles, triggerFailParticles } from '../effects/particles.js';
+  import { hapticSuccess, hapticFail } from '../utils/touch.js';
 
   let canvasEl: HTMLCanvasElement;
   let result: string | null = $state(null);
@@ -29,8 +30,10 @@
 
     if (reaction.result) {
       triggerSuccessParticles(cx, cy);
+      hapticSuccess();
     } else {
       triggerFailParticles(cx, cy);
+      hapticFail();
     }
   }
 </script>

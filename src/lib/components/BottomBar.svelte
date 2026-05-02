@@ -1,11 +1,13 @@
 <script lang="ts">
   import { discoveries } from '../stores/game.js';
 
-  let { shelfOpen = false, onToggleShelf, discoverySheetOpen = false, onToggleDiscoveries }: {
+  let { shelfOpen = false, onToggleShelf, discoverySheetOpen = false, onToggleDiscoveries, settingsOpen = false, onToggleSettings }: {
     shelfOpen?: boolean;
     onToggleShelf?: () => void;
     discoverySheetOpen?: boolean;
     onToggleDiscoveries?: () => void;
+    settingsOpen?: boolean;
+    onToggleSettings?: () => void;
   } = $props();
 </script>
 
@@ -29,6 +31,14 @@
     {#if $discoveries.length > 0}
       <span class="disc-badge">{$discoveries.length}</span>
     {/if}
+  </button>
+  <button
+    class="bar-btn"
+    class:active={settingsOpen}
+    onclick={onToggleSettings}
+    aria-label="Open settings"
+  >
+    ⚙ <span class="bar-btn-label">Settings</span>
   </button>
 </footer>
 

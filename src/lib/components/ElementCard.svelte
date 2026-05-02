@@ -1,11 +1,16 @@
 <script lang="ts">
   import { ELEMENTS } from '../data/elements.js';
   import { slots } from '../stores/game.js';
+  import { createLongPress, haptic } from '../utils/touch.js';
+  import ElementDetail from './ElementDetail.svelte';
 
   let { elementKey }: { elementKey: string } = $props();
 
   const el = $derived(ELEMENTS[elementKey]);
   const isSelected = $derived($slots.a === elementKey || $slots.b === elementKey);
+
+  let detailOpen = $state(false);
+  let buttonEl: HTMLButtonElement | undefined = $state();
 
   function handleClick() {
     slots.update((s) => {
@@ -14,13 +19,25 @@
       return { a: elementKey, b: null };
     });
   }
+
+  $effect(() => {
+    if (!buttonEl) return;
+    return createLongPress(buttonEl, {
+      duration: 500,
+      onLongPress: () => {
+        haptic(40);
+        detailOpen = true;
+      },
+      onTap: handleClick,
+    });
+  });
 </script>
 
 {#if el}
 <button
   class="element-card"
   class:selected={isSelected}
-  onclick={handleClick}
+  bind:this={buttonEl}
   title={el.desc}
 >
   <div class="el-icon {el.color}">{el.symbol}</div>
@@ -30,6 +47,7 @@
     <div class="el-category">{el.category}</div>
   </div>
 </button>
+<ElementDetail element={detailOpen ? el : null} onClose={() => detailOpen = false} />
 {/if}
 
 <style>

@@ -14,13 +14,13 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 |-------|------|--------|-------|
 | 1 | Foundation — Svelte Scaffold & Game Engine | ✓ Complete | 5/5 |
 | 2 | Mobile Layout & Responsive Design | ✓ Complete | 5/5 |
-| 3 | Touch, Persistence & Save/Load | ○ Pending | 5 |
+| 3 | Touch, Persistence & Save/Load | ✓ Complete | 5/5 |
 | 4 | Content Expansion & Hint System | ○ Pending | 5 |
 | 5 | PWA, Offline & Polish | ○ Pending | 5 |
 
-**Progress:** 2/5 phases complete
+**Progress:** 3/5 phases complete
 
-**Current focus:** Phase 3 — Touch, Persistence & Save/Load
+**Current focus:** Phase 4 — Content Expansion & Hint System
 
 ## Session Log
 
@@ -28,3 +28,4 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 - 2026-05-02: Phase 1 complete. 5/5 plans executed. Svelte 5 + Vite 6 project scaffolded, all 32 elements ported, stores with localStorage, 9 UI components, particle system. Game is fully playable.
 - 2026-05-02: Migrated to SvelteKit scaffold. Upgraded to Vite 8 + @sveltejs/vite-plugin-svelte v7 + TypeScript v6 + Vitest v4. Removed Paraglide (i18n) and Drizzle/libSQL (DB). Added ESLint/Prettier/Playwright. adapter-static for PWA static export. App.svelte → routes/+page.svelte. Build: 0 errors.
 - 2026-05-02: Phase 2 complete. 5/5 plans executed. CSS Grid layout with 3 breakpoints, BottomSheet component, category-grouped shelf with collapsible sections, 44px+ touch targets, touch-action: manipulation everywhere, viewport meta updated. Build: 0 errors.
+- 2026-05-02: Phase 3 complete. 5/5 plans executed. touch.ts (hapticSuccess/Fail, createLongPress, createSwipeHandler), ElementDetail.svelte popover on long-press, ElementCard long-press wired, Shelf swipe tab cycling, storage.ts (versioned export/import JSON), SettingsPanel.svelte with Export/Import UI, BottomBar Settings button, haptics in MixingChamber. Build: 0 errors, 0 warnings.

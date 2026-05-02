@@ -1,9 +1,12 @@
 <script lang="ts">
   import { unlockedElements } from '../stores/game.js';
   import { ELEMENTS } from '../data/elements.js';
+  import { createSwipeHandler } from '../utils/touch.js';
   import ElementCard from './ElementCard.svelte';
 
   let filter: 'all' | 'basic' | 'found' = $state('all');
+
+  const FILTER_ORDER: Array<'all' | 'basic' | 'found'> = ['all', 'basic', 'found'];
 
   const CATEGORY_META: Record<string, { label: string; icon: string }> = {
     basic:    { label: 'Basic',    icon: '⬡' },
@@ -20,12 +23,28 @@
   const CATEGORY_ORDER = ['basic', 'fire', 'water', 'earth', 'air', 'metal', 'energy', 'gas', 'compound'];
 
   let collapsedCategories: Set<string> = $state(new Set());
+  let shelfPanelEl: HTMLElement | undefined = $state();
 
   function toggleCategory(cat: string) {
     const next = new Set(collapsedCategories);
     if (next.has(cat)) next.delete(cat); else next.add(cat);
     collapsedCategories = next;
   }
+
+  $effect(() => {
+    if (!shelfPanelEl) return;
+    return createSwipeHandler(shelfPanelEl, {
+      threshold: 40,
+      onSwipeLeft: () => {
+        const idx = FILTER_ORDER.indexOf(filter);
+        filter = FILTER_ORDER[(idx + 1) % FILTER_ORDER.length];
+      },
+      onSwipeRight: () => {
+        const idx = FILTER_ORDER.indexOf(filter);
+        filter = FILTER_ORDER[(idx - 1 + FILTER_ORDER.length) % FILTER_ORDER.length];
+      },
+    });
+  });
 
   const filteredKeys = $derived(
     [...$unlockedElements].filter((k) => {
@@ -54,7 +73,7 @@
   );
 </script>
 
-<aside class="shelf-panel">
+<aside class="shelf-panel" bind:this={shelfPanelEl}>
   <div class="shelf-header">
     <span class="shelf-title">Elements</span>
     <span class="shelf-count">{$unlockedElements.size}</span>
