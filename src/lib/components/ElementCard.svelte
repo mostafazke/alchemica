@@ -46,6 +46,7 @@
     width: 100%;
     text-align: left;
     min-height: 44px;
+    touch-action: manipulation;
   }
   .element-card:hover { border-color: #4af0c060; background: #0f2035; }
   .element-card.selected { border-color: #4af0c0; background: #0f3028; box-shadow: 0 0 8px #4af0c040; }
@@ -58,6 +59,18 @@
   .el-formula { font-family: 'Space Mono', monospace; font-size: 9px; color: #4af0c0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .el-name { font-size: 12px; font-weight: 600; color: #c8d8e8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .el-category { font-size: 9px; color: #4a6080; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  @media (max-width: 768px) {
+    .element-card {
+      min-height: 52px;
+      padding: 8px 10px;
+    }
+    .el-icon {
+      width: 36px;
+      height: 36px;
+      font-size: 20px;
+    }
+  }
 
   /* Category icon backgrounds */
   :global(.cat-fire)     { background: #2d1810; color: #ff6b35; }

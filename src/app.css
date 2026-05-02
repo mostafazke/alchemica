@@ -7,6 +7,7 @@
 html, body {
   height: 100%;
   overflow: hidden;
+  overflow-x: hidden;
   background: #0d1b2e;
   color: #c8d8e8;
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -18,3 +19,7 @@ html, body {
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: #080f1a; }
 ::-webkit-scrollbar-thumb { background: #1a3a5a; border-radius: 2px; }
+
+button, [role="button"] {
+  touch-action: manipulation;
+}

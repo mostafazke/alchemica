@@ -49,6 +49,19 @@
     cursor: pointer; font-size: 11px; padding: 3px; line-height: 1;
     border-radius: 4px;
     min-width: 20px; min-height: 20px;
+    touch-action: manipulation;
   }
   .slot-clear:hover { color: #ff6b6b; background: #ff6b6b20; }
+  @media (max-width: 768px) {
+    .slot {
+      width: 110px;
+      height: 110px;
+    }
+    .slot-clear {
+      min-width: 32px;
+      min-height: 32px;
+      font-size: 13px;
+      padding: 6px;
+    }
+  }
 </style>

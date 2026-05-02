@@ -13,17 +13,18 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 | Phase | Name | Status | Plans |
 |-------|------|--------|-------|
 | 1 | Foundation — Svelte Scaffold & Game Engine | ✓ Complete | 5/5 |
-| 2 | Mobile Layout & Responsive Design | ○ Pending | 5 |
+| 2 | Mobile Layout & Responsive Design | ✓ Complete | 5/5 |
 | 3 | Touch, Persistence & Save/Load | ○ Pending | 5 |
 | 4 | Content Expansion & Hint System | ○ Pending | 5 |
 | 5 | PWA, Offline & Polish | ○ Pending | 5 |
 
-**Progress:** 1/5 phases complete
+**Progress:** 2/5 phases complete
 
-**Current focus:** Phase 2 — Mobile Layout & Responsive Design
+**Current focus:** Phase 3 — Touch, Persistence & Save/Load
 
 ## Session Log
 
 - 2026-05-02: Project initialized. Requirements defined (27 v1). Roadmap created (5 phases). Ready for Phase 1.
 - 2026-05-02: Phase 1 complete. 5/5 plans executed. Svelte 5 + Vite 6 project scaffolded, all 32 elements ported, stores with localStorage, 9 UI components, particle system. Game is fully playable.
 - 2026-05-02: Migrated to SvelteKit scaffold. Upgraded to Vite 8 + @sveltejs/vite-plugin-svelte v7 + TypeScript v6 + Vitest v4. Removed Paraglide (i18n) and Drizzle/libSQL (DB). Added ESLint/Prettier/Playwright. adapter-static for PWA static export. App.svelte → routes/+page.svelte. Build: 0 errors.
+- 2026-05-02: Phase 2 complete. 5/5 plans executed. CSS Grid layout with 3 breakpoints, BottomSheet component, category-grouped shelf with collapsible sections, 44px+ touch targets, touch-action: manipulation everywhere, viewport meta updated. Build: 0 errors.

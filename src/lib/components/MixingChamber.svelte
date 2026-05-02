@@ -88,6 +88,7 @@
     transition: background 0.2s, box-shadow 0.2s;
     letter-spacing: 1px;
     min-height: 44px;
+    touch-action: manipulation;
   }
   .react-btn:hover:not(:disabled) {
     background: linear-gradient(135deg, #2a6a5a, #1f4038);
@@ -99,5 +100,17 @@
     background: #ffe44a; color: #0d1b2e;
     font-size: 10px; font-weight: 700;
     padding: 2px 6px; border-radius: 10px;
+  }
+  @media (max-width: 768px) {
+    .react-btn {
+      width: 100%;
+      min-height: 52px;
+      font-size: 16px;
+      border-radius: 12px;
+    }
+    .mixing-chamber {
+      padding: 16px;
+      gap: 16px;
+    }
   }
 </style>
