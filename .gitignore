@@ -171,3 +171,10 @@ src/lib/paraglide
 project.inlang/cache/
 # SQLite
 *.db
+
+# Capacitor Android — secrets and build artifacts (android/ directory is committed)
+android/local.properties
+android/.gradle/
+android/app/release/
+android/build/
+android/*.jks
