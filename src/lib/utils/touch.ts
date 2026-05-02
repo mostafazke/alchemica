@@ -2,31 +2,45 @@
  * touch.ts — Touch interaction utilities
  * Long-press detector, swipe handler, haptic feedback
  */
+import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
+import { Capacitor } from '@capacitor/core';
 
 // ─── Haptic ──────────────────────────────────────────────────────────────────
 
-/** Vibrate on success reaction (50ms) */
-export function hapticSuccess(): void {
+/** Vibrate on success reaction (50ms) — uses Haptics.notification on native, navigator.vibrate on web */
+export async function hapticSuccess(): Promise<void> {
   try {
-    if ('vibrate' in navigator) navigator.vibrate(50);
+    if (Capacitor.isNativePlatform()) {
+      await Haptics.notification({ type: NotificationType.Success });
+    } else if ('vibrate' in navigator) {
+      navigator.vibrate(50);
+    }
   } catch {
     // silently ignore — vibration not supported or blocked
   }
 }
 
-/** Vibrate on failed reaction (short double-pulse) */
-export function hapticFail(): void {
+/** Vibrate on failed reaction (short double-pulse) — uses Haptics.notification on native, navigator.vibrate on web */
+export async function hapticFail(): Promise<void> {
   try {
-    if ('vibrate' in navigator) navigator.vibrate([20, 30, 20]);
+    if (Capacitor.isNativePlatform()) {
+      await Haptics.notification({ type: NotificationType.Error });
+    } else if ('vibrate' in navigator) {
+      navigator.vibrate([20, 30, 20]);
+    }
   } catch {
     // silently ignore
   }
 }
 
-/** Generic haptic pulse with custom pattern */
-export function haptic(pattern: number | number[] = 30): void {
+/** Generic haptic pulse with custom pattern — uses Haptics.impact on native, navigator.vibrate on web */
+export async function haptic(pattern: number | number[] = 30): Promise<void> {
   try {
-    if ('vibrate' in navigator) navigator.vibrate(pattern);
+    if (Capacitor.isNativePlatform()) {
+      await Haptics.impact({ style: ImpactStyle.Light });
+    } else if ('vibrate' in navigator) {
+      navigator.vibrate(pattern);
+    }
   } catch {
     // silently ignore
   }
