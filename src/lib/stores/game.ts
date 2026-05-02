@@ -87,6 +87,13 @@ export const hintCooldownEndsAt = writable<number>(
     : 0
 );
 
+/** Hint credits earned from rewarded ads. Decrement on use; never touches cooldown. */
+export const hintBalance = writable<number>(
+  typeof localStorage !== 'undefined'
+    ? Number(localStorage.getItem('alchemica_hint_balance') ?? 0)
+    : 0
+);
+
 // --- Auto-save on change ---
 
 function saveToStorage(): void {
@@ -117,12 +124,16 @@ lastCompletedDate.subscribe(saveToStorage);
 hintCooldownEndsAt.subscribe((v) => {
   try { localStorage.setItem('alchemica_hint_cooldown', String(v)); } catch { /* ignore */ }
 });
+hintBalance.subscribe((v) => {
+  try { localStorage.setItem('alchemica_hint_balance', String(v)); } catch { /* ignore */ }
+});
 
 // --- Reset ---
 
 export function resetGame(): void {
   try {
     localStorage.removeItem(SAVE_KEY);
+    localStorage.removeItem('alchemica_hint_balance');
   } catch {
     // ignore
   }
@@ -135,4 +146,5 @@ export function resetGame(): void {
   earnedAchievements.set(new Set<AchievementId>());
   streakCount.set(0);
   lastCompletedDate.set(null);
+  hintBalance.set(0);
 }

@@ -1,9 +1,12 @@
 <script lang="ts">
-  import { unlockedElements, hintCooldownEndsAt } from '../stores/game.js';
+  import { unlockedElements, hintCooldownEndsAt, hintBalance } from '../stores/game.js';
+  import { isAdReady, requestAdHint } from '../effects/admob.js';
   import { getHint } from '../game/reactions.js';
   import { ELEMENTS } from '../data/elements.js';
+  import { Capacitor } from '@capacitor/core';
 
   const COOLDOWN_MS = 30_000;
+  const isNative = Capacitor.isNativePlatform();
 
   let now = $state(Date.now());
 
@@ -17,16 +20,20 @@
   );
 
   const hint = $derived(
-    cooldownRemaining === 0 ? getHint($unlockedElements) : null
+    (cooldownRemaining === 0 || $hintBalance > 0) ? getHint($unlockedElements) : null
   );
 
-  const canHint = $derived(cooldownRemaining === 0 && hint !== null);
+  const canHint = $derived(hint !== null && ($hintBalance > 0 || cooldownRemaining === 0));
 
   let hintVisible = $state(false);
 
   function useHint() {
     if (!canHint || !hint) return;
-    hintCooldownEndsAt.set(Date.now() + COOLDOWN_MS);
+    if ($hintBalance > 0) {
+      hintBalance.update((n) => n - 1); // balance hint — no cooldown applied
+    } else {
+      hintCooldownEndsAt.set(Date.now() + COOLDOWN_MS); // organic hint
+    }
     hintVisible = true;
   }
 
@@ -54,6 +61,17 @@
       💡 Hint
     {/if}
   </button>
+
+  {#if isNative && cooldownRemaining > 0 && $hintBalance === 0}
+    <button
+      class="ad-btn"
+      disabled={!$isAdReady}
+      onclick={requestAdHint}
+      aria-label={$isAdReady ? 'Watch ad for hint' : 'No ad available'}
+    >
+      {$isAdReady ? '📺 Watch ad' : 'No ad available'}
+    </button>
+  {/if}
 
   {#if hintVisible && hint && hintElA && hintElB}
     <div class="hint-overlay" role="status">
@@ -119,4 +137,23 @@
     touch-action: manipulation;
   }
   .hint-dismiss:hover { color: #ff6b6b; }
+  .ad-btn {
+    padding: 6px 16px;
+    border-radius: 8px;
+    border: 1px solid #4a6fa5;
+    background: transparent;
+    color: #a0b8d8;
+    font-size: 12px;
+    font-family: 'Space Mono', monospace;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    touch-action: manipulation;
+  }
+  .ad-btn:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
+  .ad-btn:not(:disabled):active {
+    opacity: 0.7;
+  }
 </style>
