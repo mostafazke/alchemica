@@ -120,6 +120,8 @@
     border-right: 1px solid #1a2e4a;
     width: 100%; flex-shrink: 0;
     overflow: hidden;
+    flex: 1;
+    min-height: 0;
   }
   .shelf-header {
     display: flex; align-items: center; justify-content: space-between;
@@ -140,6 +142,8 @@
     flex: 1; overflow-y: auto;
     padding: 2px 8px 8px;
     display: flex; flex-direction: column; gap: 3px;
+    min-height: 0;
+    -webkit-overflow-scrolling: touch;
   }
   .empty-shelf { color: #2a3550; font-size: 11px; text-align: center; padding: 16px; }
 

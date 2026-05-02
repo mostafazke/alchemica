@@ -103,6 +103,8 @@
 			transform: translateX(-100%);
 			transition: transform 0.25s ease;
 			overflow: hidden;
+			display: flex;
+			flex-direction: column;
 		}
 		.shelf-container.open {
 			transform: translateX(0);
