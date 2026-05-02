@@ -6,22 +6,24 @@
 **Repo:** https://github.com/mostafazke/alchemica (PR #1 merged, tag v1)
 **Stack:** SvelteKit + Svelte 5 + TypeScript + Vite 8 + vite-plugin-pwa
 
-## Current Milestone: v2 — Achievements & Progression
+## Current Milestone: v2 — Achievements & Daily Hook
 
-**Goal:** Make discovery progress feel rewarding through achievement badges and visible progress tracking.
+**Goal:** Give players a reason to come back every day — achievement milestones for long-term progress and a daily challenge with streak for daily habit.
 
 **Target features:**
-- Discovery milestone badges (10, 25, 50, all 61) — emoji + name + unlock condition
-- Discovery % counter in TopBar (e.g. "42/61 discovered")
-- Achievement gallery — earned vs locked badges, accessible from BottomBar
-- Achievement unlock toast notification
-- Badge unlock sound effect (short chime, mutable)
-- Achievements persisted to localStorage (versioned save schema bump)
+- Discovery milestone badges (10, 25, 50, 61 discovered) — emoji + name + unlock condition
+- TopBar "42/61 discovered" counter
+- Achievement gallery — earned ✓ / locked 🔒 badges, accessible from BottomBar
+- Achievement unlock toast + short chime (mutable)
+- Daily challenge — target element to discover, resets every calendar day, date-seeded
+- Streak counter — consecutive days completing the daily challenge
+- Achievements + streak persisted to localStorage (versioned schema bump v1→v2)
 
 **Constraints:**
 - Element count stays at 61 — no content expansion in v2
-- localStorage only — no cloud sync
+- localStorage only — no cloud sync, no backend
 - Phases continue numbering from v1 (Phase 6+)
+- Revenue model deferred to v3 (Capacitor + AdMob after hook proven)
 
 ---
 
@@ -50,31 +52,34 @@ Players can open the game on any device, pick up where they left off, and feel t
 - ✓ Web Share API + clipboard fallback — Phase 4
 - ✓ PWA: service worker, offline-capable, installable, manifest — Phase 5
 
-### Active (v2 — Achievements & Progression)
+### Active (v2 — Achievements & Daily Hook)
 
 **Achievement System**
-- [ ] Achievement definitions in typed TS config (id, name, emoji, condition, threshold)
-- [ ] Achievement engine evaluates unlock conditions on every game event
-- [ ] Discovery milestones: 10, 25, 50, 61 elements discovered
-- [ ] Achievement state persisted to localStorage (versioned schema)
+- [ ] ACHV-01–04: Discovery milestone badges (10 / 25 / 50 / 61 elements)
+- [ ] ACHV-05: Achievement state persisted to localStorage (versioned schema v1→v2)
+- [ ] ACHV-06: Back-calculate earned achievements from v1 save on first v2 load
 
 **Progress Display**
-- [ ] TopBar shows discovery count (e.g. "42/61 discovered")
-- [ ] Achievement gallery screen (earned ✓ / locked 🔒 badges)
-- [ ] Achievement unlock toast notification
+- [ ] PROG-01–02: TopBar "42/61 discovered" counter with milestone pulse
+- [ ] PROG-03–04: Achievement gallery (earned / locked) via BottomBar
+- [ ] PROG-05–06: Unlock toast + chime (mutable via Settings)
 
-**Sound**
-- [ ] Badge unlock sound effect (short chime)
-- [ ] Mute toggle in settings (extends existing SettingsPanel)
+**Daily Challenge**
+- [ ] DALY-01–03: Daily target element, auto-complete on discovery, resets each calendar day
+- [ ] DALY-04–05: Completed state persists; visual confirmation on completion
+
+**Streak**
+- [ ] STRK-01–04: Streak counter displayed, increments daily, resets on miss, persisted
 
 ### Out of Scope
 
-- Native iOS/Android app store distribution — PWA homescreen install is sufficient for v1
-- Backend / server-side storage — localStorage is sufficient; cloud sync is a future feature
-- Real-time multiplayer — single-player game; social features are share-only
-- In-app editor — JSON/TS config file covers v1 content management; editor is v2
-- Sound effects — not planned for v1; can be added post-launch as progressive enhancement
-- User accounts / leaderboards — out of scope for v1 public release
+- Native iOS/Android app store distribution — v3 (Capacitor wrapper, after hook proven)
+- Backend / server-side storage — localStorage sufficient; cloud sync is v3
+- Real-time multiplayer — requires backend + accounts; v4+
+- In-app editor — JSON/TS config sufficient for v2; editor is v3+
+- Monetization (ads, IAP) — v3 after engagement metrics established
+- User accounts / leaderboards — v3+ requires cloud infrastructure
+- Push notifications — requires backend or native; v3+
 
 ## Context
 

@@ -53,38 +53,85 @@
 - [ ] **PWA-02**: App is installable as standalone (no browser chrome) from Chrome, Safari, and Edge on iOS/Android/desktop
 - [ ] **PWA-03**: Offline/online status indicator shown in UI when connection is lost or restored
 
-## v2 Requirements
+## v2 Requirements — Achievements & Daily Hook
 
-### Content Management
+**Defined:** 2026-05-02
+**Goal:** Give players a reason to come back every day — achievement milestones for long-term progress and a daily challenge with streak for daily habit.
+
+### Achievement System (ACHV)
+
+- [ ] **ACHV-01**: User earns a badge when they discover their 10th element
+- [ ] **ACHV-02**: User earns a badge when they discover their 25th element
+- [ ] **ACHV-03**: User earns a badge when they discover their 50th element
+- [ ] **ACHV-04**: User earns a badge when they discover all 61 elements
+- [ ] **ACHV-05**: User's earned achievements persist across sessions (survive reload and app restart)
+- [ ] **ACHV-06**: Earned achievements are back-calculated from v1 save data on first v2 load — no player loses progress they already earned
+
+### Progress Display (PROG)
+
+- [ ] **PROG-01**: TopBar shows discovery count as "42/61 discovered" at all times
+- [ ] **PROG-02**: TopBar counter pulses visually when a milestone badge unlocks
+- [ ] **PROG-03**: User can open the achievement gallery from a BottomBar button
+- [ ] **PROG-04**: Achievement gallery shows all 4 badges — earned (full opacity + emoji) vs locked (dimmed + lock icon)
+- [ ] **PROG-05**: User sees an unlock toast when an achievement fires — badge emoji + name, auto-dismisses in 2.5s
+- [ ] **PROG-06**: User hears a short chime when an achievement unlocks — mutable via Settings toggle
+
+### Daily Challenge (DALY)
+
+- [ ] **DALY-01**: User sees today's daily challenge on launch — a target element to discover ("Today: Volcano")
+- [ ] **DALY-02**: Daily challenge completes automatically when the player creates the target element
+- [ ] **DALY-03**: Challenge resets to a new target element each calendar day (date-seeded — same target for all players on the same day)
+- [ ] **DALY-04**: Completed challenge state persists so the challenge doesn't appear incomplete after page reload
+- [ ] **DALY-05**: User receives visual confirmation (distinct from the normal result display) when they complete today's challenge
+
+### Streak (STRK)
+
+- [ ] **STRK-01**: User's daily challenge streak count is displayed in the UI
+- [ ] **STRK-02**: Streak increments by 1 each calendar day the user completes the daily challenge
+- [ ] **STRK-03**: Streak resets to 0 if the user misses completing the challenge for a full calendar day
+- [ ] **STRK-04**: Streak persists to localStorage and survives reload and app restart
+
+## Future Requirements (v3+)
+
+### Monetization (v3)
+
+- **MOTZ-01**: Rewarded video ad grants one free hint (AdMob via Capacitor native wrapper)
+- **MOTZ-02**: Remove-ads one-time IAP ($2.99–$4.99) — removes rewarded ad prompts permanently
+- **MOTZ-03**: Hint bundle IAP — purchase 10 hints without watching ads
+
+### Social (v3–v4)
+
+- **SOCL-01**: Cloud save synced across devices (Google/Apple sign-in)
+- **SOCL-02**: Async leaderboard — compare discovery count with friends
+- **SOCL-03**: Global leaderboard (top discovery counts)
+
+### Platform (v3)
+
+- **PLAT-01**: Capacitor native wrapper for iOS and Android (prerequisite for AdMob + Play Games Services)
+- **PLAT-02**: Google Play Games Services integration (leaderboards, cloud saves, achievements)
+
+### Daily Engagement (v3)
+
+- **DALY-06**: Push notification when daily challenge resets (requires native or PWA push)
+- **STRK-05**: Streak bonus — higher combo multiplier on reaction days during an active streak
+
+### Content (v3+)
 
 - **CMS-01**: In-app editor UI — add, edit, and delete elements and reactions without code changes
 - **CMS-02**: Admin authentication to protect editor access
 
-### Progression
-
-- **PROG-01**: Achievement system — unlock badges for milestone discoveries (e.g., "Discovered 10 elements")
-- **PROG-02**: Discovery percentage displayed on homescreen (e.g., "42/60 elements found")
-
-### Social
-
-- **SOCL-01**: Cloud save synced across devices (Firebase or Supabase)
-- **SOCL-02**: Global leaderboard (top discovery counts)
-
-### Platform
-
-- **PLAT-01**: Native iOS/Android app via Capacitor for app store distribution
-- **PLAT-02**: Sound effects with mute toggle
-
-## Out of Scope
+## Out of Scope (v2)
 
 | Feature | Reason |
 |---------|--------|
-| App store distribution (Capacitor) | PWA homescreen install satisfies mobile-first goal without app store review delays |
-| Cloud save / user accounts | localStorage sufficient for v1; adds backend complexity not justified at launch |
-| Sound effects | Progressive enhancement — good v2 candidate, not blocking v1 value |
-| Real-time multiplayer | Single-player is the core loop; social is share-only in v1 |
-| In-app content editor | Config file sufficient for controlled v1 content growth; editor is v2 |
-| Analytics | Privacy-sensitive; add post-launch if needed |
+| Push notifications | Requires service worker push + backend — no backend in v2 |
+| Streak bonuses / rewards | Monetization hook — belongs in v3 with IAP |
+| Leaderboards | Requires accounts or cloud sync — v3 |
+| Friend comparison | Requires accounts — v3 |
+| In-app purchases / ads | Revenue in v3 after hook is proven |
+| Capacitor / native wrapper | v3 prerequisite for AdMob + Play Games |
+| Real-time multiplayer | Backend + accounts required — v4+ |
+| Analytics | Privacy-sensitive; add post-launch when needed |
 
 ## Traceability
 
@@ -123,12 +170,17 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PWA-02 | Phase 5 | ✅ Complete |
 | PWA-03 | Phase 5 | ✅ Complete |
 
-**Coverage:**
+**v1 Coverage:**
 - v1 requirements: 27 total
 - Mapped to phases: 27
 - Completed: 27 ✅
 - Archived: [.planning/milestones/v1-REQUIREMENTS.md](milestones/v1-REQUIREMENTS.md)
 
+**v2 Coverage:**
+- v2 requirements: 20 total
+- Mapped to phases: TBD (roadmap pending)
+- Completed: 0
+
 ---
-*Requirements defined: 2026-05-02*
-*Completed and archived: 2026-05-02*
+*v1 requirements defined: 2026-05-02 | Completed and archived: 2026-05-02*
+*v2 requirements defined: 2026-05-02*
