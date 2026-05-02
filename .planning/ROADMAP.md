@@ -37,7 +37,13 @@ Full archive: [.planning/milestones/v1-ROADMAP.md](milestones/v1-ROADMAP.md)
   3. A player who had 25+ elements in v1 immediately has the correct achievements pre-earned on first v2 load — without taking any action
   4. Earned achievements and streak survive a full page reload and browser restart
   5. Saving and loading with `earnedAchievements` as a `Set<string>` round-trips correctly through JSON (no `{}` corruption)
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 06-01-PLAN.md — Add AchievementId type and SaveDataV2 interface to types.ts
+- [ ] 06-02-PLAN.md — Create achievements.ts with 3 writable stores (store definitions only)
+- [ ] 06-03-PLAN.md — Upgrade game.ts + storage.ts to v2 schema with v1 migration
+- [ ] 06-04-PLAN.md — Update TopBar.svelte discovery counter text per PROG-01
 
 ### Phase 7: Achievement Engine & Daily Logic
 
@@ -87,7 +93,7 @@ Full archive: [.planning/milestones/v1-ROADMAP.md](milestones/v1-ROADMAP.md)
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 6. Data Foundation & Save Schema | 0/0 | Not started | - |
+| 6. Data Foundation & Save Schema | 0/4 | Not started | - |
 | 7. Achievement Engine & Daily Logic | 0/0 | Not started | - |
 | 8. Achievement & Daily UI | 0/0 | Not started | - |
 
