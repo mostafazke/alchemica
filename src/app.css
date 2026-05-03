@@ -23,3 +23,27 @@ html, body {
 button, [role="button"] {
   touch-action: manipulation;
 }
+
+/* ─── Page Transitions (View Transitions API) ─────────────────────────────── */
+
+@keyframes fade-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@keyframes fade-slide-out {
+  to {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+}
+
+::view-transition-old(root) {
+  animation: 250ms ease-in fade-slide-out;
+}
+
+::view-transition-new(root) {
+  animation: 250ms ease-out fade-slide-in;
+}
