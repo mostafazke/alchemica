@@ -1,3 +1,18 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: active
+last_updated: "2026-05-03"
+last_activity: 2026-05-03 — Phase 15 complete (Android Play Store Prep)
+progress:
+  total_phases: 10
+  completed_phases: 5
+  total_plans: 29
+  completed_plans: 20
+  percent: 69
+---
+
 # State: Alchemica
 
 ## Project Reference
@@ -6,16 +21,16 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 **Core value:** Players can open the game on any device, pick up where they left off, and feel the satisfaction of discovering a new element — even with no internet connection.
 
-**Current focus:** Milestone v6 — Phase 15: Android Play Store Prep
+**Current focus:** Milestone v6 — Phase 16: Capacitor iOS Platform
 
 ## Current Position
 
-Phase: 15 — Android Play Store Prep
+Phase: 16 — Capacitor iOS Platform
 Plan: —
 Status: Not started
-Last activity: 2026-05-03 — v6 roadmap created (Phases 15–18)
+Last activity: 2026-05-03 — Phase 15 complete
 
-Progress: [          ] 0% (v6)
+Progress: [██▌       ] 25% (v6)
 
 ## Milestone Status
 
@@ -26,7 +41,7 @@ Progress: [          ] 0% (v6)
 | v3 — Revenue & Native | ✅ COMPLETE | 4 (9–12) | 11/11 |
 | v4 — Main Menu | ✅ COMPLETE | 1 (13) | 2/2 |
 | v5 — Landscape Game UX | ✅ COMPLETE | 1 (14) | 3/3 |
-| v6 — Cross-Platform Ship | 🟡 IN PROGRESS | 4 (15–18) | 0/7 |
+| v6 — Cross-Platform Ship | 🟡 IN PROGRESS | 4 (15–18) | 2/7 |
 
 ## Accumulated Context
 
@@ -56,3 +71,4 @@ None. Phase 9 research resolved key risks: install Capacitor 8 (not 6) to match 
 - 2026-05-03: Phase 11 executed. AdMob rewarded ads: @capacitor-community/admob@8 installed, hintBalance store, admob.ts service module, HintButton Watch-Ad UI. Build + cap sync GREEN. Phase 11 ✅ COMPLETE (UAT pending).
 - 2026-05-03: Milestone v4 started. Main Menu milestone defined (2 requirements: MENU-01, MENU-05). Phase 13 roadmapped.
 - 2026-05-03: Phase 13 executed. Route restructure (game → /game, menu at /), branded main menu component, View Transitions API page transitions. Build GREEN. Phase 13 ✅ COMPLETE.
+- 2026-05-03: Phase 15 executed. RC API key env-var pattern (pre-existing), RevenueCat project created, Google Play products (remove_ads + hints_10) active, RC entitlement + offering configured, store listing complete, signed AAB submitted. Phase 15 ✅ COMPLETE.

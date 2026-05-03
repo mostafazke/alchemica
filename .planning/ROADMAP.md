@@ -66,7 +66,7 @@ Full archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
 
 ### Phases
 
-- [ ] **Phase 15: Android Play Store Prep** — RevenueCat live, purchases work on Android, store listing complete, AAB submitted
+- [x] **Phase 15: Android Play Store Prep** ✅ — RevenueCat live, purchases work on Android, store listing complete, AAB submitted
 - [ ] **Phase 16: Capacitor iOS Platform** — iOS app builds, provisioning configured, TestFlight internal testers can install
 - [ ] **Phase 17: iOS Plugin Integration** — AdMob rewarded ads and RevenueCat purchases work on iOS (feature parity with Android)
 - [ ] **Phase 18: App Store Submission** — Screenshots, metadata, Privacy Nutrition Labels complete, submitted for review

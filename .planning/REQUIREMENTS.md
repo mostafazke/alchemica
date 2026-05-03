@@ -10,8 +10,8 @@
 
 ### Android — Play Store
 
-- [ ] **PLAY-01**: User can complete a purchase on Android (RC API key live, Google Play products `remove_ads` + `hints_10` created, RC entitlement + Offering configured)
-- [ ] **PLAY-02**: App is submitted to Google Play (signed AAB, store listing metadata, screenshots, age rating complete)
+- [x] **PLAY-01**: User can complete a purchase on Android (RC API key live, Google Play products `remove_ads` + `hints_10` created, RC entitlement + Offering configured)
+- [x] **PLAY-02**: App is submitted to Google Play (signed AAB, store listing metadata, screenshots, age rating complete)
 
 ### iOS — Platform & Distribution
 
@@ -42,8 +42,8 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PLAY-01 | Phase 15 | Pending |
-| PLAY-02 | Phase 15 | Pending |
+| PLAY-01 | Phase 15 | ✅ Done |
+| PLAY-02 | Phase 15 | ✅ Done |
 | IOS-01 | Phase 16 | Pending |
 | IOS-02 | Phase 16 | Pending |
 | IOS-03 | Phase 17 | Pending |
