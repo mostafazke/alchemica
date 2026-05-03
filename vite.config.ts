@@ -53,7 +53,17 @@ export default defineConfig({
 			workbox: {
 				globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
 				cleanupOutdatedCaches: true,
-				clientsClaim: true
+				clientsClaim: true,
+				runtimeCaching: [
+					{
+						urlPattern: /\.mp3$/,
+						handler: 'CacheFirst',
+						options: {
+							cacheName: 'audio-cache',
+							expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 30 },
+						},
+					},
+				],
 			},
 			devOptions: {
 				enabled: true,
