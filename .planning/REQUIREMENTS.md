@@ -1,107 +1,136 @@
-# Requirements: Alchemica v6
+# Requirements: Alchemica v7
 
 **Defined:** 2026-05-03
-**Milestone:** v6 — Cross-Platform Ship
-**Core Value:** Players can open the game on any device, pick up where they left off, and feel the satisfaction of discovering a new element — even with no internet connection.
+**Milestone:** v7 — UI/UX Overhaul
+**Core Value:** Every interaction feels polished, responsive, and accessible — the UI matches the quality of the game logic.
+
+**Reference artifacts:**
+- `UX-AUDIT.md` — 28 prioritized issues (source of truth for issue numbers)
+- `UI-SPEC-SHELF-CHAMBER.md` — detailed measurements and states
+- `UI-PATTERNS-RESEARCH.md` — Little Alchemy 2, Duolingo, Monument Valley patterns
+- `DESIGN_SYSTEM.md` — design tokens
 
 ---
 
-## v6 Requirements
+## v7 Requirements
 
-### Android — Play Store
+### Critical Safety (P0)
 
-- [x] **PLAY-01**: User can complete a purchase on Android (RC API key live, Google Play products `remove_ads` + `hints_10` created, RC entitlement + Offering configured)
-- [x] **PLAY-02**: App is submitted to Google Play (signed AAB, store listing metadata, screenshots, age rating complete)
+- [ ] **SAFE-01**: Reset button shows a confirmation dialog before destroying progress (audit P0 #1)
+- [ ] **SAFE-02**: DiscoveryLog is accessible on all screen sizes — not hidden by `display: none !important` on desktop (audit P0 #2)
+- [ ] **SAFE-03**: Viewport meta allows pinch-to-zoom — `user-scalable=no` removed (audit P0 #3, WCAG 1.4.4)
 
-### iOS — Platform & Distribution
+### Touch Target Compliance (P1)
 
-- [ ] **IOS-01**: User can install and run Alchemica as a native iOS app (Capacitor iOS platform added, Xcode build succeeds, provisioning profile configured)
-- [ ] **IOS-02**: User can test via TestFlight (signed IPA built, uploaded to App Store Connect, internal testers can install)
-- [ ] **IOS-03**: User can watch a rewarded ad on iOS to earn a hint (AdMob iOS SDK integrated, iOS App ID in Info.plist, rewarded ad flow identical to Android)
-- [ ] **IOS-04**: User can purchase remove-ads or hint bundle on iOS (RevenueCat iOS configured, App Store Connect products created, StoreKit entitlement sync works)
-- [ ] **IOS-05**: App is submitted to the App Store (screenshots, metadata, Privacy Nutrition Labels, submitted for review)
+- [ ] **TOUCH-01**: Slot clear button has 44×44px minimum hit area (audit P1 #4)
+- [ ] **TOUCH-02**: Result share button has 44×44px minimum hit area (audit P1 #5)
+- [ ] **TOUCH-03**: DiscoveryItem share button has 44×44px minimum hit area (audit P1 #6)
+- [ ] **TOUCH-04**: ElementDetail close button has 44×44px minimum hit area (audit P1 #7)
+- [ ] **TOUCH-05**: Filter tab buttons have 44px minimum height (audit P1 #8)
+
+### Design Token System
+
+- [ ] **TOKEN-01**: CSS custom properties defined for spacing (4px base), colors, typography, radius, and animation timing per DESIGN_SYSTEM.md and UI-SPEC §1
+- [ ] **TOKEN-02**: All components use design tokens instead of hardcoded values — no magic numbers in component styles
+
+### Element Shelf Rebuild
+
+- [ ] **SHELF-01**: Filter tab bar is 44px height with proper states (default, hover, active, focus-visible) and count badges per UI-SPEC §2.2
+- [ ] **SHELF-02**: Element grid uses `repeat(auto-fill, minmax(76px, 1fr))` with 6px gap, scrollable, per UI-SPEC §2.3
+- [ ] **SHELF-03**: Element cards are 76×76px with icon (32px), name (11px min), and all interaction states (default, hover, tap, selected, drag-lifted, long-press, focus-visible) per UI-SPEC §2.4
+- [ ] **SHELF-04**: Long-press affordance is visible on element cards (subtle dot indicator) per UI-SPEC §2.4
+- [ ] **SHELF-05**: "Found" tab shows empty state message when zero discoveries per UI-SPEC §2.5
+- [ ] **SHELF-06**: Third-tap behavior replaces Slot A content (not error) when both slots full per UI-SPEC §2.4
+
+### Mixing Chamber Rebuild
+
+- [ ] **CHAMBER-01**: Slots are 80×80px with dashed empty state, filled state with 36px icon, and ready-state breathe animation per UI-SPEC §3.2–3.4
+- [ ] **CHAMBER-02**: Unified action zone shows React CTA or Result display in the same space (Duolingo dual-purpose bottom bar pattern) per UI-SPEC §3.1
+- [ ] **CHAMBER-03**: Utility row (HintButton + DailyChallenge) fits within 44px height, collapses to icon-only on very small screens per UI-SPEC §3.1
+- [ ] **CHAMBER-04**: Drag-over state on slots shows solid accent border and subtle scale (1.04) per UI-SPEC §3.3
+
+### Interaction States
+
+- [ ] **STATE-01**: All interactive elements have `:focus-visible` styles with `2px solid --color-accent` outline (audit P2 #17)
+- [ ] **STATE-02**: Selected element cards show teal border + selected background + glow per UI-SPEC §2.4 states table
+- [ ] **STATE-03**: React button transitions from disabled (gray) to ready (accent glow) when both slots filled (Duolingo pattern)
+
+### Accessibility & Typography
+
+- [ ] **A11Y-01**: No font size below 11px anywhere in the app — all 9px/10px instances replaced (audit P1 #11)
+- [ ] **A11Y-02**: Idle state instruction text has WCAG AA contrast ratio (4.5:1 minimum) — not `#2a3550` on `#0a1520` (audit P1 #10)
+- [ ] **A11Y-03**: Reset button has destructive styling (danger color, warning affordance) (audit P2 #14)
+
+### Feedback & Polish
+
+- [ ] **FEED-01**: Score points float upward and fade out over 600ms on discovery (Duolingo XP float pattern) per UI-SPEC §1.6
+- [ ] **FEED-02**: New discovery triggers a brief screen-edge flash or icon expand animation (400ms) per UI-SPEC §1.6
+- [ ] **FEED-03**: AchievementToast has exit animation (fade/slide out) instead of abrupt disappear (audit P3 #21)
+- [ ] **FEED-04**: Combo badge does not clip on React button overflow (audit P2 #13)
+- [ ] **FEED-05**: BottomBar toggle buttons change label to "Close" or show × when panel is open (audit P3 #25)
 
 ---
 
-## Future Requirements (Deferred from v6)
+## Future Requirements (Deferred from v7)
 
-### iOS
-- **IOS-06**: User can restore purchases via Apple ID after reinstall — already supported by RC; verify in v6 UAT, promote to requirement if gaps found
+### Polish (not blocking ship)
+- **FEED-06**: Swipe-between-tabs gesture on element grid (audit P3 #26)
+- **FEED-07**: Swipe-down to dismiss BottomSheet (audit P2 #12)
+- **FEED-08**: Element text search in grid (audit P3 #23)
+- **FEED-09**: OfflineIndicator respects safe-area-inset-bottom (audit P2 #18)
+- **FEED-10**: Discovery badge shows unread count, not total (audit P3 #22)
+- **FEED-11**: Better fail tip copy or silent failure (audit P3 #24)
+- **FEED-12**: Onboarding/first-run instruction (audit P1 #9) — significant UX work, separate milestone
+- **FEED-13**: Hint overlay viewport boundary check (audit P2 #19)
+- **FEED-14**: Emoji consistency (⚗ vs ⚗️) (audit P3 #27)
 
 ---
 
-## Out of Scope (v6)
+## Out of Scope (v7)
 
-- Cloud save — requires user accounts and backend infrastructure (v7+)
-- Real-time multiplayer — v7+
-- Push notifications — v7+
-- In-app content editor — v7+
-- User accounts / leaderboards — v7+
+- Gameplay logic changes — game engine is complete and stable
+- New elements or reactions — content is frozen
+- Backend/cloud features — stays fully offline
+- iOS-specific UI — platform parity handled in v6
+- New features (search, onboarding wizard) — separate milestone
 
 ## Traceability
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PLAY-01 | Phase 15 | ✅ Done |
-| PLAY-02 | Phase 15 | ✅ Done |
-| IOS-01 | Phase 16 | Pending |
-| IOS-02 | Phase 16 | Pending |
-| IOS-03 | Phase 17 | Pending |
-| IOS-04 | Phase 17 | Pending |
-| IOS-05 | Phase 18 | Pending |
+| SAFE-01 | TBD | Pending |
+| SAFE-02 | TBD | Pending |
+| SAFE-03 | TBD | Pending |
+| TOUCH-01 | TBD | Pending |
+| TOUCH-02 | TBD | Pending |
+| TOUCH-03 | TBD | Pending |
+| TOUCH-04 | TBD | Pending |
+| TOUCH-05 | TBD | Pending |
+| TOKEN-01 | TBD | Pending |
+| TOKEN-02 | TBD | Pending |
+| SHELF-01 | TBD | Pending |
+| SHELF-02 | TBD | Pending |
+| SHELF-03 | TBD | Pending |
+| SHELF-04 | TBD | Pending |
+| SHELF-05 | TBD | Pending |
+| SHELF-06 | TBD | Pending |
+| CHAMBER-01 | TBD | Pending |
+| CHAMBER-02 | TBD | Pending |
+| CHAMBER-03 | TBD | Pending |
+| CHAMBER-04 | TBD | Pending |
+| STATE-01 | TBD | Pending |
+| STATE-02 | TBD | Pending |
+| STATE-03 | TBD | Pending |
+| A11Y-01 | TBD | Pending |
+| A11Y-02 | TBD | Pending |
+| A11Y-03 | TBD | Pending |
+| FEED-01 | TBD | Pending |
+| FEED-02 | TBD | Pending |
+| FEED-03 | TBD | Pending |
+| FEED-04 | TBD | Pending |
+| FEED-05 | TBD | Pending |
 
-**Coverage: 7/7 v6 requirements mapped. No orphans.**
-
----
-
-## v5 Requirements (COMPLETE)
-
-### Landscape Game UX
-
-- [ ] **UX-01**: The game is locked to landscape orientation — no portrait mode support
-- [ ] **UX-02**: All unlocked elements are always visible in a scrollable grid (left panel, ~55% width), tap to select into mixing slots
-- [ ] **UX-03**: Mixing workspace (slots, react, result, hint, daily) occupies the right panel (~45% width) with clear vertical hierarchy
-
----
-
-## v4 Requirements (COMPLETE)
-
-### Menu Screen
-
-- [ ] **MENU-01**: User sees a main menu screen on launch with the game title, logo, and visual identity
-- [ ] **MENU-05**: Navigating to/from the game uses a smooth animated transition
-
----
-
-## Future Requirements (Deferred from v4)
-
-### Menu Screen (deferred)
-- **MENU-02**: User can tap Play/Continue to enter the game; button shows current progress (e.g. "32/61 discovered") — v5
-- **MENU-03**: User can start a New Game from the menu; a confirmation dialog prevents accidental data wipe — v5
-- **MENU-04**: User can open Settings from the main menu — v5
-- **MENU-06**: The main menu displays a live particle/visual effect in the background — v5
-- **MENU-07**: User can view a Credits/About screen listing contributors and version — v5
-
----
-
-## Out of Scope (v4)
-
-- Play/Continue with progress display — deferred; minimal scope for v4
-- New Game / data-wipe confirmation — deferred; no game management in v4
-- Settings from menu — existing BottomBar settings access sufficient; menu shortcut is future
-- Background particles on menu — visual polish, v5+
-- Credits screen — v5+
-
----
-
-## Traceability
-
-| Requirement | Phase | Status |
-|-------------|-------|--------|
-| MENU-01 | Phase 13 | Pending |
-| MENU-05 | Phase 13 | Pending |
-
-**Coverage: 2/2 v4 requirements mapped. No orphans.**
+**Coverage: 31 v7 requirements mapped. No orphans.**
 
 ---
 
@@ -110,89 +139,6 @@
 - v1 requirements (27 req) → [milestones/v1-REQUIREMENTS.md](milestones/v1-REQUIREMENTS.md)
 - v2 requirements (21 req) → [milestones/v2-REQUIREMENTS.md](milestones/v2-REQUIREMENTS.md)
 - v3 requirements (11 req) → [milestones/v3-REQUIREMENTS.md](milestones/v3-REQUIREMENTS.md)
-
-**Defined:** 2026-05-02
-**Milestone:** v3 — Revenue & Native
-**Core Value:** Players can open the game on any device, pick up where they left off, and feel the satisfaction of discovering a new element — even with no internet connection.
-
----
-
-## v3 Requirements
-
-### Platform (Capacitor)
-
-- [ ] **PLAT-01**: User's game runs as a native Android application via Capacitor
-- [ ] **PLAT-02**: App can be submitted to Google Play with correct app ID, icons, splash screen, and signed release build (APK/AAB)
-- [ ] **PLAT-03**: Existing web PWA build continues to function identically unchanged alongside the native build
-
-### Monetization — AdMob (Rewarded Ads)
-
-- [ ] **MOTZ-01**: User can watch a rewarded video ad to earn 1 free hint
-- [ ] **MOTZ-04**: Ad loads asynchronously before user requests it; ad unavailable shows a friendly message without crashing
-- [ ] **MOTZ-05**: Users who purchased remove-ads never see the ad button or any ads
-
-### Monetization — IAP
-
-- [ ] **MOTZ-02**: User can purchase a one-time "remove ads" upgrade ($2.99–$4.99) that permanently hides all ads
-- [ ] **MOTZ-03**: User can purchase a 10-hint bundle IAP
-- [ ] **MOTZ-06**: User can restore previous purchases after reinstall or device switch
-
-### Streak Bonus
-
-- [ ] **STRK-05**: Combo multiplier cap increases during active streak days (+1x per streak day, up to +3x above base 8x max)
-- [ ] **STRK-06**: Active streak bonus level is visually indicated in the TopBar or BottomBar
-
----
-
-## Future Requirements (Deferred from v3)
-
-### Platform
-- **PLAT-04**: iOS App Store distribution (Capacitor iOS wrapper) — v4, after Google Play proven
-
-### Social
-- **SOCL-01**: Cloud save synced across devices (Google/Apple sign-in) — v4, requires backend
-- **SOCL-02**: Async leaderboard — compare discovery count with friends — v4+
-- **SOCL-03**: Global leaderboard (top discovery counts) — v4+
-
-### Engagement
-- **DALY-06**: Push notification when daily challenge resets — v4, requires native/backend
-
-### Content
-- **CMS-01**: In-app editor UI — add/edit/delete elements and reactions without code changes — v4+
-
----
-
-## Out of Scope (v3)
-
-- iOS distribution — Android-only in v3; iOS in v4 after Google Play proven
-- Cloud save — requires user accounts and backend infrastructure
-- Push notifications — requires native push or backend; v4+
-- Real-time multiplayer — requires backend + accounts; v4+
-- Leaderboards — requires cloud infrastructure; v4+
-
----
-
-## Traceability
-
-| Requirement | Phase | Status |
-|-------------|-------|--------|
-| PLAT-01 | Phase 9 | Pending |
-| PLAT-02 | Phase 9 | Pending |
-| PLAT-03 | Phase 9 | Pending |
-| STRK-05 | Phase 10 | Done |
-| STRK-06 | Phase 10 | Done |
-| MOTZ-01 | Phase 11 | Done |
-| MOTZ-04 | Phase 11 | Done |
-| MOTZ-02 | Phase 12 | Pending |
-| MOTZ-03 | Phase 12 | Pending |
-| MOTZ-05 | Phase 12 | Pending |
-| MOTZ-06 | Phase 12 | Pending |
-
-**Coverage: 11/11 v3 requirements mapped. No orphans.**
-
----
-
-## Archive
-
-- v1 requirements (27 req) → [milestones/v1-REQUIREMENTS.md](milestones/v1-REQUIREMENTS.md)
-- v2 requirements (21 req) → [milestones/v2-REQUIREMENTS.md](milestones/v2-REQUIREMENTS.md)
+- v4 requirements (2 req) — MENU-01, MENU-05
+- v5 requirements (3 req) — UX-01, UX-02, UX-03
+- v6 requirements (7 req) — PLAY-01 ✅, PLAY-02 ✅, IOS-01–IOS-05 pending
