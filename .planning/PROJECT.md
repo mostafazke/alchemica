@@ -7,26 +7,49 @@
 **Repo:** https://github.com/mostafazke/alchemica
 **Stack:** SvelteKit + Svelte 5 + TypeScript + Vite 8 + vite-plugin-pwa
 
-## Current Milestone: v6 — Cross-Platform Ship
+## Current Milestone: v7 — UI/UX Overhaul
 
-**Goal:** Ship Alchemica on both Google Play and the Apple App Store with full feature parity — ads, IAP, haptics — so iOS and Android players get the same experience.
+**Goal:** Fix all identified UX issues and rebuild the game UI to match the detailed UI spec — proper touch targets, design tokens, interaction states, and polished feedback inspired by Little Alchemy 2, Duolingo, and Monument Valley patterns.
 
 **Target features:**
-- Play Store submission prep (RC API key, product IDs, signed AAB, store listing + screenshots)
-- Capacitor iOS platform (npx cap add ios)
-- Xcode build + code signing (provisioning, certificates)
-- AdMob iOS (iOS App ID, same rewarded-ad flow)
-- RevenueCat iOS IAP (App Store Connect products: remove_ads, hints_10; StoreKit)
-- Haptics parity on iOS (Taptic Engine via @capacitor/haptics)
-- App Store submission (screenshots, metadata, review submission)
-- TestFlight internal testing build
+- Fix all P0 critical issues (reset confirmation, DiscoveryLog desktop access, viewport zoom)
+- Fix all P1 touch target violations (slot clear, share buttons, filter tabs, detail close)
+- Implement design token system (spacing, colors, typography, radius, animation)
+- Rebuild Element Shelf per UI-SPEC (filter tabs, grid layout, card states, long-press affordance)
+- Rebuild Mixing Chamber per UI-SPEC (slots, unified action zone, utility row)
+- Add missing interaction states (focus-visible, hover, selected, drag)
+- Fix typography (11px minimum, consistent sizing)
+- Fix idle state contrast (WCAG AA compliance)
+- Add missing feedback patterns (result animations, score float, discovery flash)
 
 **Key constraints:**
-- macOS + Xcode required for iOS build steps (human-executed)
-- Apple Developer account ($99/yr) prerequisite
-- RevenueCat project already exists — add iOS app inside same project
-- No backend — stays fully offline + RC for purchases
-- No gameplay changes — game logic complete
+- No gameplay logic changes — purely visual/interaction layer
+- Must follow DESIGN_SYSTEM.md tokens and UI-SPEC-SHELF-CHAMBER.md measurements
+- All fixes must work in landscape-only mode (Phase 14 constraint)
+- 44×44px minimum touch targets (Apple HIG / WCAG 2.5.5)
+- 11px minimum font size throughout
+- No new dependencies — CSS-only where possible
+
+**Reference artifacts:**
+- `UX-AUDIT.md` — 28 prioritized issues (P0–P3)
+- `UI-PATTERNS-RESEARCH.md` — Little Alchemy 2, Duolingo, Monument Valley patterns
+- `UI-SPEC-SHELF-CHAMBER.md` — detailed implementation spec with measurements
+- `DESIGN_SYSTEM.md` — design tokens
+
+## Previous Milestone: v6 — Cross-Platform Ship (IN PROGRESS 2026-05-03)
+
+<details>
+<summary>v6 scope (Cross-Platform Ship — in progress)</summary>
+
+**Goal:** Ship Alchemica on both Google Play and the Apple App Store with full feature parity.
+
+**Shipped (Phase 15):**
+- RevenueCat live, Google Play products active, store listing complete, AAB submitted
+
+**Remaining (Phases 16–18):**
+- Capacitor iOS platform, iOS plugin integration, App Store submission
+
+</details>
 
 ## Previous Milestone: v5 — Landscape Game UX (COMPLETE 2026-05-03)
 

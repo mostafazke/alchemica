@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: active
+milestone: v7
+milestone_name: UI/UX Overhaul
+status: planning
 last_updated: "2026-05-03"
-last_activity: 2026-05-03 — Phase 15 complete (Android Play Store Prep)
+last_activity: 2026-05-03 — Milestone v7 started (UI/UX Overhaul)
 progress:
-  total_phases: 10
-  completed_phases: 5
-  total_plans: 29
-  completed_plans: 20
-  percent: 69
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # State: Alchemica
@@ -21,16 +21,16 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 **Core value:** Players can open the game on any device, pick up where they left off, and feel the satisfaction of discovering a new element — even with no internet connection.
 
-**Current focus:** Milestone v6 — Phase 16: Capacitor iOS Platform
+**Current focus:** Milestone v7 — UI/UX Overhaul
 
 ## Current Position
 
-Phase: 16 — Capacitor iOS Platform
+Phase: Not started (defining requirements)
 Plan: —
-Status: Not started
-Last activity: 2026-05-03 — Phase 15 complete
+Status: Defining requirements
+Last activity: 2026-05-03 — Milestone v7 started
 
-Progress: [██▌       ] 25% (v6)
+Progress: [          ] 0% (v7)
 
 ## Milestone Status
 
@@ -42,6 +42,7 @@ Progress: [██▌       ] 25% (v6)
 | v4 — Main Menu | ✅ COMPLETE | 1 (13) | 2/2 |
 | v5 — Landscape Game UX | ✅ COMPLETE | 1 (14) | 3/3 |
 | v6 — Cross-Platform Ship | 🟡 IN PROGRESS | 4 (15–18) | 2/7 |
+| v7 — UI/UX Overhaul | 🟡 PLANNING | TBD | 0/? |
 
 ## Accumulated Context
 
@@ -72,3 +73,4 @@ None. Phase 9 research resolved key risks: install Capacitor 8 (not 6) to match 
 - 2026-05-03: Milestone v4 started. Main Menu milestone defined (2 requirements: MENU-01, MENU-05). Phase 13 roadmapped.
 - 2026-05-03: Phase 13 executed. Route restructure (game → /game, menu at /), branded main menu component, View Transitions API page transitions. Build GREEN. Phase 13 ✅ COMPLETE.
 - 2026-05-03: Phase 15 executed. RC API key env-var pattern (pre-existing), RevenueCat project created, Google Play products (remove_ads + hints_10) active, RC entitlement + offering configured, store listing complete, signed AAB submitted. Phase 15 ✅ COMPLETE.
+- 2026-05-03: Milestone v7 started. UI/UX Overhaul — fix 28 audit issues, implement design tokens, rebuild shelf + chamber per UI-SPEC.
