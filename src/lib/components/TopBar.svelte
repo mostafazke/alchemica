@@ -90,9 +90,4 @@
   .reset-btn:hover { color: #ff6b6b; border-color: #ff6b6b40; }
   @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.3)} }
   .combo.pulse { animation: pulse 0.3s ease; }
-  @media (max-width: 360px) {
-    .top-bar-stats { gap: 8px; }
-    .top-bar-title { font-size: 14px; }
-    .stat { font-size: 11px; }
-  }
 </style>

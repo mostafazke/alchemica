@@ -1,9 +1,12 @@
 <script lang="ts">
-  import { unlockedElements, hintCooldownEndsAt, hintBalance } from '../stores/game.js';
+  import { get } from 'svelte/store';
+  import { unlockedElements, hintCooldownEndsAt, hintBalance, purchasedNoAds } from '../stores/game.js';
   import { isAdReady, requestAdHint } from '../effects/admob.js';
   import { getHint } from '../game/reactions.js';
   import { ELEMENTS } from '../data/elements.js';
   import { Capacitor } from '@capacitor/core';
+  import { soundMuted } from '../stores/settings.js';
+  import { playHint } from '../effects/sound.js';
 
   const COOLDOWN_MS = 30_000;
   const isNative = Capacitor.isNativePlatform();
@@ -30,10 +33,11 @@
   function useHint() {
     if (!canHint || !hint) return;
     if ($hintBalance > 0) {
-      hintBalance.update((n) => n - 1); // balance hint — no cooldown applied
+      hintBalance.update((n) => n - 1);
     } else {
-      hintCooldownEndsAt.set(Date.now() + COOLDOWN_MS); // organic hint
+      hintCooldownEndsAt.set(Date.now() + COOLDOWN_MS);
     }
+    if (!get(soundMuted)) playHint();
     hintVisible = true;
   }
 
@@ -62,7 +66,7 @@
     {/if}
   </button>
 
-  {#if isNative && cooldownRemaining > 0 && $hintBalance === 0}
+  {#if isNative && cooldownRemaining > 0 && $hintBalance === 0 && !$purchasedNoAds}
     <button
       class="ad-btn"
       disabled={!$isAdReady}
@@ -93,7 +97,7 @@
 </div>
 
 <style>
-  .hint-wrapper { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .hint-wrapper { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
   .hint-btn {
     padding: 8px 20px;
     min-height: 40px; min-width: 100px;

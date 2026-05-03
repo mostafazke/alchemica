@@ -6,16 +6,16 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 **Core value:** Players can open the game on any device, pick up where they left off, and feel the satisfaction of discovering a new element — even with no internet connection.
 
-**Current focus:** Milestone v4 — Main Menu. Ready for Phase 13.
+**Current focus:** Milestone v6 — Phase 15: Android Play Store Prep
 
 ## Current Position
 
-Phase: 13 — Main Menu Screen
-Plan: Complete (2/2 plans done)
-Status: ✅ COMPLETE — all plans executed, committed, verified
-Last activity: 2026-05-03 — Phase 13 executed (main menu + page transitions)
+Phase: 15 — Android Play Store Prep
+Plan: —
+Status: Not started
+Last activity: 2026-05-03 — v6 roadmap created (Phases 15–18)
 
-Progress: [██████████] 100% (v4 Phase 13)
+Progress: [          ] 0% (v6)
 
 ## Milestone Status
 
@@ -23,8 +23,10 @@ Progress: [██████████] 100% (v4 Phase 13)
 |-----------|--------|--------|--------------|
 | v1 — Mobile PWA | ✅ SHIPPED | 5 | 27/27 |
 | v2 — Achievements & Daily Hook | ✅ SHIPPED | 3 (6–8) | 21/21 |
-| v3 — Revenue & Native | 🔄 In progress | 4 (9–12) | 0/11 |
+| v3 — Revenue & Native | ✅ COMPLETE | 4 (9–12) | 11/11 |
 | v4 — Main Menu | ✅ COMPLETE | 1 (13) | 2/2 |
+| v5 — Landscape Game UX | ✅ COMPLETE | 1 (14) | 3/3 |
+| v6 — Cross-Platform Ship | 🟡 IN PROGRESS | 4 (15–18) | 0/7 |
 
 ## Accumulated Context
 

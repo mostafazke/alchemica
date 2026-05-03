@@ -7,20 +7,44 @@
 **Repo:** https://github.com/mostafazke/alchemica
 **Stack:** SvelteKit + Svelte 5 + TypeScript + Vite 8 + vite-plugin-pwa
 
-## Current Milestone: v4 — Main Menu
+## Current Milestone: v6 — Cross-Platform Ship
 
-**Goal:** Add a dedicated main menu screen that greets players on launch with the game title and visual identity, and provides a smooth animated transition into the game.
+**Goal:** Ship Alchemica on both Google Play and the Apple App Store with full feature parity — ads, IAP, haptics — so iOS and Android players get the same experience.
 
 **Target features:**
-- Main menu / splash screen (title, logo, alchemical visual identity)
-- Smooth animated navigation transition to/from the game
+- Play Store submission prep (RC API key, product IDs, signed AAB, store listing + screenshots)
+- Capacitor iOS platform (npx cap add ios)
+- Xcode build + code signing (provisioning, certificates)
+- AdMob iOS (iOS App ID, same rewarded-ad flow)
+- RevenueCat iOS IAP (App Store Connect products: remove_ads, hints_10; StoreKit)
+- Haptics parity on iOS (Taptic Engine via @capacitor/haptics)
+- App Store submission (screenshots, metadata, review submission)
+- TestFlight internal testing build
 
 **Key constraints:**
-- Must integrate with SvelteKit routing
-- Menu screen must be mobile-first and consistent with existing visual identity
-- No breaking changes to existing game state or save format
+- macOS + Xcode required for iOS build steps (human-executed)
+- Apple Developer account ($99/yr) prerequisite
+- RevenueCat project already exists — add iOS app inside same project
+- No backend — stays fully offline + RC for purchases
+- No gameplay changes — game logic complete
 
-## Previous Milestone: v3 — Revenue & Native (In Progress)
+## Previous Milestone: v5 — Landscape Game UX (COMPLETE 2026-05-03)
+
+<details>
+<summary>v5 scope (Landscape Game UX — complete)</summary>
+
+**Goal:** Rewrite game screen as landscape-only with persistent element grid + mixing workspace.
+
+**Shipped (Phase 14):**
+- Element grid left panel (always-visible, scrollable, filter tabs inline)
+- Mixing workspace right panel (slots, react, result, hint, daily utility row)
+- TopBar + BottomBar simplification
+- Portrait orientation overlay
+- Deleted Shelf component
+
+</details>
+
+## Previous Milestone: v4 — Main Menu (COMPLETE 2026-05-03)
 
 <details>
 <summary>v3 scope (Revenue & Native — in progress)</summary>
@@ -98,27 +122,39 @@ Players can open the game on any device, pick up where they left off, and feel t
 - ✓ STRK-01–04: Streak display, increment, reset, persist — Phases 6 + 7 + 8
 </details>
 
-### Active (v4 — Main Menu)
+### Active (v6 — Cross-Platform Ship)
 
-- MENU-01: User sees a main menu screen on launch with game title, logo, and visual identity
-- MENU-05: Navigating to/from the game uses a smooth animated transition
+- PLAY-01: Play Store submission is complete (signed AAB uploaded, listing live)
+- IOS-01: Capacitor iOS platform added and builds successfully in Xcode
+- IOS-02: App runs on a real iOS device via TestFlight
+- IOS-03: AdMob rewarded ads work on iOS
+- IOS-04: RevenueCat IAP (remove-ads + hint bundle) works on iOS via StoreKit
+- IOS-05: App Store submission complete (screenshots, metadata, submitted for review)
 
-### Active (v3 — Revenue & Native, in progress)
+### Previously Active (v4 — COMPLETE)
 
-- MOTZ-02: Remove-ads one-time IAP ($2.99–$4.99)
-- MOTZ-03: Hint bundle IAP — purchase 10 hints
-- MOTZ-05: Users who purchased remove-ads never see ads
-- MOTZ-06: User can restore previous purchases after reinstall
+### Previously Active (v4 — COMPLETE)
+
+- MENU-01: User sees a main menu screen on launch with game title, logo, and visual identity ✓
+- MENU-05: Navigating to/from the game uses a smooth animated transition ✓
+
+### Previously Active (v3 — COMPLETE)
+
+- MOTZ-02: Remove-ads one-time IAP ($2.99–$4.99) ✓
+- MOTZ-03: Hint bundle IAP — purchase 10 hints ✓
+- MOTZ-05: Users who purchased remove-ads never see ads ✓
+- MOTZ-06: User can restore previous purchases after reinstall ✓
 
 ### Out of Scope
 
-- iOS App Store distribution — v3 Android-only; iOS in v4 after Google Play proven
-- Backend / server-side storage — localStorage sufficient; cloud sync is v4
-- Real-time multiplayer — requires backend + accounts; v4+
-- In-app editor — JSON/TS config sufficient for v3; editor is v4+
-- User accounts / leaderboards — v4+ requires cloud infrastructure
-- Push notifications — requires backend or native; v4+
-- Cloud save — v4 (requires accounts/backend)
+- Android-only IAP in v3 — extended to iOS in v6 via RevenueCat
+- iOS App Store distribution — was v3 out-of-scope; now in v6
+- Backend / server-side storage — localStorage sufficient; cloud sync v7+
+- Real-time multiplayer — requires backend + accounts; v7+
+- In-app editor — JSON/TS config sufficient; editor v7+
+- User accounts / leaderboards — v7+ requires cloud infrastructure
+- Push notifications — v7+
+- Cloud save — v7+ (requires accounts/backend)
 
 ## Context
 
@@ -147,7 +183,7 @@ Players can open the game on any device, pick up where they left off, and feel t
 | In-app editor deferred to v2 | Adds significant complexity; config file sufficient for controlled content growth in v1 | — Pending |
 
 ---
-*Last updated: 2026-05-03 — Milestone v4 started (Main Menu)*
+*Last updated: 2026-05-03 — Milestone v6 started (Cross-Platform Ship)*
 
 ## Evolution
 

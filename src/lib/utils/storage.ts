@@ -3,11 +3,11 @@
  * Handles downloadable JSON save files with schema migration support.
  */
 import { get } from 'svelte/store';
-import { unlockedElements, discoveries, score } from '../stores/game.js';
+import { unlockedElements, discoveries, score, hintBalance, purchasedNoAds } from '../stores/game.js';
 import { earnedAchievements, streakCount, lastCompletedDate } from '../stores/achievements.js';
 import type { AchievementId } from '../types.js';
 
-export const EXPORT_VERSION = 2;
+export const EXPORT_VERSION = 3;
 
 export interface SaveFile {
   version: number;
@@ -19,6 +19,8 @@ export interface SaveFile {
     earnedAchievements: string[];      // serialized as array (D-13)
     streakCount: number;               // D-03
     lastCompletedDate: string | null;  // D-03
+    hintBalance: number;       // v3: moved from separate localStorage key
+    purchasedNoAds: boolean;   // v3: permanent remove-ads upgrade
   };
 }
 
@@ -42,6 +44,8 @@ export function exportSave(): string {
       earnedAchievements: [...get(earnedAchievements)],  // Set → array (D-13)
       streakCount: get(streakCount),
       lastCompletedDate: get(lastCompletedDate),
+      hintBalance: get(hintBalance),
+      purchasedNoAds: get(purchasedNoAds),
     },
   };
   return JSON.stringify(save, null, 2);
@@ -77,6 +81,8 @@ export function importSave(
     setEarnedAchievements: (ids: AchievementId[]) => void;
     setStreakCount: (n: number) => void;
     setLastCompletedDate: (d: string | null) => void;
+    setHintBalance: (n: number) => void;
+    setPurchasedNoAds: (v: boolean) => void;
   }
 ): ImportResult {
   let parsed: unknown;
@@ -155,6 +161,14 @@ export function importSave(
   const lastDateVal =
     typeof data.lastCompletedDate === 'string' ? data.lastCompletedDate : null;
 
+  // hintBalance — default 0 if missing (v2 save files lack this field)
+  const hintBalanceVal = typeof data.hintBalance === 'number' ? data.hintBalance : 0;
+
+  // purchasedNoAds — default false if missing (v2 save files lack this field)
+  const purchasedNoAdsVal = typeof data.purchasedNoAds === 'boolean'
+    ? data.purchasedNoAds
+    : false;
+
   // Apply to stores
   stores.setUnlocked(unlockedArr);
   stores.setDiscoveries(discArr);
@@ -162,6 +176,8 @@ export function importSave(
   stores.setEarnedAchievements(achievementsArr);
   stores.setStreakCount(streakVal);
   stores.setLastCompletedDate(lastDateVal);
+  stores.setHintBalance(hintBalanceVal);
+  stores.setPurchasedNoAds(purchasedNoAdsVal);
 
   return { ok: true, warning };
 }

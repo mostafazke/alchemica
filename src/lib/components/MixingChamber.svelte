@@ -9,8 +9,9 @@
   import { hapticSuccess, hapticFail } from '../utils/touch.js';
   import { toastQueue } from '../stores/toast.js';
   import { soundMuted } from '../stores/settings.js';
-  import { playChime } from '../effects/sound.js';
+  import { playChime, playReactionSuccess, playDiscovery, playFailure, playComboUp } from '../effects/sound.js';
   import HintButton from './HintButton.svelte';
+  import DailyChallenge from './DailyChallenge.svelte';
 
   let canvasEl: HTMLCanvasElement;
   let result: string | null = $state(null);
@@ -25,6 +26,7 @@
 
   function doReaction() {
     if (!$slots.a || !$slots.b) return;
+    const prevCombo = get(combo);
     const reaction = applyReaction($slots.a, $slots.b);
     result = reaction.result;
     isNew = reaction.isNew;
@@ -36,15 +38,19 @@
     if (reaction.result) {
       triggerSuccessParticles(cx, cy);
       hapticSuccess();
+      if (!get(soundMuted)) {
+        if (reaction.isNew) playDiscovery();
+        else playReactionSuccess();
+        if (get(combo) > prevCombo) playComboUp();
+      }
       if (reaction.newBadge !== null) {
         toastQueue.update((q) => [...q, reaction.newBadge!]);
-        if (!get(soundMuted)) {
-          playChime();
-        }
+        if (!get(soundMuted)) playChime();
       }
     } else {
       triggerFailParticles(cx, cy);
       hapticFail();
+      if (!get(soundMuted)) playFailure();
     }
   }
 </script>
@@ -69,30 +75,38 @@
     {/if}
   </button>
 
-  <HintButton />
   <ResultDisplay {result} {isNew} {attempted} />
+
+  <div class="utility-row">
+    <HintButton />
+    <DailyChallenge />
+  </div>
 </section>
 
 <style>
   .mixing-chamber {
     position: relative;
     flex: 1;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 20px; padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 16px;
     overflow: hidden;
     min-width: 0;
+    min-height: 0;
   }
   .particle-canvas {
     position: absolute; inset: 0;
     pointer-events: none;
     width: 100%; height: 100%;
   }
-  .slots-row { display: flex; align-items: center; gap: 16px; }
-  .plus-sign { font-size: 22px; color: #1a3a5a; font-weight: 700; user-select: none; }
+  .slots-row { display: flex; align-items: center; gap: 12px; }
+  .plus-sign { font-size: 20px; color: #1a3a5a; font-weight: 700; user-select: none; }
   .react-btn {
     position: relative;
-    padding: 12px 40px;
+    padding: 10px 36px;
     background: linear-gradient(135deg, #1a4a3a, #0f3028);
     border: 1px solid #4af0c060;
     border-radius: 10px;
@@ -104,6 +118,8 @@
     letter-spacing: 1px;
     min-height: 44px;
     touch-action: manipulation;
+    width: 100%;
+    max-width: 280px;
   }
   .react-btn:hover:not(:disabled) {
     background: linear-gradient(135deg, #2a6a5a, #1f4038);
@@ -116,29 +132,13 @@
     font-size: 10px; font-weight: 700;
     padding: 2px 6px; border-radius: 10px;
   }
-  @media (max-width: 768px) {
-    .react-btn {
-      width: 100%;
-      min-height: 52px;
-      font-size: 16px;
-      border-radius: 12px;
-    }
-    .mixing-chamber {
-      padding: 16px;
-      gap: 16px;
-    }
-  }
-  /* Landscape on phones: compress vertical spacing */
-  @media (orientation: landscape) and (max-height: 520px) {
-    .mixing-chamber {
-      gap: 8px;
-      padding: 8px 20px;
-      justify-content: center;
-    }
-    .react-btn {
-      min-height: 44px;
-      padding: 8px 32px;
-      font-size: 13px;
-    }
+  .utility-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 340px;
+    flex-shrink: 0;
   }
 </style>

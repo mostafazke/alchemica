@@ -1,12 +1,70 @@
-# Requirements: Alchemica v4
+# Requirements: Alchemica v6
 
 **Defined:** 2026-05-03
-**Milestone:** v4 — Main Menu
+**Milestone:** v6 — Cross-Platform Ship
 **Core Value:** Players can open the game on any device, pick up where they left off, and feel the satisfaction of discovering a new element — even with no internet connection.
 
 ---
 
-## v4 Requirements
+## v6 Requirements
+
+### Android — Play Store
+
+- [ ] **PLAY-01**: User can complete a purchase on Android (RC API key live, Google Play products `remove_ads` + `hints_10` created, RC entitlement + Offering configured)
+- [ ] **PLAY-02**: App is submitted to Google Play (signed AAB, store listing metadata, screenshots, age rating complete)
+
+### iOS — Platform & Distribution
+
+- [ ] **IOS-01**: User can install and run Alchemica as a native iOS app (Capacitor iOS platform added, Xcode build succeeds, provisioning profile configured)
+- [ ] **IOS-02**: User can test via TestFlight (signed IPA built, uploaded to App Store Connect, internal testers can install)
+- [ ] **IOS-03**: User can watch a rewarded ad on iOS to earn a hint (AdMob iOS SDK integrated, iOS App ID in Info.plist, rewarded ad flow identical to Android)
+- [ ] **IOS-04**: User can purchase remove-ads or hint bundle on iOS (RevenueCat iOS configured, App Store Connect products created, StoreKit entitlement sync works)
+- [ ] **IOS-05**: App is submitted to the App Store (screenshots, metadata, Privacy Nutrition Labels, submitted for review)
+
+---
+
+## Future Requirements (Deferred from v6)
+
+### iOS
+- **IOS-06**: User can restore purchases via Apple ID after reinstall — already supported by RC; verify in v6 UAT, promote to requirement if gaps found
+
+---
+
+## Out of Scope (v6)
+
+- Cloud save — requires user accounts and backend infrastructure (v7+)
+- Real-time multiplayer — v7+
+- Push notifications — v7+
+- In-app content editor — v7+
+- User accounts / leaderboards — v7+
+
+## Traceability
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| PLAY-01 | Phase 15 | Pending |
+| PLAY-02 | Phase 15 | Pending |
+| IOS-01 | Phase 16 | Pending |
+| IOS-02 | Phase 16 | Pending |
+| IOS-03 | Phase 17 | Pending |
+| IOS-04 | Phase 17 | Pending |
+| IOS-05 | Phase 18 | Pending |
+
+**Coverage: 7/7 v6 requirements mapped. No orphans.**
+
+---
+
+## v5 Requirements (COMPLETE)
+
+### Landscape Game UX
+
+- [ ] **UX-01**: The game is locked to landscape orientation — no portrait mode support
+- [ ] **UX-02**: All unlocked elements are always visible in a scrollable grid (left panel, ~55% width), tap to select into mixing slots
+- [ ] **UX-03**: Mixing workspace (slots, react, result, hint, daily) occupies the right panel (~45% width) with clear vertical hierarchy
+
+---
+
+## v4 Requirements (COMPLETE)
 
 ### Menu Screen
 

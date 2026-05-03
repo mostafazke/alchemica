@@ -1,9 +1,21 @@
 <script lang="ts">
-  import { unlockedElements, discoveries, score } from '../stores/game.js';
+  import { unlockedElements, discoveries, score, hintBalance, purchasedNoAds } from '../stores/game.js';
   import { earnedAchievements, streakCount, lastCompletedDate } from '../stores/achievements.js';
   import type { AchievementId } from '../types.js';
   import { downloadSave, importSave } from '../utils/storage.js';
   import { soundMuted } from '../stores/settings.js';
+  import { Capacitor } from '@capacitor/core';
+  import {
+    purchaseRemoveAds,
+    purchaseHintBundle,
+    restorePurchases,
+    removeAdsPrice,
+    hintBundlePrice,
+    isPurchasing,
+    purchaseError,
+  } from '../effects/iap.js';
+
+  const isNative = Capacitor.isNativePlatform();
 
   let { open = false, onClose }: {
     open: boolean;
@@ -12,6 +24,16 @@
 
   let importStatus: { ok: boolean; message: string } | null = $state(null);
   let fileInputEl: HTMLInputElement | undefined = $state();
+
+  async function handlePurchaseRemoveAds() {
+    await purchaseRemoveAds();
+  }
+  async function handlePurchaseHints() {
+    await purchaseHintBundle();
+  }
+  async function handleRestore() {
+    await restorePurchases();
+  }
 
   function handleExport() {
     downloadSave();
@@ -36,6 +58,8 @@
         setEarnedAchievements: (ids: AchievementId[]) => earnedAchievements.set(new Set(ids)),
         setStreakCount: (n) => streakCount.set(n),
         setLastCompletedDate: (d) => lastCompletedDate.set(d),
+        setHintBalance: (n) => hintBalance.set(n),
+        setPurchasedNoAds: (v) => purchasedNoAds.set(v),
       });
 
       if (result.ok) {
@@ -103,6 +127,56 @@
         Import restores a previously exported save.
       </p>
     </div>
+
+    {#if isNative}
+      <div class="panel-section panel-section-purchases">
+        <div class="section-label">Purchases</div>
+
+        <div class="purchase-cards">
+          {#if $purchasedNoAds}
+            <button class="purchase-card purchase-card-owned" disabled>
+              <span class="purchase-icon">✓</span>
+              <span class="purchase-name">Ads Removed</span>
+              <span class="purchase-price">Owned</span>
+            </button>
+          {:else}
+            <button
+              class="purchase-card"
+              disabled={$isPurchasing}
+              onclick={handlePurchaseRemoveAds}
+            >
+              <span class="purchase-icon">🚫</span>
+              <span class="purchase-name">Remove Ads</span>
+              <span class="purchase-price">{$removeAdsPrice}</span>
+            </button>
+          {/if}
+
+          <button
+            class="purchase-card"
+            disabled={$isPurchasing}
+            onclick={handlePurchaseHints}
+          >
+            <span class="purchase-icon">💡</span>
+            <span class="purchase-name">10 Hints</span>
+            <span class="purchase-price">{$hintBundlePrice}</span>
+          </button>
+        </div>
+
+        {#if $purchaseError}
+          <div class="import-status error">
+            {$purchaseError}
+          </div>
+        {/if}
+
+        <button
+          class="restore-btn"
+          disabled={$isPurchasing}
+          onclick={handleRestore}
+        >
+          {$isPurchasing ? 'Working…' : 'Restore Purchases'}
+        </button>
+      </div>
+    {/if}
 
     <input
       bind:this={fileInputEl}
@@ -208,4 +282,68 @@
     color: #8ab4d4;
     user-select: none;
   }
+  .panel-section-purchases {
+    border-top: 1px solid #1a2e4a;
+  }
+  .purchase-cards {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .purchase-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 8px;
+    border-radius: 8px;
+    border: 1px solid #1a3a5a;
+    background: #0a1a2a;
+    color: #8ab4d4;
+    font-family: 'Space Mono', monospace;
+    cursor: pointer;
+    transition: all 0.15s;
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+  .purchase-card:not(:disabled):hover {
+    border-color: #4af0c060;
+    background: #0f2035;
+  }
+  .purchase-card:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .purchase-card-owned {
+    border-color: #4af0c040;
+    color: #4af0c0;
+    background: #0a2a1a;
+  }
+  .purchase-icon { font-size: 18px; line-height: 1; }
+  .purchase-name {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: inherit;
+  }
+  .purchase-price { font-size: 11px; color: #4af0c0; }
+  .purchase-card-owned .purchase-price { color: #4af0c080; }
+  .restore-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #4a6080;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    cursor: pointer;
+    padding: 8px 0 0;
+    text-decoration: underline;
+    text-align: center;
+    min-height: 44px;
+    touch-action: manipulation;
+    transition: color 0.15s;
+  }
+  .restore-btn:hover:not(:disabled) { color: #8ab4d4; }
+  .restore-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 </style>

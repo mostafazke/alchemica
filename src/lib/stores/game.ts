@@ -5,7 +5,7 @@ import { earnedAchievements, streakCount, lastCompletedDate } from './achievemen
 import { backfillAchievements } from '../game/achievements.js';
 
 const SAVE_KEY = 'alchemica_v1';
-const SAVE_VERSION = 2;
+const SAVE_VERSION = 3;
 
 interface SaveData {
   version: number;
@@ -16,6 +16,8 @@ interface SaveData {
     earnedAchievements: string[];    // stored as array, reconstructed as Set on load
     streakCount: number;
     lastCompletedDate: string | null;
+    hintBalance: number;       // v3: moved from separate localStorage key
+    purchasedNoAds: boolean;   // v3: permanent remove-ads upgrade
   };
 }
 
@@ -41,6 +43,32 @@ function loadSave(): SaveData['data'] | null {
         earnedAchievements: [],       // D-02: Phase 7 back-calculates
         streakCount: 0,               // D-03
         lastCompletedDate: null,      // D-03
+        hintBalance: 0,
+        purchasedNoAds: false,
+      };
+    }
+
+    if (parsed.version === 2) {
+      // v2 → v3 migration: fold hintBalance into versioned save, add purchasedNoAds
+      const v2data = parsed.data as {
+        unlockedElements: string[];
+        discoveries: Discovery[];
+        score: number;
+        earnedAchievements: string[];
+        streakCount: number;
+        lastCompletedDate: string | null;
+      };
+      return {
+        unlockedElements: v2data.unlockedElements ?? [],
+        discoveries: v2data.discoveries ?? [],
+        score: v2data.score ?? 0,
+        earnedAchievements: v2data.earnedAchievements ?? [],
+        streakCount: v2data.streakCount ?? 0,
+        lastCompletedDate: v2data.lastCompletedDate ?? null,
+        hintBalance: typeof localStorage !== 'undefined'
+          ? Number(localStorage.getItem('alchemica_hint_balance') ?? 0)
+          : 0,
+        purchasedNoAds: false, // conservative default; RC re-validates on app start
       };
     }
 
@@ -88,11 +116,10 @@ export const hintCooldownEndsAt = writable<number>(
 );
 
 /** Hint credits earned from rewarded ads. Decrement on use; never touches cooldown. */
-export const hintBalance = writable<number>(
-  typeof localStorage !== 'undefined'
-    ? Number(localStorage.getItem('alchemica_hint_balance') ?? 0)
-    : 0
-);
+export const hintBalance = writable<number>(saved?.hintBalance ?? 0);
+
+/** Whether the user has purchased the permanent Remove Ads upgrade. */
+export const purchasedNoAds = writable<boolean>(saved?.purchasedNoAds ?? false);
 
 // --- Auto-save on change ---
 
@@ -107,6 +134,8 @@ function saveToStorage(): void {
         earnedAchievements: [...get(earnedAchievements)],   // Set → array (D-13)
         streakCount: get(streakCount),
         lastCompletedDate: get(lastCompletedDate),
+        hintBalance: get(hintBalance),
+        purchasedNoAds: get(purchasedNoAds),
       },
     };
     localStorage.setItem(SAVE_KEY, JSON.stringify(state));
@@ -124,9 +153,8 @@ lastCompletedDate.subscribe(saveToStorage);
 hintCooldownEndsAt.subscribe((v) => {
   try { localStorage.setItem('alchemica_hint_cooldown', String(v)); } catch { /* ignore */ }
 });
-hintBalance.subscribe((v) => {
-  try { localStorage.setItem('alchemica_hint_balance', String(v)); } catch { /* ignore */ }
-});
+hintBalance.subscribe(saveToStorage);
+purchasedNoAds.subscribe(saveToStorage);
 
 // --- Reset ---
 

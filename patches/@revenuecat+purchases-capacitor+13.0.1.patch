@@ -1,0 +1,20 @@
+diff --git a/node_modules/@revenuecat/purchases-capacitor/android/build.gradle b/node_modules/@revenuecat/purchases-capacitor/android/build.gradle
+index 2aef0a3..07be3ff 100644
+--- a/node_modules/@revenuecat/purchases-capacitor/android/build.gradle
++++ b/node_modules/@revenuecat/purchases-capacitor/android/build.gradle
+@@ -19,11 +19,13 @@ buildscript {
+ }
+ 
+ apply plugin: 'com.android.library'
+-apply plugin: 'org.jetbrains.kotlin.android'
++if (!project.extensions.findByName('kotlin') && !project.plugins.hasPlugin('org.jetbrains.kotlin.android')) {
++    apply plugin: 'org.jetbrains.kotlin.android'
++}
+ 
+ android {
+     namespace = "com.revenuecat.purchases.capacitor"
+-    compileSdk = project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 36
++    compileSdk = 36
+     defaultConfig {
+         minSdkVersion project.hasProperty('minSdkVersion') ? rootProject.ext.minSdkVersion : 24
+         targetSdkVersion project.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 36

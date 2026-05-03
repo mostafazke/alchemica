@@ -47,3 +47,49 @@ button, [role="button"] {
 ::view-transition-new(root) {
   animation: 250ms ease-out fade-slide-in;
 }
+
+/* ─── Portrait "Rotate Device" Overlay ────────────────────────────────────── */
+
+.portrait-rotate-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0d1b2e;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: #8ab4d4;
+  font-family: 'Space Mono', monospace;
+  text-align: center;
+  padding: 24px;
+}
+
+.portrait-rotate-overlay .rotate-icon {
+  font-size: 48px;
+  animation: rotate-hint 2s ease-in-out infinite;
+}
+
+.portrait-rotate-overlay .rotate-text {
+  font-size: 14px;
+  color: #4af0c0;
+  letter-spacing: 0.5px;
+}
+
+.portrait-rotate-overlay .rotate-sub {
+  font-size: 11px;
+  color: #4a6080;
+}
+
+@keyframes rotate-hint {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(90deg); }
+  75% { transform: rotate(90deg); }
+}
+
+@media (orientation: portrait) {
+  .portrait-rotate-overlay {
+    display: flex;
+  }
+}

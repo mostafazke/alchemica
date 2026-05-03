@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import { onNavigate } from '$app/navigation';
 	import { initAdMob } from '$lib/effects/admob.js';
+	import { initIAP } from '$lib/effects/iap.js';
 
 	const { children } = $props();
 
@@ -14,6 +15,7 @@
 			});
 		}
 		initAdMob(); // non-blocking; no-op on web
+		initIAP();   // non-blocking; no-op on web; syncs RC entitlements on native
 	});
 
 	onNavigate((navigation) => {
@@ -29,3 +31,9 @@
 
 {@render children()}
 <OfflineIndicator />
+
+<div class="portrait-rotate-overlay">
+	<span class="rotate-icon">📱</span>
+	<span class="rotate-text">Rotate your device</span>
+	<span class="rotate-sub">Alchemica is designed for landscape mode</span>
+</div>

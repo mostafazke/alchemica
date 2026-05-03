@@ -4,7 +4,7 @@
   import { createLongPress, haptic } from '../utils/touch.js';
   import ElementDetail from './ElementDetail.svelte';
 
-  let { elementKey }: { elementKey: string } = $props();
+  let { elementKey, mode = 'list' }: { elementKey: string; mode?: 'list' | 'grid' } = $props();
 
   const el = $derived(ELEMENTS[elementKey]);
   const isSelected = $derived($slots.a === elementKey || $slots.b === elementKey);
@@ -36,16 +36,21 @@
 {#if el}
 <button
   class="element-card"
+  class:grid-tile={mode === 'grid'}
   class:selected={isSelected}
   bind:this={buttonEl}
   title={el.desc}
 >
   <div class="el-icon {el.color}">{el.symbol}</div>
-  <div class="el-info">
-    <div class="el-formula">{el.formula}</div>
-    <div class="el-name">{el.name}</div>
-    <div class="el-category">{el.category}</div>
-  </div>
+  {#if mode === 'grid'}
+    <div class="el-grid-name">{el.name}</div>
+  {:else}
+    <div class="el-info">
+      <div class="el-formula">{el.formula}</div>
+      <div class="el-name">{el.name}</div>
+      <div class="el-category">{el.category}</div>
+    </div>
+  {/if}
 </button>
 <ElementDetail element={detailOpen ? el : null} onClose={() => detailOpen = false} />
 {/if}
@@ -78,16 +83,28 @@
   .el-name { font-size: 12px; font-weight: 600; color: #c8d8e8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .el-category { font-size: 9px; color: #4a6080; text-transform: uppercase; letter-spacing: 0.5px; }
 
-  @media (max-width: 768px) {
-    .element-card {
-      min-height: 52px;
-      padding: 8px 10px;
-    }
-    .el-icon {
-      width: 36px;
-      height: 36px;
-      font-size: 20px;
-    }
+  /* Grid tile mode */
+  .element-card.grid-tile {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 4px;
+    min-height: 72px;
+    text-align: center;
+  }
+  .element-card.grid-tile .el-icon {
+    width: 30px; height: 30px; font-size: 18px;
+  }
+  .el-grid-name {
+    font-size: 9px;
+    color: #8ab4d4;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    font-family: 'Space Mono', monospace;
   }
 
   /* Category icon backgrounds */

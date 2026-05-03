@@ -1,14 +1,25 @@
 <script lang="ts">
+  import { get } from 'svelte/store';
   import { ELEMENTS } from '../data/elements.js';
   import { slots } from '../stores/game.js';
+  import { soundMuted } from '../stores/settings.js';
+  import { playSlotPlace, playSlotClear } from '../effects/sound.js';
 
   let { which }: { which: 'a' | 'b' } = $props();
 
   const elementKey = $derived($slots[which]);
   const el = $derived(elementKey ? ELEMENTS[elementKey] : null);
 
+  let prevKey: string | null = null;
+  $effect(() => {
+    const key = $slots[which];
+    if (key !== null && prevKey === null && !get(soundMuted)) playSlotPlace();
+    prevKey = key;
+  });
+
   function clearSlot(e: MouseEvent) {
     e.stopPropagation();
+    if (!get(soundMuted)) playSlotClear();
     slots.update((s) => ({ ...s, [which]: null }));
   }
 </script>
@@ -26,46 +37,30 @@
 <style>
   .slot {
     position: relative;
-    width: 90px; height: 90px;
+    width: 70px; height: 70px;
     border: 2px dashed #1a3a5a;
-    border-radius: 12px;
+    border-radius: 10px;
     display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 4px;
+    align-items: center; justify-content: center; gap: 3px;
     background: #080f1a;
     transition: border-color 0.2s, background 0.2s;
     user-select: none;
   }
   .slot.filled { border: 2px solid #4af0c060; background: #0a1a2a; }
   .slot-icon {
-    width: 40px; height: 40px;
+    width: 32px; height: 32px;
     display: flex; align-items: center; justify-content: center;
-    border-radius: 8px; font-size: 22px;
+    border-radius: 6px; font-size: 18px;
   }
-  .slot-name { font-size: 10px; color: #8ab4d4; text-align: center; }
-  .slot-placeholder { font-size: 28px; color: #1a3a5a; }
+  .slot-name { font-size: 9px; color: #8ab4d4; text-align: center; }
+  .slot-placeholder { font-size: 24px; color: #1a3a5a; }
   .slot-clear {
-    position: absolute; top: 4px; right: 4px;
+    position: absolute; top: 3px; right: 3px;
     background: transparent; border: none; color: #4a6080;
     cursor: pointer; font-size: 11px; padding: 3px; line-height: 1;
     border-radius: 4px;
-    min-width: 20px; min-height: 20px;
+    min-width: 24px; min-height: 24px;
     touch-action: manipulation;
   }
   .slot-clear:hover { color: #ff6b6b; background: #ff6b6b20; }
-  @media (max-width: 768px) {
-    .slot {
-      width: 110px;
-      height: 110px;
-    }
-    .slot-clear {
-      min-width: 32px;
-      min-height: 32px;
-      font-size: 13px;
-      padding: 6px;
-    }
-  }
-  @media (orientation: landscape) and (max-height: 520px) {
-    .slot { width: 80px; height: 80px; }
-    .slot-icon { width: 34px; height: 34px; font-size: 20px; }
-  }
 </style>

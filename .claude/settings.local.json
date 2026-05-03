@@ -19,7 +19,11 @@
       "Bash(git diff:*)",
       "Bash(git tag:*)",
       "Skill(gsd-discuss-phase)",
-      "Skill(gsd-plan-phase)"
+      "Skill(gsd-plan-phase)",
+      "Skill(gsd-new-milestone)",
+      "WebSearch",
+      "Bash(npm run *)",
+      "Skill(codemie:claude-setup-audit)"
     ]
   },
   "enableAllProjectMcpServers": true,

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background -->
+  <rect width="32" height="32" rx="7" fill="#0d1b2e"/>
+  <!-- Flask neck -->
+  <rect x="13" y="4" width="6" height="9" rx="2.5" fill="#c9a84c"/>
+  <!-- Flask body -->
+  <ellipse cx="16" cy="23" rx="9.5" ry="7" fill="#c9a84c"/>
+  <!-- Teal liquid fill -->
+  <ellipse cx="16" cy="24.5" rx="7" ry="4.8" fill="#4af0c0"/>
+  <!-- Subtle glint -->
+  <ellipse cx="12" cy="21" rx="1.8" ry="1" fill="white" opacity="0.25"/>
+</svg>

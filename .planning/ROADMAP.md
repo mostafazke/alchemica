@@ -19,7 +19,7 @@ Full archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
 
 ---
 
-## 🚧 Milestone v3 — Revenue & Native (In Progress)
+## ✅ Milestone v3 — Revenue & Native (COMPLETE 2026-05-03)
 
 **Milestone Goal:** Wrap Alchemica as a native Android app and turn v2 engagement into sustainable revenue via rewarded ads and IAP.
 
@@ -30,11 +30,11 @@ Full archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
 - [x] **Phase 9: Capacitor Native Shell** - Android app via Capacitor; Google Play-ready build ✅
 - [x] **Phase 10: Streak Bonus** ✅ - Higher combo multiplier during active streak, visually indicated
 - [x] **Phase 11: AdMob Rewarded Ads** ✅ - Rewarded video ad grants 1 hint; graceful unavailability handling
-- [ ] **Phase 12: IAP & Purchase Logic** - Remove-ads IAP, hint bundle IAP, purchase restore
+- [x] **Phase 12: IAP & Purchase Logic** ✅ - Remove-ads IAP, hint bundle IAP, purchase restore
 
 ---
 
-## � Milestone v5 — Landscape Game UX (Next)
+## ✅ Milestone v5 — Landscape Game UX (COMPLETE 2026-05-03)
 
 **Milestone Goal:** Complete rewrite of the game screen into a landscape-only, grid-based layout inspired by Little Alchemy — elements always visible, tap-to-combine, optimized for phone landscape orientation.
 
@@ -42,7 +42,7 @@ Full archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
 
 ### Phases
 
-- [ ] **Phase 14: Landscape Game UX Rewrite** - Complete game layout rewrite: landscape-locked, left element grid + right mixing workspace
+- [x] **Phase 14: Landscape Game UX Rewrite** ✅ - Complete game layout rewrite: landscape-locked, left element grid + right mixing workspace
 
 ---
 
@@ -55,6 +55,21 @@ Full archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
 ### Phases
 
 - [x] **Phase 13: Main Menu Screen** ✅ - Branded launch screen with smooth navigation transitions
+
+---
+
+## Milestone v6 — Cross-Platform Ship (IN PROGRESS)
+
+**Milestone Goal:** Ship Alchemica on both Google Play and the Apple App Store with full feature parity — ads, IAP, haptics — so iOS and Android players get the same experience.
+
+4 phases (15–18) · 7 requirements
+
+### Phases
+
+- [ ] **Phase 15: Android Play Store Prep** — RevenueCat live, purchases work on Android, store listing complete, AAB submitted
+- [ ] **Phase 16: Capacitor iOS Platform** — iOS app builds, provisioning configured, TestFlight internal testers can install
+- [ ] **Phase 17: iOS Plugin Integration** — AdMob rewarded ads and RevenueCat purchases work on iOS (feature parity with Android)
+- [ ] **Phase 18: App Store Submission** — Screenshots, metadata, Privacy Nutrition Labels complete, submitted for review
 
 ---
 
@@ -143,11 +158,58 @@ Plans:
   8. The existing game logic, stores, and reactions work identically (no gameplay changes)
 **Plans:** 4 plans
 Plans:
-- [ ] 14-01-PLAN.md — ElementGrid component + game page 2-panel layout rewrite
-- [ ] 14-02-PLAN.md — Right panel workspace adaptation (compact slots, result, hint+daily utility row)
-- [ ] 14-03-PLAN.md — TopBar + BottomBar simplification + global CSS cleanup + portrait overlay
-- [ ] 14-04-PLAN.md — Integration: delete Shelf, build verification, human smoke test
+- [x] 14-01-PLAN.md — ElementGrid component + game page 2-panel layout rewrite
+- [x] 14-02-PLAN.md — Right panel workspace adaptation (compact slots, result, hint+daily utility row)
+- [x] 14-03-PLAN.md — TopBar + BottomBar simplification + global CSS cleanup + portrait overlay
+- [x] 14-04-PLAN.md — Integration: delete Shelf, build verification, human smoke test
 **UI hint**: yes
+
+### Phase 15: Android Play Store Prep
+**Goal**: Alchemica is live on Google Play with RevenueCat configured — purchases work on Android and the store listing is complete with all required metadata
+**Depends on**: Phase 14
+**Requirements**: PLAY-01, PLAY-02
+**Success Criteria** (what must be TRUE):
+  1. User can complete a "Remove Ads" or "Hints x10" purchase on Android via RevenueCat (RC API key live, entitlement + Offering configured in RC dashboard)
+  2. The signed AAB is submitted to Google Play with a complete store listing (title, description, screenshots, age rating)
+  3. RevenueCat dashboard confirms an entitlement is granted after a test purchase on Android
+  4. Google Play pre-launch report shows no critical errors on the submitted AAB
+**Plans**: 2 plans
+Plans:
+- [ ] 15-01-PLAN.md — RevenueCat env-var wiring + RC/Play Console product setup + build gate
+- [ ] 15-02-PLAN.md — Play Store screenshots, listing metadata, content rating, AAB upload & review submission
+
+### Phase 16: Capacitor iOS Platform
+**Goal**: Alchemica builds and runs on a real iOS device and internal testers can install via TestFlight — identical gameplay to Android
+**Depends on**: Phase 15
+**Requirements**: IOS-01, IOS-02
+**Success Criteria** (what must be TRUE):
+  1. Xcode project builds successfully with no code signing errors (provisioning profile and certificate configured)
+  2. A signed IPA is uploaded to App Store Connect and internal testers receive a TestFlight installation link
+  3. The app installs and runs on a real iPhone — all game features function identically to Android
+  4. TestFlight build passes Apple's automated processing with no binary rejections
+**Plans**: 3 plans
+
+### Phase 17: iOS Plugin Integration
+**Goal**: AdMob rewarded ads and RevenueCat purchases both work on iOS — full feature parity with Android
+**Depends on**: Phase 16
+**Requirements**: IOS-03, IOS-04
+**Success Criteria** (what must be TRUE):
+  1. User can watch a rewarded ad on iOS to earn a hint (AdMob iOS App ID configured in Info.plist, rewarded ad loads and completes)
+  2. User can purchase "Remove Ads" or a hint bundle on iOS via StoreKit (App Store Connect products linked to RevenueCat)
+  3. RevenueCat iOS correctly syncs entitlements — purchased users permanently see no ad button after reinstall
+  4. No crashes or regressions on iOS for game flows unrelated to ads or IAP
+**Plans**: 2 plans
+
+### Phase 18: App Store Submission
+**Goal**: Alchemica is submitted to the App Store with complete metadata, screenshots for all required device sizes, and accurate Privacy Nutrition Labels
+**Depends on**: Phase 17
+**Requirements**: IOS-05
+**Success Criteria** (what must be TRUE):
+  1. App Store listing has screenshots for all required device sizes (iPhone 6.9" and 6.5" minimum)
+  2. Privacy Nutrition Labels accurately declare all data types collected (purchases, identifiers, usage data)
+  3. App binary is submitted for review via App Store Connect with no metadata validation errors
+  4. App passes Apple's automated review checks before entering the human review queue
+**Plans**: 2 plans
 
 ---
 
@@ -155,11 +217,16 @@ Plans:
 |-------|-----------|----------------|--------|-----------|
 | 1–5. Mobile PWA | v1 | 25/25 | Complete | 2026-05-02 |
 | 6–8. Achievements & Daily | v2 | 16/16 | Complete | 2026-05-02 |
-| 9. Capacitor Native Shell | v3 | 0/7 | Planned | - |
-| 10. Streak Bonus | v3 | 0/? | Not started | - |
-| 11. AdMob Rewarded Ads | v3 | 0/? | Not started | - |
-| 12. IAP & Purchase Logic | v3 | 0/? | Not started | - |
-| 13. Main Menu Screen | v4 | 0/? | Not started | - |
+| 9. Capacitor Native Shell | v3 | 7/7 | Complete | 2026-05-03 |
+| 10. Streak Bonus | v3 | done | Complete | 2026-05-03 |
+| 11. AdMob Rewarded Ads | v3 | done | Complete | 2026-05-03 |
+| 12. IAP & Purchase Logic | v3 | 5/5 | Complete | 2026-05-03 |
+| 13. Main Menu Screen | v4 | done | Complete | 2026-05-03 |
+| 14. Landscape Game UX | v5 | 4/4 | Complete | 2026-05-03 |
+| 15. Android Play Store Prep | v6 | 0/2 | Not started | - |
+| 16. Capacitor iOS Platform | v6 | 0/3 | Not started | - |
+| 17. iOS Plugin Integration | v6 | 0/2 | Not started | - |
+| 18. App Store Submission | v6 | 0/2 | Not started | - |
 
 ---
 
@@ -176,10 +243,10 @@ Plans:
 | STRK-06 | Phase 10 | Done |
 | MOTZ-01 | Phase 11 | Done |
 | MOTZ-04 | Phase 11 | Done |
-| MOTZ-02 | Phase 12 | Pending |
-| MOTZ-03 | Phase 12 | Pending |
-| MOTZ-05 | Phase 12 | Pending |
-| MOTZ-06 | Phase 12 | Pending |
+| MOTZ-02 | Phase 12 | Done |
+| MOTZ-03 | Phase 12 | Done |
+| MOTZ-05 | Phase 12 | Done |
+| MOTZ-06 | Phase 12 | Done |
 
 **Coverage: 11/11 v3 requirements mapped. No orphans.**
 
@@ -187,16 +254,30 @@ Plans:
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| MENU-01 | Phase 13 | Pending |
-| MENU-05 | Phase 13 | Pending |
+| MENU-01 | Phase 13 | Done |
+| MENU-05 | Phase 13 | Done |
 
 **Coverage: 2/2 v4 requirements mapped. No orphans.**
+
+### v6 Requirements
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| PLAY-01 | Phase 15 | Pending |
+| PLAY-02 | Phase 15 | Pending |
+| IOS-01 | Phase 16 | Pending |
+| IOS-02 | Phase 16 | Pending |
+| IOS-03 | Phase 17 | Pending |
+| IOS-04 | Phase 17 | Pending |
+| IOS-05 | Phase 18 | Pending |
+
+**Coverage: 7/7 v6 requirements mapped. No orphans.**
 
 ---
 
 ## Backlog (deferred)
 
-- PLAT-04: iOS App Store (Capacitor iOS) — v4/v5, after Google Play proven
+- ~~PLAT-04: iOS App Store (Capacitor iOS)~~ — promoted to v6 (Phases 16–18)
 - SOCL-01–03: Cloud save + leaderboards — v5, requires backend
 - DALY-06: Push notification on daily reset — v5, requires native/backend
 - CMS-01: In-app element/reaction editor — v4+

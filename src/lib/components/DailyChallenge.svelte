@@ -1,12 +1,24 @@
 <script lang="ts">
+  import { get } from 'svelte/store';
   import { dailyChallengeTarget, dailyCompleted } from '../stores/daily.js';
   import { streakCount } from '../stores/achievements.js';
   import { ELEMENTS } from '../data/elements.js';
+  import { soundMuted } from '../stores/settings.js';
+  import { playDailyComplete } from '../effects/sound.js';
 
   const element = $derived(ELEMENTS[$dailyChallengeTarget] ?? null);
   const streakLabel = $derived(
     $streakCount > 0 ? `🔥 ${$streakCount} day streak` : '🔥 Start your streak!'
   );
+
+  // Track previous value to detect the false→true transition during a session.
+  // Uses initial store value so sound doesn't fire if already complete on mount.
+  let prevCompleted = $state($dailyCompleted);
+  $effect(() => {
+    const completed = $dailyCompleted;
+    if (completed && !prevCompleted && !get(soundMuted)) playDailyComplete();
+    prevCompleted = completed;
+  });
 </script>
 
 <div class="daily-challenge" class:complete={$dailyCompleted}>
@@ -41,13 +53,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
-    padding: 10px 16px;
+    gap: 4px;
+    padding: 8px 12px;
     background: #0a1628;
     border: 1px solid #1a2e4a;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 340px;
+    border-radius: 8px;
+    flex: 1;
     transition: border-color 0.3s, background 0.3s;
     flex-shrink: 0;
   }
@@ -115,7 +126,7 @@
 
   .streak-label {
     font-family: 'Space Mono', monospace;
-    font-size: 10px;
+    font-size: 9px;
     color: #4a6080;
     text-align: center;
   }

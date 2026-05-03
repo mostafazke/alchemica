@@ -59,21 +59,22 @@
   .result-display {
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    gap: 6px; padding: 16px;
-    min-height: 150px;
-    border-radius: 12px;
+    gap: 4px; padding: 10px 16px;
+    min-height: 80px;
+    border-radius: 10px;
     background: #0a1520;
     border: 1px solid #1a2e4a;
     transition: border-color 0.3s, background 0.3s;
     text-align: center;
     width: 100%;
+    max-width: 340px;
   }
   .result-display.success { border-color: #4af0c060; background: #0a2018; }
   .result-display.fail { border-color: #ff405040; background: #1a0a0a; }
   .result-new-badge { font-size: 9px; color: #ffe44a; font-family: 'Space Mono', monospace; letter-spacing: 2px; text-transform: uppercase; }
-  .result-icon { font-size: 36px; }
-  .result-name { font-size: 17px; font-weight: 700; color: #4af0c0; }
-  .result-desc { font-size: 11px; color: #8ab4d4; max-width: 200px; line-height: 1.4; }
+  .result-icon { font-size: 28px; }
+  .result-name { font-size: 15px; font-weight: 700; color: #4af0c0; }
+  .result-desc { font-size: 10px; color: #8ab4d4; max-width: 200px; line-height: 1.3; }
   .result-formula { font-family: 'Space Mono', monospace; font-size: 10px; color: #4af0c080; }
   .result-share-btn {
     margin-top: 4px; padding: 5px 14px;
@@ -88,13 +89,4 @@
   .result-error { font-size: 13px; color: #ff6060; }
   .result-tip { font-size: 10px; color: #2a3550; }
   .result-idle { font-size: 12px; color: #2a3550; }
-  @media (max-width: 768px) {
-    .result-display { min-height: 120px; }
-  }
-  @media (orientation: landscape) and (max-height: 520px) {
-    .result-display { min-height: 60px; padding: 10px 16px; gap: 4px; }
-    .result-icon { font-size: 26px; }
-    .result-name { font-size: 14px; }
-    .result-desc { font-size: 10px; }
-  }
 </style>

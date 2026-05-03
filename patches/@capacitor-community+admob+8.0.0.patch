@@ -1,8 +1,19 @@
 diff --git a/node_modules/@capacitor-community/admob/android/build.gradle b/node_modules/@capacitor-community/admob/android/build.gradle
-index 1056a18..13d21f7 100644
+index 1056a18..c2dd9f6 100644
 --- a/node_modules/@capacitor-community/admob/android/build.gradle
 +++ b/node_modules/@capacitor-community/admob/android/build.gradle
-@@ -37,7 +37,7 @@ android {
+@@ -22,7 +22,9 @@ buildscript {
+ }
+ 
+ apply plugin: 'com.android.library'
+-apply plugin: 'kotlin-android'
++if (!project.extensions.findByName('kotlin') && !project.plugins.hasPlugin('org.jetbrains.kotlin.android')) {
++    apply plugin: 'kotlin-android'
++}
+ 
+ android {
+     namespace = "com.getcapacitor.community.admob.admob"
+@@ -37,7 +39,7 @@ android {
      buildTypes {
          release {
              minifyEnabled false
@@ -11,3 +22,17 @@ index 1056a18..13d21f7 100644
          }
      }
      lintOptions {
+@@ -47,8 +49,11 @@ android {
+         sourceCompatibility JavaVersion.VERSION_21
+         targetCompatibility JavaVersion.VERSION_21
+     }
+-    kotlinOptions {
+-        jvmTarget = JavaVersion.VERSION_21
++}
++
++kotlin {
++    compilerOptions {
++        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
+     }
+ }
+ 

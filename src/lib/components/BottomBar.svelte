@@ -1,9 +1,7 @@
 <script lang="ts">
   import { discoveries } from '../stores/game.js';
 
-  let { shelfOpen = false, onToggleShelf, discoverySheetOpen = false, onToggleDiscoveries, achievementsOpen = false, onToggleAchievements, settingsOpen = false, onToggleSettings }: {
-    shelfOpen?: boolean;
-    onToggleShelf?: () => void;
+  let { discoverySheetOpen = false, onToggleDiscoveries, achievementsOpen = false, onToggleAchievements, settingsOpen = false, onToggleSettings }: {
     discoverySheetOpen?: boolean;
     onToggleDiscoveries?: () => void;
     achievementsOpen?: boolean;
@@ -14,14 +12,6 @@
 </script>
 
 <footer class="bottom-bar">
-  <button
-    class="bar-btn"
-    class:active={shelfOpen}
-    onclick={onToggleShelf}
-    aria-label="Toggle elements shelf"
-  >
-    🧪 <span class="bar-btn-label">Elements</span>
-  </button>
   <button
     class="bar-btn"
     class:active={discoverySheetOpen}
@@ -53,8 +43,8 @@
 
 <style>
   .bottom-bar {
-    display: none;
-    min-height: 56px;
+    display: flex;
+    min-height: 44px;
     height: auto;
     background: #0d1b2e;
     border-top: 1px solid #1a2e4a;
@@ -62,9 +52,6 @@
     justify-content: space-around;
     padding: 0 max(8px, env(safe-area-inset-right, 8px)) env(safe-area-inset-bottom, 0px) max(8px, env(safe-area-inset-left, 8px));
     flex-shrink: 0;
-  }
-  @media (max-width: 1024px) {
-    .bottom-bar { display: flex; }
   }
   .bar-btn {
     position: relative;
