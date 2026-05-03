@@ -73,6 +73,21 @@ Full archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
 
 ---
 
+## Milestone v7 — UI/UX Overhaul (PLANNING)
+
+**Milestone Goal:** Elevate every visual and interactive surface to production quality — design tokens, WCAG compliance, polished states, and rebuilt Shelf + Chamber components based on the UX audit and UI spec.
+
+4 phases (19–22) · 31 requirements
+
+### Phases
+
+- [ ] **Phase 19: Design Tokens & Compliance Sweep** — CSS custom properties system, P0 safety fixes, touch target compliance, accessibility fixes, focus-visible states
+- [ ] **Phase 20: Element Shelf Rebuild** — Filter tabs, grid layout, card sizing and states, long-press affordance, empty state, third-tap behavior
+- [ ] **Phase 21: Mixing Chamber Rebuild** — Slot sizing and states, unified action zone, utility row, drag-over, react button state transitions
+- [ ] **Phase 22: Feedback & Polish** — Score float animation, discovery flash, toast exit, combo badge clip fix, toggle labels
+
+---
+
 ## Phase Details
 
 ### Phase 9: Capacitor Native Shell
@@ -211,6 +226,61 @@ Plans:
   4. App passes Apple's automated review checks before entering the human review queue
 **Plans**: 2 plans
 
+### Phase 19: Design Tokens & Compliance Sweep
+**Goal**: Establish a design token system via CSS custom properties and fix all P0 safety, touch target, accessibility, and focus-visible issues in a single pass across all components
+**Depends on**: Phase 14 (landscape layout must be stable)
+**Requirements**: TOKEN-01, TOKEN-02, SAFE-01, SAFE-02, SAFE-03, TOUCH-01, TOUCH-02, TOUCH-03, TOUCH-04, TOUCH-05, A11Y-01, A11Y-02, A11Y-03, STATE-01
+**Success Criteria** (what must be TRUE):
+  1. A `:root` block defines all spacing (4px base), color, typography, radius, and animation timing tokens per DESIGN_SYSTEM.md
+  2. All components use CSS custom properties — `grep` for hardcoded hex colors and px values finds zero matches outside token definitions
+  3. Reset button shows a confirmation dialog before clearing progress
+  4. DiscoveryLog is visible on all screen sizes (no `display: none !important` on desktop)
+  5. Viewport meta allows pinch-to-zoom (no `user-scalable=no`)
+  6. All interactive hit areas are ≥44×44px (slot clear, share buttons, filter tabs, detail close)
+  7. No font size below 11px anywhere in the app
+  8. Idle instruction text passes WCAG AA contrast (4.5:1)
+  9. All interactive elements have `:focus-visible` outlines
+**Plans**: TBD
+
+### Phase 20: Element Shelf Rebuild
+**Goal**: Rebuild the element grid and filter tabs to match UI-SPEC sizing, states table, and interaction patterns — every card state is visually distinct and the grid auto-fills responsively
+**Depends on**: Phase 19 (tokens must exist)
+**Requirements**: SHELF-01, SHELF-02, SHELF-03, SHELF-04, SHELF-05, SHELF-06, STATE-02
+**Success Criteria** (what must be TRUE):
+  1. Filter tab bar is 44px height with count badges and all states (default, hover, active, focus-visible)
+  2. Element grid uses `repeat(auto-fill, minmax(76px, 1fr))` with 6px gap
+  3. Element cards are 76×76px with 32px icon and 11px+ name label
+  4. Cards show all 7 interaction states from UI-SPEC §2.4 (default, hover, tap, selected, drag-lifted, long-press, focus-visible)
+  5. Long-press affordance dot is visible on cards
+  6. "Found" tab shows empty state message when zero discoveries
+  7. Third tap on a card replaces Slot A instead of showing an error
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 21: Mixing Chamber Rebuild
+**Goal**: Rebuild slots, action zone, and utility row to match UI-SPEC sizing and the Duolingo dual-purpose CTA pattern — slots breathe when ready, react button glows, result replaces the CTA in-place
+**Depends on**: Phase 20 (shelf must feed selected elements)
+**Requirements**: CHAMBER-01, CHAMBER-02, CHAMBER-03, CHAMBER-04, STATE-03
+**Success Criteria** (what must be TRUE):
+  1. Slots are 80×80px with dashed empty state, filled state with 36px icon, and ready-state breathe animation
+  2. React CTA and result display share the same layout space (Duolingo pattern)
+  3. Utility row (hint + daily) is 44px height, collapses to icon-only on small screens
+  4. Drag-over shows solid accent border + scale(1.04)
+  5. React button transitions from disabled gray to accent glow when both slots filled
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 22: Feedback & Polish
+**Goal**: Add micro-animations and polish that make discoveries feel rewarding and fix remaining visual glitches
+**Depends on**: Phase 21 (chamber must be rebuilt)
+**Requirements**: FEED-01, FEED-02, FEED-03, FEED-04, FEED-05
+**Success Criteria** (what must be TRUE):
+  1. Score points float upward and fade out over 600ms on discovery
+  2. New discovery triggers a brief screen-edge flash or icon expand (400ms)
+  3. AchievementToast has a fade/slide exit animation
+  4. Combo badge does not clip outside React button bounds
+  5. BottomBar toggle buttons show "Close" or × when their panel is open
+
 ---
 
 | Phase | Milestone | Plans Complete | Status | Completed |
@@ -223,10 +293,14 @@ Plans:
 | 12. IAP & Purchase Logic | v3 | 5/5 | Complete | 2026-05-03 |
 | 13. Main Menu Screen | v4 | done | Complete | 2026-05-03 |
 | 14. Landscape Game UX | v5 | 4/4 | Complete | 2026-05-03 |
-| 15. Android Play Store Prep | v6 | 0/2 | Not started | - |
+| 15. Android Play Store Prep | v6 | 2/2 | Complete | 2026-05-03 |
 | 16. Capacitor iOS Platform | v6 | 0/3 | Not started | - |
 | 17. iOS Plugin Integration | v6 | 0/2 | Not started | - |
 | 18. App Store Submission | v6 | 0/2 | Not started | - |
+| 19. Design Tokens & Compliance | v7 | 0/? | Not started | - |
+| 20. Element Shelf Rebuild | v7 | 0/? | Not started | - |
+| 21. Mixing Chamber Rebuild | v7 | 0/? | Not started | - |
+| 22. Feedback & Polish | v7 | 0/? | Not started | - |
 
 ---
 
@@ -272,6 +346,44 @@ Plans:
 | IOS-05 | Phase 18 | Pending |
 
 **Coverage: 7/7 v6 requirements mapped. No orphans.**
+
+### v7 Requirements
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| TOKEN-01 | Phase 19 | Pending |
+| TOKEN-02 | Phase 19 | Pending |
+| SAFE-01 | Phase 19 | Pending |
+| SAFE-02 | Phase 19 | Pending |
+| SAFE-03 | Phase 19 | Pending |
+| TOUCH-01 | Phase 19 | Pending |
+| TOUCH-02 | Phase 19 | Pending |
+| TOUCH-03 | Phase 19 | Pending |
+| TOUCH-04 | Phase 19 | Pending |
+| TOUCH-05 | Phase 19 | Pending |
+| A11Y-01 | Phase 19 | Pending |
+| A11Y-02 | Phase 19 | Pending |
+| A11Y-03 | Phase 19 | Pending |
+| STATE-01 | Phase 19 | Pending |
+| SHELF-01 | Phase 20 | Pending |
+| SHELF-02 | Phase 20 | Pending |
+| SHELF-03 | Phase 20 | Pending |
+| SHELF-04 | Phase 20 | Pending |
+| SHELF-05 | Phase 20 | Pending |
+| SHELF-06 | Phase 20 | Pending |
+| STATE-02 | Phase 20 | Pending |
+| CHAMBER-01 | Phase 21 | Pending |
+| CHAMBER-02 | Phase 21 | Pending |
+| CHAMBER-03 | Phase 21 | Pending |
+| CHAMBER-04 | Phase 21 | Pending |
+| STATE-03 | Phase 21 | Pending |
+| FEED-01 | Phase 22 | Pending |
+| FEED-02 | Phase 22 | Pending |
+| FEED-03 | Phase 22 | Pending |
+| FEED-04 | Phase 22 | Pending |
+| FEED-05 | Phase 22 | Pending |
+
+**Coverage: 31/31 v7 requirements mapped. No orphans.**
 
 ---
 

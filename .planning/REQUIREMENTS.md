@@ -98,37 +98,37 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SAFE-01 | TBD | Pending |
-| SAFE-02 | TBD | Pending |
-| SAFE-03 | TBD | Pending |
-| TOUCH-01 | TBD | Pending |
-| TOUCH-02 | TBD | Pending |
-| TOUCH-03 | TBD | Pending |
-| TOUCH-04 | TBD | Pending |
-| TOUCH-05 | TBD | Pending |
-| TOKEN-01 | TBD | Pending |
-| TOKEN-02 | TBD | Pending |
-| SHELF-01 | TBD | Pending |
-| SHELF-02 | TBD | Pending |
-| SHELF-03 | TBD | Pending |
-| SHELF-04 | TBD | Pending |
-| SHELF-05 | TBD | Pending |
-| SHELF-06 | TBD | Pending |
-| CHAMBER-01 | TBD | Pending |
-| CHAMBER-02 | TBD | Pending |
-| CHAMBER-03 | TBD | Pending |
-| CHAMBER-04 | TBD | Pending |
-| STATE-01 | TBD | Pending |
-| STATE-02 | TBD | Pending |
-| STATE-03 | TBD | Pending |
-| A11Y-01 | TBD | Pending |
-| A11Y-02 | TBD | Pending |
-| A11Y-03 | TBD | Pending |
-| FEED-01 | TBD | Pending |
-| FEED-02 | TBD | Pending |
-| FEED-03 | TBD | Pending |
-| FEED-04 | TBD | Pending |
-| FEED-05 | TBD | Pending |
+| SAFE-01 | Phase 19 | Pending |
+| SAFE-02 | Phase 19 | Pending |
+| SAFE-03 | Phase 19 | Pending |
+| TOUCH-01 | Phase 19 | Pending |
+| TOUCH-02 | Phase 19 | Pending |
+| TOUCH-03 | Phase 19 | Pending |
+| TOUCH-04 | Phase 19 | Pending |
+| TOUCH-05 | Phase 19 | Pending |
+| TOKEN-01 | Phase 19 | Pending |
+| TOKEN-02 | Phase 19 | Pending |
+| SHELF-01 | Phase 20 | Pending |
+| SHELF-02 | Phase 20 | Pending |
+| SHELF-03 | Phase 20 | Pending |
+| SHELF-04 | Phase 20 | Pending |
+| SHELF-05 | Phase 20 | Pending |
+| SHELF-06 | Phase 20 | Pending |
+| CHAMBER-01 | Phase 21 | Pending |
+| CHAMBER-02 | Phase 21 | Pending |
+| CHAMBER-03 | Phase 21 | Pending |
+| CHAMBER-04 | Phase 21 | Pending |
+| STATE-01 | Phase 19 | Pending |
+| STATE-02 | Phase 20 | Pending |
+| STATE-03 | Phase 21 | Pending |
+| A11Y-01 | Phase 19 | Pending |
+| A11Y-02 | Phase 19 | Pending |
+| A11Y-03 | Phase 19 | Pending |
+| FEED-01 | Phase 22 | Pending |
+| FEED-02 | Phase 22 | Pending |
+| FEED-03 | Phase 22 | Pending |
+| FEED-04 | Phase 22 | Pending |
+| FEED-05 | Phase 22 | Pending |
 
 **Coverage: 31 v7 requirements mapped. No orphans.**
 

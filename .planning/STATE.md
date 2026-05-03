@@ -6,7 +6,7 @@ status: planning
 last_updated: "2026-05-03"
 last_activity: 2026-05-03 — Milestone v7 started (UI/UX Overhaul)
 progress:
-  total_phases: 0
+  total_phases: 4
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -25,12 +25,12 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 19 — Design Tokens & Compliance Sweep
 Plan: —
-Status: Defining requirements
-Last activity: 2026-05-03 — Milestone v7 started
+Status: Ready for discuss-phase
+Last activity: 2026-05-03 — v7 requirements + roadmap defined
 
-Progress: [          ] 0% (v7)
+Progress: [          ] 0% (v7 — 4 phases, 31 requirements)
 
 ## Milestone Status
 
@@ -42,7 +42,7 @@ Progress: [          ] 0% (v7)
 | v4 — Main Menu | ✅ COMPLETE | 1 (13) | 2/2 |
 | v5 — Landscape Game UX | ✅ COMPLETE | 1 (14) | 3/3 |
 | v6 — Cross-Platform Ship | 🟡 IN PROGRESS | 4 (15–18) | 2/7 |
-| v7 — UI/UX Overhaul | 🟡 PLANNING | TBD | 0/? |
+| v7 — UI/UX Overhaul | 🟡 PLANNING | 4 (19–22) | 0/31 |
 
 ## Accumulated Context
 
