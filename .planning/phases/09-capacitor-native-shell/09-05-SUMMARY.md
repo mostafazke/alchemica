@@ -1,7 +1,7 @@
 # Plan 09-05 Summary — Icons & Splash Screen
 
-**Status:** COMPLETE (automated tasks done; human checkpoint pending)  
-**Committed:** a2c633c  
+**Status:** COMPLETE (automated tasks done; human checkpoint pending)
+**Committed:** a2c633c
 **Date:** 2026-05-03
 
 ## What Was Built

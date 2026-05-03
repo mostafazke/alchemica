@@ -10,12 +10,12 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-05-03 — Milestone v4 started (Main Menu)
+Phase: 13 — Main Menu Screen
+Plan: Complete (2/2 plans done)
+Status: ✅ COMPLETE — all plans executed, committed, verified
+Last activity: 2026-05-03 — Phase 13 executed (main menu + page transitions)
 
-Progress: [░░░░░░░░░░] 0% (v4)
+Progress: [██████████] 100% (v4 Phase 13)
 
 ## Milestone Status
 
@@ -24,7 +24,7 @@ Progress: [░░░░░░░░░░] 0% (v4)
 | v1 — Mobile PWA | ✅ SHIPPED | 5 | 27/27 |
 | v2 — Achievements & Daily Hook | ✅ SHIPPED | 3 (6–8) | 21/21 |
 | v3 — Revenue & Native | 🔄 In progress | 4 (9–12) | 0/11 |
-| v4 — Main Menu | 🔄 In progress | 1 (13) | 0/2 |
+| v4 — Main Menu | ✅ COMPLETE | 1 (13) | 2/2 |
 
 ## Accumulated Context
 
@@ -53,3 +53,4 @@ None. Phase 9 research resolved key risks: install Capacitor 8 (not 6) to match 
 - 2026-05-03: Phase 9 UAT complete (5 pass / 2 issues). Gaps diagnosed and fixed: shelf scroll (CSS flex chain) + Android icon (regenerated foreground PNGs, navy background). Phase 9 ✅ COMPLETE.
 - 2026-05-03: Phase 11 executed. AdMob rewarded ads: @capacitor-community/admob@8 installed, hintBalance store, admob.ts service module, HintButton Watch-Ad UI. Build + cap sync GREEN. Phase 11 ✅ COMPLETE (UAT pending).
 - 2026-05-03: Milestone v4 started. Main Menu milestone defined (2 requirements: MENU-01, MENU-05). Phase 13 roadmapped.
+- 2026-05-03: Phase 13 executed. Route restructure (game → /game, menu at /), branded main menu component, View Transitions API page transitions. Build GREEN. Phase 13 ✅ COMPLETE.

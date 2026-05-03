@@ -1,7 +1,7 @@
 # Plan 09-02 Summary — Capacitor 8 Foundation
 
-**Status:** COMPLETE  
-**Committed:** 0d11ce0  
+**Status:** COMPLETE
+**Committed:** 0d11ce0
 **Date:** 2026-05-03
 
 ## What Was Built
