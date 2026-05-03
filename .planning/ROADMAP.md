@@ -240,7 +240,13 @@ Plans:
   7. No font size below 11px anywhere in the app
   8. Idle instruction text passes WCAG AA contrast (4.5:1)
   9. All interactive elements have `:focus-visible` outlines
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+- [ ] 19-P01-PLAN.md — Token foundation + global styles (`:root` tokens, `:focus-visible`, viewport fix)
+- [ ] 19-P02-PLAN.md — Safety + touch targets + destructive styling (reset confirm, BottomSheet, 44px hit areas)
+- [ ] 19-P03-PLAN.md — Token migration batch A (SettingsPanel, ElementCard, AchievementGallery, ResultDisplay, HintButton, TopBar)
+- [ ] 19-P04-PLAN.md — Token migration batch B (ElementDetail, MixingChamber, Slot, ElementGrid, DailyChallenge, BottomBar)
+- [ ] 19-P05-PLAN.md — Token migration batch C (DiscoveryItem, DiscoveryLog, BottomSheet, OfflineIndicator, AchievementToast, routes)
 
 ### Phase 20: Element Shelf Rebuild
 **Goal**: Rebuild the element grid and filter tabs to match UI-SPEC sizing, states table, and interaction patterns — every card state is visually distinct and the grid auto-fills responsively
