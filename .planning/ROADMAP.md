@@ -34,15 +34,27 @@ Full archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
 
 ---
 
-## 🔄 Milestone v4 — Main Menu (In Progress)
+## � Milestone v5 — Landscape Game UX (Next)
 
-**Milestone Goal:** Add a dedicated main menu screen that greets players on launch with the game title and visual identity, and provides smooth animated transitions into and out of the game.
+**Milestone Goal:** Complete rewrite of the game screen into a landscape-only, grid-based layout inspired by Little Alchemy — elements always visible, tap-to-combine, optimized for phone landscape orientation.
 
-1 phase (13) · 2 requirements
+1 phase (14) · 3 requirements
 
 ### Phases
 
-- [ ] **Phase 13: Main Menu Screen** - Branded launch screen with smooth navigation transitions
+- [ ] **Phase 14: Landscape Game UX Rewrite** - Complete game layout rewrite: landscape-locked, left element grid + right mixing workspace
+
+---
+
+## ✅ Milestone v4 — Main Menu (COMPLETE 2026-05-03)
+
+**Milestone Goal:** Add a dedicated main menu screen that greets players on launch with the game title and visual identity, and provides smooth animated transitions into and out of the game.
+
+1 phase (13) · 2/2 requirements
+
+### Phases
+
+- [x] **Phase 13: Main Menu Screen** ✅ - Branded launch screen with smooth navigation transitions
 
 ---
 
@@ -114,6 +126,27 @@ Plans:
   4. Navigating back from the game to the menu plays a smooth animated transition in the reverse direction
   5. The menu and game are separate SvelteKit routes (`/` for menu, `/game` for the lab), and game state is preserved across navigation
 **Plans**: TBD
+**UI hint**: yes
+
+### Phase 14: Landscape Game UX Rewrite
+**Goal**: The game screen is completely rewritten as a landscape-only layout with a persistent element grid on the left and mixing workspace on the right — all elements always visible, tap to select, no hidden drawers
+**Depends on**: Phase 13
+**Requirements**: UX-01, UX-02, UX-03
+**Success Criteria** (what must be TRUE):
+  1. The game is locked to landscape orientation (AndroidManifest + CSS enforcement)
+  2. The left ~55% of the screen shows a scrollable grid of all unlocked elements (tap to select into slots)
+  3. The right ~45% shows the mixing workspace (slots, react button, result display, hint, daily challenge) vertically stacked
+  4. All unlocked elements are always visible without needing to open a drawer/sidebar/overlay
+  5. The element grid supports filter tabs (All/Basic/Found) inline above the grid
+  6. The bottom bar provides navigation to Discoveries, Badges, and Settings as overlay panels
+  7. No portrait breakpoints exist — the layout is landscape-only and removes all previous responsive complexity
+  8. The existing game logic, stores, and reactions work identically (no gameplay changes)
+**Plans:** 4 plans
+Plans:
+- [ ] 14-01-PLAN.md — ElementGrid component + game page 2-panel layout rewrite
+- [ ] 14-02-PLAN.md — Right panel workspace adaptation (compact slots, result, hint+daily utility row)
+- [ ] 14-03-PLAN.md — TopBar + BottomBar simplification + global CSS cleanup + portrait overlay
+- [ ] 14-04-PLAN.md — Integration: delete Shelf, build verification, human smoke test
 **UI hint**: yes
 
 ---
