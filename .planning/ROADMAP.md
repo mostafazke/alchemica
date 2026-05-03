@@ -34,6 +34,18 @@ Full archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
 
 ---
 
+## 🔄 Milestone v4 — Main Menu (In Progress)
+
+**Milestone Goal:** Add a dedicated main menu screen that greets players on launch with the game title and visual identity, and provides smooth animated transitions into and out of the game.
+
+1 phase (13) · 2 requirements
+
+### Phases
+
+- [ ] **Phase 13: Main Menu Screen** - Branded launch screen with smooth navigation transitions
+
+---
+
 ## Phase Details
 
 ### Phase 9: Capacitor Native Shell
@@ -91,9 +103,20 @@ Plans:
   5. Save format is migrated to v3 with purchasedNoAds and hintBalance fields without data loss
 **Plans**: TBD
 
----
+### Phase 13: Main Menu Screen
+**Goal**: Users land on a branded main menu screen at launch and navigate to and from the game with smooth animated transitions.
+**Depends on**: Phase 12
+**Requirements**: MENU-01, MENU-05
+**Success Criteria** (what must be TRUE):
+  1. On launch, the user sees a main menu screen displaying the game title, logo, and the established dark alchemical visual identity (dark background, gold accents)
+  2. The main menu has a clearly visible "Play" (or equivalent) action that takes the user into the game
+  3. Navigating from the menu to the game plays a smooth animated transition (no hard page jump)
+  4. Navigating back from the game to the menu plays a smooth animated transition in the reverse direction
+  5. The menu and game are separate SvelteKit routes (`/` for menu, `/game` for the lab), and game state is preserved across navigation
+**Plans**: TBD
+**UI hint**: yes
 
-## Progress
+---
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -103,6 +126,7 @@ Plans:
 | 10. Streak Bonus | v3 | 0/? | Not started | - |
 | 11. AdMob Rewarded Ads | v3 | 0/? | Not started | - |
 | 12. IAP & Purchase Logic | v3 | 0/? | Not started | - |
+| 13. Main Menu Screen | v4 | 0/? | Not started | - |
 
 ---
 
@@ -124,13 +148,23 @@ Plans:
 | MOTZ-05 | Phase 12 | Pending |
 | MOTZ-06 | Phase 12 | Pending |
 
-**Coverage: 11/11 requirements mapped. No orphans.**
+**Coverage: 11/11 v3 requirements mapped. No orphans.**
+
+### v4 Requirements
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| MENU-01 | Phase 13 | Pending |
+| MENU-05 | Phase 13 | Pending |
+
+**Coverage: 2/2 v4 requirements mapped. No orphans.**
 
 ---
 
 ## Backlog (deferred)
 
-- PLAT-04: iOS App Store (Capacitor iOS) — v4, after Google Play proven
-- SOCL-01–03: Cloud save + leaderboards — v4, requires backend
-- DALY-06: Push notification on daily reset — v4, requires native/backend
+- PLAT-04: iOS App Store (Capacitor iOS) — v4/v5, after Google Play proven
+- SOCL-01–03: Cloud save + leaderboards — v5, requires backend
+- DALY-06: Push notification on daily reset — v5, requires native/backend
 - CMS-01: In-app element/reaction editor — v4+
+- MENU-02–04, MENU-06–07: Play/Continue with progress, New Game confirm, Settings shortcut, BG particles, Credits — v5

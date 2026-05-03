@@ -7,22 +7,35 @@
 **Repo:** https://github.com/mostafazke/alchemica
 **Stack:** SvelteKit + Svelte 5 + TypeScript + Vite 8 + vite-plugin-pwa
 
-## Current Milestone: v3 — Revenue & Native
+## Current Milestone: v4 — Main Menu
 
-**Goal:** Wrap Alchemica as a native Android app and turn the engagement built in v2 into sustainable revenue.
+**Goal:** Add a dedicated main menu screen that greets players on launch with the game title and visual identity, and provides a smooth animated transition into the game.
 
 **Target features:**
-- Capacitor native wrapper (Android / Google Play)
-- AdMob rewarded ads — watch ad to earn 1 free hint (MOTZ-01)
-- Remove-ads one-time IAP ($2.99–$4.99) — MOTZ-02
-- Hint bundle IAP — purchase 10 hints — MOTZ-03
-- Streak bonus — higher combo multiplier during active streak (STRK-05)
+- Main menu / splash screen (title, logo, alchemical visual identity)
+- Smooth animated navigation transition to/from the game
 
 **Key constraints:**
-- Capacitor prerequisite for AdMob and IAP
-- PWA (web) must remain fully functional alongside native
-- Save format needs v3 migration for IAP state (purchasedNoAds, hintBalance)
-- iOS deferred — Android-only in v3
+- Must integrate with SvelteKit routing
+- Menu screen must be mobile-first and consistent with existing visual identity
+- No breaking changes to existing game state or save format
+
+## Previous Milestone: v3 — Revenue & Native (In Progress)
+
+<details>
+<summary>v3 scope (Revenue & Native — in progress)</summary>
+
+**Goal:** Wrap Alchemica as a native Android app and turn v2 engagement into sustainable revenue.
+
+**Shipped (Phases 9–11):**
+- Capacitor 8 native Android wrapper, signed AAB, Google Play-ready
+- Streak bonus — higher combo multiplier during active streak (STRK-05, STRK-06)
+- AdMob rewarded ads — watch ad to earn 1 free hint (MOTZ-01, MOTZ-04)
+
+**Remaining (Phase 12):**
+- Remove-ads IAP (MOTZ-02), Hint bundle IAP (MOTZ-03), restore purchases (MOTZ-06), hide ads for purchasers (MOTZ-05)
+
+</details>
 
 ## Previous Milestone: v2 — SHIPPED ✓
 
@@ -85,13 +98,17 @@ Players can open the game on any device, pick up where they left off, and feel t
 - ✓ STRK-01–04: Streak display, increment, reset, persist — Phases 6 + 7 + 8
 </details>
 
-### Active (v3 — Revenue & Native)
+### Active (v4 — Main Menu)
 
-- MOTZ-01: AdMob rewarded ad grants 1 free hint
+- MENU-01: User sees a main menu screen on launch with game title, logo, and visual identity
+- MENU-05: Navigating to/from the game uses a smooth animated transition
+
+### Active (v3 — Revenue & Native, in progress)
+
 - MOTZ-02: Remove-ads one-time IAP ($2.99–$4.99)
 - MOTZ-03: Hint bundle IAP — purchase 10 hints
-- STRK-05: Streak bonus — higher combo multiplier during active streak
-- PLAT-01: Capacitor native wrapper for Android (Google Play)
+- MOTZ-05: Users who purchased remove-ads never see ads
+- MOTZ-06: User can restore previous purchases after reinstall
 
 ### Out of Scope
 
@@ -130,7 +147,7 @@ Players can open the game on any device, pick up where they left off, and feel t
 | In-app editor deferred to v2 | Adds significant complexity; config file sufficient for controlled content growth in v1 | — Pending |
 
 ---
-*Last updated: 2026-05-02 — Milestone v3 started (Revenue & Native)*
+*Last updated: 2026-05-03 — Milestone v4 started (Main Menu)*
 
 ## Evolution
 

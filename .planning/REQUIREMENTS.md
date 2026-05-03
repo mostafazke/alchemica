@@ -1,4 +1,57 @@
-# Requirements: Alchemica v3
+# Requirements: Alchemica v4
+
+**Defined:** 2026-05-03
+**Milestone:** v4 — Main Menu
+**Core Value:** Players can open the game on any device, pick up where they left off, and feel the satisfaction of discovering a new element — even with no internet connection.
+
+---
+
+## v4 Requirements
+
+### Menu Screen
+
+- [ ] **MENU-01**: User sees a main menu screen on launch with the game title, logo, and visual identity
+- [ ] **MENU-05**: Navigating to/from the game uses a smooth animated transition
+
+---
+
+## Future Requirements (Deferred from v4)
+
+### Menu Screen (deferred)
+- **MENU-02**: User can tap Play/Continue to enter the game; button shows current progress (e.g. "32/61 discovered") — v5
+- **MENU-03**: User can start a New Game from the menu; a confirmation dialog prevents accidental data wipe — v5
+- **MENU-04**: User can open Settings from the main menu — v5
+- **MENU-06**: The main menu displays a live particle/visual effect in the background — v5
+- **MENU-07**: User can view a Credits/About screen listing contributors and version — v5
+
+---
+
+## Out of Scope (v4)
+
+- Play/Continue with progress display — deferred; minimal scope for v4
+- New Game / data-wipe confirmation — deferred; no game management in v4
+- Settings from menu — existing BottomBar settings access sufficient; menu shortcut is future
+- Background particles on menu — visual polish, v5+
+- Credits screen — v5+
+
+---
+
+## Traceability
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| MENU-01 | Phase 13 | Pending |
+| MENU-05 | Phase 13 | Pending |
+
+**Coverage: 2/2 v4 requirements mapped. No orphans.**
+
+---
+
+## Archive
+
+- v1 requirements (27 req) → [milestones/v1-REQUIREMENTS.md](milestones/v1-REQUIREMENTS.md)
+- v2 requirements (21 req) → [milestones/v2-REQUIREMENTS.md](milestones/v2-REQUIREMENTS.md)
+- v3 requirements (11 req) → [milestones/v3-REQUIREMENTS.md](milestones/v3-REQUIREMENTS.md)
 
 **Defined:** 2026-05-02
 **Milestone:** v3 — Revenue & Native
