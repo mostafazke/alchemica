@@ -243,7 +243,12 @@ Plans:
   3. Main menu has a Settings link that opens a /settings route containing: reset game (danger), sound/haptics toggles, export/import save
   4. Main menu shows a daily challenge card with: today's element name, live countdown to midnight reset, completion status
   5. Main menu shows high score, last discovery, and a prominent Play button
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 23-01-PLAN.md — Game screen cleanup: remove BottomBar, redesign TopBar (pause button)
+- [ ] 23-02-PLAN.md — Settings route: /settings page, hapticsMuted store, reset modal
+- [ ] 23-03-PLAN.md — Main menu enrichment: Discoveries/Badges overlays, daily card, settings link
 **UI hint**: yes
 
 ### Phase 24: Design Tokens & Compliance Sweep
