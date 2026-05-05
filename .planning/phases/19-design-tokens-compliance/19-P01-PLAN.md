@@ -13,7 +13,7 @@ must_haves:
     - ":root block contains all 20 color tokens and 4 animation tokens per D-01/D-02/D-04"
     - "Global :focus-visible rule applies accent outline to all interactive elements"
     - "Viewport meta allows pinch-to-zoom (no user-scalable=no)"
-    - "Existing spacing/radius/typography tokens are unchanged"
+    - "Radius tokens updated to DESIGN_SYSTEM.md spec: --radius-sm:8px, --radius-md:12px, --radius-lg:16px, --radius-xl:24px (D-05)"
   artifacts:
     - path: "src/app.css"
       provides: "Complete design token :root block + global :focus-visible"
@@ -99,7 +99,15 @@ Then replace the hardcoded hex values in `app.css` body/scrollbar styles with to
 - `.portrait-rotate-overlay` block: `background: #0d1b2e` → `background: var(--color-bg-raised)`; `color: #8ab4d4` → `color: var(--color-text-secondary)`
 - Any other hardcoded hex in app.css that maps to a token (check the full file)
 
-Do NOT modify the existing spacing, radius, or typography tokens — only extend.
+**Radius token correction (D-05):** UPDATE the existing radius token values in the `:root` block:
+```css
+  --radius-sm: 8px;   /* was 6px */
+  --radius-md: 12px;  /* was 8px */
+  --radius-lg: 16px;  /* was 10px */
+  --radius-xl: 24px;  /* was 16px */
+```
+
+Do NOT modify spacing or typography tokens — only extend with color/animation tokens and update radius values.
 </action>
 <acceptance_criteria>
 - `grep -c "\-\-color-accent:" src/app.css` returns 1
@@ -111,7 +119,11 @@ Do NOT modify the existing spacing, radius, or typography tokens — only extend
 - `grep -c "outline: 2px solid var(--color-accent)" src/app.css` returns 1
 - `grep -c "var(--color-bg-raised)" src/app.css` returns at least 2 (body + portrait overlay)
 - `grep -c "var(--color-text-primary)" src/app.css` returns at least 1 (body color)
-- Existing `--space-1`, `--radius-sm`, `--text-micro` tokens are still present and unchanged
+- `grep "--radius-sm:" src/app.css` output contains `8px`
+- `grep "--radius-md:" src/app.css` output contains `12px`
+- `grep "--radius-lg:" src/app.css` output contains `16px`
+- `grep "--radius-xl:" src/app.css` output contains `24px`
+- Existing `--space-1` and `--text-micro` tokens still present
 - `grep -c "#0d1b2e" src/app.css` returns exactly 1 (only in the :root token definition line)
 </acceptance_criteria>
 </task>
