@@ -16,11 +16,14 @@
 - Fix all P1 touch target violations (slot clear, share buttons, filter tabs, detail close)
 - Implement design token system (spacing, colors, typography, radius, animation)
 - Rebuild Element Shelf per UI-SPEC (filter tabs, grid layout, card states, long-press affordance)
+- Locked element silhouettes in grid (Monument Valley curiosity-pull — undiscovered shown as dark '?' tiles)
+- Drag-to-slot interaction (HTML5 drag + touch pointer events; cards draggable onto slots)
 - Rebuild Mixing Chamber per UI-SPEC (slots, unified action zone, utility row)
 - Add missing interaction states (focus-visible, hover, selected, drag)
 - Fix typography (11px minimum, consistent sizing)
 - Fix idle state contrast (WCAG AA compliance)
 - Add missing feedback patterns (result animations, score float, discovery flash)
+- Witty one-liner captions on new discoveries (Little Alchemy 2 humor — `oneliner` field in elements.ts)
 
 **Key constraints:**
 - No gameplay logic changes — purely visual/interaction layer

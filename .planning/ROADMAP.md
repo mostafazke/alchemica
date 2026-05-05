@@ -75,9 +75,9 @@ Full archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
 
 ## Milestone v7 — UI/UX Overhaul (PLANNING)
 
-**Milestone Goal:** Elevate every visual and interactive surface to production quality — design tokens, WCAG compliance, polished states, and rebuilt Shelf + Chamber components based on the UX audit and UI spec.
+**Milestone Goal:** Elevate every visual and interactive surface to production quality — design tokens, WCAG compliance, polished states, rebuilt Shelf + Chamber components, drag-to-slot interaction, locked element silhouettes, and witty discovery one-liners.
 
-4 phases (19–22) · 31 requirements
+4 phases (19–22) · 35 requirements
 
 ### Phases
 
@@ -249,9 +249,9 @@ Plans:
 - [ ] 19-P05-PLAN.md — Token migration batch C (DiscoveryItem, DiscoveryLog, BottomSheet, OfflineIndicator, AchievementToast, routes)
 
 ### Phase 20: Element Shelf Rebuild
-**Goal**: Rebuild the element grid and filter tabs to match UI-SPEC sizing, states table, and interaction patterns — every card state is visually distinct and the grid auto-fills responsively
+**Goal**: Rebuild the element grid and filter tabs to match UI-SPEC sizing, states table, and interaction patterns — every card state is visually distinct, the grid auto-fills responsively, locked silhouettes reveal the discovery space, and cards support drag initiation
 **Depends on**: Phase 19 (tokens must exist)
-**Requirements**: SHELF-01, SHELF-02, SHELF-03, SHELF-04, SHELF-05, SHELF-06, STATE-02
+**Requirements**: SHELF-01, SHELF-02, SHELF-03, SHELF-04, SHELF-05, SHELF-06, STATE-02, SIL-01, DRG-01
 **Success Criteria** (what must be TRUE):
   1. Filter tab bar is 44px height with count badges and all states (default, hover, active, focus-visible)
   2. Element grid uses `repeat(auto-fill, minmax(76px, 1fr))` with 6px gap
@@ -260,32 +260,36 @@ Plans:
   5. Long-press affordance dot is visible on cards
   6. "Found" tab shows empty state message when zero discoveries
   7. Third tap on a card replaces Slot A instead of showing an error
+  8. Undiscovered elements appear as dark silhouettes (0.3 opacity, '?' name, non-interactive) in the grid
+  9. Element cards are draggable — drag initiates with correct drag-lifted visual state
 **Plans**: TBD
 **UI hint**: yes
 
 ### Phase 21: Mixing Chamber Rebuild
-**Goal**: Rebuild slots, action zone, and utility row to match UI-SPEC sizing and the Duolingo dual-purpose CTA pattern — slots breathe when ready, react button glows, result replaces the CTA in-place
-**Depends on**: Phase 20 (shelf must feed selected elements)
-**Requirements**: CHAMBER-01, CHAMBER-02, CHAMBER-03, CHAMBER-04, STATE-03
+**Goal**: Rebuild slots, action zone, and utility row to match UI-SPEC sizing and the Duolingo dual-purpose CTA pattern — slots breathe when ready, react button glows, result replaces the CTA in-place, and slots accept dragged element cards
+**Depends on**: Phase 20 (shelf must feed selected elements; drag-initiation built)
+**Requirements**: CHAMBER-01, CHAMBER-02, CHAMBER-03, CHAMBER-04, DRG-02, STATE-03
 **Success Criteria** (what must be TRUE):
   1. Slots are 80×80px with dashed empty state, filled state with 36px icon, and ready-state breathe animation
   2. React CTA and result display share the same layout space (Duolingo pattern)
   3. Utility row (hint + daily) is 44px height, collapses to icon-only on small screens
   4. Drag-over shows solid accent border + scale(1.04)
   5. React button transitions from disabled gray to accent glow when both slots filled
+  6. Slots accept element card drops — dragover + drop fills the target slot
 **Plans**: TBD
 **UI hint**: yes
 
 ### Phase 22: Feedback & Polish
-**Goal**: Add micro-animations and polish that make discoveries feel rewarding and fix remaining visual glitches
+**Goal**: Add micro-animations and polish that make discoveries feel rewarding, fix remaining visual glitches, and deliver witty one-liner captions on every new discovery
 **Depends on**: Phase 21 (chamber must be rebuilt)
-**Requirements**: FEED-01, FEED-02, FEED-03, FEED-04, FEED-05
+**Requirements**: FEED-01, FEED-02, FEED-03, FEED-04, FEED-05, HMR-01
 **Success Criteria** (what must be TRUE):
   1. Score points float upward and fade out over 600ms on discovery
   2. New discovery triggers a brief screen-edge flash or icon expand (400ms)
   3. AchievementToast has a fade/slide exit animation
   4. Combo badge does not clip outside React button bounds
   5. BottomBar toggle buttons show "Close" or × when their panel is open
+  6. Every new discovery result shows a witty one-liner caption from elements.ts
 
 ---
 
@@ -378,18 +382,22 @@ Plans:
 | SHELF-05 | Phase 20 | Pending |
 | SHELF-06 | Phase 20 | Pending |
 | STATE-02 | Phase 20 | Pending |
+| SIL-01 | Phase 20 | Pending |
+| DRG-01 | Phase 20 | Pending |
 | CHAMBER-01 | Phase 21 | Pending |
 | CHAMBER-02 | Phase 21 | Pending |
 | CHAMBER-03 | Phase 21 | Pending |
 | CHAMBER-04 | Phase 21 | Pending |
+| DRG-02 | Phase 21 | Pending |
 | STATE-03 | Phase 21 | Pending |
 | FEED-01 | Phase 22 | Pending |
 | FEED-02 | Phase 22 | Pending |
 | FEED-03 | Phase 22 | Pending |
 | FEED-04 | Phase 22 | Pending |
 | FEED-05 | Phase 22 | Pending |
+| HMR-01 | Phase 22 | Pending |
 
-**Coverage: 31/31 v7 requirements mapped. No orphans.**
+**Coverage: 35/35 v7 requirements mapped. No orphans.**
 
 ---
 

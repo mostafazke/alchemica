@@ -3,6 +3,7 @@
 **Defined:** 2026-05-03
 **Milestone:** v7 — UI/UX Overhaul
 **Core Value:** Every interaction feels polished, responsive, and accessible — the UI matches the quality of the game logic.
+**Updated:** 2026-05-05 — Expanded with 4 experience-layer improvements (SIL-01, DRG-01, DRG-02, HMR-01) based on UI-PATTERNS-RESEARCH.md
 
 **Reference artifacts:**
 - `UX-AUDIT.md` — 28 prioritized issues (source of truth for issue numbers)
@@ -61,6 +62,16 @@
 - [ ] **A11Y-02**: Idle state instruction text has WCAG AA contrast ratio (4.5:1 minimum) — not `#2a3550` on `#0a1520` (audit P1 #10)
 - [ ] **A11Y-03**: Reset button has destructive styling (danger color, warning affordance) (audit P2 #14)
 
+### Interaction Enhancements
+
+- [ ] **SIL-01**: Undiscovered elements render as locked silhouettes in the element grid — 76×76px cell, dark icon at 0.3 opacity, '?' name, non-interactive (`pointer-events: none`). Creates a discoverable-but-mysterious spatial progress indicator (Monument Valley curiosity-pull pattern)
+- [ ] **DRG-01**: Element cards support drag initiation — HTML5 `draggable` attribute and pointer event fallback for touch. Card shows drag-lifted state (scale 1.05, elevated shadow) during drag per UI-SPEC §2.4 states table
+- [ ] **DRG-02**: Slots accept element card drops — `dragover` + `drop` event handlers fill the target slot. Slot shows drag-over state during hover (CHAMBER-04 visual already planned) per UI-SPEC §3.3
+
+### Content & Humor
+
+- [ ] **HMR-01**: All 57 discoverable elements have a witty one-liner caption string in `elements.ts` (`oneliner?: string` field). New discovery result (Phase 4b) displays the caption below the element name (Little Alchemy 2 humor pattern)
+
 ### Feedback & Polish
 
 - [ ] **FEED-01**: Score points float upward and fade out over 600ms on discovery (Duolingo XP float pattern) per UI-SPEC §1.6
@@ -114,12 +125,15 @@
 | SHELF-04 | Phase 20 | Pending |
 | SHELF-05 | Phase 20 | Pending |
 | SHELF-06 | Phase 20 | Pending |
+| SIL-01 | Phase 20 | Pending |
+| DRG-01 | Phase 20 | Pending |
 | CHAMBER-01 | Phase 21 | Pending |
 | CHAMBER-02 | Phase 21 | Pending |
 | CHAMBER-03 | Phase 21 | Pending |
 | CHAMBER-04 | Phase 21 | Pending |
 | STATE-01 | Phase 19 | Pending |
 | STATE-02 | Phase 20 | Pending |
+| DRG-02 | Phase 21 | Pending |
 | STATE-03 | Phase 21 | Pending |
 | A11Y-01 | Phase 19 | Pending |
 | A11Y-02 | Phase 19 | Pending |
@@ -129,8 +143,9 @@
 | FEED-03 | Phase 22 | Pending |
 | FEED-04 | Phase 22 | Pending |
 | FEED-05 | Phase 22 | Pending |
+| HMR-01 | Phase 22 | Pending |
 
-**Coverage: 31 v7 requirements mapped. No orphans.**
+**Coverage: 35 v7 requirements mapped. No orphans.**
 
 ---
 
