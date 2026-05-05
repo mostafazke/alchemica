@@ -24,6 +24,7 @@
 
 	let discoverySheetOpen = $state(false);
 	let achievementsOpen = $state(false);
+
 </script>
 
 <main class="menu">
@@ -34,7 +35,7 @@
 	</div>
 
 	<button class="play-btn" onclick={play}>
-		Play
+		{$discoveries.length > 0 || $score > 0 ? 'Resume' : 'Play'}
 	</button>
 
 	{#if $score > 0}
@@ -67,11 +68,10 @@
 		<button class="menu-action-btn" onclick={() => achievementsOpen = true} aria-label="View badges">
 			🏆 Badges
 		</button>
+		<button class="menu-action-btn" onclick={() => goto('/settings')} aria-label="Open settings">
+			⚙ Settings
+		</button>
 	</div>
-
-	<button class="settings-link" onclick={() => goto('/settings')} aria-label="Open settings">
-		⚙ Settings
-	</button>
 
 	<BottomSheet open={discoverySheetOpen} onClose={() => discoverySheetOpen = false}>
 		<DiscoveryLog />
@@ -142,14 +142,8 @@
 		min-height: 52px;
 	}
 
-	.play-btn:hover {
-		background: #d9b85c;
-	}
-
-	.play-btn:active {
-		transform: scale(0.97);
-		background: #b8973b;
-	}
+	.play-btn:hover { background: #d9b85c; }
+	.play-btn:active { transform: scale(0.97); background: #b8973b; }
 
 	.score-stat {
 		font-family: 'Space Mono', monospace;
@@ -159,19 +153,23 @@
 		opacity: 0.8;
 	}
 
+	/* Daily challenge card — gold accent to distinguish from action buttons */
 	.daily-card {
 		display: flex;
 		align-items: center;
 		gap: 0.75rem;
 		padding: 0.75rem 1.25rem;
-		background: #0a1a2a;
-		border: 1px solid #1a3a5a;
+		background: #0f1e0a;
+		border: 1px solid #c9a84c60;
 		border-radius: 12px;
 		min-width: 220px;
 		max-width: 280px;
+		box-shadow: 0 0 12px #c9a84c18;
 	}
 	.daily-card.completed {
-		border-color: #4af0c040;
+		background: #0a1a12;
+		border-color: #4af0c060;
+		box-shadow: 0 0 12px #4af0c018;
 	}
 	.daily-icon {
 		font-size: 1.5rem;
@@ -188,20 +186,21 @@
 		font-size: 9px;
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
-		color: #4a6080;
+		color: #c9a84c;
 	}
 	.daily-status {
 		font-size: 13px;
-		color: #8ab4d4;
+		color: #c8d8e8;
 	}
-	.daily-card.completed .daily-status {
-		color: #4af0c0;
-	}
+	.daily-card.completed .daily-status { color: #4af0c0; }
 	.completed-text { color: #4af0c0; }
 
+	/* Action buttons row — Discoveries, Badges, Settings all share same style */
 	.menu-actions {
 		display: flex;
 		gap: 0.75rem;
+		flex-wrap: wrap;
+		justify-content: center;
 	}
 	.menu-action-btn {
 		position: relative;
@@ -236,20 +235,4 @@
 		min-width: 18px;
 		text-align: center;
 	}
-
-	.settings-link {
-		background: transparent;
-		border: none;
-		color: #4a6080;
-		font-family: 'Space Mono', monospace;
-		font-size: 0.75rem;
-		letter-spacing: 0.05em;
-		cursor: pointer;
-		padding: 0.5rem 0.75rem;
-		min-height: 44px;
-		touch-action: manipulation;
-		transition: color 0.15s;
-		-webkit-tap-highlight-color: transparent;
-	}
-	.settings-link:hover { color: #8ab4d4; }
 </style>
