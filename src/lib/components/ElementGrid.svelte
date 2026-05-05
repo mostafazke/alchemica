@@ -55,7 +55,7 @@
     font-family: 'Space Mono', monospace;
     cursor: pointer;
     transition: all 0.15s;
-    min-height: 36px;
+    min-height: 44px;
     touch-action: manipulation;
   }
   .tab-btn.active,
@@ -67,9 +67,9 @@
   .grid-scroll {
     flex: 1;
     overflow-y: auto;
-    padding: 8px 10px;
+    padding: 8px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
     gap: 6px;
     align-content: start;
     -webkit-overflow-scrolling: touch;

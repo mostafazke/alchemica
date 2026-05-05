@@ -37,7 +37,7 @@
 <style>
   .slot {
     position: relative;
-    width: 70px; height: 70px;
+    width: 80px; height: 80px;
     border: 2px dashed #1a3a5a;
     border-radius: 10px;
     display: flex; flex-direction: column;

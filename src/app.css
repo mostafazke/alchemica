@@ -1,3 +1,30 @@
+/* ─── Design Tokens ───────────────────────────────────────────────────────── */
+
+:root {
+  /* Spacing (4px base unit) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-11: 44px;
+  --space-12: 48px;
+  --space-13: 52px;
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 16px;
+
+  /* Typography (minimum 11px per spec) */
+  --text-micro: 11px;
+  --text-caption: 11px;
+  --text-label: 12px;
+  --text-body: 13px;
+  --text-title: 16px;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;

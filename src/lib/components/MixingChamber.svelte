@@ -91,8 +91,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 10px 16px;
+    gap: 8px;
+    padding: 8px 16px;
     overflow: hidden;
     min-width: 0;
     min-height: 0;
@@ -136,9 +136,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 8px;
     width: 100%;
-    max-width: 340px;
+    max-width: 320px;
     flex-shrink: 0;
   }
 </style>
