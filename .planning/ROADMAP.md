@@ -87,7 +87,7 @@ Full archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
 
 ### Phases
 
-- [ ] **Phase 23: Navigation Architecture** — Minimal game screen (remove BottomBar), settings screen from main menu, enriched main menu with daily challenge card + countdown
+- [x] **Phase 23: Navigation Architecture** ✅ — Minimal game screen (remove BottomBar), settings screen from main menu, enriched main menu with daily challenge card + countdown
 - [ ] **Phase 24: Design Tokens & Compliance** — CSS custom properties, P0 safety fixes, touch target compliance, accessibility, focus-visible (absorbed from v7 Phase 19)
 - [ ] **Phase 25: Element Grid Rebuild** — Filter tabs, grid layout, card states, locked silhouettes, drag initiation (absorbed from v7 Phase 20)
 - [ ] **Phase 26: Mixing Chamber Rebuild** — Slot sizing/states, drag-to-slot, unified action zone, utility row (absorbed from v7 Phase 21)
@@ -425,6 +425,19 @@ Plans:
 ---
 
 ## Backlog (deferred)
+
+### Phase 999.1: Follow-up — Phase 19 unexecuted v7 plans (BACKLOG)
+
+**Goal:** The 5 PLAN.md files in `.planning/phases/19-design-tokens-compliance/` were written for v7 but v7 was superseded by v8. Phase 24 (v8) replaces this scope with fresh plans — these old plans can be used as reference material but should not be executed.
+**Source phase:** 19 (v7, superseded)
+**Deferred at:** 2026-05-05 during gsd-progress --next advancement to Phase 24
+**Plans:**
+- [ ] 19-P01-PLAN.md (CSS custom property tokens) — reference only
+- [ ] 19-P02-PLAN.md (P0 safety fixes) — reference only
+- [ ] 19-P03-PLAN.md (touch target compliance) — reference only
+- [ ] 19-P04-PLAN.md (accessibility) — reference only
+- [ ] 19-P05-PLAN.md (focus-visible) — reference only
+**Resolution:** Phase 24 discuss/plan will absorb any still-relevant scope; these plans are superseded.
 
 - ~~PLAT-04: iOS App Store (Capacitor iOS)~~ — promoted to v6 (Phases 16–18)
 - SOCL-01–03: Cloud save + leaderboards — v5, requires backend
