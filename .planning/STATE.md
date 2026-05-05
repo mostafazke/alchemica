@@ -75,3 +75,5 @@ None. Phase 9 research resolved key risks: install Capacitor 8 (not 6) to match 
 - 2026-05-03: Phase 13 executed. Route restructure (game → /game, menu at /), branded main menu component, View Transitions API page transitions. Build GREEN. Phase 13 ✅ COMPLETE.
 - 2026-05-03: Phase 15 executed. RC API key env-var pattern (pre-existing), RevenueCat project created, Google Play products (remove_ads + hints_10) active, RC entitlement + offering configured, store listing complete, signed AAB submitted. Phase 15 ✅ COMPLETE.
 - 2026-05-03: Milestone v7 started. UI/UX Overhaul — fix 28 audit issues, implement design tokens, rebuild shelf + chamber per UI-SPEC.
+- 2026-05-05: Milestone v8 started. Game Screen Overhaul — navigation architecture (Phase 23).
+- 2026-05-05: Phase 23 complete. Navigation architecture: game screen cleaned, TopBar redesigned with pause, /settings route, hapticsMuted store, main menu enriched with overlays + daily card. All 10 UAT tests PASS.
