@@ -7,28 +7,23 @@
 **Repo:** https://github.com/mostafazke/alchemica
 **Stack:** SvelteKit + Svelte 5 + TypeScript + Vite 8 + vite-plugin-pwa
 
-## Current Milestone: v7 — UI/UX Overhaul
+## Current Milestone: v8 — Game Screen Overhaul
 
-**Goal:** Fix all identified UX issues and rebuild the game UI to match the detailed UI spec — proper touch targets, design tokens, interaction states, and polished feedback inspired by Little Alchemy 2, Duolingo, and Monument Valley patterns.
+**Goal:** Restructure the game navigation architecture (minimal game screen, dedicated settings screen, enriched main menu), then build the full UI/UX layer — design tokens, WCAG compliance, rebuilt element grid and mixing chamber, drag interaction, and polished feedback. Supersedes v7 (which was planned but never executed).
 
 **Target features:**
-- Fix all P0 critical issues (reset confirmation, DiscoveryLog desktop access, viewport zoom)
-- Fix all P1 touch target violations (slot clear, share buttons, filter tabs, detail close)
-- Implement design token system (spacing, colors, typography, radius, animation)
-- Rebuild Element Shelf per UI-SPEC (filter tabs, grid layout, card states, long-press affordance)
-- Locked element silhouettes in grid (Monument Valley curiosity-pull — undiscovered shown as dark '?' tiles)
-- Drag-to-slot interaction (HTML5 drag + touch pointer events; cards draggable onto slots)
-- Rebuild Mixing Chamber per UI-SPEC (slots, unified action zone, utility row)
-- Add missing interaction states (focus-visible, hover, selected, drag)
-- Fix typography (11px minimum, consistent sizing)
-- Fix idle state contrast (WCAG AA compliance)
-- Add missing feedback patterns (result animations, score float, discovery flash)
-- Witty one-liner captions on new discoveries (Little Alchemy 2 humor — `oneliner` field in elements.ts)
+- **Minimal game screen** — Remove BottomBar; game screen is purely: TopBar (pause→menu | score | discovered count) + element grid (left) + mixing workspace (right)
+- **Settings screen** — Accessible from main menu: reset game, sound/haptics toggles, export/import save data
+- **Enriched main menu** — Daily challenge card with countdown to daily reset, last-played info, high score, settings link, play button
+- **Design tokens + compliance** — CSS custom properties system, WCAG compliance, touch target fixes, focus-visible, typography fixes (absorbs v7 Phase 19)
+- **Element grid rebuild** — Filter tabs, grid layout, card states, long-press affordance, locked silhouettes, drag initiation (absorbs v7 Phase 20)
+- **Mixing chamber rebuild** — Slot sizing/states, drag-to-slot, unified action zone, utility row (absorbs v7 Phase 21)
+- **Feedback & polish** — Score float, discovery flash, toast exit animation, combo badge fix, witty one-liners on discovery (absorbs v7 Phase 22)
 
 **Key constraints:**
-- No gameplay logic changes — purely visual/interaction layer
+- No gameplay logic changes — purely visual/interaction and navigation layer
 - Must follow DESIGN_SYSTEM.md tokens and UI-SPEC-SHELF-CHAMBER.md measurements
-- All fixes must work in landscape-only mode (Phase 14 constraint)
+- All work in landscape-only mode (Phase 14 constraint)
 - 44×44px minimum touch targets (Apple HIG / WCAG 2.5.5)
 - 11px minimum font size throughout
 - No new dependencies — CSS-only where possible
@@ -38,6 +33,17 @@
 - `UI-PATTERNS-RESEARCH.md` — Little Alchemy 2, Duolingo, Monument Valley patterns
 - `UI-SPEC-SHELF-CHAMBER.md` — detailed implementation spec with measurements
 - `DESIGN_SYSTEM.md` — design tokens
+
+## Previous Milestone: v7 — UI/UX Overhaul (SUPERSEDED — never executed)
+
+<details>
+<summary>v7 scope (superseded by v8 on 2026-05-05)</summary>
+
+**Goal:** Design tokens, WCAG compliance, rebuilt Shelf + Chamber, drag interaction, polished feedback.
+**Status:** Planned but never executed. v8 absorbs and supersedes all v7 requirements.
+**v7 phases 19–22:** Plans existed but were abandoned in favor of v8 re-architecture.
+
+</details>
 
 ## Previous Milestone: v6 — Cross-Platform Ship (IN PROGRESS 2026-05-03)
 

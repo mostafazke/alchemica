@@ -1,14 +1,14 @@
 ---
 gsd_state_version: 1.0
-milestone: v7
-milestone_name: UI/UX Overhaul
+milestone: v8
+milestone_name: Game Screen Overhaul
 status: planning
-last_updated: "2026-05-03"
-last_activity: 2026-05-03 — Phase 19 planned (5 plans, 2 waves)
+last_updated: "2026-05-05"
+last_activity: 2026-05-05 — Milestone v8 started (Game Screen Overhaul)
 progress:
-  total_phases: 4
+  total_phases: 0
   completed_phases: 0
-  total_plans: 5
+  total_plans: 0
   completed_plans: 0
   percent: 0
 ---
@@ -25,12 +25,12 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 ## Current Position
 
-Phase: 19 — Design Tokens & Compliance Sweep
+Phase: Not started (defining requirements)
 Plan: —
-Status: Ready for execute-phase
-Last activity: 2026-05-03 — Phase 19 planned (5 plans in 2 waves)
+Status: Defining requirements
+Last activity: 2026-05-05 — Milestone v8 started
 
-Progress: [          ] 0% (v7 — 4 phases, 31 requirements)
+Progress: [          ] 0% (v8 — phases TBD)
 
 ## Milestone Status
 
@@ -42,7 +42,8 @@ Progress: [          ] 0% (v7 — 4 phases, 31 requirements)
 | v4 — Main Menu | ✅ COMPLETE | 1 (13) | 2/2 |
 | v5 — Landscape Game UX | ✅ COMPLETE | 1 (14) | 3/3 |
 | v6 — Cross-Platform Ship | 🟡 IN PROGRESS | 4 (15–18) | 2/7 |
-| v7 — UI/UX Overhaul | 🟡 PLANNING | 4 (19–22) | 0/31 |
+| v7 — UI/UX Overhaul | ⚫ SUPERSEDED | — | — |
+| v8 — Game Screen Overhaul | 🟡 PLANNING | TBD | 0/TBD |
 
 ## Accumulated Context
 
