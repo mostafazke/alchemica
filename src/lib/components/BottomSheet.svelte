@@ -66,11 +66,4 @@
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
-  /* Desktop: never show as bottom sheet */
-  @media (min-width: 769px) {
-    .bottom-sheet,
-    .sheet-overlay {
-      display: none !important;
-    }
-  }
 </style>
