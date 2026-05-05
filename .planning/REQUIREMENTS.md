@@ -1,9 +1,9 @@
-# Requirements: Alchemica v7
+# Requirements: Alchemica v8
 
-**Defined:** 2026-05-03
-**Milestone:** v7 — UI/UX Overhaul
-**Core Value:** Every interaction feels polished, responsive, and accessible — the UI matches the quality of the game logic.
-**Updated:** 2026-05-05 — Expanded with 4 experience-layer improvements (SIL-01, DRG-01, DRG-02, HMR-01) based on UI-PATTERNS-RESEARCH.md
+**Defined:** 2026-05-03 (v7 origin)
+**Milestone:** v8 — Game Screen Overhaul
+**Core Value:** The game screen is focused on play. Navigation is intentional. Every surface is polished and accessible.
+**Updated:** 2026-05-05 — v7 superseded by v8; added NAV-01-05 architecture requirements; v7 requirements absorbed unchanged
 
 **Reference artifacts:**
 - `UX-AUDIT.md` — 28 prioritized issues (source of truth for issue numbers)
@@ -13,7 +13,15 @@
 
 ---
 
-## v7 Requirements
+## v8 Requirements
+
+### Navigation Architecture (NEW — v8)
+
+- [ ] **NAV-01**: Game screen contains only TopBar + element grid (left panel) + mixing workspace (right panel) — no BottomBar
+- [ ] **NAV-02**: TopBar pause button navigates to main menu (replaces current static layout)
+- [ ] **NAV-03**: Settings screen accessible from main menu — contains: reset game (danger-styled), sound toggle, haptics toggle, export save, import save
+- [ ] **NAV-04**: Main menu displays daily challenge card with live countdown timer to daily reset and completion status
+- [ ] **NAV-05**: Main menu displays: play button, current high score, link to settings screen
 
 ### Critical Safety (P0)
 
@@ -109,43 +117,48 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SAFE-01 | Phase 19 | Pending |
-| SAFE-02 | Phase 19 | Pending |
-| SAFE-03 | Phase 19 | Pending |
-| TOUCH-01 | Phase 19 | Pending |
-| TOUCH-02 | Phase 19 | Pending |
-| TOUCH-03 | Phase 19 | Pending |
-| TOUCH-04 | Phase 19 | Pending |
-| TOUCH-05 | Phase 19 | Pending |
-| TOKEN-01 | Phase 19 | Pending |
-| TOKEN-02 | Phase 19 | Pending |
-| SHELF-01 | Phase 20 | Pending |
-| SHELF-02 | Phase 20 | Pending |
-| SHELF-03 | Phase 20 | Pending |
-| SHELF-04 | Phase 20 | Pending |
-| SHELF-05 | Phase 20 | Pending |
-| SHELF-06 | Phase 20 | Pending |
-| SIL-01 | Phase 20 | Pending |
-| DRG-01 | Phase 20 | Pending |
-| CHAMBER-01 | Phase 21 | Pending |
-| CHAMBER-02 | Phase 21 | Pending |
-| CHAMBER-03 | Phase 21 | Pending |
-| CHAMBER-04 | Phase 21 | Pending |
-| STATE-01 | Phase 19 | Pending |
-| STATE-02 | Phase 20 | Pending |
-| DRG-02 | Phase 21 | Pending |
-| STATE-03 | Phase 21 | Pending |
-| A11Y-01 | Phase 19 | Pending |
-| A11Y-02 | Phase 19 | Pending |
-| A11Y-03 | Phase 19 | Pending |
-| FEED-01 | Phase 22 | Pending |
-| FEED-02 | Phase 22 | Pending |
-| FEED-03 | Phase 22 | Pending |
-| FEED-04 | Phase 22 | Pending |
-| FEED-05 | Phase 22 | Pending |
-| HMR-01 | Phase 22 | Pending |
+| NAV-01 | Phase 23 | Pending |
+| NAV-02 | Phase 23 | Pending |
+| NAV-03 | Phase 23 | Pending |
+| NAV-04 | Phase 23 | Pending |
+| NAV-05 | Phase 23 | Pending |
+| SAFE-01 | Phase 24 | Pending |
+| SAFE-02 | Phase 24 | Pending |
+| SAFE-03 | Phase 24 | Pending |
+| TOUCH-01 | Phase 24 | Pending |
+| TOUCH-02 | Phase 24 | Pending |
+| TOUCH-03 | Phase 24 | Pending |
+| TOUCH-04 | Phase 24 | Pending |
+| TOUCH-05 | Phase 24 | Pending |
+| TOKEN-01 | Phase 24 | Pending |
+| TOKEN-02 | Phase 24 | Pending |
+| STATE-01 | Phase 24 | Pending |
+| A11Y-01 | Phase 24 | Pending |
+| A11Y-02 | Phase 24 | Pending |
+| A11Y-03 | Phase 24 | Pending |
+| SHELF-01 | Phase 25 | Pending |
+| SHELF-02 | Phase 25 | Pending |
+| SHELF-03 | Phase 25 | Pending |
+| SHELF-04 | Phase 25 | Pending |
+| SHELF-05 | Phase 25 | Pending |
+| SHELF-06 | Phase 25 | Pending |
+| SIL-01 | Phase 25 | Pending |
+| DRG-01 | Phase 25 | Pending |
+| STATE-02 | Phase 25 | Pending |
+| CHAMBER-01 | Phase 26 | Pending |
+| CHAMBER-02 | Phase 26 | Pending |
+| CHAMBER-03 | Phase 26 | Pending |
+| CHAMBER-04 | Phase 26 | Pending |
+| DRG-02 | Phase 26 | Pending |
+| STATE-03 | Phase 26 | Pending |
+| FEED-01 | Phase 27 | Pending |
+| FEED-02 | Phase 27 | Pending |
+| FEED-03 | Phase 27 | Pending |
+| FEED-04 | Phase 27 | Pending |
+| FEED-05 | Phase 27 | Pending |
+| HMR-01 | Phase 27 | Pending |
 
-**Coverage: 35 v7 requirements mapped. No orphans.**
+**Coverage: 40 v8 requirements mapped (35 absorbed from v7 + 5 new NAV). No orphans.**
 
 ---
 

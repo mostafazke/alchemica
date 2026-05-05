@@ -1,7 +1,7 @@
 # Roadmap: Alchemica
 
 **Project:** Alchemica — Mobile-first element combination PWA
-**Updated:** 2026-05-03
+**Updated:** 2026-05-05
 
 ---
 
@@ -73,18 +73,25 @@ Full archive: [.planning/milestones/v2-ROADMAP.md](milestones/v2-ROADMAP.md)
 
 ---
 
-## Milestone v7 — UI/UX Overhaul (PLANNING)
+## Milestone v7 — UI/UX Overhaul (SUPERSEDED 2026-05-05)
 
-**Milestone Goal:** Elevate every visual and interactive surface to production quality — design tokens, WCAG compliance, polished states, rebuilt Shelf + Chamber components, drag-to-slot interaction, locked element silhouettes, and witty discovery one-liners.
+> **Superseded by v8.** Phases 19–22 were planned but never executed. v8 absorbs all v7 scope with an updated navigation architecture.
 
-4 phases (19–22) · 35 requirements
+---
+
+## Milestone v8 — Game Screen Overhaul (PLANNING)
+
+**Milestone Goal:** Restructure the game navigation (minimal game screen, dedicated settings screen, enriched main menu), then build the full UI/UX layer — design tokens, WCAG compliance, rebuilt element grid + mixing chamber, drag interaction, and polished feedback. Supersedes v7.
+
+5 phases (23–27) · 40 requirements
 
 ### Phases
 
-- [ ] **Phase 19: Design Tokens & Compliance Sweep** — CSS custom properties system, P0 safety fixes, touch target compliance, accessibility fixes, focus-visible states
-- [ ] **Phase 20: Element Shelf Rebuild** — Filter tabs, grid layout, card sizing and states, long-press affordance, empty state, third-tap behavior
-- [ ] **Phase 21: Mixing Chamber Rebuild** — Slot sizing and states, unified action zone, utility row, drag-over, react button state transitions
-- [ ] **Phase 22: Feedback & Polish** — Score float animation, discovery flash, toast exit, combo badge clip fix, toggle labels
+- [ ] **Phase 23: Navigation Architecture** — Minimal game screen (remove BottomBar), settings screen from main menu, enriched main menu with daily challenge card + countdown
+- [ ] **Phase 24: Design Tokens & Compliance** — CSS custom properties, P0 safety fixes, touch target compliance, accessibility, focus-visible (absorbed from v7 Phase 19)
+- [ ] **Phase 25: Element Grid Rebuild** — Filter tabs, grid layout, card states, locked silhouettes, drag initiation (absorbed from v7 Phase 20)
+- [ ] **Phase 26: Mixing Chamber Rebuild** — Slot sizing/states, drag-to-slot, unified action zone, utility row (absorbed from v7 Phase 21)
+- [ ] **Phase 27: Feedback & Polish** — Score float, discovery flash, toast animation, one-liners, combo badge fix (absorbed from v7 Phase 22)
 
 ---
 
@@ -226,37 +233,45 @@ Plans:
   4. App passes Apple's automated review checks before entering the human review queue
 **Plans**: 2 plans
 
-### Phase 19: Design Tokens & Compliance Sweep
-**Goal**: Establish a design token system via CSS custom properties and fix all P0 safety, touch target, accessibility, and focus-visible issues in a single pass across all components
+### Phase 23: Navigation Architecture
+**Goal**: Restructure game navigation — game screen becomes focused play surface (TopBar + element grid + mixing workspace, no BottomBar). Settings screen is added. Main menu shows daily challenge card with countdown and last-played info.
 **Depends on**: Phase 14 (landscape layout must be stable)
+**Requirements**: NAV-01, NAV-02, NAV-03, NAV-04, NAV-05
+**Success Criteria** (what must be TRUE):
+  1. Game screen has no BottomBar — only TopBar (pause | score | count), left grid, right workspace
+  2. TopBar pause button navigates to main menu (existing SvelteKit route /)
+  3. Main menu has a Settings link that opens a /settings route containing: reset game (danger), sound/haptics toggles, export/import save
+  4. Main menu shows a daily challenge card with: today's element name, live countdown to midnight reset, completion status
+  5. Main menu shows high score, last discovery, and a prominent Play button
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 24: Design Tokens & Compliance Sweep
+**Goal**: Establish a design token system via CSS custom properties and fix all P0 safety, touch target, accessibility, and focus-visible issues in a single pass across all components
+**Depends on**: Phase 23 (new navigation architecture must be in place)
 **Requirements**: TOKEN-01, TOKEN-02, SAFE-01, SAFE-02, SAFE-03, TOUCH-01, TOUCH-02, TOUCH-03, TOUCH-04, TOUCH-05, A11Y-01, A11Y-02, A11Y-03, STATE-01
 **Success Criteria** (what must be TRUE):
-  1. A `:root` block defines all spacing (4px base), color, typography, radius, and animation timing tokens per DESIGN_SYSTEM.md
-  2. All components use CSS custom properties — `grep` for hardcoded hex colors and px values finds zero matches outside token definitions
-  3. Reset button shows a confirmation dialog before clearing progress
-  4. DiscoveryLog is visible on all screen sizes (no `display: none !important` on desktop)
-  5. Viewport meta allows pinch-to-zoom (no `user-scalable=no`)
-  6. All interactive hit areas are ≥44×44px (slot clear, share buttons, filter tabs, detail close)
+  1. A :root block defines all spacing (4px base), color, typography, radius, and animation timing tokens per DESIGN_SYSTEM.md
+  2. All components use CSS custom properties — no hardcoded hex colors or magic px values in component styles
+  3. Reset button shows a custom Svelte modal (not window.confirm) before clearing progress
+  4. DiscoveryLog is visible on all screen sizes (no display-none override on desktop)
+  5. Viewport meta allows pinch-to-zoom (no user-scalable=no)
+  6. All interactive hit areas are 44x44px minimum (slot clear, share buttons, filter tabs, detail close)
   7. No font size below 11px anywhere in the app
   8. Idle instruction text passes WCAG AA contrast (4.5:1)
-  9. All interactive elements have `:focus-visible` outlines
-**Plans**: 5 plans
-Plans:
-- [ ] 19-P01-PLAN.md — Token foundation + global styles (`:root` tokens, `:focus-visible`, viewport fix)
-- [ ] 19-P02-PLAN.md — Safety + touch targets + destructive styling (reset confirm, BottomSheet, 44px hit areas)
-- [ ] 19-P03-PLAN.md — Token migration batch A (SettingsPanel, ElementCard, AchievementGallery, ResultDisplay, HintButton, TopBar)
-- [ ] 19-P04-PLAN.md — Token migration batch B (ElementDetail, MixingChamber, Slot, ElementGrid, DailyChallenge, BottomBar)
-- [ ] 19-P05-PLAN.md — Token migration batch C (DiscoveryItem, DiscoveryLog, BottomSheet, OfflineIndicator, AchievementToast, routes)
+  9. All interactive elements have :focus-visible outlines
+**Plans**: TBD
+**UI hint**: yes
 
-### Phase 20: Element Shelf Rebuild
+### Phase 25: Element Grid Rebuild
 **Goal**: Rebuild the element grid and filter tabs to match UI-SPEC sizing, states table, and interaction patterns — every card state is visually distinct, the grid auto-fills responsively, locked silhouettes reveal the discovery space, and cards support drag initiation
-**Depends on**: Phase 19 (tokens must exist)
+**Depends on**: Phase 24 (tokens must exist)
 **Requirements**: SHELF-01, SHELF-02, SHELF-03, SHELF-04, SHELF-05, SHELF-06, STATE-02, SIL-01, DRG-01
 **Success Criteria** (what must be TRUE):
   1. Filter tab bar is 44px height with count badges and all states (default, hover, active, focus-visible)
-  2. Element grid uses `repeat(auto-fill, minmax(76px, 1fr))` with 6px gap
-  3. Element cards are 76×76px with 32px icon and 11px+ name label
-  4. Cards show all 7 interaction states from UI-SPEC §2.4 (default, hover, tap, selected, drag-lifted, long-press, focus-visible)
+  2. Element grid uses repeat(auto-fill, minmax(76px, 1fr)) with 6px gap
+  3. Element cards are 76x76px with 32px icon and 11px+ name label
+  4. Cards show all 7 interaction states from UI-SPEC section 2.4 (default, hover, tap, selected, drag-lifted, long-press, focus-visible)
   5. Long-press affordance dot is visible on cards
   6. "Found" tab shows empty state message when zero discoveries
   7. Third tap on a card replaces Slot A instead of showing an error
@@ -265,12 +280,12 @@ Plans:
 **Plans**: TBD
 **UI hint**: yes
 
-### Phase 21: Mixing Chamber Rebuild
+### Phase 26: Mixing Chamber Rebuild
 **Goal**: Rebuild slots, action zone, and utility row to match UI-SPEC sizing and the Duolingo dual-purpose CTA pattern — slots breathe when ready, react button glows, result replaces the CTA in-place, and slots accept dragged element cards
-**Depends on**: Phase 20 (shelf must feed selected elements; drag-initiation built)
+**Depends on**: Phase 25 (shelf must feed selected elements; drag-initiation built)
 **Requirements**: CHAMBER-01, CHAMBER-02, CHAMBER-03, CHAMBER-04, DRG-02, STATE-03
 **Success Criteria** (what must be TRUE):
-  1. Slots are 80×80px with dashed empty state, filled state with 36px icon, and ready-state breathe animation
+  1. Slots are 80x80px with dashed empty state, filled state with 36px icon, and ready-state breathe animation
   2. React CTA and result display share the same layout space (Duolingo pattern)
   3. Utility row (hint + daily) is 44px height, collapses to icon-only on small screens
   4. Drag-over shows solid accent border + scale(1.04)
@@ -279,17 +294,18 @@ Plans:
 **Plans**: TBD
 **UI hint**: yes
 
-### Phase 22: Feedback & Polish
+### Phase 27: Feedback & Polish
 **Goal**: Add micro-animations and polish that make discoveries feel rewarding, fix remaining visual glitches, and deliver witty one-liner captions on every new discovery
-**Depends on**: Phase 21 (chamber must be rebuilt)
+**Depends on**: Phase 26 (chamber must be rebuilt)
 **Requirements**: FEED-01, FEED-02, FEED-03, FEED-04, FEED-05, HMR-01
 **Success Criteria** (what must be TRUE):
   1. Score points float upward and fade out over 600ms on discovery
   2. New discovery triggers a brief screen-edge flash or icon expand (400ms)
   3. AchievementToast has a fade/slide exit animation
   4. Combo badge does not clip outside React button bounds
-  5. BottomBar toggle buttons show "Close" or × when their panel is open
-  6. Every new discovery result shows a witty one-liner caption from elements.ts
+  5. Every new discovery result shows a witty one-liner caption from elements.ts
+  6. All animations respect prefers-reduced-motion media query
+**Plans**: TBD
 
 ---
 
@@ -307,10 +323,12 @@ Plans:
 | 16. Capacitor iOS Platform | v6 | 0/3 | Not started | - |
 | 17. iOS Plugin Integration | v6 | 0/2 | Not started | - |
 | 18. App Store Submission | v6 | 0/2 | Not started | - |
-| 19. Design Tokens & Compliance | v7 | 0/? | Not started | - |
-| 20. Element Shelf Rebuild | v7 | 0/? | Not started | - |
-| 21. Mixing Chamber Rebuild | v7 | 0/? | Not started | - |
-| 22. Feedback & Polish | v7 | 0/? | Not started | - |
+| 19–22. UI/UX Overhaul | v7 | SUPERSEDED | — | — |
+| 23. Navigation Architecture | v8 | 0/? | Not started | - |
+| 24. Design Tokens & Compliance | v8 | 0/? | Not started | - |
+| 25. Element Grid Rebuild | v8 | 0/? | Not started | - |
+| 26. Mixing Chamber Rebuild | v8 | 0/? | Not started | - |
+| 27. Feedback & Polish | v8 | 0/? | Not started | - |
 
 ---
 
