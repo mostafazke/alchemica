@@ -4,6 +4,12 @@
 	import { goto } from '$app/navigation';
 	import { soundMuted } from '$lib/stores/settings.js';
 	import { playBgm, stopBgm, setBgmMuted } from '$lib/effects/bgm.js';
+	import BottomSheet from '$lib/components/BottomSheet.svelte';
+	import DiscoveryLog from '$lib/components/DiscoveryLog.svelte';
+	import AchievementGallery from '$lib/components/AchievementGallery.svelte';
+	import { discoveries, score } from '$lib/stores/game.js';
+	import { dailyChallengeTarget, dailyCompleted } from '$lib/stores/daily.js';
+	import { ELEMENTS } from '$lib/data/elements.js';
 
 	onMount(() => {
 		setBgmMuted(get(soundMuted));
@@ -15,6 +21,9 @@
 	function play() {
 		goto('/game');
 	}
+
+	let discoverySheetOpen = $state(false);
+	let achievementsOpen = $state(false);
 </script>
 
 <main class="menu">
@@ -27,6 +36,48 @@
 	<button class="play-btn" onclick={play}>
 		Play
 	</button>
+
+	{#if $score > 0}
+		<p class="score-stat">Score: {$score}</p>
+	{/if}
+
+	<div class="daily-card" class:completed={$dailyCompleted}>
+		{#if $dailyCompleted}
+			<span class="daily-icon">✓</span>
+			<div class="daily-info">
+				<span class="daily-label">Daily Challenge</span>
+				<span class="daily-status completed-text">Completed today</span>
+			</div>
+		{:else}
+			<span class="daily-icon">⚗</span>
+			<div class="daily-info">
+				<span class="daily-label">Daily Challenge</span>
+				<span class="daily-status">{ELEMENTS[$dailyChallengeTarget]?.name ?? $dailyChallengeTarget} available</span>
+			</div>
+		{/if}
+	</div>
+
+	<div class="menu-actions">
+		<button class="menu-action-btn" onclick={() => discoverySheetOpen = true} aria-label="View discoveries">
+			📋 Discoveries
+			{#if $discoveries.length > 0}
+				<span class="badge">{$discoveries.length}</span>
+			{/if}
+		</button>
+		<button class="menu-action-btn" onclick={() => achievementsOpen = true} aria-label="View badges">
+			🏆 Badges
+		</button>
+	</div>
+
+	<button class="settings-link" onclick={() => goto('/settings')} aria-label="Open settings">
+		⚙ Settings
+	</button>
+
+	<BottomSheet open={discoverySheetOpen} onClose={() => discoverySheetOpen = false}>
+		<DiscoveryLog />
+	</BottomSheet>
+
+	<AchievementGallery open={achievementsOpen} onClose={() => achievementsOpen = false} />
 </main>
 
 <style>
@@ -36,7 +87,7 @@
 		align-items: center;
 		justify-content: center;
 		height: 100dvh;
-		gap: 2.5rem;
+		gap: 1.5rem;
 		background: #0d1b2e;
 		padding: 2rem;
 	}
@@ -88,7 +139,6 @@
 		transition: background 150ms ease, transform 100ms ease;
 		-webkit-tap-highlight-color: transparent;
 		touch-action: manipulation;
-		/* 44px minimum touch target (Apple HIG) */
 		min-height: 52px;
 	}
 
@@ -100,4 +150,106 @@
 		transform: scale(0.97);
 		background: #b8973b;
 	}
+
+	.score-stat {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.8rem;
+		color: #4af0c0;
+		margin: 0;
+		opacity: 0.8;
+	}
+
+	.daily-card {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.75rem 1.25rem;
+		background: #0a1a2a;
+		border: 1px solid #1a3a5a;
+		border-radius: 12px;
+		min-width: 220px;
+		max-width: 280px;
+	}
+	.daily-card.completed {
+		border-color: #4af0c040;
+	}
+	.daily-icon {
+		font-size: 1.5rem;
+		line-height: 1;
+		flex-shrink: 0;
+	}
+	.daily-info {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+	.daily-label {
+		font-family: 'Space Mono', monospace;
+		font-size: 9px;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		color: #4a6080;
+	}
+	.daily-status {
+		font-size: 13px;
+		color: #8ab4d4;
+	}
+	.daily-card.completed .daily-status {
+		color: #4af0c0;
+	}
+	.completed-text { color: #4af0c0; }
+
+	.menu-actions {
+		display: flex;
+		gap: 0.75rem;
+	}
+	.menu-action-btn {
+		position: relative;
+		padding: 0.6rem 1.2rem;
+		min-height: 44px;
+		font-family: 'Space Mono', monospace;
+		font-size: 0.75rem;
+		letter-spacing: 0.05em;
+		color: #8ab4d4;
+		background: transparent;
+		border: 1px solid #1a3a5a;
+		border-radius: 8px;
+		cursor: pointer;
+		touch-action: manipulation;
+		transition: border-color 0.15s, color 0.15s;
+		-webkit-tap-highlight-color: transparent;
+	}
+	.menu-action-btn:hover {
+		border-color: #4af0c040;
+		color: #c8d8e8;
+	}
+	.badge {
+		position: absolute;
+		top: -6px;
+		right: -6px;
+		background: #4af0c0;
+		color: #0d1b2e;
+		font-size: 10px;
+		font-weight: 700;
+		border-radius: 10px;
+		padding: 1px 5px;
+		min-width: 18px;
+		text-align: center;
+	}
+
+	.settings-link {
+		background: transparent;
+		border: none;
+		color: #4a6080;
+		font-family: 'Space Mono', monospace;
+		font-size: 0.75rem;
+		letter-spacing: 0.05em;
+		cursor: pointer;
+		padding: 0.5rem 0.75rem;
+		min-height: 44px;
+		touch-action: manipulation;
+		transition: color 0.15s;
+		-webkit-tap-highlight-color: transparent;
+	}
+	.settings-link:hover { color: #8ab4d4; }
 </style>

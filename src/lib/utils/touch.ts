@@ -4,11 +4,14 @@
  */
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 import { Capacitor } from '@capacitor/core';
+import { get } from 'svelte/store';
+import { hapticsMuted } from '../stores/settings.js';
 
 // ─── Haptic ──────────────────────────────────────────────────────────────────
 
 /** Vibrate on success reaction (50ms) — uses Haptics.notification on native, navigator.vibrate on web */
 export async function hapticSuccess(): Promise<void> {
+  if (get(hapticsMuted)) return;
   try {
     if (Capacitor.isNativePlatform()) {
       await Haptics.notification({ type: NotificationType.Success });
@@ -22,6 +25,7 @@ export async function hapticSuccess(): Promise<void> {
 
 /** Vibrate on failed reaction (short double-pulse) — uses Haptics.notification on native, navigator.vibrate on web */
 export async function hapticFail(): Promise<void> {
+  if (get(hapticsMuted)) return;
   try {
     if (Capacitor.isNativePlatform()) {
       await Haptics.notification({ type: NotificationType.Error });
@@ -35,6 +39,7 @@ export async function hapticFail(): Promise<void> {
 
 /** Generic haptic pulse with custom pattern — uses Haptics.impact on native, navigator.vibrate on web */
 export async function haptic(pattern: number | number[] = 30): Promise<void> {
+  if (get(hapticsMuted)) return;
   try {
     if (Capacitor.isNativePlatform()) {
       await Haptics.impact({ style: ImpactStyle.Light });

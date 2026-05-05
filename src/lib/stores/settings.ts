@@ -1,31 +1,40 @@
 /**
  * settings.ts — App settings store.
- * soundMuted persists to localStorage key 'alchemica_settings'.
- * Per D-09, PROG-06.
+ * soundMuted and hapticsMuted persist to localStorage key 'alchemica_settings'.
  */
-import { writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
 
 const SETTINGS_KEY = 'alchemica_settings';
 
-function loadSoundMuted(): boolean {
+function loadSettings(): { soundMuted: boolean; hapticsMuted: boolean } {
   try {
     const raw = localStorage.getItem(SETTINGS_KEY);
-    if (!raw) return false;
-    const parsed = JSON.parse(raw) as { soundMuted?: boolean };
-    return parsed.soundMuted === true;
+    if (!raw) return { soundMuted: false, hapticsMuted: false };
+    const parsed = JSON.parse(raw) as { soundMuted?: boolean; hapticsMuted?: boolean };
+    return {
+      soundMuted: parsed.soundMuted === true,
+      hapticsMuted: parsed.hapticsMuted === true,
+    };
   } catch {
-    return false;
+    return { soundMuted: false, hapticsMuted: false };
   }
 }
 
-export const soundMuted = writable<boolean>(
-  typeof localStorage !== 'undefined' ? loadSoundMuted() : false
-);
+const initial = typeof localStorage !== 'undefined' ? loadSettings() : { soundMuted: false, hapticsMuted: false };
 
-soundMuted.subscribe((muted) => {
+export const soundMuted = writable<boolean>(initial.soundMuted);
+export const hapticsMuted = writable<boolean>(initial.hapticsMuted);
+
+function saveSettings() {
   try {
-    localStorage.setItem(SETTINGS_KEY, JSON.stringify({ soundMuted: muted }));
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify({
+      soundMuted: get(soundMuted),
+      hapticsMuted: get(hapticsMuted),
+    }));
   } catch {
     // localStorage unavailable — fail silently
   }
-});
+}
+
+soundMuted.subscribe(saveSettings);
+hapticsMuted.subscribe(saveSettings);

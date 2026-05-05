@@ -1,8 +1,8 @@
 <script lang="ts">
   import { score, combo, unlockedElements } from '../stores/game.js';
-  import { resetGame } from '../stores/game.js';
   import { earnedAchievements, streakCount } from '../stores/achievements.js';
   import { ELEMENTS } from '../data/elements.js';
+  import { goto } from '$app/navigation';
 
   let pulseActive = $state(false);
   let prevEarnedSize = $earnedAchievements.size;
@@ -18,12 +18,11 @@
 </script>
 
 <header class="top-bar">
-  <div class="top-bar-title">⚗️ Alchemica</div>
+  <button class="pause-btn" onclick={() => goto('/')} aria-label="Pause - return to menu">&#9208;</button>
   <div class="top-bar-stats">
     <span class="stat" class:badge-pulse={pulseActive}>{$unlockedElements.size}/{Object.keys(ELEMENTS).length} discovered</span>
     <span class="stat combo" class:pulse={$combo > 1} class:streak={$streakCount >= 1}>x{$combo}{$streakCount >= 1 ? ' 🔥' : ''}</span>
     <span class="stat score">{$score}</span>
-    <button class="reset-btn" onclick={resetGame} title="Reset game">↺</button>
   </div>
 </header>
 
@@ -39,12 +38,26 @@
     flex-shrink: 0;
     z-index: 10;
   }
-  .top-bar-title {
-    font-family: 'Space Mono', monospace;
+  .pause-btn {
+    background: transparent;
+    border: 1px solid #1a3a5a;
+    border-radius: 6px;
+    color: #4a6080;
     font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    transition: color 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+  }
+  .pause-btn:hover {
     color: #4af0c0;
-    font-weight: 700;
-    letter-spacing: 1px;
+    border-color: #4af0c040;
   }
   .top-bar-stats {
     display: flex;
@@ -76,18 +89,6 @@
     60%  { transform: scale(1.1);  color: #e8b84b; }
     100% { transform: scale(1);    color: #8ab4d4; }
   }
-  .reset-btn {
-    background: transparent;
-    border: 1px solid #1a3a5a;
-    border-radius: 6px;
-    color: #4a6080;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 2px 8px;
-    line-height: 1.4;
-    transition: all 0.15s;
-  }
-  .reset-btn:hover { color: #ff6b6b; border-color: #ff6b6b40; }
   @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.3)} }
   .combo.pulse { animation: pulse 0.3s ease; }
 </style>
