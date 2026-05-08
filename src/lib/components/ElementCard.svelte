@@ -3,11 +3,15 @@
   import { slots } from '../stores/game.js';
   import { createLongPress, haptic } from '../utils/touch.js';
   import ElementDetail from './ElementDetail.svelte';
+  import { onboardingStep } from '../stores/onboarding.js';
 
   let { elementKey, mode = 'list' }: { elementKey: string; mode?: 'list' | 'grid' } = $props();
 
   const el = $derived(ELEMENTS[elementKey]);
   const isSelected = $derived($slots.a === elementKey || $slots.b === elementKey);
+  const isOnboardHighlight = $derived(
+    $onboardingStep === 1 && (elementKey === 'fire' || elementKey === 'water')
+  );
 
   let detailOpen = $state(false);
   let buttonEl: HTMLButtonElement | undefined = $state();
@@ -38,6 +42,7 @@
   class="element-card"
   class:grid-tile={mode === 'grid'}
   class:selected={isSelected}
+  class:onboard-highlight={isOnboardHighlight}
   bind:this={buttonEl}
   title={el.desc}
 >
@@ -74,6 +79,16 @@
   }
   .element-card:hover { border-color: #4af0c060; background: #0f2035; }
   .element-card.selected { border-color: #4af0c0; background: #0f3028; box-shadow: 0 0 8px #4af0c040; }
+  .element-card.onboard-highlight {
+    border-color: #ffe44a;
+    background: #1a1800;
+    box-shadow: 0 0 12px #ffe44a50, 0 0 0 1px #ffe44a30;
+    animation: onboard-pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes onboard-pulse {
+    0%, 100% { box-shadow: 0 0 10px #ffe44a40, 0 0 0 1px #ffe44a30; }
+    50%       { box-shadow: 0 0 20px #ffe44a70, 0 0 0 2px #ffe44a50; }
+  }
   .el-icon {
     width: 34px; height: 34px;
     display: flex; align-items: center; justify-content: center;
