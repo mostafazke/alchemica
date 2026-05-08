@@ -20,9 +20,18 @@
 <header class="top-bar">
   <button class="pause-btn" onclick={() => goto('/')} aria-label="Pause - return to menu">&#9208;</button>
   <div class="top-bar-stats">
-    <span class="stat" class:badge-pulse={pulseActive}>{$unlockedElements.size}/{Object.keys(ELEMENTS).length} discovered</span>
-    <span class="stat combo" class:pulse={$combo > 1} class:streak={$streakCount >= 1}>x{$combo}{$streakCount >= 1 ? ' 🔥' : ''}</span>
-    <span class="stat score">{$score}</span>
+    <span class="stat" class:badge-pulse={pulseActive}>
+      <span class="stat-value">{$unlockedElements.size}/{Object.keys(ELEMENTS).length}</span>
+      <span class="stat-label">found</span>
+    </span>
+    <span class="stat combo" class:pulse={$combo > 1} class:streak={$streakCount >= 1}>
+      <span class="stat-value">×{$combo}{$streakCount >= 1 ? ' 🔥' : ''}</span>
+      <span class="stat-label">combo</span>
+    </span>
+    <span class="stat score">
+      <span class="stat-value">{$score}</span>
+      <span class="stat-label">score</span>
+    </span>
   </div>
 </header>
 
@@ -68,10 +77,15 @@
     font-family: 'Space Mono', monospace;
     font-size: 12px;
     color: #8ab4d4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
   }
+  .stat-value { font-size: 12px; line-height: 1; }
+  .stat-label { font-size: 8px; text-transform: uppercase; letter-spacing: 0.5px; color: #4a6080; line-height: 1; }
   .stat.combo {
     color: #ffe44a;
-    font-size: 15px;
     font-weight: 700;
     transition: transform 0.1s;
   }

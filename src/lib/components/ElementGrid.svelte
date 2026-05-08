@@ -5,6 +5,10 @@
 
   let filter: 'all' | 'basic' | 'found' = $state('all');
 
+  const allCount   = $derived([...$unlockedElements].length);
+  const basicCount = $derived([...$unlockedElements].filter(k => ELEMENTS[k]?.category === 'basic').length);
+  const foundCount = $derived([...$unlockedElements].filter(k => ELEMENTS[k]?.category !== 'basic').length);
+
   const filteredKeys = $derived(
     [...$unlockedElements].filter((k) => {
       if (filter === 'basic') return ELEMENTS[k]?.category === 'basic';
@@ -16,9 +20,9 @@
 
 <div class="element-grid-panel">
   <div class="grid-tabs">
-    <button class="tab-btn" class:active={filter === 'all'} onclick={() => filter = 'all'}>All</button>
-    <button class="tab-btn" class:active={filter === 'basic'} onclick={() => filter = 'basic'}>Basic</button>
-    <button class="tab-btn" class:active={filter === 'found'} onclick={() => filter = 'found'}>Found</button>
+    <button class="tab-btn" class:active={filter === 'all'}   onclick={() => filter = 'all'}>All ({allCount})</button>
+    <button class="tab-btn" class:active={filter === 'basic'} onclick={() => filter = 'basic'}>Basic ({basicCount})</button>
+    <button class="tab-btn" class:active={filter === 'found'} onclick={() => filter = 'found'}>Found ({foundCount})</button>
   </div>
   <div class="grid-scroll">
     {#each filteredKeys as key (key)}

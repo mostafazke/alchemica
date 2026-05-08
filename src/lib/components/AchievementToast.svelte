@@ -5,6 +5,7 @@
 
   let current: AchievementId | null = $state(null);
   let visible: boolean = $state(false);
+  let exiting: boolean = $state(false);
   let draining = false;
 
   async function drain() {
@@ -22,9 +23,13 @@
 
       current = next;
       visible = true;
+      exiting = false;
 
       await new Promise<void>((r) => setTimeout(r, 2500));
+      exiting = true;
+      await new Promise<void>((r) => setTimeout(r, 280));
       visible = false;
+      exiting = false;
 
       await new Promise<void>((r) => setTimeout(r, 300));
     }
@@ -46,7 +51,7 @@
 </script>
 
 {#if visible && badge}
-  <div class="achievement-toast" role="status" aria-live="polite">
+  <div class="achievement-toast" class:exiting role="status" aria-live="polite">
     <span class="toast-emoji">{badge.emoji}</span>
     <div class="toast-text">
       <span class="toast-label">Achievement Unlocked</span>
@@ -77,6 +82,11 @@
     from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
     to   { opacity: 1; transform: translateX(-50%) translateY(0); }
   }
+  @keyframes toast-out {
+    from { opacity: 1; transform: translateX(-50%) translateY(0); }
+    to   { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+  }
+  .achievement-toast.exiting { animation: toast-out 0.28s ease forwards; }
   .toast-emoji {
     font-size: 22px;
     line-height: 1;

@@ -44,6 +44,7 @@
   <div class="el-icon {el.color}">{el.symbol}</div>
   {#if mode === 'grid'}
     <div class="el-grid-name">{el.name}</div>
+    <div class="long-press-dot" aria-hidden="true"></div>
   {:else}
     <div class="el-info">
       <div class="el-formula">{el.formula}</div>
@@ -106,6 +107,15 @@
     max-width: 100%;
     font-family: 'Space Mono', monospace;
   }
+  .long-press-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: #1a3a5a;
+    margin-top: 1px;
+    transition: background 0.15s;
+  }
+  .element-card:hover .long-press-dot,
+  .element-card.selected .long-press-dot { background: #4af0c060; }
 
   /* Category icon backgrounds */
   :global(.cat-fire)     { background: #2d1810; color: #ff6b35; }
