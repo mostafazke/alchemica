@@ -55,11 +55,13 @@
   .slot-name { font-size: 9px; color: #8ab4d4; text-align: center; }
   .slot-placeholder { font-size: 24px; color: #1a3a5a; }
   .slot-clear {
-    position: absolute; top: 3px; right: 3px;
+    position: absolute; top: 0; right: 0;
     background: transparent; border: none; color: #4a6080;
-    cursor: pointer; font-size: 11px; padding: 3px; line-height: 1;
+    cursor: pointer; font-size: 11px; line-height: 1;
     border-radius: 4px;
-    min-width: 24px; min-height: 24px;
+    min-width: 44px; min-height: 44px;
+    display: flex; align-items: flex-start; justify-content: flex-end;
+    padding: 6px 6px 0 0;
     touch-action: manipulation;
   }
   .slot-clear:hover { color: #ff6b6b; background: #ff6b6b20; }

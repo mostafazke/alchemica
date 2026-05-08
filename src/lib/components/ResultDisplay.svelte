@@ -82,11 +82,11 @@
     border-radius: 6px; color: #4a6080;
     font-family: 'Space Mono', monospace; font-size: 10px;
     cursor: pointer; transition: all 0.15s;
-    min-height: 32px; touch-action: manipulation;
+    min-height: 44px; touch-action: manipulation;
   }
   .result-share-btn:hover { border-color: #4af0c060; color: #4af0c0; }
   .result-fail-icon { font-size: 26px; }
   .result-error { font-size: 13px; color: #ff6060; }
-  .result-tip { font-size: 10px; color: #2a3550; }
-  .result-idle { font-size: 12px; color: #2a3550; }
+  .result-tip { font-size: 10px; color: #4a6080; }
+  .result-idle { font-size: 12px; color: #6a8aa4; }
 </style>

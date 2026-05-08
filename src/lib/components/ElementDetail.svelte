@@ -60,12 +60,13 @@
   }
   .detail-close {
     position: absolute;
-    top: 12px; right: 12px;
+    top: 8px; right: 8px;
     background: transparent; border: none;
     color: #4a6080; font-size: 14px;
-    cursor: pointer; padding: 4px 8px;
+    cursor: pointer; padding: 0;
     border-radius: 6px; line-height: 1;
-    min-width: 32px; min-height: 32px;
+    min-width: 44px; min-height: 44px;
+    display: flex; align-items: center; justify-content: center;
     transition: color 0.15s;
     touch-action: manipulation;
   }

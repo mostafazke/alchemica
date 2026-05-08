@@ -51,8 +51,9 @@
     flex-shrink: 0;
     background: transparent; border: none;
     color: #2a4060; font-size: 13px;
-    cursor: pointer; padding: 4px 6px;
-    border-radius: 6px; min-width: 28px; min-height: 28px;
+    cursor: pointer; padding: 0;
+    border-radius: 6px; min-width: 44px; min-height: 44px;
+    display: flex; align-items: center; justify-content: center;
     touch-action: manipulation; transition: color 0.15s;
     line-height: 1;
   }
