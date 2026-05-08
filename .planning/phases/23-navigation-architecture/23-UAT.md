@@ -27,7 +27,7 @@ result: issue-fixed
 issues:
   - "Play button should say Resume when game in progress — fixed: button now shows Resume when discoveries > 0 or score > 0"
   - "Daily challenge card should be highlighted differently from action buttons — fixed: gold border (#c9a84c60) + dark green bg, distinguishes from blue-bordered action buttons"
-  - "Settings should look like other buttons — fixed: Settings moved into menu-actions row using same menu-action-btn style as Discoveries and Badges" 
+  - "Settings should look like other buttons — fixed: Settings moved into menu-actions row using same menu-action-btn style as Discoveries and Badges"
 
 ### 3. TopBar has no title and no reset button
 expected: The game screen TopBar shows ONLY the pause button on the left and stats (discovered count, combo, score) on the right. There is no "⚗️ Alchemica" title and no ↺ reset button anywhere in the TopBar.

@@ -17,8 +17,8 @@ const config: CapacitorConfig = {
     },
     StatusBar: {
       style: 'DARK',
-      backgroundColor: '#0d1b2e',  // matches vite.config.ts background_color
-      overlaysWebView: false,
+      backgroundColor: '#0d1b2e',
+      overlaysWebView: true,
     },
     AdMob: {
       // Test App ID — replace with real ID from admob.google.com before Play Store submission
