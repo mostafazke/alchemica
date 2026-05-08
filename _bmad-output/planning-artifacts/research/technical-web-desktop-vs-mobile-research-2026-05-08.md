@@ -1,9 +1,9 @@
 # Technical Research: Should Alchemica Maintain Web/Desktop Support Alongside Mobile?
 
-**Date:** 2026-05-08  
-**Researcher:** GitHub Copilot (autonomous)  
-**Topic:** Cross-platform strategy — web/desktop vs. mobile-only for Alchemica  
-**Codebase:** SvelteKit 5 + Vite + TailwindCSS + Capacitor v8 + Android  
+**Date:** 2026-05-08
+**Researcher:** GitHub Copilot (autonomous)
+**Topic:** Cross-platform strategy — web/desktop vs. mobile-only for Alchemica
+**Codebase:** SvelteKit 5 + Vite + TailwindCSS + Capacitor v8 + Android
 **Status:** Complete
 
 ---
@@ -110,8 +110,8 @@ This is the same model Wordle used to grow: free web version → massive word-of
 ### The alternative web monetization path
 
 If web monetization ever becomes a priority, the path forward is not AdMob (not available in browser) but:
-- **PWA subscriptions via Stripe/Paddle** — web-based payment processors  
-- **Google Play Billing on Android PWA installs** — when users install via Add to Home Screen, the PWA is still web and can't use Google Play Billing  
+- **PWA subscriptions via Stripe/Paddle** — web-based payment processors
+- **Google Play Billing on Android PWA installs** — when users install via Add to Home Screen, the PWA is still web and can't use Google Play Billing
 - **Accept the asymmetry** — web is CAC investment, Android is LTV harvest
 
 ---
