@@ -68,7 +68,7 @@ development_status:
   # Epic 3: Engagement Systems
   # ─────────────────────────────────────────────
   epic-3: backlog
-  3-1-element-category-grouping-in-shelf: backlog
+  3-1-element-category-grouping-in-shelf: done
   3-2-weekly-discovery-leaderboard: backlog
   3-3-firebase-analytics-instrumentation: backlog
   3-4-space-science-element-pack-50-elements: backlog

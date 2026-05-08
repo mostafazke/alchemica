@@ -5,7 +5,7 @@
   import ElementDetail from './ElementDetail.svelte';
   import { onboardingStep } from '../stores/onboarding.js';
 
-  let { elementKey, mode = 'list' }: { elementKey: string; mode?: 'list' | 'grid' } = $props();
+  let { elementKey, mode = 'list', hasMore = false }: { elementKey: string; mode?: 'list' | 'grid'; hasMore?: boolean } = $props();
 
   const el = $derived(ELEMENTS[elementKey]);
   const isSelected = $derived($slots.a === elementKey || $slots.b === elementKey);
@@ -48,7 +48,7 @@
 >
   <div class="el-icon {el.color}">{el.symbol}</div>
   {#if mode === 'grid'}
-    <div class="el-grid-name">{el.name}</div>
+    <div class="el-grid-name">{el.name}{#if hasMore}<span class="has-more-dot" aria-label="has undiscovered combinations">◦</span>{/if}</div>
     <div class="long-press-dot" aria-hidden="true"></div>
   {:else}
     <div class="el-info">
@@ -131,6 +131,13 @@
   }
   .element-card:hover .long-press-dot,
   .element-card.selected .long-press-dot { background: #4af0c060; }
+  .has-more-dot {
+    color: #4af0c080;
+    font-size: 8px;
+    vertical-align: super;
+    margin-left: 1px;
+    pointer-events: none;
+  }
 
   /* Category icon backgrounds */
   :global(.cat-fire)     { background: #2d1810; color: #ff6b35; }
