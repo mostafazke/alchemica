@@ -44,6 +44,26 @@
 	let achievementsOpen = $state(false);
 	let activeTab = $state<'discoveries' | 'play' | 'badges'>('play');
 
+	let lastSeenCount = $state(
+		typeof localStorage !== 'undefined'
+			? Number(localStorage.getItem('alchemica_last_seen_discoveries') ?? 0)
+			: 0
+	);
+	let unreadCount = $derived($discoveries.length - lastSeenCount);
+
+	function openDiscoveries() {
+		if (discoverySheetOpen) {
+			discoverySheetOpen = false;
+			return;
+		}
+		discoverySheetOpen = true;
+		activeTab = 'discoveries';
+		lastSeenCount = $discoveries.length;
+		if (typeof localStorage !== 'undefined') {
+			localStorage.setItem('alchemica_last_seen_discoveries', String($discoveries.length));
+		}
+	}
+
 </script>
 
 <main class="menu">
@@ -83,7 +103,7 @@
 
 	<div class="spacer"></div>
 
-	<BottomSheet open={discoverySheetOpen} onClose={() => discoverySheetOpen = false}>
+	<BottomSheet open={discoverySheetOpen} onClose={() => { discoverySheetOpen = false; }}>
 		<DiscoveryLog />
 	</BottomSheet>
 
@@ -94,12 +114,12 @@
 		<button
 			class="nav-tab"
 			class:active={activeTab === 'discoveries'}
-			onclick={() => { discoverySheetOpen = true; activeTab = 'discoveries'; }}
-			aria-label="View discoveries"
+			onclick={openDiscoveries}
+			aria-label={discoverySheetOpen ? 'Close discoveries' : 'View discoveries'}
 		>
-			<span class="nav-icon">📋</span>
-			{#if $discoveries.length > 0}
-				<span class="nav-badge">{$discoveries.length}</span>
+			<span class="nav-icon">{discoverySheetOpen ? '✕' : '📋'}</span>
+			{#if unreadCount > 0 && !discoverySheetOpen}
+				<span class="nav-badge">{unreadCount}</span>
 			{/if}
 		</button>
 
@@ -109,7 +129,7 @@
 			onclick={() => { activeTab = 'play'; play(); }}
 			aria-label="Play game"
 		>
-			<span class="nav-icon">⚗️</span>
+			<span class="nav-icon">⚗</span>
 			<span class="nav-label">Play</span>
 		</button>
 

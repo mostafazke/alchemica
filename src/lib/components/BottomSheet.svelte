@@ -6,13 +6,25 @@
     onClose: () => void;
     children?: Snippet;
   } = $props();
+
+  let touchStartY = 0;
+
+  function handleTouchStart(e: TouchEvent) {
+    touchStartY = e.touches[0].clientY;
+  }
+
+  function handleTouchMove(e: TouchEvent) {
+    if (e.touches[0].clientY - touchStartY > 60) {
+      onClose();
+    }
+  }
 </script>
 
 {#if open}
   <div class="sheet-overlay" onclick={onClose} role="none"></div>
 {/if}
 <div class="bottom-sheet" class:open>
-  <div class="sheet-handle-row">
+  <div class="sheet-handle-row" ontouchstart={handleTouchStart} ontouchmove={handleTouchMove}>
     <div class="sheet-handle"></div>
   </div>
   <div class="sheet-content">

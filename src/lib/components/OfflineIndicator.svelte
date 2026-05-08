@@ -43,7 +43,7 @@
 <style>
 	.offline-toast {
 		position: fixed;
-		bottom: 80px;
+		bottom: calc(80px + env(safe-area-inset-bottom, 0px));
 		left: 50%;
 		transform: translateX(-50%);
 		background: rgba(13, 27, 46, 0.92);
