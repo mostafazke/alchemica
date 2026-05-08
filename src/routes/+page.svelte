@@ -42,7 +42,7 @@
 
 	let discoverySheetOpen = $state(false);
 	let achievementsOpen = $state(false);
-	let activeTab = $state<'discoveries' | 'play' | 'badges'>('play');
+	let activeTab = $state<'discoveries' | 'play' | 'badges' | 'leaderboard'>('play');
 
 	let lastSeenCount = $state(
 		typeof localStorage !== 'undefined'
@@ -140,6 +140,15 @@
 			aria-label="View badges"
 		>
 			<span class="nav-icon">🏆</span>
+		</button>
+
+		<button
+			class="nav-tab"
+			class:active={activeTab === 'leaderboard'}
+			onclick={() => { activeTab = 'leaderboard'; goto('/leaderboard'); }}
+			aria-label="Weekly leaderboard"
+		>
+			<span class="nav-icon">🏅</span>
 		</button>
 	</nav>
 </main>
