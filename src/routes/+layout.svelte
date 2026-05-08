@@ -5,6 +5,7 @@
 	import { onNavigate, goto } from '$app/navigation';
 	import { initAdMob } from '$lib/effects/admob.js';
 	import { initIAP } from '$lib/effects/iap.js';
+	import { initAnalytics } from '$lib/effects/analytics.js';
 	import { Capacitor } from '@capacitor/core';
 	import { LocalNotifications } from '@capacitor/local-notifications';
 
@@ -18,6 +19,7 @@
 		}
 		initAdMob(); // non-blocking; no-op on web
 		initIAP();   // non-blocking; no-op on web; syncs RC entitlements on native
+		initAnalytics(); // fire-and-forget; no-op on web
 
 		// Navigate to game screen when player taps the daily streak notification
 		if (Capacitor.isNativePlatform()) {

@@ -7,6 +7,7 @@ import type { Discovery, AchievementId } from '../types.js';
 import { checkAchievements } from './achievements.js';
 import { completeDailyChallenge } from './daily.js';
 import { dailyChallengeTarget, dailyCompleted } from '../stores/daily.js';
+import { logElementDiscovered } from '../effects/analytics.js';
 
 /**
  * Returns the combo cap for the given streak count.
@@ -102,6 +103,8 @@ export function applyReaction(a: string, b: string): { result: string | null; is
         timestamp: Date.now(),
       };
       discoveries.update((d) => [discovery, ...d]);
+      // Log discovery event (fire-and-forget, no-op on web/opt-out)
+      logElementDiscovered(result, get(unlockedElements).size);
       // Check milestone badges after element unlock
       newBadge = checkAchievements(get(unlockedElements).size);
     } else {

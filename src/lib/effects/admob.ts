@@ -2,6 +2,7 @@ import { writable } from 'svelte/store';
 import { Capacitor } from '@capacitor/core';
 import { AdMob, RewardAdPluginEvents } from '@capacitor-community/admob';
 import { hintBalance } from '../stores/game.js';
+import { logRewardedAdWatched } from './analytics.js';
 
 // Test Rewarded Unit ID — replace with real ID from admob.google.com before Play Store submission
 const REWARD_AD_ID = 'ca-app-pub-3940256099942544/5224354917';
@@ -30,6 +31,7 @@ function registerListeners(): void {
   });
 
   AdMob.addListener(RewardAdPluginEvents.Rewarded, () => {
+    logRewardedAdWatched('stuck'); // current placement is always 'stuck' (hint prompt)
     hintBalance.update((n) => n + 1);
     // Preload next ad immediately after reward
     prepareAd();

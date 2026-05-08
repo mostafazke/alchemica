@@ -552,7 +552,7 @@ import { Preferences } from '@capacitor/preferences';
 
 // Migrate from localStorage to Preferences for:
 // - discovered elements set
-// - streak/daily state  
+// - streak/daily state
 // - earned achievements
 // Keep localStorage as fallback for web/PWA mode
 ```
@@ -578,8 +578,8 @@ async function scheduleDailyReminder(streakCount: number) {
   await LocalNotifications.schedule({
     notifications: [{
       id: 1,
-      title: streakCount > 0 
-        ? `⚗️ Keep your ${streakCount}-day streak alive!` 
+      title: streakCount > 0
+        ? `⚗️ Keep your ${streakCount}-day streak alive!`
         : '🔬 Today\'s science challenge is ready',
       body: 'A new element combination challenge awaits.',
       schedule: { every: 'day', on: { hour: 20, minute: 0 } }, // 8 PM

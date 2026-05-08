@@ -8,6 +8,7 @@
   import { playDailyComplete } from '../effects/sound.js';
   import { shareDailyCard } from '../utils/share.js';
   import { requestAndSchedule, scheduleStreakNotification } from '../effects/notifications.js';
+  import { logDailyChallengeCompleted } from '../effects/analytics.js';
 
   const isNative = Capacitor.isNativePlatform();
   const element = $derived(ELEMENTS[$dailyChallengeTarget] ?? null);
@@ -21,6 +22,7 @@
     const completed = $dailyCompleted;
     if (completed && !prevCompleted) {
       if (!get(soundMuted)) playDailyComplete();
+      logDailyChallengeCompleted(get(streakCount), $dailyChallengeTarget);
       // Native: show rationale or reschedule if already enabled
       if (isNative) {
         if (!get(notificationsAsked)) {

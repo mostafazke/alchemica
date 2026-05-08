@@ -8,6 +8,7 @@
 import { get } from 'svelte/store';
 import type { AchievementId } from '../types.js';
 import { earnedAchievements } from '../stores/achievements.js';
+import { logAchievementEarned } from '../effects/analytics.js';
 
 export const THRESHOLDS: Array<{ count: number; id: AchievementId }> = [
   { count: 10, id: 'badge_10' },
@@ -29,6 +30,7 @@ export function checkAchievements(count: number): AchievementId | null {
   for (const { count: threshold, id } of THRESHOLDS) {
     if (count >= threshold && !earned.has(id)) {
       earnedAchievements.update((s) => { s.add(id); return new Set(s); });
+      logAchievementEarned(id);
       return id;
     }
   }

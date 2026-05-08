@@ -10,6 +10,7 @@
  */
 import { Capacitor } from '@capacitor/core';
 import { LocalNotifications } from '@capacitor/local-notifications';
+import { logNotificationPermissionGranted } from './analytics.js';
 
 /** Fixed notification ID for the daily streak reminder. */
 const NOTIFICATION_ID = 1001;
@@ -77,6 +78,7 @@ export async function requestAndSchedule(streakN: number): Promise<boolean> {
   try {
     const perm = await LocalNotifications.requestPermissions();
     if (perm.display === 'granted') {
+      logNotificationPermissionGranted();
       await scheduleStreakNotification(streakN);
       return true;
     }

@@ -5,7 +5,7 @@
   import { earnedAchievements, streakCount, lastCompletedDate } from '$lib/stores/achievements.js';
   import type { AchievementId } from '$lib/types.js';
   import { downloadSave, importSave } from '$lib/utils/storage.js';
-  import { soundMuted, hapticsMuted, notificationsEnabled, notificationsAsked } from '$lib/stores/settings.js';
+  import { soundMuted, hapticsMuted, notificationsEnabled, notificationsAsked, analyticsEnabled } from '$lib/stores/settings.js';
   import { resetGame } from '$lib/stores/game.js';
   import { Capacitor } from '@capacitor/core';
   import { requestAndSchedule, cancelStreakNotification } from '$lib/effects/notifications.js';
@@ -148,6 +148,20 @@
         <p class="save-hint">Reminds you at 8 PM when your daily challenge is ready.</p>
       </section>
     {/if}
+
+    <section class="settings-section">
+      <div class="section-label">Analytics</div>
+      <label class="mute-toggle">
+        <input
+          type="checkbox"
+          checked={$analyticsEnabled}
+          onchange={(e) => analyticsEnabled.set((e.target as HTMLInputElement).checked)}
+        />
+        <span class="mute-label">
+          {$analyticsEnabled ? '📊 Analytics on — helps us improve the game' : '🚫 Analytics off'}
+        </span>
+      </label>
+    </section>
 
     <section class="settings-section">
       <div class="section-label">Save Data</div>

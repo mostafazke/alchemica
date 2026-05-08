@@ -3,6 +3,7 @@ import { Capacitor } from '@capacitor/core';
 import { Purchases } from '@revenuecat/purchases-capacitor';
 import type { PurchasesPackage } from '@revenuecat/purchases-typescript-internal-esm';
 import { purchasedNoAds, hintBalance } from '../stores/game.js';
+import { logIapInitiated } from './analytics.js';
 
 // Set VITE_RC_API_KEY in .env.local (gitignored) before building for Play Store.
 // Obtain from: https://app.revenuecat.com → Project Settings → Android app → API keys
@@ -101,6 +102,7 @@ export async function loadOfferings(): Promise<void> {
  */
 export async function purchaseRemoveAds(): Promise<void> {
   if (!Capacitor.isNativePlatform() || !_removeAdsPackage) return;
+  logIapInitiated(PRODUCT_REMOVE_ADS);
   isPurchasing.set(true);
   purchaseError.set(null);
   try {
@@ -125,6 +127,7 @@ export async function purchaseRemoveAds(): Promise<void> {
  */
 export async function purchaseHintBundle(): Promise<void> {
   if (!Capacitor.isNativePlatform() || !_hintBundlePackage) return;
+  logIapInitiated(PRODUCT_HINTS_10);
   isPurchasing.set(true);
   purchaseError.set(null);
   try {

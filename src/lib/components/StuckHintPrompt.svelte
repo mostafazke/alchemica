@@ -6,6 +6,7 @@
   import { hintBalance, unlockedElements, slots } from '../stores/game.js';
   import { getStuckHint } from '../game/reactions.js';
   import { ELEMENTS } from '../data/elements.js';
+  import { logHintRequested } from '../effects/analytics.js';
 
   type Mode = 'offer' | 'watching' | 'revealed' | 'fallback';
 
@@ -35,6 +36,7 @@
   });
 
   function watchAd() {
+    logHintRequested(get(failedComboCount));
     if (!isNative || !$isAdReady) {
       // No native ad available — give a free hint
       hint = getStuckHint(get(unlockedElements), get(slots));

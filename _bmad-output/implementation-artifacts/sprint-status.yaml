@@ -70,6 +70,6 @@ development_status:
   epic-3: backlog
   3-1-element-category-grouping-in-shelf: done
   3-2-weekly-discovery-leaderboard: done
-  3-3-firebase-analytics-instrumentation: backlog
+    3-3-firebase-analytics-instrumentation: done
   3-4-space-science-element-pack-50-elements: backlog
   epic-3-retrospective: optional

@@ -13,7 +13,7 @@ date: '2026-05-09'
 
 This document provides the complete epic and story breakdown for Alchemica, decomposing the best-practices research findings into three implementable, independently-shippable epics organized around user value.
 
-**Milestone:** Alchemica Excellence v1 — 90-day roadmap  
+**Milestone:** Alchemica Excellence v1 — 90-day roadmap
 **Source research:** `domain-alchemica-best-practices-research-2026-05-09.md`
 
 ---

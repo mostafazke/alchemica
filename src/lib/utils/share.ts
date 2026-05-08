@@ -6,6 +6,7 @@ import { get } from 'svelte/store';
 import { ELEMENTS } from '../data/elements.js';
 import { unlockedElements } from '../stores/game.js';
 import { renderDiscoveryCard, renderDailyCard } from './shareCard.js';
+import { logShareTriggered } from '../effects/analytics.js';
 
 export type ShareMethod = 'share' | 'clipboard' | 'none';
 
@@ -60,6 +61,8 @@ export async function shareDiscoveryCard(elementKey: string): Promise<ShareResul
   const el = ELEMENTS[elementKey];
   if (!el) return { ok: false, method: 'none' };
 
+  logShareTriggered(elementKey, 'discovery');
+
   const discoveryNumber = get(unlockedElements).size;
   const totalElements = Object.keys(ELEMENTS).length;
 
@@ -91,6 +94,8 @@ export async function shareDailyCard(elementKey: string, streakCount: number): P
 
   const el = ELEMENTS[elementKey];
   if (!el) return { ok: false, method: 'none' };
+
+  logShareTriggered(elementKey, 'daily');
 
   const blob = await renderDailyCard({ elementKey, streakCount });
   const streakText = streakCount > 0 ? ` 🔥 Day ${streakCount} streak!` : '';

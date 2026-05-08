@@ -9,7 +9,8 @@
  *
  * Set to 0 permanently when the player skips or completes step 3.
  */
-import { writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
+import { logOnboardingCompleted } from '../effects/analytics.js';
 
 export const ONBOARD_KEY = 'alchemica_onboarded';
 
@@ -21,8 +22,15 @@ export const step2Dismissed = writable(false);
 
 /** Mark onboarding complete — persists to localStorage. */
 export function completeOnboarding() {
+  const step = get(onboardingStep);
+  // Guard: step === 0 means onboarding is already complete — no-op to avoid spurious events
+  if (step === 0) return;
+  // step === 3 means the player reached the final summary card (completed naturally)
+  // any other step (1 or 2) means they skipped early
+  logOnboardingCompleted(step === 3, step);
   if (typeof localStorage !== 'undefined') {
     localStorage.setItem(ONBOARD_KEY, '1');
   }
+  step2Dismissed.set(false); // prevent $effect in FirstRunOverlay from re-triggering step 3
   onboardingStep.set(0);
 }
