@@ -1,7 +1,7 @@
 <script lang="ts">
   import { ELEMENTS } from '../data/elements.js';
   import { QUIPS } from '../data/quips.js';
-  import { shareDiscovery } from '../utils/share.js';
+  import { shareDiscoveryCard } from '../utils/share.js';
   import { untrack } from 'svelte';
 
   let {
@@ -38,10 +38,13 @@
 
   async function handleShare() {
     if (!result) return;
-    const res = await shareDiscovery(result);
+    shareMsg = '…';
+    const res = await shareDiscoveryCard(result);
     if (res.method === 'clipboard' && res.ok) {
       shareMsg = 'Copied!';
       setTimeout(() => { shareMsg = null; }, 1500);
+    } else {
+      shareMsg = null;
     }
   }
 </script>

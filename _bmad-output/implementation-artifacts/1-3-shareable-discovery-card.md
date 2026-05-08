@@ -1,7 +1,7 @@
 # Story 1.3: Shareable Discovery Card
 
 **Epic:** Epic 1 — Discovery & Growth
-**Status:** ready-for-dev
+**Status:** done
 **Priority:** P0 — highest K-factor story in the milestone
 
 ---

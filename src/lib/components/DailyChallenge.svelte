@@ -5,6 +5,7 @@
   import { ELEMENTS } from '../data/elements.js';
   import { soundMuted } from '../stores/settings.js';
   import { playDailyComplete } from '../effects/sound.js';
+  import { shareDailyCard } from '../utils/share.js';
 
   const element = $derived(ELEMENTS[$dailyChallengeTarget] ?? null);
   const streakLabel = $derived(
@@ -19,6 +20,20 @@
     if (completed && !prevCompleted && !get(soundMuted)) playDailyComplete();
     prevCompleted = completed;
   });
+
+  let dailyShareMsg = $state<string | null>(null);
+
+  async function handleDailyShare() {
+    if (!$dailyCompleted || !element) return;
+    dailyShareMsg = '…';
+    const res = await shareDailyCard($dailyChallengeTarget, $streakCount);
+    if (res.method === 'clipboard' && res.ok) {
+      dailyShareMsg = 'Copied!';
+      setTimeout(() => { dailyShareMsg = null; }, 1500);
+    } else {
+      dailyShareMsg = null;
+    }
+  }
 </script>
 
 <div class="daily-challenge" class:complete={$dailyCompleted}>
@@ -32,6 +47,9 @@
         {/if}
       </div>
     </div>
+    <button class="daily-share-btn" onclick={handleDailyShare} aria-label="Share daily completion">
+      {dailyShareMsg ?? '🔗 Share'}
+    </button>
   {:else}
     <div class="target-row">
       <span class="today-label">Today</span>
@@ -132,5 +150,23 @@
   }
   .daily-challenge.complete .streak-label {
     color: #e8b84b;
+  }
+
+  .daily-share-btn {
+    margin-top: 2px;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-family: 'Space Mono', monospace;
+    background: transparent;
+    border: 1px solid rgba(74, 240, 192, 0.3);
+    border-radius: 6px;
+    color: #4af0c0;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+  .daily-share-btn:hover {
+    border-color: #4af0c0;
+    color: #fff;
   }
 </style>
