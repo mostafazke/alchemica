@@ -50,19 +50,17 @@ export function applyReaction(a: string, b: string): { result: string | null; is
   if (result) {
     const currentCombo = get(combo);
     const wasSuccess = get(lastSuccess);
-    const cap = getComboMax(get(streakCount));
-    const newCombo = wasSuccess ? Math.min(currentCombo + 1, cap) : 1;
     const isNew = !get(unlockedElements).has(result);
 
-    combo.set(newCombo);
     lastSuccess.set(true);
-
-    const points = isNew ? 100 * newCombo : 10 * newCombo;
-    score.update((s) => s + points);
 
     let newBadge: AchievementId | null = null;
 
     if (isNew) {
+      const cap = getComboMax(get(streakCount));
+      const newCombo = wasSuccess ? Math.min(currentCombo + 1, cap) : 1;
+      combo.set(newCombo);
+      score.update((s) => s + 100 * newCombo);
       unlockedElements.update((s) => { s.add(result); return new Set(s); });
       const discovery: Discovery = {
         key: result,
@@ -73,7 +71,8 @@ export function applyReaction(a: string, b: string): { result: string | null; is
       // Check milestone badges after element unlock
       newBadge = checkAchievements(get(unlockedElements).size);
     } else {
-      // Still need to trigger the store update for reactivity (element already known)
+      // Element already known: no score, no combo change — keep lastSuccess true so
+      // the chain remains alive for a future new discovery.
       unlockedElements.update((s) => new Set(s));
     }
 
