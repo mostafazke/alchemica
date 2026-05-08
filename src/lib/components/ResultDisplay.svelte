@@ -2,6 +2,7 @@
   import { ELEMENTS } from '../data/elements.js';
   import { QUIPS } from '../data/quips.js';
   import { shareDiscovery } from '../utils/share.js';
+  import { untrack } from 'svelte';
 
   let {
     result = null,
@@ -30,7 +31,7 @@
   // Trigger staggered reveal animation key
   let revealKey = $state(0);
   $effect(() => {
-    if (attempted && result) revealKey++;
+    if (attempted && result) untrack(() => revealKey++);
   });
 
   let shareMsg = $state<string | null>(null);
