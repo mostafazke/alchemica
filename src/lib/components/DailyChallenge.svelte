@@ -1,27 +1,41 @@
 <script lang="ts">
   import { get } from 'svelte/store';
+  import { Capacitor } from '@capacitor/core';
   import { dailyChallengeTarget, dailyCompleted } from '../stores/daily.js';
   import { streakCount } from '../stores/achievements.js';
   import { ELEMENTS } from '../data/elements.js';
-  import { soundMuted } from '../stores/settings.js';
+  import { soundMuted, notificationsEnabled, notificationsAsked } from '../stores/settings.js';
   import { playDailyComplete } from '../effects/sound.js';
   import { shareDailyCard } from '../utils/share.js';
+  import { requestAndSchedule, scheduleStreakNotification } from '../effects/notifications.js';
 
+  const isNative = Capacitor.isNativePlatform();
   const element = $derived(ELEMENTS[$dailyChallengeTarget] ?? null);
   const streakLabel = $derived(
     $streakCount > 0 ? `🔥 ${$streakCount} day streak` : '🔥 Start your streak!'
   );
 
   // Track previous value to detect the false→true transition during a session.
-  // Uses initial store value so sound doesn't fire if already complete on mount.
   let prevCompleted = $state($dailyCompleted);
   $effect(() => {
     const completed = $dailyCompleted;
-    if (completed && !prevCompleted && !get(soundMuted)) playDailyComplete();
+    if (completed && !prevCompleted) {
+      if (!get(soundMuted)) playDailyComplete();
+      // Native: show rationale or reschedule if already enabled
+      if (isNative) {
+        if (!get(notificationsAsked)) {
+          showNotifPrompt = true;
+        } else if (get(notificationsEnabled)) {
+          // Update title with new streak count
+          scheduleStreakNotification(get(streakCount));
+        }
+      }
+    }
     prevCompleted = completed;
   });
 
   let dailyShareMsg = $state<string | null>(null);
+  let showNotifPrompt = $state(false);
 
   async function handleDailyShare() {
     if (!$dailyCompleted || !element) return;
@@ -33,6 +47,19 @@
     } else {
       dailyShareMsg = null;
     }
+  }
+
+  async function acceptNotifications() {
+    showNotifPrompt = false;
+    notificationsAsked.set(true);
+    const granted = await requestAndSchedule(get(streakCount));
+    notificationsEnabled.set(granted);
+  }
+
+  function declineNotifications() {
+    showNotifPrompt = false;
+    notificationsAsked.set(true);
+    notificationsEnabled.set(false);
   }
 </script>
 
@@ -65,6 +92,20 @@
   {/if}
   <span class="streak-label">{streakLabel}</span>
 </div>
+
+{#if showNotifPrompt}
+  <div class="notif-prompt" role="complementary" aria-label="Notification permission request">
+    <span class="notif-icon">🔔</span>
+    <div class="notif-body">
+      <span class="notif-title">Stay on your streak!</span>
+      <span class="notif-sub">Get notified when tomorrow's challenge is ready?</span>
+    </div>
+    <div class="notif-actions">
+      <button class="notif-yes" onclick={acceptNotifications}>Yes!</button>
+      <button class="notif-no" onclick={declineNotifications}>No thanks</button>
+    </div>
+  </div>
+{/if}
 
 <style>
   .daily-challenge {
@@ -169,4 +210,79 @@
     border-color: #4af0c0;
     color: #fff;
   }
+
+  /* ── Notification rationale prompt ─────────────────────────────── */
+  .notif-prompt {
+    position: fixed;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+    right: 12px;
+    z-index: 350;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: #0d1b2e;
+    border: 1px solid rgba(232, 184, 75, 0.4);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    max-width: min(280px, 88vw);
+    animation: notif-in 0.28s cubic-bezier(0.34, 1.3, 0.64, 1) both;
+  }
+  @keyframes notif-in {
+    from { opacity: 0; transform: translateY(8px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0)    scale(1);   }
+  }
+  .notif-icon {
+    font-size: 20px;
+    line-height: 1;
+  }
+  .notif-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .notif-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: #e8b84b;
+  }
+  .notif-sub {
+    font-size: 11px;
+    color: #8ab4d4;
+    line-height: 1.4;
+  }
+  .notif-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 2px;
+  }
+  .notif-yes {
+    flex: 1;
+    background: rgba(232, 184, 75, 0.12);
+    border: 1px solid rgba(232, 184, 75, 0.4);
+    border-radius: 8px;
+    color: #e8b84b;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    min-height: 36px;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: background 0.15s;
+  }
+  .notif-yes:hover { background: rgba(232, 184, 75, 0.2); }
+  .notif-no {
+    flex: 1;
+    background: transparent;
+    border: 1px solid #1a3a5a;
+    border-radius: 8px;
+    color: #4a6080;
+    font-size: 11px;
+    min-height: 36px;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .notif-no:hover { color: #8ab4d4; border-color: #4a6080; }
 </style>

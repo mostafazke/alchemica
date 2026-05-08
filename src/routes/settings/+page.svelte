@@ -5,9 +5,10 @@
   import { earnedAchievements, streakCount, lastCompletedDate } from '$lib/stores/achievements.js';
   import type { AchievementId } from '$lib/types.js';
   import { downloadSave, importSave } from '$lib/utils/storage.js';
-  import { soundMuted, hapticsMuted } from '$lib/stores/settings.js';
+  import { soundMuted, hapticsMuted, notificationsEnabled, notificationsAsked } from '$lib/stores/settings.js';
   import { resetGame } from '$lib/stores/game.js';
   import { Capacitor } from '@capacitor/core';
+  import { requestAndSchedule, cancelStreakNotification } from '$lib/effects/notifications.js';
   import {
     purchaseRemoveAds,
     purchaseHintBundle,
@@ -29,6 +30,17 @@
 
   function handleBack() {
     goto('/');
+  }
+
+  async function handleNotificationsToggle(enabled: boolean) {
+    if (enabled) {
+      notificationsAsked.set(true);
+      const granted = await requestAndSchedule(get(streakCount));
+      notificationsEnabled.set(granted);
+    } else {
+      notificationsEnabled.set(false);
+      await cancelStreakNotification();
+    }
   }
 
   function handleResetClick() {
@@ -119,6 +131,23 @@
         </span>
       </label>
     </section>
+
+    {#if isNative}
+      <section class="settings-section">
+        <div class="section-label">Notifications</div>
+        <label class="mute-toggle">
+          <input
+            type="checkbox"
+            checked={$notificationsEnabled}
+            onchange={(e) => handleNotificationsToggle((e.target as HTMLInputElement).checked)}
+          />
+          <span class="mute-label">
+            {$notificationsEnabled ? '🔔 Daily reminders on' : '🔕 Daily reminders off'}
+          </span>
+        </label>
+        <p class="save-hint">Reminds you at 8 PM when your daily challenge is ready.</p>
+      </section>
+    {/if}
 
     <section class="settings-section">
       <div class="section-label">Save Data</div>

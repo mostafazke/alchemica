@@ -2,9 +2,11 @@
 	import '../app.css';
 	import OfflineIndicator from '$lib/components/OfflineIndicator.svelte';
 	import { onMount } from 'svelte';
-	import { onNavigate } from '$app/navigation';
+	import { onNavigate, goto } from '$app/navigation';
 	import { initAdMob } from '$lib/effects/admob.js';
 	import { initIAP } from '$lib/effects/iap.js';
+	import { Capacitor } from '@capacitor/core';
+	import { LocalNotifications } from '@capacitor/local-notifications';
 
 	const { children } = $props();
 
@@ -16,6 +18,14 @@
 		}
 		initAdMob(); // non-blocking; no-op on web
 		initIAP();   // non-blocking; no-op on web; syncs RC entitlements on native
+
+		// Navigate to game screen when player taps the daily streak notification
+		if (Capacitor.isNativePlatform()) {
+			LocalNotifications.addListener('localNotificationActionPerformed', (action) => {
+				const route = (action.notification.extra as { route?: string } | null)?.route;
+				if (route) goto(route);
+			}).catch(() => {});
+		}
 	});
 
 	onNavigate((navigation) => {
