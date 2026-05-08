@@ -42,7 +42,7 @@
 
 	let discoverySheetOpen = $state(false);
 	let achievementsOpen = $state(false);
-	let activeTab = $state<'discoveries' | 'play' | 'badges' | 'leaderboard'>('play');
+	let activeTab = $state<'discoveries' | 'play' | 'badges' | 'leaderboard' | 'settings'>('play');
 
 	let lastSeenCount = $state(
 		typeof localStorage !== 'undefined'
@@ -72,10 +72,6 @@
 		<h1 class="title">Alchemica</h1>
 		<p class="tagline">Combine elements. Discover the world.</p>
 	</div>
-
-	<button class="play-btn" onclick={play}>
-		{$discoveries.length > 0 || $score > 0 ? 'Resume game' : 'Play game'}
-	</button>
 
 	{#if $score > 0}
 		<div class="score-section">
@@ -127,10 +123,10 @@
 			class="nav-tab nav-play"
 			class:active={activeTab === 'play'}
 			onclick={() => { activeTab = 'play'; play(); }}
-			aria-label="Play game"
+			aria-label={$discoveries.length > 0 || $score > 0 ? 'Resume game' : 'Play game'}
 		>
 			<span class="nav-icon">⚗</span>
-			<span class="nav-label">Play</span>
+			<span class="nav-label">{$discoveries.length > 0 || $score > 0 ? 'Resume' : 'Play'}</span>
 		</button>
 
 		<button
@@ -149,6 +145,15 @@
 			aria-label="Weekly leaderboard"
 		>
 			<span class="nav-icon">🏅</span>
+		</button>
+
+		<button
+			class="nav-tab"
+			class:active={activeTab === 'settings'}
+			onclick={() => { activeTab = 'settings'; goto('/settings'); }}
+			aria-label="Settings"
+		>
+			<span class="nav-icon">⚙️</span>
 		</button>
 	</nav>
 </main>
@@ -195,29 +200,6 @@
 		letter-spacing: 0.04em;
 		margin: 0;
 	}
-
-	.play-btn {
-		min-width: 140px;
-		padding: 0.7rem 2rem;
-		font-size: 0.95rem;
-		font-weight: 600;
-		letter-spacing: 0.08em;
-		text-transform: capitalize;
-		color: #0d1b2e;
-		background: #c9a84c;
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
-		transition: background 150ms ease, transform 100ms ease;
-		-webkit-tap-highlight-color: transparent;
-		touch-action: manipulation;
-		min-height: 48px;
-		margin-top: 1rem;
-		flex-shrink: 0;
-	}
-
-	.play-btn:hover { background: #d9b85c; }
-	.play-btn:active { transform: scale(0.97); background: #b8973b; }
 
 	.score-section {
 		display: flex;

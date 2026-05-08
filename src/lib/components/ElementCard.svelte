@@ -148,4 +148,5 @@
   :global(.cat-energy)   { background: #2d1a40; color: #d05aff; }
   :global(.cat-gas)      { background: #1a2a2a; color: #80d0c0; }
   :global(.cat-compound) { background: #2a1a2a; color: #d080a0; }
+  :global(.cat-space)    { background: #0a0a1e; color: #7eb8f7; }
 </style>

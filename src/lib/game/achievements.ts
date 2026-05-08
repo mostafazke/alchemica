@@ -15,6 +15,7 @@ export const THRESHOLDS: Array<{ count: number; id: AchievementId }> = [
   { count: 25, id: 'badge_25' },
   { count: 50, id: 'badge_50' },
   { count: 61, id: 'badge_61' },
+  { count: 100, id: 'badge_100' },
 ];
 
 /**

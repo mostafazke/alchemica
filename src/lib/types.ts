@@ -1,4 +1,4 @@
-export type Category = 'basic' | 'fire' | 'water' | 'earth' | 'air' | 'metal' | 'energy' | 'gas' | 'compound';
+export type Category = 'basic' | 'fire' | 'water' | 'earth' | 'air' | 'metal' | 'energy' | 'gas' | 'compound' | 'space';
 
 export interface Element {
   name: string;
@@ -29,7 +29,7 @@ export interface Slots {
 }
 
 /** Per D-14: Union of all achievement badge IDs. Add new IDs here when new badges are introduced. */
-export type AchievementId = 'badge_10' | 'badge_25' | 'badge_50' | 'badge_61';
+export type AchievementId = 'badge_10' | 'badge_25' | 'badge_50' | 'badge_61' | 'badge_100';
 
 /**
  * V2 save data shape stored under the 'alchemica_v1' localStorage key.
