@@ -7,6 +7,7 @@
 	import AchievementToast from '$lib/components/AchievementToast.svelte';
 	import FirstRunOverlay from '$lib/components/FirstRunOverlay.svelte';
 	import DiscoveryBanner from '$lib/components/DiscoveryBanner.svelte';
+	import StuckHintPrompt from '$lib/components/StuckHintPrompt.svelte';
 	import { soundMuted } from '$lib/stores/settings.js';
 	import { playBgm, stopBgm, setBgmMuted } from '$lib/effects/bgm.js';
 
@@ -31,6 +32,7 @@
 	</div>
 	<AchievementToast />
 	<FirstRunOverlay />
+	<StuckHintPrompt />
 </div>
 
 <style>

@@ -41,6 +41,11 @@ function registerListeners(): void {
   });
 }
 
+/** Warm up the next rewarded ad early (call after 2nd consecutive fail). Native-only — no-op on web. */
+export function warmupAd(): void {
+  if (Capacitor.isNativePlatform()) prepareAd();
+}
+
 /** Initialize AdMob and preload first rewarded ad. Native-only — no-op on web. */
 export async function initAdMob(): Promise<void> {
   if (!Capacitor.isNativePlatform()) return;

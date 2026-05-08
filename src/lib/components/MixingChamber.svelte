@@ -15,6 +15,8 @@
   import HintButton from './HintButton.svelte';
   import DailyChallenge from './DailyChallenge.svelte';
   import { ELEMENTS } from '../data/elements.js';
+  import { failedComboCount, stuckPromptVisible } from '../stores/hintPrompt.js';
+  import { warmupAd } from '../effects/admob.js';
 
   let canvasEl: HTMLCanvasElement;
   let result: string | null = $state(null);
@@ -39,6 +41,9 @@
     const cy = canvasEl.parentElement!.offsetHeight * 0.38;
 
     if (reaction.result) {
+      // Reset stuck-player state on any successful combination
+      failedComboCount.set(0);
+      stuckPromptVisible.set(false);
       triggerSuccessParticles(cx, cy);
       hapticSuccess();
       if (!get(soundMuted)) {
@@ -61,6 +66,13 @@
       triggerFailParticles(cx, cy);
       hapticFail();
       if (!get(soundMuted)) playFailure();
+      // Track consecutive fails — warm up ad on 2nd, show prompt on 3rd
+      failedComboCount.update((n) => {
+        const next = n + 1;
+        if (next === 2) warmupAd();
+        if (next >= 3) stuckPromptVisible.set(true);
+        return next;
+      });
     }
   }
 </script>

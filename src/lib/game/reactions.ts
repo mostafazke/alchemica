@@ -36,6 +36,40 @@ export function getHint(unlocked: Set<string>): { a: string; b: string; result: 
   return null;
 }
 
+/**
+ * Returns a hint biased toward combinations where at least one ingredient
+ * matches the player's currently selected slots (they're "close to" the result).
+ * Falls back to any valid undiscovered combination.
+ */
+export function getStuckHint(
+  unlocked: Set<string>,
+  currentSlots: { a: string | null; b: string | null }
+): { a: string; b: string; result: string } | null {
+  const shelf = [currentSlots.a, currentSlots.b].filter((x): x is string => x !== null);
+  const biased: { a: string; b: string; result: string }[] = [];
+  const fallback: { a: string; b: string; result: string }[] = [];
+  const seen = new Set<string>();
+
+  for (const [key, result] of Object.entries(REACTIONS)) {
+    const [a, b] = key.split('+');
+    const canonical = a <= b ? `${a}+${b}` : `${b}+${a}`;
+    if (seen.has(canonical)) continue;
+    seen.add(canonical);
+
+    if (unlocked.has(result)) continue;
+    if (!unlocked.has(a) || !unlocked.has(b)) continue;
+
+    const entry = { a, b, result };
+    if (shelf.includes(a) || shelf.includes(b)) {
+      biased.push(entry);
+    } else {
+      fallback.push(entry);
+    }
+  }
+
+  return biased[0] ?? fallback[0] ?? null;
+}
+
 export function resolveReaction(a: string, b: string): { result: string | null; isNew: boolean } {
   const key = `${a}+${b}`;
   const result = REACTIONS[key] ?? null;
