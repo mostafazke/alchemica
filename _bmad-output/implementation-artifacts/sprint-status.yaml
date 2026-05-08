@@ -46,10 +46,10 @@ development_status:
   # ─────────────────────────────────────────────
   # Epic 1: Discovery & Growth
   # ─────────────────────────────────────────────
-  epic-1: backlog
+  epic-1: in-progress
   1-1-aso-metadata-overhaul: backlog
   1-2-app-store-screenshots-5-new: backlog
-  1-3-shareable-discovery-card: backlog
+  1-3-shareable-discovery-card: ready-for-dev
   1-4-in-app-rating-prompt: backlog
   1-5-daily-push-notification-streak-reminder: backlog
   epic-1-retrospective: optional
