@@ -98,7 +98,7 @@
   }
   .toast-label {
     font-family: 'Space Mono', monospace;
-    font-size: 9px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: #4af0c0;

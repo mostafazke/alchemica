@@ -119,21 +119,21 @@
   .reveal-5 { animation: reveal-up 0.22s ease 0.56s both; }
 
   .result-new-badge {
-    font-size: 9px; color: #ffe44a;
+    font-size: 11px; color: #ffe44a;
     font-family: 'Space Mono', monospace;
     letter-spacing: 2px; text-transform: uppercase;
   }
   .result-known-badge {
-    font-size: 9px; color: #4a6080;
+    font-size: 11px; color: #4a6080;
     font-family: 'Space Mono', monospace;
     letter-spacing: 1px; text-transform: uppercase;
   }
   .result-icon { font-size: 30px; line-height: 1; }
   .result-icon.icon-new { filter: drop-shadow(0 0 8px #ffe44a60); }
   .result-name { font-size: 15px; font-weight: 700; color: #4af0c0; }
-  .result-formula { font-family: 'Space Mono', monospace; font-size: 10px; color: #4af0c060; }
+  .result-formula { font-family: 'Space Mono', monospace; font-size: 11px; color: #4af0c060; }
   .result-quip {
-    font-size: 10px; color: #6a8aa4; font-style: italic;
+    font-size: 11px; color: #6a8aa4; font-style: italic;
     max-width: 200px; line-height: 1.4; margin-top: 2px;
   }
   .result-share-btn {
@@ -147,6 +147,6 @@
   .result-share-btn:hover { border-color: #ffe44a60; color: #ffe44a; }
   .result-fail-icon { font-size: 26px; }
   .result-error { font-size: 13px; color: #ff6060; }
-  .result-tip { font-size: 10px; color: #4a6080; }
+  .result-tip { font-size: 11px; color: #4a6080; }
   .result-idle { font-size: 12px; color: #6a8aa4; }
 </style>

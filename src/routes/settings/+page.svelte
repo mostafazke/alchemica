@@ -279,7 +279,7 @@
   }
   .section-label {
     font-family: 'Space Mono', monospace;
-    font-size: 10px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: #4a6080;
@@ -377,7 +377,7 @@
   .purchase-card:disabled { opacity: 0.5; cursor: not-allowed; }
   .purchase-card-owned { border-color: #4af0c040; color: #4af0c0; background: #0a2a1a; }
   .purchase-icon { font-size: 18px; line-height: 1; }
-  .purchase-name { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: inherit; }
+  .purchase-name { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: inherit; }
   .purchase-price { font-size: 11px; color: #4af0c0; }
   .purchase-card-owned .purchase-price { color: #4af0c080; }
   .restore-btn {

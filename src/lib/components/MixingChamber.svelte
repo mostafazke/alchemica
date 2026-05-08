@@ -93,7 +93,7 @@
     justify-content: center;
     gap: 8px;
     padding: 8px 16px;
-    overflow: hidden;
+    overflow: visible;
     min-width: 0;
     min-height: 0;
   }

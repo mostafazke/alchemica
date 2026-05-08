@@ -45,8 +45,8 @@
   }
   .disc-info { min-width: 0; flex: 1; }
   .disc-name { font-size: 11px; font-weight: 600; color: #c8d8e8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .disc-formula { font-family: 'Space Mono', monospace; font-size: 9px; color: #4af0c0; }
-  .disc-recipe { font-size: 9px; color: #4a6080; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .disc-formula { font-family: 'Space Mono', monospace; font-size: 11px; color: #4af0c0; }
+  .disc-recipe { font-size: 11px; color: #4a6080; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .share-btn {
     flex-shrink: 0;
     background: transparent; border: none;

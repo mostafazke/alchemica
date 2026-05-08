@@ -80,9 +80,9 @@
     border-radius: 6px; font-size: 18px; flex-shrink: 0;
   }
   .el-info { min-width: 0; }
-  .el-formula { font-family: 'Space Mono', monospace; font-size: 9px; color: #4af0c0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .el-formula { font-family: 'Space Mono', monospace; font-size: 11px; color: #4af0c0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .el-name { font-size: 12px; font-weight: 600; color: #c8d8e8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .el-category { font-size: 9px; color: #4a6080; text-transform: uppercase; letter-spacing: 0.5px; }
+  .el-category { font-size: 11px; color: #4a6080; text-transform: uppercase; letter-spacing: 0.5px; }
 
   /* Grid tile mode */
   .element-card.grid-tile {
@@ -98,7 +98,7 @@
     width: 30px; height: 30px; font-size: 18px;
   }
   .el-grid-name {
-    font-size: 9px;
+    font-size: 11px;
     color: #8ab4d4;
     text-align: center;
     white-space: nowrap;

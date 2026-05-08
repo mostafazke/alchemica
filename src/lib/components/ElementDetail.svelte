@@ -90,7 +90,7 @@
     font-size: 12px; color: #4af0c0; margin-bottom: 2px;
   }
   .detail-category {
-    font-size: 10px; color: #4a6080;
+    font-size: 11px; color: #4a6080;
     text-transform: uppercase; letter-spacing: 0.5px;
   }
   .detail-desc {
@@ -106,7 +106,7 @@
   }
   .recipe-label {
     font-family: 'Space Mono', monospace;
-    color: #4a6080; font-size: 10px;
+    color: #4a6080; font-size: 11px;
     text-transform: uppercase; letter-spacing: 0.5px;
     display: block; margin-bottom: 2px;
   }

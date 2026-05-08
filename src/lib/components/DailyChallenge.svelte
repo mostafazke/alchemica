@@ -74,7 +74,7 @@
   }
   .today-label {
     font-family: 'Space Mono', monospace;
-    font-size: 9px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: #4a6080;
@@ -120,13 +120,13 @@
   }
   .complete-element {
     font-family: 'Space Mono', monospace;
-    font-size: 10px;
+    font-size: 11px;
     color: #8ab4d4;
   }
 
   .streak-label {
     font-family: 'Space Mono', monospace;
-    font-size: 9px;
+    font-size: 11px;
     color: #4a6080;
     text-align: center;
   }

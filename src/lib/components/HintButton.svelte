@@ -100,7 +100,7 @@
   .hint-wrapper { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
   .hint-btn {
     padding: 8px 20px;
-    min-height: 40px; min-width: 100px;
+    min-height: 44px; min-width: 100px;
     border-radius: 8px;
     border: 1px solid #1a3a5a;
     background: #0a1520;
@@ -115,30 +115,36 @@
   .hint-btn:disabled { opacity: 0.5; cursor: not-allowed; }
   .hint-btn.cooling { color: #4a6080; }
   .hint-overlay {
-    position: absolute; bottom: calc(100% + 8px);
-    left: 50%; transform: translateX(-50%);
+    position: fixed;
+    bottom: 72px;
+    left: 50%;
+    transform: translateX(-50%);
     background: #0d1b2e; border: 1px solid #4af0c040;
     border-radius: 12px; padding: 12px 16px;
-    min-width: 220px; text-align: center;
+    min-width: 220px; max-width: min(320px, 90vw);
+    max-height: 45vh; overflow-y: auto;
+    text-align: center;
     box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     animation: hint-pop 0.2s ease;
-    z-index: 10;
+    z-index: 500;
   }
   @keyframes hint-pop {
     from { opacity: 0; transform: translateX(-50%) translateY(6px) scale(0.95); }
     to   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
   }
-  .hint-label { font-size: 10px; color: #4a6080; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 8px; }
+  .hint-label { font-size: 11px; color: #4a6080; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 8px; }
   .hint-pair { display: flex; align-items: center; justify-content: center; gap: 10px; }
   .hint-el { display: flex; flex-direction: column; align-items: center; gap: 2px; }
   .hint-symbol { font-size: 22px; }
-  .hint-name { font-size: 10px; color: #4af0c0; font-family: 'Space Mono', monospace; }
+  .hint-name { font-size: 11px; color: #4af0c0; font-family: 'Space Mono', monospace; }
   .hint-plus { font-size: 16px; color: #4a6080; }
   .hint-dismiss {
-    position: absolute; top: 6px; right: 8px;
+    position: absolute; top: 0; right: 0;
     background: transparent; border: none; color: #4a6080;
-    cursor: pointer; font-size: 11px; padding: 2px 6px;
+    cursor: pointer; font-size: 11px; padding: 0;
     touch-action: manipulation;
+    min-width: 44px; min-height: 44px;
+    display: flex; align-items: center; justify-content: center;
   }
   .hint-dismiss:hover { color: #ff6b6b; }
   .ad-btn {

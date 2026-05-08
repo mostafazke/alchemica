@@ -83,7 +83,7 @@
     gap: 1px;
   }
   .stat-value { font-size: 12px; line-height: 1; }
-  .stat-label { font-size: 8px; text-transform: uppercase; letter-spacing: 0.5px; color: #4a6080; line-height: 1; }
+  .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #4a6080; line-height: 1; }
   .stat.combo {
     color: #ffe44a;
     font-weight: 700;
