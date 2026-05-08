@@ -8,6 +8,7 @@
 	import FirstRunOverlay from '$lib/components/FirstRunOverlay.svelte';
 	import DiscoveryBanner from '$lib/components/DiscoveryBanner.svelte';
 	import StuckHintPrompt from '$lib/components/StuckHintPrompt.svelte';
+	import EventBanner from '$lib/components/EventBanner.svelte';
 	import { soundMuted } from '$lib/stores/settings.js';
 	import { playBgm, stopBgm, setBgmMuted } from '$lib/effects/bgm.js';
 
@@ -27,6 +28,7 @@
 			<ElementGrid />
 		</div>
 		<div class="right-panel">
+			<EventBanner />
 			<MixingChamber />
 		</div>
 	</div>

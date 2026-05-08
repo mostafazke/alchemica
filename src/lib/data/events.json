@@ -1,0 +1,29 @@
+[
+  {
+    "id": "event-2026-w19",
+    "title": "Steam Week",
+    "description": "Harness the power of heat — discover Steam!",
+    "startDate": "2026-05-04",
+    "endDate": "2026-05-10",
+    "targetElement": "steam",
+    "iconKey": "♨️"
+  },
+  {
+    "id": "event-2026-w20",
+    "title": "Lightning Week",
+    "description": "Charge the skies — harness electricity.",
+    "startDate": "2026-05-11",
+    "endDate": "2026-05-17",
+    "targetElement": "lightning",
+    "iconKey": "⚡"
+  },
+  {
+    "id": "event-2026-w21",
+    "title": "Lava Week",
+    "description": "Merge fire and earth to forge raw magma.",
+    "startDate": "2026-05-18",
+    "endDate": "2026-05-24",
+    "targetElement": "lava",
+    "iconKey": "🌋"
+  }
+]
