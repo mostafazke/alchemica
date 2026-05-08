@@ -6,6 +6,7 @@
 	import MixingChamber from '$lib/components/MixingChamber.svelte';
 	import AchievementToast from '$lib/components/AchievementToast.svelte';
 	import FirstRunOverlay from '$lib/components/FirstRunOverlay.svelte';
+	import DiscoveryBanner from '$lib/components/DiscoveryBanner.svelte';
 	import { soundMuted } from '$lib/stores/settings.js';
 	import { playBgm, stopBgm, setBgmMuted } from '$lib/effects/bgm.js';
 
@@ -21,6 +22,7 @@
 	<TopBar />
 	<div class="lab-wrapper">
 		<div class="left-panel">
+			<DiscoveryBanner />
 			<ElementGrid />
 		</div>
 		<div class="right-panel">
@@ -45,6 +47,7 @@
 		min-height: 0;
 	}
 	.left-panel {
+		position: relative;
 		overflow: hidden;
 		min-height: 0;
 	}

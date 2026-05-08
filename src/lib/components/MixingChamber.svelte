@@ -4,14 +4,17 @@
   import Slot from './Slot.svelte';
   import ResultDisplay from './ResultDisplay.svelte';
   import { slots, combo } from '../stores/game.js';
+  import { unlockedElements } from '../stores/game.js';
   import { applyReaction } from '../game/reactions.js';
   import { initParticles, triggerSuccessParticles, triggerFailParticles } from '../effects/particles.js';
   import { hapticSuccess, hapticFail } from '../utils/touch.js';
   import { toastQueue } from '../stores/toast.js';
+  import { discoveryBannerQueue } from '../stores/discoveryBanner.js';
   import { soundMuted } from '../stores/settings.js';
   import { playChime, playReactionSuccess, playDiscovery, playFailure, playComboUp } from '../effects/sound.js';
   import HintButton from './HintButton.svelte';
   import DailyChallenge from './DailyChallenge.svelte';
+  import { ELEMENTS } from '../data/elements.js';
 
   let canvasEl: HTMLCanvasElement;
   let result: string | null = $state(null);
@@ -46,6 +49,13 @@
       if (reaction.newBadge !== null) {
         toastQueue.update((q) => [...q, reaction.newBadge!]);
         if (!get(soundMuted)) playChime();
+      }
+      if (reaction.isNew) {
+        discoveryBannerQueue.update((q) => [...q, {
+          elementKey: reaction.result!,
+          discoveryNumber: get(unlockedElements).size,
+          totalElements: Object.keys(ELEMENTS).length,
+        }]);
       }
     } else {
       triggerFailParticles(cx, cy);
