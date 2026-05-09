@@ -4,7 +4,7 @@
   import { stuckPromptVisible, failedComboCount } from '../stores/hintPrompt.js';
   import { isAdReady, requestAdHint } from '../effects/admob.js';
   import { hintBalance, unlockedElements, slots } from '../stores/game.js';
-  import { getStuckHint } from '../game/reactions.js';
+  import { getStuckHint, type SmartHint } from '../game/reactions.js';
   import { ELEMENTS } from '../data/elements.js';
   import { logHintRequested } from '../effects/analytics.js';
 
@@ -13,13 +13,15 @@
   const isNative = Capacitor.isNativePlatform();
 
   let mode = $state<Mode>('offer');
-  let hint = $state<{ a: string; b: string; result: string } | null>(null);
+  let hint = $state<SmartHint | null>(null);
+  let triviaRevealed = $state(false);
 
   // Reset internal state each time the prompt opens
   $effect(() => {
     if (!$stuckPromptVisible) {
       mode = 'offer';
       hint = null;
+      triviaRevealed = false;
     }
   });
 
@@ -53,8 +55,9 @@
     failedComboCount.set(0); // reset so it doesn't re-trigger immediately
   }
 
-  const hintElA = $derived(hint ? ELEMENTS[hint.a] : null);
-  const hintElB = $derived(hint ? ELEMENTS[hint.b] : null);
+  const hintElA      = $derived(hint ? ELEMENTS[hint.a]      : null);
+  const hintElB      = $derived(hint ? ELEMENTS[hint.b]      : null);
+  const hintElResult = $derived(hint ? ELEMENTS[hint.result] : null);
 </script>
 
 {#if $stuckPromptVisible}
@@ -83,20 +86,32 @@
       {#if mode === 'fallback'}
         <span class="fallback-label">No ad — here's a free hint</span>
       {/if}
-      {#if hint && hintElA && hintElB}
+      {#if hint && hintElA && hintElB && hintElResult}
         <div class="hint-display">
-          <span class="prompt-sub">Try combining:</span>
-          <div class="hint-pair">
-            <span class="hint-el">
-              <span class="hint-sym">{hintElA.symbol}</span>
-              <span class="hint-name">{hintElA.name}</span>
-            </span>
-            <span class="hint-plus">+</span>
-            <span class="hint-el">
-              <span class="hint-sym">{hintElB.symbol}</span>
-              <span class="hint-name">{hintElB.name}</span>
-            </span>
-          </div>
+          {#if hint.mode === 'trivia' && !triviaRevealed}
+            <!-- Trivia: show desc as riddle -->
+            <div class="stuck-trivia">
+              <span class="prompt-sub trivia-riddle">{hintElResult.desc}</span>
+              <button class="btn-reveal" onclick={() => triviaRevealed = true}>Reveal ↓</button>
+            </div>
+          {:else}
+            <!-- Goal or revealed trivia: show target element + combo -->
+            <div class="hint-result-row">
+              <span class="hint-res-sym">{hintElResult.symbol}</span>
+              <span class="hint-res-name">{hintElResult.name}</span>
+            </div>
+            <div class="hint-pair">
+              <span class="hint-el">
+                <span class="hint-sym">{hintElA.symbol}</span>
+                <span class="hint-name">{hintElA.name}</span>
+              </span>
+              <span class="hint-plus">+</span>
+              <span class="hint-el">
+                <span class="hint-sym">{hintElB.symbol}</span>
+                <span class="hint-name">{hintElB.name}</span>
+              </span>
+            </div>
+          {/if}
         </div>
       {/if}
       <button class="btn-dismiss" onclick={dismiss} aria-label="Dismiss hint">✕</button>
@@ -253,4 +268,24 @@
     font-size: 16px;
     color: #4a6080;
   }
+  /* Goal mode: target element row */
+  .hint-result-row {
+    display: flex; align-items: center; gap: 6px;
+    margin-bottom: 2px;
+  }
+  .hint-res-sym { font-size: 20px; line-height: 1; }
+  .hint-res-name {
+    font-family: 'Space Mono', monospace; font-size: 12px;
+    font-weight: 700; color: #e8f4ff;
+  }
+  /* Trivia mode */
+  .stuck-trivia { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; width: 100%; }
+  .trivia-riddle { font-style: italic; font-size: 11px !important; line-height: 1.4; color: #8ab4d4 !important; }
+  .btn-reveal {
+    background: #4af0c015; border: 1px solid #4af0c040; border-radius: 6px;
+    color: #4af0c0; font-family: 'Space Mono', monospace; font-size: 10px;
+    padding: 4px 10px; cursor: pointer; touch-action: manipulation;
+    transition: background 0.15s; align-self: flex-end;
+  }
+  .btn-reveal:hover { background: #4af0c025; }
 </style>

@@ -18,23 +18,35 @@ export function getComboMax(streak: number): number {
 }
 
 /**
- * Returns the first valid unused reaction hint, or null if none available.
- * "Valid" = both input elements are unlocked AND the result is not yet unlocked.
+ * A hint that carries both the combination and how it should be presented.
+ * - 'goal':   reveal the target element name + the recipe directly.
+ * - 'trivia': show the target element's scientific description as a riddle;
+ *             the player can request the recipe after guessing.
  */
-export function getHint(unlocked: Set<string>): { a: string; b: string; result: string } | null {
+export type SmartHint = { a: string; b: string; result: string; mode: 'goal' | 'trivia' };
+
+/**
+ * Returns a random valid undiscovered reaction hint with a smart presentation mode.
+ * Mode is biased toward 'trivia' when many options remain (fun, early/mid-game)
+ * and toward 'goal' when options are scarce (direct help, late-game).
+ */
+export function getHint(unlocked: Set<string>): SmartHint | null {
+  const candidates: { a: string; b: string; result: string }[] = [];
   const seen = new Set<string>();
   for (const [key, result] of Object.entries(REACTIONS)) {
     const [a, b] = key.split('+');
-    // Deduplicate: skip the reverse pair (b+a already covered by a+b)
     const canonical = a <= b ? `${a}+${b}` : `${b}+${a}`;
     if (seen.has(canonical)) continue;
     seen.add(canonical);
-
-    if (unlocked.has(result)) continue;          // already discovered
-    if (!unlocked.has(a) || !unlocked.has(b)) continue; // ingredients not available
-    return { a, b, result };
+    if (unlocked.has(result)) continue;
+    if (!unlocked.has(a) || !unlocked.has(b)) continue;
+    candidates.push({ a, b, result });
   }
-  return null;
+  if (candidates.length === 0) return null;
+  const pick = candidates[Math.floor(Math.random() * candidates.length)];
+  // ≤3 options left → always direct; otherwise 55% trivia / 45% goal
+  const mode: 'goal' | 'trivia' = candidates.length <= 3 ? 'goal' : (Math.random() < 0.55 ? 'trivia' : 'goal');
+  return { ...pick, mode };
 }
 
 /**
@@ -45,7 +57,7 @@ export function getHint(unlocked: Set<string>): { a: string; b: string; result: 
 export function getStuckHint(
   unlocked: Set<string>,
   currentSlots: { a: string | null; b: string | null }
-): { a: string; b: string; result: string } | null {
+): SmartHint | null {
   const shelf = [currentSlots.a, currentSlots.b].filter((x): x is string => x !== null);
   const biased: { a: string; b: string; result: string }[] = [];
   const fallback: { a: string; b: string; result: string }[] = [];
@@ -68,7 +80,11 @@ export function getStuckHint(
     }
   }
 
-  return biased[0] ?? fallback[0] ?? null;
+  const pick = biased[0] ?? fallback[0] ?? null;
+  if (!pick) return null;
+  const total = biased.length + fallback.length;
+  const mode: 'goal' | 'trivia' = total <= 3 ? 'goal' : (Math.random() < 0.55 ? 'trivia' : 'goal');
+  return { ...pick, mode };
 }
 
 export function resolveReaction(a: string, b: string): { result: string | null; isNew: boolean } {

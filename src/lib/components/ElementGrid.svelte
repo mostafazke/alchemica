@@ -4,23 +4,17 @@
   import { REACTIONS } from '../data/reactions.js';
   import ElementCard from './ElementCard.svelte';
 
-  // Ordered list of all possible categories + their display labels
   const CATEGORY_ORDER = ['basic', 'earth', 'water', 'gas', 'compound', 'energy', 'metal', 'space'];
   const CATEGORY_LABELS: Record<string, string> = {
     basic: 'Basics', earth: 'Earth', water: 'Water', gas: 'Gas',
     compound: 'Compounds', energy: 'Energy', metal: 'Metals', space: 'Space',
   };
+  const CATEGORY_ICONS: Record<string, string> = {
+    basic: '🔵', earth: '🌍', water: '💧', gas: '💨',
+    compound: '🧪', energy: '⚡', metal: '⚙️', space: '🌌',
+  };
 
-  // Persist selected filter across sessions
-  const FILTER_KEY = 'alchemica_shelf_filter';
-  let filter: string = $state(
-    typeof localStorage !== 'undefined' ? (localStorage.getItem(FILTER_KEY) ?? 'all') : 'all'
-  );
-  $effect(() => {
-    if (typeof localStorage !== 'undefined') localStorage.setItem(FILTER_KEY, filter);
-  });
-
-  // Static: total elements per category across all ELEMENTS
+  // Static: total elements per category
   const allCatCounts: Record<string, number> = (() => {
     const counts: Record<string, number> = {};
     for (const el of Object.values(ELEMENTS)) {
@@ -29,29 +23,14 @@
     return counts;
   })();
 
-  // Active categories (have at least one element defined), in display order
-  const activeCategories = CATEGORY_ORDER.filter(cat => (allCatCounts[cat] ?? 0) > 0);
-
-  // Reactive: unlocked count per category
-  const unlockedCatCounts = $derived.by(() => {
-    const counts: Record<string, number> = {};
-    for (const k of $unlockedElements) {
-      const cat = ELEMENTS[k]?.category;
-      if (cat) counts[cat] = (counts[cat] ?? 0) + 1;
-    }
-    return counts;
-  });
-
   // Reactive: set of element keys that can produce at least one undiscovered element
-  // (player has the element + has at least one partner that together form something new)
   const hasMoreSet = $derived.by(() => {
     const unlocked = $unlockedElements;
     const result = new Set<string>();
     for (const k of unlocked) {
       const canMakeNew = Object.entries(REACTIONS).some(([rxnKey, product]) => {
-        if (unlocked.has(product)) return false; // already discovered
+        if (unlocked.has(product)) return false;
         const [a, b] = rxnKey.split('+');
-        // k is one reactant; the other reactant must also be unlocked
         return (a === k && unlocked.has(b)) || (b === k && unlocked.has(a));
       });
       if (canMakeNew) result.add(k);
@@ -59,52 +38,42 @@
     return result;
   });
 
-  // Reactive: filtered + alphabetically sorted keys
-  const filteredKeys = $derived.by(() => {
-    const keys = [...$unlockedElements].filter((k) =>
-      filter === 'all' ? true : ELEMENTS[k]?.category === filter
-    );
-    return keys.sort((a, b) =>
-      (ELEMENTS[a]?.name ?? a).localeCompare(ELEMENTS[b]?.name ?? b)
-    );
+  // Reactive: elements grouped by category, in CATEGORY_ORDER, alphabetically within each group
+  const groups = $derived.by(() => {
+    const byCategory: Record<string, string[]> = {};
+    for (const k of $unlockedElements) {
+      const cat = ELEMENTS[k]?.category ?? 'basic';
+      (byCategory[cat] ??= []).push(k);
+    }
+    for (const keys of Object.values(byCategory)) {
+      keys.sort((a, b) => (ELEMENTS[a]?.name ?? a).localeCompare(ELEMENTS[b]?.name ?? b));
+    }
+    return CATEGORY_ORDER
+      .filter(cat => (byCategory[cat]?.length ?? 0) > 0)
+      .map(cat => ({ cat, keys: byCategory[cat] }));
   });
 </script>
 
 <div class="element-grid-panel">
-  <div class="grid-tabs" role="tablist" aria-label="Element categories">
-    <!-- All tab -->
-    <button
-      class="tab-btn"
-      class:active={filter === 'all'}
-      role="tab"
-      aria-selected={filter === 'all'}
-      onclick={() => (filter = 'all')}
-    >
-      All ({$unlockedElements.size})
-    </button>
-    <!-- Per-category tabs -->
-    {#each activeCategories as cat (cat)}
-      {@const unlocked = unlockedCatCounts[cat] ?? 0}
-      {@const total = allCatCounts[cat] ?? 0}
-      <button
-        class="tab-btn"
-        class:active={filter === cat}
-        role="tab"
-        aria-selected={filter === cat}
-        onclick={() => (filter = cat)}
-      >
-        {CATEGORY_LABELS[cat] ?? cat}
-        <span class="tab-count">{unlocked}/{total}</span>
-      </button>
-    {/each}
-  </div>
-
   <div class="grid-scroll">
-    {#each filteredKeys as key (key)}
-      <ElementCard elementKey={key} mode="grid" hasMore={hasMoreSet.has(key)} />
+    {#if $unlockedElements.size === 0}
+      <p class="empty-grid">No elements yet. Go combine some!</p>
     {:else}
-      <p class="empty-grid">No elements yet</p>
-    {/each}
+      {#each groups as group (group.cat)}
+        <div class="cat-section">
+          <div class="cat-header">
+            <span class="cat-icon">{CATEGORY_ICONS[group.cat] ?? '▪'}</span>
+            <span class="cat-label">{CATEGORY_LABELS[group.cat] ?? group.cat}</span>
+            <span class="cat-count">{group.keys.length}<span class="cat-total">/{allCatCounts[group.cat] ?? '?'}</span></span>
+          </div>
+          <div class="cat-grid">
+            {#each group.keys as key (key)}
+              <ElementCard elementKey={key} mode="grid" hasMore={hasMoreSet.has(key)} />
+            {/each}
+          </div>
+        </div>
+      {/each}
+    {/if}
   </div>
 </div>
 
@@ -117,63 +86,74 @@
     background: #080f1a;
     border-right: 1px solid #1a2e4a;
   }
-  .grid-tabs {
-    display: flex;
-    gap: 4px;
-    padding: 8px 10px;
-    flex-shrink: 0;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .grid-tabs::-webkit-scrollbar { display: none; }
-  .tab-btn {
-    flex-shrink: 0;
-    padding: 5px 8px;
-    background: transparent;
-    border: 1px solid #1a2e4a;
-    border-radius: 6px;
-    color: #4a6080;
-    font-size: 11px;
-    font-family: 'Space Mono', monospace;
-    cursor: pointer;
-    transition: all 0.15s;
-    min-height: 44px;
-    touch-action: manipulation;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    white-space: nowrap;
-  }
-  .tab-btn.active,
-  .tab-btn:hover {
-    border-color: #4af0c060;
-    color: #4af0c0;
-    background: #0f2035;
-  }
-  .tab-count {
-    font-size: 9px;
-    color: #4a6080;
-    display: block;
-  }
-  .tab-btn.active .tab-count { color: #4af0c080; }
+
   .grid-scroll {
     flex: 1;
     overflow-y: auto;
-    padding: 8px;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Category section */
+  .cat-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cat-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    background: #080f1a;
+    border-bottom: 1px solid #1a2e4a;
+    border-top: 1px solid #1a2e4a;
+  }
+
+  .cat-section:first-child .cat-header {
+    border-top: none;
+  }
+
+  .cat-icon {
+    font-size: 11px;
+    line-height: 1;
+  }
+
+  .cat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #4a6080;
+    flex: 1;
+  }
+
+  .cat-count {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: #4af0c0;
+  }
+
+  .cat-total {
+    color: #2a4060;
+  }
+
+  .cat-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
     gap: 6px;
-    align-content: start;
-    -webkit-overflow-scrolling: touch;
+    padding: 8px;
   }
+
   .empty-grid {
     color: #2a3550;
     font-size: 11px;
     text-align: center;
-    padding: 16px;
-    grid-column: 1 / -1;
+    padding: 32px 16px;
+    line-height: 1.6;
   }
 </style>
