@@ -14,9 +14,9 @@ export default defineConfig({
 			registerType: 'autoUpdate',
 			injectRegister: 'script',
 			manifest: {
-				name: 'Alchemica',
+				name: 'Alchemica: Element Discovery Lab',
 				short_name: 'Alchemica',
-				description: 'Element combination puzzle game — discover all elements!',
+				description: 'Element combination puzzle game with science-backed recipes. Discover 300+ elements!',
 				theme_color: '#0d1b2e',
 				background_color: '#0d1b2e',
 				display: 'fullscreen',
