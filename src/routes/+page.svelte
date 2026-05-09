@@ -73,6 +73,13 @@
 		<p class="tagline">Combine elements. Discover the world.</p>
 	</div>
 
+
+
+	<button class="play-btn" onclick={play}>
+		<span class="play-icon">⚗</span>
+		{$discoveries.length > 0 || $score > 0 ? 'Resume Game' : 'Play'}
+	</button>
+
 	{#if $score > 0}
 		<div class="score-section">
 			<p class="score-stat">Score: {$score}</p>
@@ -97,8 +104,6 @@
 		<span class="arrow-icon">→</span>
 	</button>
 
-	<div class="spacer"></div>
-
 	<BottomSheet open={discoverySheetOpen} onClose={() => { discoverySheetOpen = false; }}>
 		<DiscoveryLog />
 	</BottomSheet>
@@ -117,16 +122,6 @@
 			{#if unreadCount > 0 && !discoverySheetOpen}
 				<span class="nav-badge">{unreadCount}</span>
 			{/if}
-		</button>
-
-		<button
-			class="nav-tab nav-play"
-			class:active={activeTab === 'play'}
-			onclick={() => { activeTab = 'play'; play(); }}
-			aria-label={$discoveries.length > 0 || $score > 0 ? 'Resume game' : 'Play game'}
-		>
-			<span class="nav-icon">⚗</span>
-			<span class="nav-label">{$discoveries.length > 0 || $score > 0 ? 'Resume' : 'Play'}</span>
 		</button>
 
 		<button
@@ -307,8 +302,46 @@
 		opacity: 1;
 	}
 
-	.spacer {
-		flex: 1;
+	/* Primary play/resume CTA */
+	.play-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.6rem;
+		padding: 0.9rem 2.5rem;
+		background: linear-gradient(135deg, #c9a84c, #d9b85c);
+		color: #0d1b2e;
+		font-family: 'Space Mono', monospace;
+		font-size: 1rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		border: none;
+		border-radius: 14px;
+		cursor: pointer;
+		box-shadow: 0 6px 24px #c9a84c45;
+		transition: all 0.15s ease;
+		-webkit-tap-highlight-color: transparent;
+		touch-action: manipulation;
+		flex-shrink: 0;
+		margin-top: 0.5rem;
+		width: min(260px, 80%);
+	}
+
+	.play-btn:hover {
+		background: linear-gradient(135deg, #d9b85c, #e9ca70);
+		box-shadow: 0 8px 28px #c9a84c60;
+		transform: translateY(-1px);
+	}
+
+	.play-btn:active {
+		transform: scale(0.97);
+		box-shadow: 0 4px 16px #c9a84c40;
+	}
+
+	.play-icon {
+		font-size: 1.2rem;
+		line-height: 1;
 	}
 
 	/* Bottom Navigation */
@@ -358,14 +391,6 @@
 		line-height: 1;
 	}
 
-	.nav-label {
-		font-size: 0.55rem;
-		font-family: 'Space Mono', monospace;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-		font-weight: 500;
-	}
-
 	.nav-badge {
 		position: absolute;
 		top: 2px;
@@ -378,32 +403,6 @@
 		padding: 1px 5px;
 		min-width: 18px;
 		text-align: center;
-	}
-
-	.nav-play {
-		position: relative;
-		background: linear-gradient(135deg, #c9a84c, #d9b85c);
-		border-radius: 12px;
-		color: #0d1b2e;
-		margin: 0 0.75rem;
-		min-width: 62px;
-		box-shadow: 0 4px 12px #c9a84c30;
-		border-bottom: none;
-	}
-
-	.nav-play:hover {
-		background: linear-gradient(135deg, #d9b85c, #e8c76d);
-		color: #0d1b2e;
-		box-shadow: 0 6px 16px #c9a84c40;
-	}
-
-	.nav-play:active {
-		transform: scale(0.96);
-	}
-
-	.nav-play.active {
-		color: #0d1b2e;
-		border-bottom-color: transparent;
 	}
 
 </style>

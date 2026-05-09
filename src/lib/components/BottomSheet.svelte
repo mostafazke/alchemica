@@ -24,7 +24,7 @@
   <div class="sheet-overlay" onclick={onClose} role="none"></div>
 {/if}
 <div class="bottom-sheet" class:open>
-  <div class="sheet-handle-row" ontouchstart={handleTouchStart} ontouchmove={handleTouchMove}>
+  <div class="sheet-handle-row" role="presentation" ontouchstart={handleTouchStart} ontouchmove={handleTouchMove}>
     <div class="sheet-handle"></div>
   </div>
   <div class="sheet-content">

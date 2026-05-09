@@ -7,7 +7,6 @@
  * No PII in any event params.
  */
 import { Capacitor } from '@capacitor/core';
-import { FirebaseAnalytics } from '@capacitor-firebase/analytics';
 import { get } from 'svelte/store';
 import { analyticsEnabled } from '../stores/settings.js';
 
@@ -19,7 +18,10 @@ function shouldLog(): boolean {
 
 function log(name: string, params?: Record<string, string | number | boolean>): void {
   if (!shouldLog()) return;
-  FirebaseAnalytics.logEvent({ name, params }).catch(() => {}); // fire-and-forget
+  // Dynamic import prevents ad blockers from blocking the "analytics" URL on web
+  import('@capacitor-firebase/analytics')
+    .then(({ FirebaseAnalytics }) => FirebaseAnalytics.logEvent({ name, params }))
+    .catch(() => {}); // fire-and-forget
 }
 
 /** Call once from +layout.svelte onMount to fire session_start and increment session counter. */
