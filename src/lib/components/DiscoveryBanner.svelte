@@ -4,7 +4,7 @@
   import { shareDiscoveryCard } from '../utils/share.js';
   import type { DiscoveryBannerPayload } from '../stores/discoveryBanner.js';
 
-  const DISPLAY_MS = 3000;
+  const DISPLAY_MS = 8000;
   const EXIT_MS = 280;
 
   let current: DiscoveryBannerPayload | null = $state(null);
@@ -85,14 +85,10 @@
   <div
     class="discovery-banner"
     class:exiting
-    role="button"
-    tabindex="0"
-    aria-label="Dismiss discovery notification"
+    role="status"
     aria-live="assertive"
-    onclick={dismiss}
-    onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dismiss(); } }}
   >
-    <div class="banner-inner" role="presentation" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()}>
+    <div class="banner-inner">
       <div class="banner-left">
         <span class="banner-symbol">{el.symbol}</span>
       </div>

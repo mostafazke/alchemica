@@ -79,7 +79,7 @@
     <div class="result-error">{failMsg}</div>
     <div class="result-tip">Try combining related elements</div>
   {:else}
-    <div class="result-idle">Select two elements · tap React</div>
+    <div class="result-idle">Select two elements</div>
   {/if}
 </div>
 

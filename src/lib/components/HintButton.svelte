@@ -84,7 +84,7 @@
     </button>
   {/if}
 
-  {#if hintVisible && activeHint && hintElA && hintElB}
+  {#if hintVisible && activeHint && hintElA && hintElB && hintElResult}
     <div class="hint-overlay" role="status">
 
       {#if activeHint.mode === 'trivia' && !triviaRevealed}

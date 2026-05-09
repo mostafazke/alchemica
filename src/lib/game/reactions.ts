@@ -80,8 +80,9 @@ export function getStuckHint(
     }
   }
 
-  const pick = biased[0] ?? fallback[0] ?? null;
-  if (!pick) return null;
+  const pool = biased.length > 0 ? biased : fallback;
+  if (pool.length === 0) return null;
+  const pick = pool[Math.floor(Math.random() * pool.length)];
   const total = biased.length + fallback.length;
   const mode: 'goal' | 'trivia' = total <= 3 ? 'goal' : (Math.random() < 0.55 ? 'trivia' : 'goal');
   return { ...pick, mode };

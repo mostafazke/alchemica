@@ -289,7 +289,7 @@ When both slots are already filled and the user taps a third element card:
 
 - Icon: 32px, `--color-text-muted`
 - Heading: `--text-label` (12px), `--color-text-muted`
-- Subtext: `--text-caption` (11px), `--color-text-muted`  
+- Subtext: `--text-caption` (11px), `--color-text-muted`
 - Text-align: center
 - Padding: `24px 16px`
 - `grid-column: 1 / -1` (spans full grid width)
@@ -312,17 +312,18 @@ When both slots are already filled and the user taps a third element card:
 ```
 ┌────────────────────────────────────────────┐
 │  [particle canvas — position: absolute]    │
+│  [discovery overlay — position: absolute]  │  ← NEW: covers full chamber on new discoveries
 │                                            │
 │  ┌──────────────────────────────────────┐  │  ← Slots Row
 │  │  [Slot A]   [+]   [Slot B]           │  │
 │  └──────────────────────────────────────┘  │
 │                                            │
 │  ┌──────────────────────────────────────┐  │  ← Unified Action Zone
-│  │  [React CTA or Result display]       │  │
+│  │  [Auto-react result display]         │  │
 │  └──────────────────────────────────────┘  │
 │                                            │
-│  ┌──────────────────────────────────────┐  │  ← Utility Row
-│  │  [HintButton]   [DailyChallenge]     │  │
+│  ┌──────────────────────────────────────┐  │  ← Utility Row (HintButton only)
+│  │  [HintButton — full width]           │  │
 │  └──────────────────────────────────────┘  │
 │                                            │
 └────────────────────────────────────────────┘
@@ -343,10 +344,12 @@ When both slots are already filled and the user taps a third element card:
 | Gap | 8px |
 | Unified Action Zone | min 80px, flex: 1 |
 | Gap | 8px |
-| Utility Row | 44px |
+| Utility Row (HintButton only) | 44px |
 | **Total** | **≥ 220px** |
 
-On iPhone SE (216px game area): Utility Row collapses to minimum (44px), Unified Action Zone shrinks to 80px. Fits at 220px with 4px vertical overflow absorbed by `justify-content: center`. **Action Zone must never clip on any target screen** — it is the core feedback surface. If space is insufficient, the Utility Row uses `overflow: hidden` and hides its labels (icon-only mode at `padding: 0`), saving 8px.
+On iPhone SE (216px game area): Utility Row collapses to minimum (44px), Unified Action Zone shrinks to 80px. Fits at 220px with 4px vertical overflow absorbed by `justify-content: center`. **Action Zone must never clip on any target screen** — it is the core feedback surface. If space is insufficient, the Utility Row uses `overflow: hidden` and hides its label (icon-only `💡` mode at `padding: 0`), saving 8px.
+
+> **DailyChallenge is no longer in the chamber.** It moved to the TopBar as a compact pill — see §5a.
 
 ### 3.2 Slots Row
 
@@ -489,36 +492,45 @@ The zone passes through four phases per interaction cycle:
 - No button rendered — the zone is display-only in this phase
 - Transition into: fade `0 → 1` over `--anim-react` (180ms)
 
-### Phase 2 — Ready (both slots filled)
+### Phase 2 — Ready (both slots filled — auto-react)
 
 ```
 ┌────────────────────────────────────────────────┐
 │                                                │
-│         ⚗  React     [×2 combo badge]         │
+│         ⚗  Reacting…     [×2 combo badge]     │
 │                                                │
 └────────────────────────────────────────────────┘
 ```
 
+- **No tap required.** Reaction fires automatically **180ms after the second slot is filled** (using `--anim-react` as the settle delay — just long enough for the player to see both slots full before the result appears).
+- The zone is **not interactive** in this phase — `pointer-events: none`.
 - Background: `linear-gradient(135deg, #1a4a3a, #0f3028)`
 - Border: `1px solid --color-border-hot` (fully opaque accent)
 - Box-shadow: `0 0 16px --color-accent-dim`
-- Button is now the **entire zone** — the zone itself is the touch target (no inner button element)
-- Label: `⚗ React`, font `--text-label` (12px), Space Mono, color `--color-accent`
+- Label: `⚗ Reacting…`, font `--text-label` (12px), Space Mono, color `--color-accent`
 - The zone reaches compliant 80px height — fully above 44px minimum
 - Transition into from Phase 1: background color crossfade + border color + box-shadow, all at `--anim-react` (180ms) ease-out
-- Breathing glow: `box-shadow` pulses `0 0 16px → 0 0 28px` over 1200ms infinite ease-in-out (same as slot ready glow — they synchronize)
+- Breathing glow: `box-shadow` pulses `0 0 16px → 0 0 28px` over 1200ms infinite ease-in-out (same as slot ready glow — they synchronize; glow stops as reaction fires)
 - Combo badge: `position: absolute`, `top: 8px`, `right: 8px` — **inside** the zone container (not outside it — audit fix P2 item 13)
   - Background: `--color-gold`, color: `--color-bg-raised`, font: `--text-micro` (11px bold)
   - Size: auto width × 20px height, `border-radius: 10px`, `padding: 0 6px`
   - Visible only when `combo > 1`
 
-**Tap feedback:**
-- Zone scales to `0.98` over `--anim-instant` (0ms) on touch-start
-- Returns to `1.0` over `--anim-fast` (100ms) on touch-end (spring: `cubic-bezier(0.34,1.56,0.64,1)`)
+**Auto-react timing:**
 
-### Phase 3 — Reacting (200ms window between tap and result)
+```
+Slot 2 fills → 180ms settle delay → Phase 3 (reacting shimmer) → result
+```
 
-- Zone scale: `0.97` (remains pressed) — duration intentionally slow at `--anim-react` (180ms)
+The 180ms window serves two purposes: (1) lets the player see the "both slots full" state register visually, (2) gives an accidental-tap guard — if the player is mid-swipe when the slot fills, the delay prevents an unintended reaction. There is no way to cancel within this window; clear a slot to abort.
+
+**Retry affordance (after a result is shown):**
+- Tapping either slot that is now populated re-queues the same elements and triggers auto-react again after 180ms
+- Or clear and re-pick to try a new combination
+
+### Phase 3 — Reacting (180ms window after auto-react fires)
+
+- Zone scale: `0.97` (appears pressed even without a tap) — duration `--anim-react` (180ms)
 - A subtle radial shimmer sweeps center-outward across the zone background
 - Shimmer: `rgba(74,240,192,0.08)` radial gradient, sweeps `0% → 100%` radius over 180ms
 - No text change during this phase
@@ -544,30 +556,62 @@ The zone passes through four phases per interaction cycle:
 - "React again" affordance: small text or chevron `→` in `--color-accent`, 11px — tapping anywhere on the zone while in result phase resets to Phase 1 (clears slots)
 - Transition into: crossfade from Phase 3 over `--anim-react` (180ms) ease-out
 
-### Phase 4b — Result: New discovery
+### Phase 4b — Result: New discovery (full-chamber overlay)
+
+New discoveries get a **full mixing chamber overlay** — not an inline card within the Action Zone. The overlay mounts as a `position: absolute; inset: 0` layer inside the chamber container (the `discovery overlay` layer noted in §3.1), covering both the slots row and action zone entirely. It dismounts when dismissed or after the auto-dismiss timer expires.
 
 ```
-┌────────────────────────────────────────────────┐
-│  ✦ NEW DISCOVERY                               │
-│  [🔥 icon 48px — expands from center]          │
-│  Steam                                         │
-│  "Water and fire meet — something vaporizes."  │  ← witty one-liner
-│  [🔗 Share]   [Continue →]                     │
-└────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────┐
+│                                                  │
+│  ✦  NEW DISCOVERY                               │
+│                                                  │
+│         [🔥 icon — 72px, spring entrance]        │
+│                                                  │
+│              Steam                               │
+│           H₂O + heat                            │
+│  "Water and fire meet — something vaporizes."   │
+│                                                  │
+│   [🔗 Share]              [Continue →]           │
+│                                                  │
+└──────────────────────────────────────────────────┘
 ```
 
-- Background: crossfades to `rgba(74,240,192,0.04)`
+**Overlay container:**
+- `position: absolute; inset: 0; z-index: 10`
+- Background: `rgba(8,15,26,0.96)` — near-opaque deep, so shelf is not visible through it
 - Border: `1px solid --color-border-hot`
-- Box-shadow: `0 0 24px --color-accent-dim` (larger glow than ready state)
-- Screen-edge flash: a `position: fixed; inset: 0; pointer-events: none` overlay briefly flashes `rgba(74,240,192,0.08)` — appears over 80ms, disappears over 160ms total. Applies to the whole viewport, not just the zone.
+- Border-radius: `--radius-xl` (16px) — distinct from the action zone's `--radius-lg`, signals "this is a special moment"
+- Box-shadow: `0 0 40px --color-accent-dim` (larger than any other glow in the system)
+- Layout: `flex-direction: column`, `align-items: center`, `justify-content: center`, `gap: 12px`, `padding: 16px`
+- `pointer-events: all` (intercepts taps while visible)
+
+**Entrance animation (fires after Phase 3 shimmer):**
+- Overlay scales from `0.92 → 1.0`, opacity `0 → 1`, over `--anim-react` (180ms) ease-out
+- Then icon springs in: scale `0.1 → 1.0`, `cubic-bezier(0.34,1.56,0.64,1)` over `--anim-discovery` (400ms)
+- Screen-edge flash: `position: fixed; inset: 0; pointer-events: none` overlay briefly flashes `rgba(74,240,192,0.08)` — 80ms in, 160ms total. Fires once on overlay entrance.
+
+**Content:**
 - "✦ NEW DISCOVERY" badge: `--text-micro` (11px), Space Mono, `--color-gold`, uppercase, letter-spacing 2px
-- Icon entrance: scales `0.1 → 1.0` with spring `cubic-bezier(0.34,1.56,0.64,1)` over `--anim-discovery` (400ms) — Monument Valley spatial feedback principle
-- Name: `--text-body` (13px), weight 700, `--color-accent`
-- One-liner: `--text-caption` (11px), `--color-text-secondary`, max 2 lines
-- Score float: `+100` (or score value) — same float animation as Phase 4a, but larger font (16px bold) and `--color-gold`
+- Icon: **72×72px** (larger than any other icon in the system — this is the hero moment)
+  - Border-radius: `--radius-md` (8px)
+  - Category color class unchanged
+  - Spring entrance as described above
+- Name: `--text-title` (16px), weight 700, `--color-accent`
+- Formula: `--text-caption` (11px), `--color-text-muted`
+- One-liner: `--text-body` (13px), `--color-text-secondary`, italic, max 2 lines, `text-align: center`
+- Score float: `+100` (or score value) — floats upward from the icon center, 16px bold `--color-gold`, same `--anim-float` (600ms) mechanic
 - Share button: see §4.1 below
-- "Continue →" affordance: tapping the zone clears and returns to Phase 1
-- Transition into: Phase 3 → 4b: icon pops in (spring), badge fades in (180ms), screen-edge flash fires once
+- "Continue →" CTA: full-width, height 44px, `--color-accent` border, `--color-bg-raised` background — the primary dismiss action
+  - Label: `Continue →`, `--text-label` (12px), `--color-accent`
+
+**Auto-dismiss:**
+- If the player does not tap anything, the overlay auto-dismisses after **4000ms**
+- A progress bar (1px, `--color-border-hot`, animates left → right over 4000ms) runs along the top edge of the overlay as the timer indicator
+- On tap anywhere on the overlay: immediate dismiss (same as "Continue →")
+
+**Exit animation:**
+- Overlay scales `1.0 → 0.95`, opacity `1 → 0` over `--anim-react` (180ms) ease-out
+- Chamber returns to Phase 4a (known-result view, or Phase 1 if the player taps "Continue")
 
 ### Phase 4c — Result: No reaction (silent failure)
 
@@ -608,16 +652,17 @@ Copied state: label changes to `✓ Copied`, reverts to `🔗 Share` after 2000m
 
 - Height: **44px** fixed (fits minimum screen budget)
 - Width: `100%`, max-width: `320px`
-- `display: flex`, `align-items: center`, `gap: 8px`
+- `display: flex`, `align-items: center`
 - `flex-shrink: 0`
 
-On screens < 340px right-panel width: Utility row switches to `justify-content: center` and DailyChallenge hides its text labels (icon-only mode), reducing its min-width.
+The Utility Row now contains **only the HintButton** — DailyChallenge has moved to the TopBar (see §5a). The HintButton takes the full available width.
+
+On screens < 340px right-panel width: HintButton collapses to icon-only `💡` mode (`padding: 0 12px`), hiding the text label to save horizontal space.
 
 ### 5.2 HintButton
 
-- `flex: 1`
+- `flex: 1` (full width of utility row)
 - Height: **44px** (touch compliant — audit fix P1 item 4 cascade)
-- Min-width: 88px
 - Border: `1px solid --color-border-mid`
 - Background: `--color-bg-surface`
 - Border-radius: `--radius-md` (8px)
@@ -643,18 +688,42 @@ On screens < 340px right-panel width: Utility row switches to `justify-content: 
 - Viewport boundary check: if the overlay would extend above `top: 8px` of the viewport, flip to `top: calc(100% + 8px)` instead (below the button)
 - Max-width: `min(240px, calc(100vw - 32px))`
 
-### 5.4 DailyChallenge
+---
 
-- `flex: 1`
-- Height: **44px**
-- Min-width: 88px
-- Border: `1px solid --color-border-subtle`
-- Background: `--color-bg-surface`
-- Border-radius: `--radius-md` (8px)
-- Padding: `0 12px`
-- Layout: `flex-direction: row`, `align-items: center`, `gap: 8px`
+## 5a. TopBar — Daily Challenge Pill
 
-**Complete state:** border `rgba(232,184,75,0.5)`, background `rgba(232,184,75,0.04)`, text `--color-gold`
+The DailyChallenge widget moves from the Mixing Chamber utility row into the TopBar. It appears as a compact pill in the TopBar's right zone, between the combo badge and the score.
+
+### 5a.1 Pill (collapsed state — always visible in TopBar)
+
+```
+┌───────────────────────────────────────────────────┐
+│  [⏸]  ALCHEMICA          🔥 Red Dwarf   ×1  3390  │
+│                           ↑ daily pill             │
+└───────────────────────────────────────────────────┘
+```
+
+- Pill dimensions: `auto × 28px`, `border-radius: 14px` (fully rounded), `padding: 0 10px`
+- Background: `rgba(232,184,75,0.10)`
+- Border: `1px solid rgba(232,184,75,0.35)`
+- Content: `🔥 [challenge-element-name]` — fire emoji + element name, Space Mono 11px, `--color-gold`
+- When daily challenge is completed: checkmark replaces emoji → `✓ [element-name]`, border color `rgba(74,240,192,0.35)`
+- When no daily challenge is active: pill hides entirely (does not occupy space)
+- Touch target: pill is wrapped in a `44px` tall transparent hit zone (the pill itself is only 28px tall — extend the invisible tap area 8px above and below)
+- Tap: opens the DailyChallenge bottom sheet (§5a.2)
+
+### 5a.2 Bottom Sheet (expanded — on pill tap)
+
+- Uses the existing BottomSheet component
+- Height: `auto`, max-height: `60vh`
+- Content mirrors the previous DailyChallenge widget content but with more breathing room:
+  - "TODAY" label, `--text-label` (12px), `--color-text-muted`
+  - Target element icon (48px) + name + formula
+  - Streak indicator: `🔥 N day streak`, `--color-gold`
+  - Completion state: green checkmark + "Completed!" if already found today
+  - Close button: standard BottomSheet close affordance
+
+**Rationale:** The daily challenge is motivational context — it rewards returning players and provides a soft goal. But it does not need to live in the primary interaction space. Moving it to a pill-on-demand keeps the chamber clean while keeping the streak info one tap away.
 
 ---
 
@@ -683,12 +752,13 @@ A single shared layer for all floating reward numbers (not component-scoped — 
 | Slot ready glow | Slot + Action Zone | 1200ms ∞ | ease-in-out | box-shadow |
 | Slot clear (contents out) | Slot | 320ms | spring | scale, opacity |
 | Phase 1→2 (idle→ready) | Action Zone | 180ms | ease-out | background, border, shadow |
-| Phase 2 tap-down | Action Zone | 0ms | — | scale 0.98 |
-| Phase 2 tap-release | Action Zone | 100ms | spring | scale 1.0 |
-| Phase 2→3 (reacting) | Action Zone | 180ms | ease-out | shimmer sweep |
+| **Auto-react fires (180ms settle)** | **Action Zone** | **180ms** | **ease-out** | **automatic, no tap** |
+| Phase 2→3 (reacting shimmer) | Action Zone | 180ms | ease-out | shimmer sweep, scale 0.97 |
 | Phase 3→4a (known result) | Action Zone | 180ms | ease-out | content crossfade |
-| Phase 3→4b icon pop (new) | Action Zone | 400ms | spring | scale |
+| Phase 3→4b overlay entrance | Discovery Overlay | 180ms | ease-out | scale, opacity |
+| Phase 3→4b icon pop (new) | Discovery Overlay | 400ms | spring | scale |
 | Phase 3→4b screen flash | Viewport | 80ms in, 160ms total | ease-out | opacity overlay |
+| Discovery overlay auto-dismiss | Discovery Overlay | 180ms | ease-out | scale 0.95, opacity |
 | Phase 4c (no reaction) | Slots + particles | 320ms | ease-out | scale, opacity, particles |
 | Score float | Float layer | 600ms | ease-out | translateY, opacity |
 | Tab switch | FilterBar | 100ms | ease-out | border, background, color |
@@ -721,11 +791,11 @@ A single shared layer for all floating reward numbers (not component-scoped — 
 
 ### 8.2 React button tapped with one or zero slots filled
 
-This state does not exist in the new design. The Unified Action Zone is **not interactive** in Phase 1 (idle) or when only one slot is filled. There is no button to mis-tap. The zone simply displays instructional text.
+This state does not exist in the new design. The Unified Action Zone is **not interactive** at any phase — the reaction fires automatically when both slots are filled. There is no button to mis-tap.
 
-If a user attempts to tap the Phase 1 zone anyway (because it looks tappable):
+If a user attempts to tap the Phase 1 zone anyway:
 - No response at all — the zone does not scale, animate, or show an error
-- `pointer-events: none` in Phase 1 ensures this
+- `pointer-events: none` in Phase 1 and Phase 2 ensures this
 
 ### 8.3 Drag released outside a valid slot
 
@@ -764,7 +834,7 @@ If a user attempts to tap the Phase 1 zone anyway (because it looks tappable):
 | Action Zone | Idle (0–1 slots) | Phase 1: instructional text (§4, Phase 1) |
 | Action Zone | After failed reaction | Phase 1: returns to instructional text |
 | HintButton | No hints left | Disabled state with "No hints" label |
-| DailyChallenge | No target element | `—` dash in target-element position |
+| TopBar daily pill | No active challenge | Pill hidden entirely (no space consumed) |
 | Score float layer | No reaction fired | Layer renders nothing (no height/space consumed) |
 
 ---
@@ -780,7 +850,7 @@ If a user attempts to tap the Phase 1 zone anyway (because it looks tappable):
   - `--color-accent` (#4af0c0) on `--color-bg-surface` (#0a1520) = **8.1:1 ✓**
 - `aria-label` on all icon-only buttons (slot clear, share, hint dismiss)
 - Slots: `role="button"` with `aria-label="Slot A: [element name or empty]"`
-- Action Zone Phase 2: `role="button"`, `aria-label="React: [element A] and [element B]"`
+- Action Zone Phase 2: `role="status"`, `aria-label="Reacting: [element A] and [element B]"` — not interactive (auto-react fires without tap)
 - Phase 4b result: `role="status"` with `aria-live="polite"` — screen reader announces discovery
 - Element cards: `aria-pressed="true"` when selected (in a slot)
 - Reduce-motion: all animations except tap highlight and phase transitions collapse to instant crossfades when `prefers-reduced-motion: reduce`

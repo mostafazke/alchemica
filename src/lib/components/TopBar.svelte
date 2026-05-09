@@ -3,6 +3,7 @@
   import { earnedAchievements, streakCount } from '../stores/achievements.js';
   import { ELEMENTS } from '../data/elements.js';
   import { goto } from '$app/navigation';
+  import DailyPill from './DailyPill.svelte';
 
   let pulseActive = $state(false);
   let prevEarnedSize = $earnedAchievements.size;
@@ -28,6 +29,7 @@
       <span class="stat-value">×{$combo}{$streakCount >= 1 ? ' 🔥' : ''}</span>
       <span class="stat-label">combo</span>
     </span>
+    <DailyPill />
     <span class="stat score">
       <span class="stat-value">{$score}</span>
       <span class="stat-label">score</span>
