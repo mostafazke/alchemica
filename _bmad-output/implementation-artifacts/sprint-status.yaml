@@ -56,20 +56,20 @@ development_status:
   # ─────────────────────────────────────────────
   # Epic 2: Experience Depth
   # ─────────────────────────────────────────────
-  epic-2: in-progress
+  epic-2: done
   2-1-guided-first-session-onboarding: done
   2-2-discovery-celebration-moment: done
   2-3-stuck-player-hint-trigger-rewarded-video: done
   2-4-element-of-the-week-event-banner: done
   2-5-ux-interaction-overhaul: done
-  epic-2-retrospective: optional
+  epic-2-retrospective: done
 
   # ─────────────────────────────────────────────
   # Epic 3: Engagement Systems
   # ─────────────────────────────────────────────
-  epic-3: in-progress
+  epic-3: done
   3-1-element-category-grouping-in-shelf: done
   3-2-weekly-discovery-leaderboard: done
     3-3-firebase-analytics-instrumentation: done
   3-4-space-science-element-pack-50-elements: done
-  epic-3-retrospective: optional
+  epic-3-retrospective: done
