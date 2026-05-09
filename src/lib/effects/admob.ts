@@ -11,6 +11,7 @@ const REWARD_AD_ID = 'ca-app-pub-3940256099942544/5224354917';
 export const isAdReady = writable<boolean>(false);
 
 let listenersRegistered = false;
+let lastAdShownAt = 0;
 
 function prepareAd(): void {
   AdMob.prepareRewardVideoAd({ adId: REWARD_AD_ID }).catch(() => {
@@ -31,6 +32,7 @@ function registerListeners(): void {
   });
 
   AdMob.addListener(RewardAdPluginEvents.Rewarded, () => {
+    lastAdShownAt = Date.now();
     logRewardedAdWatched('stuck'); // current placement is always 'stuck' (hint prompt)
     hintBalance.update((n) => n + 1);
     // Preload next ad immediately after reward
@@ -72,4 +74,9 @@ export async function requestAdHint(): Promise<void> {
     // Show failed — FailedToShow listener handles reload
     isAdReady.set(false);
   }
+}
+
+/** Returns true if a rewarded ad was shown in the last 60 seconds. */
+export function wasAdShownRecently(): boolean {
+  return lastAdShownAt > 0 && Date.now() - lastAdShownAt < 60_000;
 }

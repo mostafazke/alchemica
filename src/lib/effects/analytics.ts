@@ -87,3 +87,15 @@ export function logShareTriggered(elementKey: string, shareType: 'discovery' | '
 export function logNotificationPermissionGranted(): void {
   log('notification_permission_granted');
 }
+
+export function logRatingPromptShown(): void {
+  log('rating_prompt_shown');
+}
+
+export function logRatingPromptAccepted(): void {
+  log('rating_prompt_accepted');
+}
+
+export function logRatingPromptDeclined(): void {
+  log('rating_prompt_declined');
+}

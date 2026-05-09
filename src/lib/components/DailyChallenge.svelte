@@ -9,6 +9,8 @@
   import { shareDailyCard } from '../utils/share.js';
   import { requestAndSchedule, scheduleStreakNotification } from '../effects/notifications.js';
   import { logDailyChallengeCompleted } from '../effects/analytics.js';
+  import { shouldShowRating } from '../effects/rating.js';
+  import RatingPrompt from './RatingPrompt.svelte';
 
   const isNative = Capacitor.isNativePlatform();
   const element = $derived(ELEMENTS[$dailyChallengeTarget] ?? null);
@@ -32,12 +34,20 @@
           scheduleStreakNotification(get(streakCount));
         }
       }
+      // Delayed rating prompt — after celebration settles, and only if notif prompt isn't showing
+      const ratingTimer = setTimeout(() => {
+        if (!showNotifPrompt && shouldShowRating()) {
+          showRatingPrompt = true;
+        }
+      }, 2000);
+      return () => clearTimeout(ratingTimer);
     }
     prevCompleted = completed;
   });
 
   let dailyShareMsg = $state<string | null>(null);
   let showNotifPrompt = $state(false);
+  let showRatingPrompt = $state(false);
 
   async function handleDailyShare() {
     if (!$dailyCompleted || !element) return;
@@ -108,6 +118,8 @@
     </div>
   </div>
 {/if}
+
+<RatingPrompt bind:open={showRatingPrompt} />
 
 <style>
   .daily-challenge {
