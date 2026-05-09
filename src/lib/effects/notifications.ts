@@ -9,7 +9,6 @@
  * Title is personalised by streak count.
  */
 import { Capacitor } from '@capacitor/core';
-import { LocalNotifications } from '@capacitor/local-notifications';
 import { logNotificationPermissionGranted } from './analytics.js';
 
 /** Fixed notification ID for the daily streak reminder. */
@@ -22,6 +21,7 @@ const NOTIFICATION_ID = 1001;
  */
 export async function scheduleStreakNotification(streakN: number): Promise<void> {
   if (!Capacitor.isNativePlatform()) return;
+  const { LocalNotifications } = await import('@capacitor/local-notifications');
 
   // Cancel any existing instance before rescheduling
   await LocalNotifications.cancel({ notifications: [{ id: NOTIFICATION_ID }] }).catch(() => {});
@@ -62,6 +62,7 @@ export async function scheduleStreakNotification(streakN: number): Promise<void>
  */
 export async function cancelStreakNotification(): Promise<void> {
   if (!Capacitor.isNativePlatform()) return;
+  const { LocalNotifications } = await import('@capacitor/local-notifications');
   await LocalNotifications.cancel({ notifications: [{ id: NOTIFICATION_ID }] }).catch(() => {});
 }
 
@@ -76,6 +77,7 @@ export async function cancelStreakNotification(): Promise<void> {
 export async function requestAndSchedule(streakN: number): Promise<boolean> {
   if (!Capacitor.isNativePlatform()) return false;
   try {
+    const { LocalNotifications } = await import('@capacitor/local-notifications');
     const perm = await LocalNotifications.requestPermissions();
     if (perm.display === 'granted') {
       logNotificationPermissionGranted();
