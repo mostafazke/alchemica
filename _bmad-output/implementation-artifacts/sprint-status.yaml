@@ -4,6 +4,7 @@
 # project_key: NOKEY
 # tracking_system: file-system
 # story_location: _bmad-output/implementation-artifacts
+# milestone: Phase 1 Visual Redesign
 
 # STATUS DEFINITIONS:
 # ==================
@@ -12,64 +13,53 @@
 #   - in-progress: Epic actively being worked on
 #   - done: All stories in epic completed
 #
-# Epic Status Transitions:
-#   - backlog → in-progress: Automatically when first story is created (via create-story)
-#   - in-progress → done: Manually when all stories reach 'done' status
-#
 # Story Status:
 #   - backlog: Story only exists in epic file
 #   - ready-for-dev: Story file created in stories folder
 #   - in-progress: Developer actively working on implementation
-#   - review: Ready for code review (via Dev's code-review workflow)
+#   - review: Ready for code review
 #   - done: Story completed
 #
 # Retrospective Status:
 #   - optional: Can be completed but not required
 #   - done: Retrospective has been completed
-#
-# WORKFLOW NOTES:
-# ===============
-# - Epic transitions to 'in-progress' automatically when first story is created
-# - Stories can be worked in parallel if team capacity allows
-# - Developer typically creates next story after previous one is 'done' to incorporate learnings
-# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
-generated: 2026-05-09
-last_updated: 2026-05-09
+generated: '2026-05-09'
+last_updated: '2026-05-15'  # Path D sprint change applied — added Epic 4 (light theme pivot)
+project: Alchemica
 project_key: NOKEY
 tracking_system: file-system
 story_location: _bmad-output/implementation-artifacts
+milestone: Phase 1 Visual Redesign
 
 development_status:
+  # Epic 1: Design Foundation
+  epic-1: in-progress
+  1-1-token-architecture-palette-migration: done
+  1-2-token-verification-pass: done
+  epic-1-retrospective: optional
 
-  # ─────────────────────────────────────────────
-  # Epic 1: Discovery & Growth
-  # ─────────────────────────────────────────────
-  epic-1: done
-  1-1-aso-metadata-overhaul: done
-  1-2-app-store-screenshots-5-new: done
-  1-3-shareable-discovery-card: done
-  1-4-in-app-rating-prompt: done
-  1-5-daily-push-notification-streak-reminder: done
-  epic-1-retrospective: done
+  # Epic 2: Core Components
+  epic-2: in-progress
+  2-1-elementcard-rewrite-frequency-system: done
+  2-2-mixingslot-component: done
+  2-3-actionzone-component: done
+  2-4-shelfgrid-filtertabs-components: done
+  2-5-topbar-rewrite: done
+  2-6-bottombar-component: cancelled  # not needed
+  epic-2-retrospective: optional
 
-  # ─────────────────────────────────────────────
-  # Epic 2: Experience Depth
-  # ─────────────────────────────────────────────
-  epic-2: done
-  2-1-guided-first-session-onboarding: done
-  2-2-discovery-celebration-moment: done
-  2-3-stuck-player-hint-trigger-rewarded-video: done
-  2-4-element-of-the-week-event-banner: done
-  2-5-ux-interaction-overhaul: done
-  epic-2-retrospective: done
+  # Epic 3: Animation & Integration
+  epic-3: in-progress
+  3-1-canvas-overlay-animationcontroller: done
+  3-2-discovery-failure-reaction-animations: done
+  3-3-mixingchamber-integration-route-switch: ready-for-dev  # spec for light theme direction
+  3-4-firebase-analytics-instrumentation: done  # was originally numbered 3-3 in file system
+  epic-3-retrospective: optional
 
-  # ─────────────────────────────────────────────
-  # Epic 3: Engagement Systems
-  # ─────────────────────────────────────────────
-  epic-3: done
-  3-1-element-category-grouping-in-shelf: done
-  3-2-weekly-discovery-leaderboard: done
-    3-3-firebase-analytics-instrumentation: done
-  3-4-space-science-element-pack-50-elements: done
-  epic-3-retrospective: done
+  # Epic 4: Light Theme Foundation (Path D Pivot — approved 2026-05-14)
+  epic-4: in-progress
+  4-1-light-token-redesign: review
+  4-2-wcag-reverification: backlog
+  4-3-animation-rework-light-bg: backlog
+  epic-4-retrospective: optional
