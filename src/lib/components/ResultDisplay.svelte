@@ -90,18 +90,18 @@
     gap: 4px; padding: 10px 16px;
     min-height: 80px;
     border-radius: 10px;
-    background: #0a1520;
-    border: 1px solid #1a2e4a;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
     transition: border-color 0.4s, background 0.4s, box-shadow 0.4s;
     text-align: center;
     width: 100%;
     max-width: 340px;
   }
-  .result-display.success  { border-color: #4af0c060; background: #071a10; }
+  .result-display.success  { border-color: var(--color-border-active); background: var(--color-bg-deep); }
   .result-display.fail     { border-color: #ff405040; background: #1a0a0a; }
   .result-display.new-discovery {
     border-color: #ffe44a80;
-    background: #0d1a06;
+    background: var(--color-bg-deep);
     box-shadow: 0 0 18px #ffe44a18;
   }
 
@@ -127,16 +127,16 @@
     letter-spacing: 2px; text-transform: uppercase;
   }
   .result-known-badge {
-    font-size: 11px; color: #4a6080;
+    font-size: 11px; color: var(--color-text-muted);
     font-family: 'Space Mono', monospace;
     letter-spacing: 1px; text-transform: uppercase;
   }
   .result-icon { font-size: 30px; line-height: 1; }
   .result-icon.icon-new { filter: drop-shadow(0 0 8px #ffe44a60); }
-  .result-name { font-size: 15px; font-weight: 700; color: #4af0c0; }
-  .result-formula { font-family: 'Space Mono', monospace; font-size: 11px; color: #4af0c060; }
+  .result-name { font-size: 15px; font-weight: 700; color: var(--color-accent); }
+  .result-formula { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--color-border-active); }
   .result-quip {
-    font-size: 11px; color: #6a8aa4; font-style: italic;
+    font-size: 11px; color: var(--color-text-secondary); font-style: italic;
     max-width: 200px; line-height: 1.4; margin-top: 2px;
   }
   .result-share-btn {
@@ -150,6 +150,6 @@
   .result-share-btn:hover { border-color: #ffe44a60; color: #ffe44a; }
   .result-fail-icon { font-size: 26px; }
   .result-error { font-size: 13px; color: #ff6060; }
-  .result-tip { font-size: 11px; color: #4a6080; }
-  .result-idle { font-size: 12px; color: #6a8aa4; }
+  .result-tip { font-size: 11px; color: var(--color-text-muted); }
+  .result-idle { font-size: 12px; color: var(--color-text-secondary); }
 </style>

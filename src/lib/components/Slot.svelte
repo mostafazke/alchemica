@@ -38,25 +38,25 @@
   .slot {
     position: relative;
     width: 80px; height: 80px;
-    border: 2px dashed #1a3a5a;
+    border: 2px dashed var(--color-border-mid);
     border-radius: 10px;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center; gap: 3px;
-    background: #080f1a;
+    background: var(--color-bg-deep);
     transition: border-color 0.2s, background 0.2s;
     user-select: none;
   }
-  .slot.filled { border: 2px solid #4af0c060; background: #0a1a2a; }
+  .slot.filled { border: 2px solid var(--color-border-active); background: var(--color-bg-surface); }
   .slot-icon {
     width: 32px; height: 32px;
     display: flex; align-items: center; justify-content: center;
     border-radius: 6px; font-size: 18px;
   }
-  .slot-name { font-size: 9px; color: #8ab4d4; text-align: center; }
-  .slot-placeholder { font-size: 24px; color: #1a3a5a; }
+  .slot-name { font-size: 9px; color: var(--color-text-secondary); text-align: center; }
+  .slot-placeholder { font-size: 24px; color: var(--color-border-mid); }
   .slot-clear {
     position: absolute; top: 0; right: 0;
-    background: transparent; border: none; color: #4a6080;
+    background: transparent; border: none; color: var(--color-text-muted);
     cursor: pointer; font-size: 11px; line-height: 1;
     border-radius: 4px;
     min-width: 44px; min-height: 44px;

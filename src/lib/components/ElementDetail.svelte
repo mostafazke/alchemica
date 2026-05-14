@@ -47,11 +47,11 @@
     transform: translate(-50%, -50%);
     z-index: 401;
     width: min(320px, 90vw);
-    background: #0d1b2e;
-    border: 1px solid #1a3a5a;
+    background: var(--color-bg-deep);
+    border: 1px solid var(--color-border-mid);
     border-radius: 16px;
     padding: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px #4af0c020;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--color-accent)20;
     animation: detail-appear 0.18s ease;
   }
   @keyframes detail-appear {
@@ -62,7 +62,7 @@
     position: absolute;
     top: 8px; right: 8px;
     background: transparent; border: none;
-    color: #4a6080; font-size: 14px;
+    color: var(--color-text-muted); font-size: 14px;
     cursor: pointer; padding: 0;
     border-radius: 6px; line-height: 1;
     min-width: 44px; min-height: 44px;
@@ -82,31 +82,31 @@
   }
   .detail-header { min-width: 0; }
   .detail-name {
-    font-size: 18px; font-weight: 700; color: #c8d8e8;
+    font-size: 18px; font-weight: 700; color: var(--color-text-primary);
     margin-bottom: 2px;
   }
   .detail-formula {
     font-family: 'Space Mono', monospace;
-    font-size: 12px; color: #4af0c0; margin-bottom: 2px;
+    font-size: 12px; color: var(--color-accent); margin-bottom: 2px;
   }
   .detail-category {
-    font-size: 11px; color: #4a6080;
+    font-size: 11px; color: var(--color-text-muted);
     text-transform: uppercase; letter-spacing: 0.5px;
   }
   .detail-desc {
-    font-size: 13px; color: #8ab4d4; line-height: 1.5;
+    font-size: 13px; color: var(--color-text-secondary); line-height: 1.5;
     margin-bottom: 12px;
   }
   .detail-recipe {
-    background: #080f1a;
-    border: 1px solid #1a2e4a;
+    background: var(--color-bg-deep);
+    border: 1px solid var(--color-border-subtle);
     border-radius: 8px;
     padding: 8px 12px;
     font-size: 12px;
   }
   .recipe-label {
     font-family: 'Space Mono', monospace;
-    color: #4a6080; font-size: 11px;
+    color: var(--color-text-muted); font-size: 11px;
     text-transform: uppercase; letter-spacing: 0.5px;
     display: block; margin-bottom: 2px;
   }
