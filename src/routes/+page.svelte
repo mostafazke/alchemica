@@ -159,7 +159,7 @@
 		flex-direction: column;
 		align-items: center;
 		height: 100dvh;
-		background: #0d1b2e;
+		background: var(--color-bg-deep);
 		padding: 1rem;
 	}
 
@@ -190,7 +190,7 @@
 
 	.tagline {
 		font-size: clamp(0.65rem, 1.5vw, 0.85rem);
-		color: #c8d8e8;
+		color: var(--color-text-primary);
 		opacity: 0.65;
 		letter-spacing: 0.04em;
 		margin: 0;
@@ -208,7 +208,7 @@
 	.score-stat {
 		font-family: 'Space Mono', monospace;
 		font-size: 0.75rem;
-		color: #4af0c0;
+		color: var(--color-accent);
 		margin: 0;
 		opacity: 0.9;
 		font-weight: 600;
@@ -217,7 +217,7 @@
 	.score-context {
 		font-family: 'Space Mono', monospace;
 		font-size: 0.6rem;
-		color: #8ab4d4;
+		color: var(--color-text-secondary);
 		margin: 0;
 		opacity: 0.7;
 		letter-spacing: 0.03em;
@@ -252,12 +252,12 @@
 	}
 
 	.daily-btn.completed {
-		border-color: #4af0c060;
+		border-color: var(--color-border-active);
 	}
 
 	.daily-btn.completed:hover {
-		border-color: #4af0c0;
-		background: #4af0c008;
+		border-color: var(--color-accent);
+		background: color-mix(in srgb, var(--color-accent) 3%, transparent);
 	}
 
 	.daily-icon {
@@ -284,11 +284,11 @@
 
 	.daily-status {
 		font-size: 12px;
-		color: #c8d8e8;
+		color: var(--color-text-primary);
 	}
 
-	.daily-btn.completed .daily-status { color: #4af0c0; }
-	.completed-text { color: #4af0c0; }
+	.daily-btn.completed .daily-status { color: var(--color-accent); }
+	.completed-text { color: var(--color-accent); }
 
 	.arrow-icon {
 		font-size: 1rem;
@@ -310,7 +310,7 @@
 		gap: 0.6rem;
 		padding: 0.9rem 2.5rem;
 		background: linear-gradient(135deg, #c9a84c, #d9b85c);
-		color: #0d1b2e;
+		color: var(--color-bg-deep);
 		font-family: 'Space Mono', monospace;
 		font-size: 1rem;
 		font-weight: 700;
@@ -354,7 +354,7 @@
 		margin: 0 -1rem -1rem;
 		padding: 0.5rem 0.5rem 0.75rem;
 		flex-shrink: 0;
-		background: linear-gradient(to bottom, transparent, #0d1b2e);
+		background: linear-gradient(to bottom, transparent, var(--color-bg-deep));
 	}
 
 	.nav-tab {
@@ -370,7 +370,7 @@
 		background: transparent;
 		border: none;
 		cursor: pointer;
-		color: #8ab4d4;
+		color: var(--color-text-secondary);
 		transition: color 0.15s ease;
 		-webkit-tap-highlight-color: transparent;
 		touch-action: manipulation;
@@ -378,7 +378,7 @@
 	}
 
 	.nav-tab:hover {
-		color: #c8d8e8;
+		color: var(--color-text-primary);
 	}
 
 	.nav-tab.active {
@@ -395,8 +395,8 @@
 		position: absolute;
 		top: 2px;
 		right: 2px;
-		background: #4af0c0;
-		color: #0d1b2e;
+		background: var(--color-accent);
+		color: var(--color-bg-deep);
 		font-size: 10px;
 		font-weight: 700;
 		border-radius: 10px;

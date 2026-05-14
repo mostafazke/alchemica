@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, getContext } from 'svelte';
+  import type { AnimationController } from '../effects/animation-controller.js';
   import { get } from 'svelte/store';
   import Slot from './Slot.svelte';
   import ResultDisplay from './ResultDisplay.svelte';
@@ -19,9 +20,11 @@
   import { warmupAd } from '../effects/admob.js';
 
   let canvasEl: HTMLCanvasElement;
+  const controller = getContext<AnimationController | undefined>('animationController');
   let result: string | null = $state(null);
   let isNew: boolean = $state(false);
   let attempted: boolean = $state(false);
+  let contracting = $state(false);
 
   function dismissOverlay() {
     result = null;
@@ -35,6 +38,11 @@
 
   $effect(() => {
     if (canReact) {
+      const cx = canvasEl.parentElement!.offsetWidth / 2;
+      const cy = canvasEl.parentElement!.offsetHeight * 0.38;
+      controller?.radialShimmer(cx, cy);
+      contracting = true;
+      setTimeout(() => { contracting = false; }, 360);
       autoReactTimer = setTimeout(() => {
         doReaction();
       }, 180);
@@ -75,10 +83,10 @@
       triggerSuccessParticles(cx, cy);
       hapticSuccess();
       if (!get(soundMuted)) {
-        if (reaction.isNew) playDiscovery();
-        else playReactionSuccess();
+        if (!reaction.isNew) playReactionSuccess();
         if (get(combo) > prevCombo) playComboUp();
       }
+      if (reaction.isNew) setTimeout(() => { if (!get(soundMuted)) playDiscovery(); }, 200);
       if (reaction.newBadge !== null) {
         toastQueue.update((q) => [...q, reaction.newBadge!]);
         if (!get(soundMuted)) playChime();
@@ -92,6 +100,7 @@
       }
     } else {
       triggerFailParticles(cx, cy);
+      controller?.failureParticle(cx, cy);
       hapticFail();
       if (!get(soundMuted)) playFailure();
       // Track consecutive fails — warm up ad on 2nd, show prompt on 3rd
@@ -105,7 +114,7 @@
   }
 </script>
 
-<section class="mixing-chamber">
+<section class="mixing-chamber" class:contracting>
   <canvas bind:this={canvasEl} class="particle-canvas"></canvas>
 
   <div class="slots-row">
@@ -145,13 +154,24 @@
     min-width: 0;
     min-height: 0;
   }
+  @keyframes world-contract {
+    0%   { transform: scale(1.0); }
+    50%  { transform: scale(0.97); }
+    100% { transform: scale(1.0); }
+  }
+  .mixing-chamber.contracting {
+    animation: world-contract 360ms ease-in-out;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mixing-chamber.contracting { animation: none; }
+  }
   .particle-canvas {
     position: absolute; inset: 0;
     pointer-events: none;
     width: 100%; height: 100%;
   }
   .slots-row { display: flex; align-items: center; gap: 12px; }
-  .plus-sign { font-size: 20px; color: #1a3a5a; font-weight: 700; user-select: none; }
+  .plus-sign { font-size: 20px; color: var(--color-border-mid); font-weight: 700; user-select: none; }
   .combo-badge-zone {
     display: flex;
     align-items: center;
@@ -159,7 +179,7 @@
     height: 20px;
   }
   .combo-badge {
-    background: #ffe44a; color: #0d1b2e;
+    background: #ffe44a; color: var(--color-bg-deep);
     font-family: 'Space Mono', monospace;
     font-size: 11px; font-weight: 700;
     padding: 2px 8px; border-radius: 10px;

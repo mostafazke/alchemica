@@ -61,6 +61,6 @@
 		overflow: hidden;
 		min-height: 0;
 		align-items: center;
-		border-left: 1px solid #1a2e4a;
+		border-left: 1px solid var(--color-border-subtle);
 	}
 </style>
