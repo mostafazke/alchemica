@@ -83,8 +83,8 @@
     flex-direction: column;
     height: 100%;
     overflow: hidden;
-    background: #080f1a;
-    border-right: 1px solid #1a2e4a;
+    background: var(--color-bg-deep);
+    border-right: 1px solid var(--color-border-subtle);
   }
 
   .grid-scroll {
@@ -109,9 +109,9 @@
     align-items: center;
     gap: 6px;
     padding: 5px 10px;
-    background: #080f1a;
-    border-bottom: 1px solid #1a2e4a;
-    border-top: 1px solid #1a2e4a;
+    background: var(--color-bg-deep);
+    border-bottom: 1px solid var(--color-border-subtle);
+    border-top: 1px solid var(--color-border-subtle);
   }
 
   .cat-section:first-child .cat-header {
@@ -128,14 +128,14 @@
     font-size: 9px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #4a6080;
+    color: var(--color-text-muted);
     flex: 1;
   }
 
   .cat-count {
     font-family: 'Space Mono', monospace;
     font-size: 9px;
-    color: #4af0c0;
+    color: var(--color-accent);
   }
 
   .cat-total {
