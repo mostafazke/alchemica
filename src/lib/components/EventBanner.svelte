@@ -98,13 +98,13 @@
     align-items: center;
     gap: 8px;
     padding: 8px 10px;
-    background: linear-gradient(90deg, #0d1e38 0%, #111b2e 100%);
+    background: linear-gradient(90deg, var(--color-bg-hover) 0%, var(--color-bg-surface) 100%);
     border-bottom: 1px solid rgba(74, 191, 255, 0.25);
     cursor: pointer;
     flex-shrink: 0;
     transition: background 0.15s;
   }
-  .event-banner:hover { background: linear-gradient(90deg, #0f2240 0%, #141e32 100%); }
+  .event-banner:hover { background: linear-gradient(90deg, var(--color-bg-hover) 0%, var(--color-bg-raised) 100%); }
 
   .event-icon {
     font-size: 20px;
@@ -129,7 +129,7 @@
   }
   .event-desc {
     font-size: 10px;
-    color: #6a8aa4;
+    color: var(--color-text-secondary);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -138,14 +138,14 @@
     flex-shrink: 0;
     font-family: 'Space Mono', monospace;
     font-size: 10px;
-    color: #4a6080;
+    color: var(--color-text-muted);
     white-space: nowrap;
   }
   .event-dismiss {
     flex-shrink: 0;
     background: transparent;
     border: none;
-    color: #4a6080;
+    color: var(--color-text-muted);
     font-size: 11px;
     cursor: pointer;
     min-width: 28px;
@@ -175,7 +175,7 @@
     transform: translate(-50%, -50%);
     z-index: 601;
     width: min(320px, 90vw);
-    background: #0d1b2e;
+    background: var(--color-bg-deep);
     border: 1px solid rgba(74, 191, 255, 0.3);
     border-radius: 18px;
     padding: 20px;
@@ -216,14 +216,14 @@
   .modal-days {
     font-family: 'Space Mono', monospace;
     font-size: 10px;
-    color: #4a6080;
+    color: var(--color-text-muted);
   }
   .modal-close {
     flex-shrink: 0;
     background: transparent;
-    border: 1px solid #1a3a5a;
+    border: 1px solid var(--color-border-mid);
     border-radius: 6px;
-    color: #4a6080;
+    color: var(--color-text-muted);
     cursor: pointer;
     min-width: 32px;
     min-height: 32px;
@@ -239,7 +239,7 @@
 
   .modal-desc {
     font-size: 13px;
-    color: #8ab4d4;
+    color: var(--color-text-secondary);
     line-height: 1.5;
     margin: 0;
   }
@@ -250,8 +250,8 @@
     flex-direction: column;
     gap: 8px;
     padding: 12px;
-    background: #080f1a;
-    border: 1px solid #1a2e4a;
+    background: var(--color-bg-deep);
+    border: 1px solid var(--color-border-subtle);
     border-radius: 10px;
   }
   .target-label {
@@ -259,7 +259,7 @@
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: #4a6080;
+    color: var(--color-text-muted);
   }
   .target-el {
     display: flex;
@@ -284,20 +284,20 @@
   .target-name {
     font-size: 14px;
     font-weight: 700;
-    color: #c8d8e8;
+    color: var(--color-text-primary);
   }
   .target-formula {
     font-family: 'Space Mono', monospace;
     font-size: 11px;
-    color: #4af0c0;
+    color: var(--color-accent);
   }
 
   /* Try Now CTA */
   .try-now-btn {
-    background: linear-gradient(135deg, #1a4a3a, #0f3028);
-    border: 1px solid #4af0c060;
+    background: linear-gradient(135deg, var(--color-bg-raised), var(--color-bg-raised));
+    border: 1px solid var(--color-border-active);
     border-radius: 10px;
-    color: #4af0c0;
+    color: var(--color-accent);
     font-family: 'Space Mono', monospace;
     font-size: 13px;
     font-weight: 700;
@@ -309,7 +309,7 @@
     letter-spacing: 0.5px;
   }
   .try-now-btn:hover {
-    border-color: #4af0c0;
-    background: linear-gradient(135deg, #1f5a48, #143a30);
+    border-color: var(--color-accent);
+    background: linear-gradient(135deg, var(--color-bg-raised), var(--color-bg-raised));
   }
 </style>

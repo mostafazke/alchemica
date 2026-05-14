@@ -183,12 +183,12 @@
   .banner-formula {
     font-family: 'Space Mono', monospace;
     font-size: 10px;
-    color: #4af0c0;
+    color: var(--color-accent);
     letter-spacing: 0.5px;
   }
   .banner-fact {
     font-size: 11px;
-    color: #8ab4d4;
+    color: var(--color-text-secondary);
     line-height: 1.3;
     /* clamp to 2 lines */
     display: -webkit-box;
@@ -199,7 +199,7 @@
   .banner-count {
     font-family: 'Space Mono', monospace;
     font-size: 9px;
-    color: #4a6080;
+    color: var(--color-text-muted);
     letter-spacing: 0.3px;
     margin-top: 1px;
   }
@@ -216,7 +216,7 @@
     background: transparent;
     border: 1px solid rgba(74, 240, 192, 0.3);
     border-radius: 6px;
-    color: #4af0c0;
+    color: var(--color-accent);
     font-size: 12px;
     cursor: pointer;
     transition: border-color 0.15s, color 0.15s;
@@ -224,20 +224,20 @@
     min-width: 36px;
     text-align: center;
   }
-  .share-btn:hover { border-color: #4af0c0; color: #fff; }
+  .share-btn:hover { border-color: var(--color-accent); color: #fff; }
 
   .close-btn {
     padding: 2px 8px;
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 6px;
-    color: #4a6080;
+    color: var(--color-text-muted);
     font-size: 14px;
     line-height: 1;
     cursor: pointer;
     transition: color 0.15s, border-color 0.15s;
   }
-  .close-btn:hover { color: #e8f4ff; border-color: rgba(255, 255, 255, 0.3); }
+  .close-btn:hover { color: var(--color-text-primary); border-color: rgba(255, 255, 255, 0.3); }
 
   /* Progress bar — drains over DISPLAY_MS to show remaining time */
   .banner-progress {

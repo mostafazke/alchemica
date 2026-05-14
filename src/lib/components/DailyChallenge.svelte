@@ -128,8 +128,8 @@
     align-items: center;
     gap: 4px;
     padding: 8px 12px;
-    background: #0a1628;
-    border: 1px solid #1a2e4a;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
     border-radius: 8px;
     flex: 1;
     transition: border-color 0.3s, background 0.3s;
@@ -150,7 +150,7 @@
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: #4a6080;
+    color: var(--color-text-muted);
   }
   .target-element {
     display: flex;
@@ -159,7 +159,7 @@
   }
   .target-symbol {
     font-size: 14px;
-    color: #8ab4d4;
+    color: var(--color-text-secondary);
     font-family: 'Space Mono', monospace;
     font-weight: 700;
   }
@@ -167,7 +167,7 @@
     font-family: 'Space Mono', monospace;
     font-size: 13px;
     font-weight: 700;
-    color: #e8e8f0;
+    color: var(--color-text-primary);
   }
 
   .complete-banner {
@@ -194,13 +194,13 @@
   .complete-element {
     font-family: 'Space Mono', monospace;
     font-size: 11px;
-    color: #8ab4d4;
+    color: var(--color-text-secondary);
   }
 
   .streak-label {
     font-family: 'Space Mono', monospace;
     font-size: 11px;
-    color: #4a6080;
+    color: var(--color-text-muted);
     text-align: center;
   }
   .daily-challenge.complete .streak-label {
@@ -215,13 +215,13 @@
     background: transparent;
     border: 1px solid rgba(74, 240, 192, 0.3);
     border-radius: 6px;
-    color: #4af0c0;
+    color: var(--color-accent);
     cursor: pointer;
     transition: border-color 0.2s, color 0.2s;
     white-space: nowrap;
   }
   .daily-share-btn:hover {
-    border-color: #4af0c0;
+    border-color: var(--color-accent);
     color: #fff;
   }
 
@@ -236,7 +236,7 @@
     gap: 8px;
     padding: 12px 14px;
     border-radius: 14px;
-    background: #0d1b2e;
+    background: var(--color-bg-deep);
     border: 1px solid rgba(232, 184, 75, 0.4);
     box-shadow: 0 8px 32px rgba(0,0,0,0.6);
     max-width: min(280px, 88vw);
@@ -263,7 +263,7 @@
   }
   .notif-sub {
     font-size: 11px;
-    color: #8ab4d4;
+    color: var(--color-text-secondary);
     line-height: 1.4;
   }
   .notif-actions {
@@ -289,14 +289,14 @@
   .notif-no {
     flex: 1;
     background: transparent;
-    border: 1px solid #1a3a5a;
+    border: 1px solid var(--color-border-mid);
     border-radius: 8px;
-    color: #4a6080;
+    color: var(--color-text-muted);
     font-size: 11px;
     min-height: 36px;
     cursor: pointer;
     touch-action: manipulation;
     transition: color 0.15s, border-color 0.15s;
   }
-  .notif-no:hover { color: #8ab4d4; border-color: #4a6080; }
+  .notif-no:hover { color: var(--color-text-secondary); border-color: var(--color-text-muted); }
 </style>

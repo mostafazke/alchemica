@@ -35,8 +35,8 @@
   .disc-item {
     display: flex; align-items: center; gap: 8px;
     padding: 6px 8px;
-    border-radius: 6px; border: 1px solid #1a2e4a;
-    background: #0a1520;
+    border-radius: 6px; border: 1px solid var(--color-border-subtle);
+    background: var(--color-bg-surface);
   }
   .disc-icon {
     width: 30px; height: 30px;
@@ -44,9 +44,9 @@
     border-radius: 6px; font-size: 15px; flex-shrink: 0;
   }
   .disc-info { min-width: 0; flex: 1; }
-  .disc-name { font-size: 11px; font-weight: 600; color: #c8d8e8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .disc-formula { font-family: 'Space Mono', monospace; font-size: 11px; color: #4af0c0; }
-  .disc-recipe { font-size: 11px; color: #4a6080; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .disc-name { font-size: 11px; font-weight: 600; color: var(--color-text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .disc-formula { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--color-accent); }
+  .disc-recipe { font-size: 11px; color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .share-btn {
     flex-shrink: 0;
     background: transparent; border: none;
@@ -57,5 +57,5 @@
     touch-action: manipulation; transition: color 0.15s;
     line-height: 1;
   }
-  .share-btn:hover { color: #4af0c0; }
+  .share-btn:hover { color: var(--color-accent); }
 </style>

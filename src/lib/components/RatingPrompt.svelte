@@ -100,8 +100,8 @@
     transform: translate(-50%, -50%);
     z-index: 501;
     width: min(340px, 90vw);
-    background: #0d1b2e;
-    border: 1px solid #1a3a5a;
+    background: var(--color-bg-deep);
+    border: 1px solid var(--color-border-mid);
     border-radius: 16px;
     padding: 24px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
@@ -110,20 +110,20 @@
   .rating-title {
     font-family: 'Space Mono', monospace;
     font-size: 15px;
-    color: #4af0c0;
+    color: var(--color-accent);
     letter-spacing: 0.5px;
     margin: 0 0 12px;
   }
   .rating-body {
     font-size: 13px;
-    color: #8ab4d4;
+    color: var(--color-text-secondary);
     line-height: 1.5;
     margin: 0 0 20px;
   }
   .rating-email {
     font-family: 'Space Mono', monospace;
     font-size: 13px;
-    color: #4af0c0;
+    color: var(--color-accent);
     margin: 0 0 20px;
   }
   .rating-actions {
@@ -143,23 +143,23 @@
   }
   .rating-btn-decline {
     background: transparent;
-    border: 1px solid #1a3a5a;
-    color: #8ab4d4;
+    border: 1px solid var(--color-border-mid);
+    color: var(--color-text-secondary);
   }
-  .rating-btn-decline:hover { border-color: #4af0c040; color: #c8d8e8; }
+  .rating-btn-decline:hover { border-color: color-mix(in srgb, var(--color-accent) 25%, transparent); color: var(--color-text-primary); }
   .rating-btn-accept {
-    background: #4af0c0;
-    border: 1px solid #4af0c0;
-    color: #0d1b2e;
+    background: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    color: var(--color-bg-deep);
     font-weight: 700;
   }
-  .rating-btn-accept:hover { background: #3dd1a6; border-color: #3dd1a6; }
+  .rating-btn-accept:hover { background: var(--color-accent); border-color: var(--color-accent); }
   .rating-btn-ok {
-    background: #4af0c0;
-    border: 1px solid #4af0c0;
-    color: #0d1b2e;
+    background: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    color: var(--color-bg-deep);
     font-weight: 700;
     min-width: 100px;
   }
-  .rating-btn-ok:hover { background: #3dd1a6; border-color: #3dd1a6; }
+  .rating-btn-ok:hover { background: var(--color-accent); border-color: var(--color-accent); }
 </style>

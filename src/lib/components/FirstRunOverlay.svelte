@@ -94,9 +94,9 @@
     gap: 10px;
     padding: 10px 12px;
     border-radius: 12px;
-    background: #0d1b2e;
-    border: 1px solid #1a3a5a;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px #4af0c018;
+    background: var(--color-bg-deep);
+    border: 1px solid var(--color-border-mid);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px color-mix(in srgb, var(--color-accent) 9%, transparent);
     animation: card-in 0.3s cubic-bezier(0.34, 1.3, 0.64, 1) both;
     pointer-events: all;
     max-width: min(340px, 92vw);
@@ -114,7 +114,7 @@
   }
   .hint-arrow {
     font-size: 18px;
-    color: #4af0c0;
+    color: var(--color-accent);
     animation: pulse-arrow 1.2s ease-in-out infinite;
     flex-shrink: 0;
   }
@@ -124,17 +124,17 @@
   }
   .hint-text {
     font-size: 13px;
-    color: #c8d8e8;
+    color: var(--color-text-primary);
     line-height: 1.4;
     flex: 1;
   }
-  .hint-text strong { color: #e8f4ff; }
+  .hint-text strong { color: var(--color-text-primary); }
   .hint-skip {
     flex-shrink: 0;
     background: transparent;
-    border: 1px solid #1a3a5a;
+    border: 1px solid var(--color-border-mid);
     border-radius: 6px;
-    color: #4a6080;
+    color: var(--color-text-muted);
     font-size: 11px;
     padding: 4px 10px;
     cursor: pointer;
@@ -142,7 +142,7 @@
     min-height: 32px;
     touch-action: manipulation;
   }
-  .hint-skip:hover { color: #8ab4d4; border-color: #4a6080; }
+  .hint-skip:hover { color: var(--color-text-secondary); border-color: var(--color-text-muted); }
 
   /* ── Step 2 & 3: center-bottom confirmation card ────────────── */
   .hint-step2,
@@ -169,22 +169,22 @@
     font-family: 'Space Mono', monospace;
     font-size: 12px;
     font-weight: 700;
-    color: #4af0c0;
+    color: var(--color-accent);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   .hint-sub {
     font-size: 11px;
-    color: #6a8aa4;
+    color: var(--color-text-secondary);
     line-height: 1.4;
   }
   .hint-got-it {
     flex-shrink: 0;
-    background: #4af0c015;
-    border: 1px solid #4af0c040;
+    background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 25%, transparent);
     border-radius: 8px;
-    color: #4af0c0;
+    color: var(--color-accent);
     font-family: 'Space Mono', monospace;
     font-size: 11px;
     font-weight: 700;
@@ -195,6 +195,6 @@
     white-space: nowrap;
     transition: background 0.15s, border-color 0.15s;
   }
-  .hint-got-it:hover { background: #4af0c025; border-color: #4af0c080; }
+  .hint-got-it:hover { background: color-mix(in srgb, var(--color-accent) 15%, transparent); border-color: color-mix(in srgb, var(--color-accent) 50%, transparent); }
 </style>
 

@@ -47,8 +47,8 @@
     z-index: 401;
     width: min(400px, 94vw);
     max-height: 90vh;
-    background: #0d1b2e;
-    border: 1px solid #1a3a5a;
+    background: var(--color-bg-deep);
+    border: 1px solid var(--color-border-mid);
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
@@ -63,16 +63,16 @@
   .panel-header {
     display: flex; align-items: center; justify-content: space-between;
     padding: 16px 16px 12px;
-    border-bottom: 1px solid #1a2e4a;
+    border-bottom: 1px solid var(--color-border-subtle);
     flex-shrink: 0;
   }
   .panel-title {
     font-family: 'Space Mono', monospace;
     font-size: 13px; text-transform: uppercase;
-    letter-spacing: 1px; color: #4af0c0;
+    letter-spacing: 1px; color: var(--color-accent);
   }
   .panel-close {
-    background: transparent; border: none; color: #4a6080;
+    background: transparent; border: none; color: var(--color-text-muted);
     cursor: pointer; font-size: 14px; padding: 4px 8px;
     border-radius: 6px; min-width: 32px; min-height: 32px;
     touch-action: manipulation; line-height: 1;
@@ -93,8 +93,8 @@
     align-items: center;
     gap: 6px;
     padding: 16px 12px;
-    background: #0a1628;
-    border: 1px solid #1a2e4a;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
     border-radius: 12px;
     text-align: center;
     transition: border-color 0.2s;
@@ -114,23 +114,23 @@
     font-family: 'Space Mono', monospace;
     font-size: 12px;
     font-weight: 700;
-    color: #e8e8f0;
+    color: var(--color-text-primary);
     letter-spacing: 0.3px;
   }
   .badge-threshold {
     font-size: 10px;
-    color: #4a6080;
+    color: var(--color-text-muted);
     font-family: 'Space Mono', monospace;
   }
   .badge-earned-label {
     font-size: 10px;
-    color: #4af0c0;
+    color: var(--color-accent);
     font-family: 'Space Mono', monospace;
     font-weight: 700;
   }
   .badge-locked-label {
     font-size: 10px;
-    color: #4a6080;
+    color: var(--color-text-muted);
     font-family: 'Space Mono', monospace;
   }
 </style>

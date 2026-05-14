@@ -89,7 +89,7 @@
     line-height: 28px;
   }
   .daily-pill.completed .pill-label {
-    color: #4af0c0;
+    color: var(--color-accent);
   }
 
   /* ── Full-panel overlay ──────────────────────────────────────────── */
@@ -103,8 +103,8 @@
     position: fixed;
     inset: auto 0 0 0;
     z-index: 300;
-    background: #0d1b2e;
-    border-top: 1px solid #1a2e4a;
+    background: var(--color-bg-deep);
+    border-top: 1px solid var(--color-border-subtle);
     border-radius: 16px 16px 0 0;
     animation: panel-in 0.24s cubic-bezier(0.34, 1.2, 0.64, 1) both;
   }
@@ -126,9 +126,9 @@
     top: 12px;
     right: 12px;
     background: transparent;
-    border: 1px solid #1a3a5a;
+    border: 1px solid var(--color-border-mid);
     border-radius: 6px;
-    color: #4a6080;
+    color: var(--color-text-muted);
     font-size: 14px;
     cursor: pointer;
     min-width: 44px;
@@ -140,8 +140,8 @@
     transition: color 0.15s, border-color 0.15s;
   }
   .pill-close:hover {
-    color: #4af0c0;
-    border-color: #4af0c040;
+    color: var(--color-accent);
+    border-color: color-mix(in srgb, var(--color-accent) 25%, transparent);
   }
 
   @media (max-width: 400px) {

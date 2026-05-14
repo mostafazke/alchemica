@@ -101,12 +101,12 @@
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: #4af0c0;
+    color: var(--color-accent);
   }
   .toast-name {
     font-family: 'Space Mono', monospace;
     font-size: 13px;
     font-weight: 700;
-    color: #e8e8f0;
+    color: var(--color-text-primary);
   }
 </style>

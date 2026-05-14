@@ -30,20 +30,20 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px 16px 8px;
-    border-bottom: 1px solid #1a2e4a;
+    border-bottom: 1px solid var(--color-border-subtle);
     flex-shrink: 0;
   }
   .disc-title {
     font-family: 'Space Mono', monospace;
     font-size: 10px;
     text-transform: uppercase;
-    color: #4a6080;
+    color: var(--color-text-muted);
     letter-spacing: 1px;
   }
   .disc-count {
     font-family: 'Space Mono', monospace;
     font-size: 10px;
-    color: #4af0c0;
+    color: var(--color-accent);
   }
   .disc-list {
     flex: 1;

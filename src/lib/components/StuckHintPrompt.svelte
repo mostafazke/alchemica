@@ -132,7 +132,7 @@
     gap: 10px;
     padding: 10px 14px;
     border-radius: 14px;
-    background: #0d1b2e;
+    background: var(--color-bg-deep);
     border: 1px solid #4a6fa550;
     box-shadow: 0 8px 32px rgba(0,0,0,0.6);
     max-width: min(360px, 92vw);
@@ -170,17 +170,17 @@
     font-family: 'Space Mono', monospace;
     font-size: 12px;
     font-weight: 700;
-    color: #c8d8e8;
+    color: var(--color-text-primary);
   }
   .prompt-sub {
     font-size: 11px;
-    color: #6a8aa4;
+    color: var(--color-text-secondary);
     line-height: 1.4;
   }
   .watching-label {
     font-family: 'Space Mono', monospace;
     font-size: 12px;
-    color: #6a8aa4;
+    color: var(--color-text-secondary);
     flex: 1;
   }
   .fallback-label {
@@ -201,10 +201,10 @@
     flex-shrink: 0;
   }
   .btn-watch {
-    background: #4af0c015;
-    border: 1px solid #4af0c040;
+    background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 25%, transparent);
     border-radius: 8px;
-    color: #4af0c0;
+    color: var(--color-accent);
     font-family: 'Space Mono', monospace;
     font-size: 11px;
     font-weight: 700;
@@ -215,13 +215,13 @@
     transition: background 0.15s, border-color 0.15s;
     white-space: nowrap;
   }
-  .btn-watch:hover { background: #4af0c025; border-color: #4af0c080; }
+  .btn-watch:hover { background: color-mix(in srgb, var(--color-accent) 15%, transparent); border-color: color-mix(in srgb, var(--color-accent) 50%, transparent); }
 
   .btn-dismiss {
     background: transparent;
-    border: 1px solid #1a3a5a;
+    border: 1px solid var(--color-border-mid);
     border-radius: 6px;
-    color: #4a6080;
+    color: var(--color-text-muted);
     font-size: 12px;
     min-width: 32px;
     min-height: 36px;
@@ -261,12 +261,12 @@
   .hint-name {
     font-family: 'Space Mono', monospace;
     font-size: 10px;
-    color: #4af0c0;
+    color: var(--color-accent);
     white-space: nowrap;
   }
   .hint-plus {
     font-size: 16px;
-    color: #4a6080;
+    color: var(--color-text-muted);
   }
   /* Goal mode: target element row */
   .hint-result-row {
@@ -276,16 +276,16 @@
   .hint-res-sym { font-size: 20px; line-height: 1; }
   .hint-res-name {
     font-family: 'Space Mono', monospace; font-size: 12px;
-    font-weight: 700; color: #e8f4ff;
+    font-weight: 700; color: var(--color-text-primary);
   }
   /* Trivia mode */
   .stuck-trivia { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; width: 100%; }
-  .trivia-riddle { font-style: italic; font-size: 11px !important; line-height: 1.4; color: #8ab4d4 !important; }
+  .trivia-riddle { font-style: italic; font-size: 11px !important; line-height: 1.4; color: var(--color-text-secondary) !important; }
   .btn-reveal {
-    background: #4af0c015; border: 1px solid #4af0c040; border-radius: 6px;
-    color: #4af0c0; font-family: 'Space Mono', monospace; font-size: 10px;
+    background: color-mix(in srgb, var(--color-accent) 8%, transparent); border: 1px solid color-mix(in srgb, var(--color-accent) 25%, transparent); border-radius: 6px;
+    color: var(--color-accent); font-family: 'Space Mono', monospace; font-size: 10px;
     padding: 4px 10px; cursor: pointer; touch-action: manipulation;
     transition: background 0.15s; align-self: flex-end;
   }
-  .btn-reveal:hover { background: #4af0c025; }
+  .btn-reveal:hover { background: color-mix(in srgb, var(--color-accent) 15%, transparent); }
 </style>

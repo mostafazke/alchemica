@@ -45,8 +45,8 @@
     right: 0;
     bottom: 0;
     max-height: 70vh;
-    background: #0d1b2e;
-    border-top: 1px solid #1a2e4a;
+    background: var(--color-bg-deep);
+    border-top: 1px solid var(--color-border-subtle);
     border-radius: 16px 16px 0 0;
     z-index: 300;
     transform: translateY(100%);
@@ -69,7 +69,7 @@
   .sheet-handle {
     width: 36px;
     height: 4px;
-    background: #1a3a5a;
+    background: var(--color-border-mid);
     border-radius: 2px;
   }
   .sheet-content {

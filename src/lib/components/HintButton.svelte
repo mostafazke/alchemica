@@ -142,24 +142,24 @@
     padding: 8px 20px;
     min-height: 44px; min-width: 100px;
     border-radius: 8px;
-    border: 1px solid #1a3a5a;
-    background: #0a1520;
-    color: #8ab4d4;
+    border: 1px solid var(--color-border-mid);
+    background: var(--color-bg-surface);
+    color: var(--color-text-secondary);
     font-family: 'Space Mono', monospace;
     font-size: 11px;
     cursor: pointer;
     transition: all 0.15s;
     touch-action: manipulation;
   }
-  .hint-btn:not(:disabled):hover { border-color: #4af0c060; color: #4af0c0; background: #0f2035; }
+  .hint-btn:not(:disabled):hover { border-color: var(--color-border-active); color: var(--color-accent); background: var(--color-bg-hover); }
   .hint-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  .hint-btn.cooling { color: #4a6080; }
+  .hint-btn.cooling { color: var(--color-text-muted); }
   .hint-overlay {
     position: fixed;
     bottom: 72px;
     left: 50%;
     transform: translateX(-50%);
-    background: #0d1b2e; border: 1px solid #4af0c040;
+    background: var(--color-bg-deep); border: 1px solid color-mix(in srgb, var(--color-accent) 25%, transparent);
     border-radius: 12px; padding: 12px 16px;
     min-width: 220px; max-width: min(320px, 90vw);
     max-height: 45vh; overflow-y: auto;
@@ -172,29 +172,29 @@
     from { opacity: 0; transform: translateX(-50%) translateY(6px) scale(0.95); }
     to   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
   }
-  .hint-label { font-size: 11px; color: #4a6080; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 8px; }
+  .hint-label { font-size: 11px; color: var(--color-text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 8px; }
   .hint-pair { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 4px; }
   .hint-el { display: flex; flex-direction: column; align-items: center; gap: 2px; }
   .hint-symbol { font-size: 22px; }
-  .hint-name { font-size: 11px; color: #4af0c0; font-family: 'Space Mono', monospace; }
-  .hint-plus { font-size: 16px; color: #4a6080; }
+  .hint-name { font-size: 11px; color: var(--color-accent); font-family: 'Space Mono', monospace; }
+  .hint-plus { font-size: 16px; color: var(--color-text-muted); }
   /* Goal mode — target element header */
   .hint-result-header { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 6px; }
   .hint-result-symbol { font-size: 28px; line-height: 1; }
-  .hint-result-name { font-size: 15px; font-family: 'Space Mono', monospace; font-weight: 700; color: #e8f4ff; }
+  .hint-result-name { font-size: 15px; font-family: 'Space Mono', monospace; font-weight: 700; color: var(--color-text-primary); }
   /* Trivia mode */
-  .hint-trivia { font-size: 12px; color: #8ab4d4; line-height: 1.5; text-align: left; margin: 0 0 6px; font-style: italic; }
-  .hint-formula { display: block; font-size: 10px; color: #4a6080; font-family: 'Space Mono', monospace; margin-bottom: 10px; }
+  .hint-trivia { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; text-align: left; margin: 0 0 6px; font-style: italic; }
+  .hint-formula { display: block; font-size: 10px; color: var(--color-text-muted); font-family: 'Space Mono', monospace; margin-bottom: 10px; }
   .hint-reveal-btn {
-    background: #4af0c015; border: 1px solid #4af0c040; border-radius: 6px;
-    color: #4af0c0; font-family: 'Space Mono', monospace; font-size: 11px;
+    background: color-mix(in srgb, var(--color-accent) 8%, transparent); border: 1px solid color-mix(in srgb, var(--color-accent) 25%, transparent); border-radius: 6px;
+    color: var(--color-accent); font-family: 'Space Mono', monospace; font-size: 11px;
     padding: 5px 14px; cursor: pointer; touch-action: manipulation;
     transition: background 0.15s;
   }
-  .hint-reveal-btn:hover { background: #4af0c025; }
+  .hint-reveal-btn:hover { background: color-mix(in srgb, var(--color-accent) 15%, transparent); }
   .hint-dismiss {
     position: absolute; top: 0; right: 0;
-    background: transparent; border: none; color: #4a6080;
+    background: transparent; border: none; color: var(--color-text-muted);
     cursor: pointer; font-size: 11px; padding: 0;
     touch-action: manipulation;
     min-width: 44px; min-height: 44px;
