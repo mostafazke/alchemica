@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alchemica — Design Direction Mockups</title>
+<style>
+  /* ── Reset ─────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #080808;
+    color: #d8cbb8;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Navigation ────────────────────────────────── */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10, 8, 5, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #2a2218;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .nav h1 {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: #d4a84a;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .nav-tabs {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .nav-tab {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    padding: 6px 14px;
+    border: 1px solid #2a2218;
+    border-radius: 4px;
+    background: transparent;
+    color: #a89478;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-tab:hover { border-color: #3d3020; color: #d8cbb8; }
+  .nav-tab.active { background: #1c1610; border-color: #d4a84a; color: #d4a84a; }
+
+  /* ── Sections ──────────────────────────────────── */
+  .section {
+    display: none;
+    padding: 80px 24px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section.active { display: block; }
+  .section-title {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: #d4a84a;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-subtitle {
+    font-size: 14px;
+    color: #a89478;
+    margin-bottom: 32px;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  /* ── Game Mockup Frame ─────────────────────────── */
+  .mockup-wrapper {
+    margin-bottom: 40px;
+  }
+  .mockup-label {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: #6b5a45;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .mockup-description {
+    font-size: 13px;
+    color: #a89478;
+    margin-bottom: 16px;
+    line-height: 1.5;
+    max-width: 700px;
+  }
+  .phone-frame {
+    width: 100%;
+    max-width: 780px;
+    aspect-ratio: 19.5 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid #2a2218;
+  }
+
+  /* ── Direction A: Subtle Warmth ────────────────── */
+  .dir-a {
+    --bg-deep: #0a0805;
+    --bg-surface: #110e08;
+    --bg-raised: #16120b;
+    --bg-hover: #1c1610;
+    --border-subtle: #2a2218;
+    --border-mid: #3d3020;
+    --border-hot: #d4a84a;
+    --accent: #d4a84a;
+    --accent-dim: rgba(212, 168, 74, 0.19);
+    --text-primary: #d8cbb8;
+    --text-secondary: #a89478;
+    --text-muted: #6b5a45;
+    --material-brass: #d4a84a;
+    --material-glass: rgba(200, 180, 140, 0.06);
+    --material-glass-amber: rgba(180, 120, 60, 0.12);
+    --danger: #c45a3a;
+    --topbar-bg: var(--bg-deep);
+    --shelf-card-bg: var(--bg-surface);
+    --shelf-card-border: var(--border-subtle);
+    --chamber-bg: var(--bg-deep);
+  }
+
+  /* ── Direction B: Deep Brass ───────────────────── */
+  .dir-b {
+    --bg-deep: #080604;
+    --bg-surface: #0f0c07;
+    --bg-raised: #151009;
+    --bg-hover: #1e170e;
+    --border-subtle: #2e2416;
+    --border-mid: #45351d;
+    --border-hot: #c9993a;
+    --accent: #c9993a;
+    --accent-dim: rgba(201, 153, 58, 0.22);
+    --text-primary: #d5c5a8;
+    --text-secondary: #a08860;
+    --text-muted: #65522e;
+    --material-brass: #c9993a;
+    --material-glass: rgba(180, 150, 100, 0.08);
+    --material-glass-amber: rgba(160, 100, 40, 0.15);
+    --danger: #b84a2a;
+    --topbar-bg: #0c0906;
+    --shelf-card-bg: #0f0c07;
+    --shelf-card-border: #2e2416;
+    --chamber-bg: #080604;
+  }
+
+  /* ── Direction C: Stone & Glass ────────────────── */
+  .dir-c {
+    --bg-deep: #09080a;
+    --bg-surface: #0e0d0f;
+    --bg-raised: #141316;
+    --bg-hover: #1a181d;
+    --border-subtle: #262430;
+    --border-mid: #36333e;
+    --border-hot: #b8a070;
+    --accent: #b8a070;
+    --accent-dim: rgba(184, 160, 112, 0.16);
+    --text-primary: #ccc5b8;
+    --text-secondary: #968e7e;
+    --text-muted: #5e584e;
+    --material-brass: #b8a070;
+    --material-glass: rgba(180, 170, 160, 0.07);
+    --material-glass-amber: rgba(160, 130, 80, 0.10);
+    --danger: #a85040;
+    --topbar-bg: var(--bg-deep);
+    --shelf-card-bg: #0e0d0f;
+    --shelf-card-border: #262430;
+    --chamber-bg: #09080a;
+  }
+
+  /* ── Direction D: Ember Workshop ───────────────── */
+  .dir-d {
+    --bg-deep: #0b0706;
+    --bg-surface: #120d0a;
+    --bg-raised: #18120e;
+    --bg-hover: #201812;
+    --border-subtle: #2c2018;
+    --border-mid: #402e1e;
+    --border-hot: #d49040;
+    --accent: #d49040;
+    --accent-dim: rgba(212, 144, 64, 0.20);
+    --text-primary: #dcc8b0;
+    --text-secondary: #a8886a;
+    --text-muted: #6a5540;
+    --material-brass: #d49040;
+    --material-glass: rgba(200, 160, 100, 0.07);
+    --material-glass-amber: rgba(180, 110, 50, 0.14);
+    --danger: #c04830;
+    --topbar-bg: #0e0a08;
+    --shelf-card-bg: #120d0a;
+    --shelf-card-border: #2c2018;
+    --chamber-bg: #0b0706;
+  }
+
+  /* ── Direction E: Moonlit Brass ────────────────── */
+  .dir-e {
+    --bg-deep: #08080a;
+    --bg-surface: #0e0e12;
+    --bg-raised: #141418;
+    --bg-hover: #1a1a1f;
+    --border-subtle: #24242e;
+    --border-mid: #34343f;
+    --border-hot: #c4a858;
+    --accent: #c4a858;
+    --accent-dim: rgba(196, 168, 88, 0.18);
+    --text-primary: #d0c8b8;
+    --text-secondary: #9a9080;
+    --text-muted: #5e5850;
+    --material-brass: #c4a858;
+    --material-glass: rgba(190, 180, 150, 0.06);
+    --material-glass-amber: rgba(170, 130, 70, 0.11);
+    --danger: #b05040;
+    --topbar-bg: #0a0a0d;
+    --shelf-card-bg: #0e0e12;
+    --shelf-card-border: #24242e;
+    --chamber-bg: #08080a;
+  }
+
+  /* ── Direction F: Warm Parchment ───────────────── */
+  .dir-f {
+    --bg-deep: #0c0a06;
+    --bg-surface: #13100a;
+    --bg-raised: #1a1510;
+    --bg-hover: #221c14;
+    --border-subtle: #302820;
+    --border-mid: #453828;
+    --border-hot: #d8b050;
+    --accent: #d8b050;
+    --accent-dim: rgba(216, 176, 80, 0.22);
+    --text-primary: #e0d0b8;
+    --text-secondary: #b09878;
+    --text-muted: #706040;
+    --material-brass: #d8b050;
+    --material-glass: rgba(210, 190, 140, 0.08);
+    --material-glass-amber: rgba(190, 140, 60, 0.14);
+    --danger: #c85838;
+    --topbar-bg: #0e0c08;
+    --shelf-card-bg: #13100a;
+    --shelf-card-border: #302820;
+    --chamber-bg: #0c0a06;
+  }
+
+  /* ── Game UI Components ────────────────────────── */
+  .game-ui {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  /* TopBar */
+  .topbar {
+    height: 44px;
+    background: var(--topbar-bg);
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .topbar-title {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+  .topbar-score {
+    margin-left: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+  .topbar-score span { color: var(--accent); font-weight: 700; }
+  .topbar-badge {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 1px solid var(--border-mid);
+    color: var(--text-secondary);
+    background: var(--bg-raised);
+  }
+
+  /* Main content */
+  .game-main {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+  }
+
+  /* Element Shelf */
+  .shelf {
+    width: 55%;
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .shelf-tabs {
+    display: flex;
+    padding: 6px 8px;
+    gap: 4px;
+    border-bottom: 1px solid var(--border-subtle);
+    flex-shrink: 0;
+  }
+  .shelf-tab {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .shelf-tab.active {
+    background: var(--accent-dim);
+    color: var(--accent);
+  }
+  .shelf-tab:hover:not(.active) { color: var(--text-secondary); }
+  .shelf-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+    gap: 4px;
+    padding: 8px;
+    overflow-y: auto;
+    align-content: start;
+  }
+
+  /* Element Card */
+  .el-card {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    border: 1px solid var(--shelf-card-border);
+    background: var(--shelf-card-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .el-card:hover {
+    border-color: var(--border-mid);
+    background: var(--bg-hover);
+  }
+  .el-card.fresh {
+    box-shadow: 0 0 8px var(--material-glass-amber);
+  }
+  .el-card.selected {
+    border-color: var(--border-hot);
+    box-shadow: 0 0 0 1px var(--accent-dim);
+  }
+  .el-card .emoji { font-size: 20px; line-height: 1; }
+  .el-card .name {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.1;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 2px;
+  }
+
+  /* Mixing Chamber */
+  .chamber {
+    width: 45%;
+    background: var(--chamber-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px;
+  }
+  .chamber-label {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .slots {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .slot {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    border: 2px dashed var(--border-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .slot.filled {
+    border-style: solid;
+    border-color: var(--border-hot);
+    background: var(--accent-dim);
+  }
+  .slot-clear {
+    position: absolute;
+    top: -6px; right: -6px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--bg-raised);
+    border: 1px solid var(--border-mid);
+    color: var(--text-muted);
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .slot-plus {
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  /* Action Zone */
+  .action-zone {
+    width: 100%;
+    max-width: 200px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+    background: var(--material-glass);
+    text-align: center;
+  }
+  .action-hint {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  .action-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .action-result .emoji { font-size: 28px; }
+  .action-result .label {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .action-result .pts {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: var(--text-secondary);
+  }
+
+  /* BottomBar */
+  .bottombar {
+    height: 40px;
+    background: var(--topbar-bg);
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 16px;
+    flex-shrink: 0;
+  }
+  .bottombar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    cursor: pointer;
+  }
+  .bottombar-item .icon { font-size: 16px; opacity: 0.6; }
+  .bottombar-item .lbl {
+    font-family: 'Courier New', monospace;
+    font-size: 8px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .bottombar-item.active .icon { opacity: 1; }
+  .bottombar-item.active .lbl { color: var(--accent); }
+
+  /* ── Discovery Overlay ─────────────────────────── */
+  .discovery-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    z-index: 10;
+    border-radius: inherit;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .discovery-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .discovery-badge {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .discovery-emoji { font-size: 40px; }
+  .discovery-name {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+  .discovery-formula {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: var(--text-secondary);
+  }
+  .discovery-continue {
+    margin-top: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    padding: 6px 18px;
+    border-radius: 4px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .discovery-continue:hover {
+    background: var(--accent-dim);
+  }
+
+  /* ── Comparison Grid ───────────────────────────── */
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 32px;
+  }
+
+  /* ── Color Swatch Row ──────────────────────────── */
+  .swatch-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .swatch {
+    width: 40px; height: 40px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+  }
+  .swatch::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: -16px; left: 0;
+    font-size: 8px;
+    font-family: 'Courier New', monospace;
+    color: #6b5a45;
+    white-space: nowrap;
+  }
+
+  /* ── Token Table ───────────────────────────────── */
+  .token-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin: 16px 0;
+  }
+  .token-table th {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: #6b5a45;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #2a2218;
+  }
+  .token-table td {
+    padding: 8px;
+    border-bottom: 1px solid rgba(42, 34, 24, 0.4);
+    color: #a89478;
+  }
+  .token-table td:first-child {
+    font-family: 'Courier New', monospace;
+    color: #d8cbb8;
+    font-size: 11px;
+  }
+  .color-dot {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border-radius: 3px;
+    border: 1px solid rgba(255,255,255,0.1);
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+
+  /* ── Evaluation Checklist ──────────────────────── */
+  .eval-list {
+    list-style: none;
+    margin: 24px 0;
+  }
+  .eval-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(42, 34, 24, 0.3);
+    font-size: 13px;
+    color: #a89478;
+  }
+  .eval-list li strong { color: #d8cbb8; }
+  .eval-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #d4a84a;
+    flex-shrink: 0;
+  }
+
+  /* ── Side-by-Side ──────────────────────────────── */
+  .side-by-side {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .side-by-side > * { flex: 1; min-width: 340px; }
+
+  /* ── Interactive States Demo ───────────────────── */
+  .states-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 12px 0;
+  }
+  .state-card {
+    width: 56px; height: 68px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-size: 20px;
+    position: relative;
+    transition: all 0.15s;
+  }
+  .state-card .state-label {
+    font-family: 'Courier New', monospace;
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: absolute;
+    bottom: -14px;
+    white-space: nowrap;
+  }
+
+  /* ── Verdict Section ───────────────────────────── */
+  .verdict-section {
+    background: rgba(212, 168, 74, 0.06);
+    border: 1px solid rgba(212, 168, 74, 0.15);
+    border-radius: 8px;
+    padding: 24px;
+    margin: 32px 0;
+  }
+  .verdict-section h3 {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #d4a84a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .verdict-section p {
+    font-size: 13px;
+    color: #a89478;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  /* ── Responsive ────────────────────────────────── */
+  @media (max-width: 800px) {
+    .comparison-grid { grid-template-columns: 1fr; }
+    .phone-frame { max-width: 100%; }
+    .side-by-side { flex-direction: column; }
+    .nav { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <h1>Alchemica</h1>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showSection('overview')">Overview</button>
+    <button class="nav-tab" onclick="showSection('dir-a')">A: Subtle Warmth</button>
+    <button class="nav-tab" onclick="showSection('dir-b')">B: Deep Brass</button>
+    <button class="nav-tab" onclick="showSection('dir-c')">C: Stone & Glass</button>
+    <button class="nav-tab" onclick="showSection('dir-d')">D: Ember Workshop</button>
+    <button class="nav-tab" onclick="showSection('dir-e')">E: Moonlit Brass</button>
+    <button class="nav-tab" onclick="showSection('dir-f')">F: Warm Parchment</button>
+    <button class="nav-tab" onclick="showSection('compare')">Compare</button>
+    <button class="nav-tab" onclick="showSection('states')">States</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- OVERVIEW -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="section active" id="sec-overview">
+  <div class="section-title">Design Direction Overview</div>
+  <div class="section-subtitle">
+    Six variations within the warm-stone-brass-glass material metaphor established in brainstorming.
+    Each explores a different thermal balance — from barely-warm to ember-hot.
+  </div>
+
+  <ul class="eval-list">
+    <li><span class="eval-dot"></span><strong>A: Subtle Warmth</strong> — The Step 8 reference palette. Neutral-warm, maximum versatility. The brass is present but doesn't dominate.</li>
+    <li><span class="eval-dot"></span><strong>B: Deep Brass</strong> — Leans into the brass metaphor. Everything is slightly more golden. The workshop is lit by candlelight.</li>
+    <li><span class="eval-dot"></span><strong>C: Stone & Glass</strong> — Cooler stone (slightly purple-gray undertone). The glass metaphor leads; brass plays supporting role. Most "mineral" feeling.</li>
+    <li><span class="eval-dot"></span><strong>D: Ember Workshop</strong> — Orange-warm undertone. The forge is active. More saturated, more energetic. The most emotionally intense direction.</li>
+    <li><span class="eval-dot"></span><strong>E: Moonlit Brass</strong> — Cool-neutral base with brass accents. Night laboratory. The brass glows against near-gray darkness. Highest contrast between base and accent.</li>
+    <li><span class="eval-dot"></span><strong>F: Warm Parchment</strong> — Lightest backgrounds of the set. More parchment-like. The text is the warmest. Feels most like an illuminated manuscript.</li>
+  </ul>
+
+  <div class="verdict-section">
+    <h3>Evaluation Criteria</h3>
+    <p><strong>Material authenticity</strong> — Does it feel like a physical space? Stone, brass, glass — not digital chrome.</p>
+    <p><strong>Element legibility</strong> — Can you read 61+ element icons on the shelf grid without strain?</p>
+    <p><strong>Emotional warmth</strong> — Does it invite lingering, or does it feel sterile?</p>
+    <p><strong>Discovery moment</strong> — When the overlay appears, does the background recede enough for the new element to feel special?</p>
+    <p><strong>OLED friendliness</strong> — True black areas for power savings. No large mid-gray panels.</p>
+    <p><strong>Accessibility</strong> — Text contrast ratios, touch target visibility, color-blind safety.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- DIRECTION A -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="section" id="sec-dir-a">
+  <div class="section-title">Direction A: Subtle Warmth</div>
+  <div class="section-subtitle">
+    The reference palette from Step 8. Warm undertones are present but restrained.
+    The brass edges appear on interaction, not at rest. The room is quiet until you touch it.
+  </div>
+
+  <div class="swatch-row">
+    <div class="swatch" style="background:#0a0805" data-label="deep"></div>
+    <div class="swatch" style="background:#110e08" data-label="surface"></div>
+    <div class="swatch" style="background:#16120b" data-label="raised"></div>
+    <div class="swatch" style="background:#1c1610" data-label="hover"></div>
+    <div class="swatch" style="background:#2a2218" data-label="border"></div>
+    <div class="swatch" style="background:#d4a84a" data-label="accent"></div>
+    <div class="swatch" style="background:#d8cbb8" data-label="text"></div>
+    <div class="swatch" style="background:#c45a3a" data-label="danger"></div>
+  </div>
+
+  <div class="mockup-wrapper">
+    <div class="mockup-label">Game View — Idle State</div>
+    <div class="phone-frame dir-a">
+      <div class="game-ui">
+        <div class="topbar">
+          <span class="topbar-title">ALCHEMICA</span>
+          <span class="topbar-badge">12/61</span>
+          <span class="topbar-score">Score: <span>2,450</span></span>
+        </div>
+        <div class="game-main">
+          <div class="shelf">
+            <div class="shelf-tabs">
+              <span class="shelf-tab active">All</span>
+              <span class="shelf-tab">Nature</span>
+              <span class="shelf-tab">Energy</span>
+              <span class="shelf-tab">Matter</span>
+            </div>
+            <div class="shelf-grid">
+              <div class="el-card"><span class="emoji">🔥</span><span class="name">Fire</span></div>
+              <div class="el-card"><span class="emoji">💧</span><span class="name">Water</span></div>
+              <div class="el-card"><span class="emoji">🌍</span><span class="name">Earth</span></div>
+              <div class="el-card"><span class="emoji">💨</span><span class="name">Air</span></div>
+              <div class="el-card fresh"><span class="emoji">☁️</span><span class="name">Steam</span></div>
+              <div class="el-card"><span class="emoji">🪨</span><span class="name">Stone</span></div>
+              <div class="el-card"><span class="emoji">🌊</span><span class="name">Ocean</span></div>
+              <div class="el-card"><span class="emoji">⚡</span><span class="name">Energy</span></div>
+              <div class="el-card"><span class="emoji">🌱</span><span class="name">Plant</span></div>
+              <div class="el-card fresh"><span class="emoji">🌋</span><span class="name">Lava</span></div>
+              <div class="el-card"><span class="emoji">❄️</span><span class="name">Ice</span></div>
+              <div class="el-card"><span class="emoji">🏔️</span><span class="name">Mountain</span></div>
+            </div>
+          </div>
+          <div class="chamber">
+            <span class="chamber-label">Mixing Chamber</span>
+            <div class="slots">
+              <div class="slot"><span class="slot-plus">+</span></div>
+              <span class="slot-plus" style="color:var(--text-muted)">+</span>
+              <div class="slot"><span class="slot-plus">+</span></div>
+            </div>
+            <div class="action-zone">
+              <span class="action-hint">Tap two elements to combine</span>
+            </div>
+          </div>
+        </div>
+        <div class="bottombar">
+          <div class="bottombar-item active"><span class="icon">⚗️</span><span class="lbl">Mix</span></div>
+          <div class="bottombar-item"><span class="icon">📋</span><span class="lbl">Recipe</span></div>
+          <div class="bottombar-item"><span class="icon">🏆</span><span class="lbl">Achieve</span></div>
+          <div class="bottombar-item"><span class="icon">⚙️</span><span class="lbl">Settings</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup-wrapper">
+    <div class="mockup-label">Game View — Active Combination + Discovery</div>
+    <div class="phone-frame dir-a">
+      <div class="game-ui" style="position:relative">
+        <div class="topbar">
+          <span class="topbar-title">ALCHEMICA</span>
+          <span class="topbar-badge">12/61</span>
+          <span class="topbar-score">Score: <span>2,450</span></span>
+        </div>
+        <div class="game-main">
+          <div class="shelf">
+            <div class="shelf-tabs">
+              <span class="shelf-tab active">All</span>
+              <span class="shelf-tab">Nature</span>
+              <span class="shelf-tab">Energy</span>
+              <span class="shelf-tab">Matter</span>
+            </div>
+            <div class="shelf-grid">
+              <div class="el-card selected"><span class="emoji">🔥</span><span class="name">Fire</span></div>
+              <div class="el-card"><span class="emoji">💧</span><span class="name">Water</span></div>
+              <div class="el-card selected"><span class="emoji">🌍</span><span class="name">Earth</span></div>
+              <div class="el-card"><span class="emoji">💨</span><span class="name">Air</span></div>
+              <div class="el-card fresh"><span class="emoji">☁️</span><span class="name">Steam</span></div>
+              <div class="el-card"><span class="emoji">🪨</span><span class="name">Stone</span></div>
+              <div class="el-card"><span class="emoji">🌊</span><span class="name">Ocean</span></div>
+              <div class="el-card"><span class="emoji">⚡</span><span class="name">Energy</span></div>
+              <div class="el-card"><span class="emoji">🌱</span><span class="name">Plant</span></div>
+              <div class="el-card fresh"><span class="emoji">🌋</span><span class="name">Lava</span></div>
+              <div class="el-card"><span class="emoji">❄️</span><span class="name">Ice</span></div>
+              <div class="el-card"><span class="emoji">🏔️</span><span class="name">Mountain</span></div>
+            </div>
+          </div>
+          <div class="chamber">
+            <span class="chamber-label">Mixing Chamber</span>
+            <div class="slots">
+              <div class="slot filled">🔥<span class="slot-clear">×</span></div>
+              <span class="slot-plus" style="color:var(--accent)">+</span>
+              <div class="slot filled">🌍<span class="slot-clear">×</span></div>
+            </div>
+            <div class="action-zone">
+              <div class="action-result">
+                <span class="emoji">🌋</span>
+                <span class="label">✦ NEW: Lava</span>
+                <span class="pts">+50 pts</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottombar">
+          <div class="bottombar-item active"><span class="icon">⚗️</span><span class="lbl">Mix</span></div>
+          <div class="bottombar-item"><span class="icon">📋</span><span class="lbl">Recipe</span></div>
+          <div class="bottombar-item"><span class="icon">🏆</span><span class="lbl">Achieve</span></div>
+          <div class="bottombar-item"><span class="icon">⚙️</span><span class="lbl">Settings</span></div>
+        </div>
+        <!-- Discovery Overlay -->
+        <div class="discovery-overlay visible">
+          <span class="discovery-badge">✦ New Discovery</span>
+          <span class="discovery-emoji">🌋</span>
+          <span class="discovery-name">Lava</span>
+          <span class="discovery-formula">🔥 Fire + 🌍 Earth</span>
+          <button class="discovery-continue">Continue →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- DIRECTION B -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="section" id="sec-dir-b">
+  <div class="section-title">Direction B: Deep Brass</div>
+  <div class="section-subtitle">
+    The brass metaphor is primary. Backgrounds are darker and more saturated. The room feels like a candlelit workshop where every surface has absorbed decades of golden light.
+  </div>
+
+  <div class="swatch-row">
+    <div class="swatch" style="background:#080604" data-label="deep"></div>
+    <div class="swatch" style="background:#0f0c07" data-label="surface"></div>
+    <div class="swatch" style="background:#151009" data-label="raised"></div>
+    <div class="swatch" style="background:#1e170e" data-label="hover"></div>
+    <div class="swatch" style="background:#2e2416" data-label="border"></div>
+    <div class="swatch" style="background:#c9993a" data-label="accent"></div>
+    <div class="swatch" style="background:#d5c5a8" data-label="text"></div>
+    <div class="swatch" style="background:#b84a2a" data-label="danger"></div>
+  </div>
+
+  <div class="mockup-wrapper">
+    <div class="mockup-label">Game View — Idle State</div>
+    <div class="phone-frame dir-b">
+      <div class="game-ui">
+        <div class="topbar">
+          <span class="topbar-title">ALCHEMICA</span>
+          <span class="topbar-badge">12/61</span>
+          <span class="topbar-score">Score: <span>2,450</span></span>
+        </div>
+        <div class="game-main">
+          <div class="shelf">
+            <div class="shelf-tabs">
+              <span class="shelf-tab active">All</span>
+              <span class="shelf-tab">Nature</span>
+              <span class="shelf-tab">Energy</span>
+              <span class="shelf-tab">Matter</span>
+            </div>
+            <div class="shelf-grid">
+              <div class="el-card"><span class="emoji">🔥</span><span class="name">Fire</span></div>
+              <div class="el-card"><span class="emoji">💧</span><span class="name">Water</span></div>
+              <div class="el-card"><span class="emoji">🌍</span><span class="name">Earth</span></div>
+              <div class="el-card"><span class="emoji">💨</span><span class="name">Air</span></div>
+              <div class="el-card fresh"><span class="emoji">☁️</span><span class="name">Steam</span></div>
+              <div class="el-card"><span class="emoji">🪨</span><span class="name">Stone</span></div>
+              <div class="el-card"><span class="emoji">🌊</span><span class="name">Ocean</span></div>
+              <div class="el-card"><span class="emoji">⚡</span><span class="name">Energy</span></div>
+              <div class="el-card"><span class="emoji">🌱</span><span class="name">Plant</span></div>
+              <div class="el-card fresh"><span class="emoji">🌋</span><span class="name">Lava</span></div>
+              <div class="el-card"><span class="emoji">❄️</span><span class="name">Ice</span></div>
+              <div class="el-card"><span class="emoji">🏔️</span><span class="name">Mountain</span></div>
+            </div>
+          </div>
+          <div class="chamber">
+            <span class="chamber-label">Mixing Chamber</span>
+            <div class="slots">
+              <div class="slot"><span class="slot-plus">+</span></div>
+              <span class="slot-plus" style="color:var(--text-muted)">+</span>
+              <div class="slot"><span class="slot-plus">+</span></div>
+            </div>
+            <div class="action-zone">
+              <span class="action-hint">Tap two elements to combine</span>
+            </div>
+          </div>
+        </div>
+        <div class="bottombar">
+          <div class="bottombar-item active"><span class="icon">⚗️</span><span class="lbl">Mix</span></div>
+          <div class="bottombar-item"><span class="icon">📋</span><span class="lbl">Recipe</span></div>
+          <div class="bottombar-item"><span class="icon">🏆</span><span class="lbl">Achieve</span></div>
+          <div class="bottombar-item"><span class="icon">⚙️</span><span class="lbl">Settings</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- DIRECTION C -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="section" id="sec-dir-c">
+  <div class="section-title">Direction C: Stone & Glass</div>
+  <div class="section-subtitle">
+    Cool stone base with subtle purple-gray undertone. The glass metaphor dominates — surfaces feel like looking through aged apothecary bottles. Brass plays a supporting accent role. Most mineral, most alchemical.
+  </div>
+
+  <div class="swatch-row">
+    <div class="swatch" style="background:#09080a" data-label="deep"></div>
+    <div class="swatch" style="background:#0e0d0f" data-label="surface"></div>
+    <div class="swatch" style="background:#141316" data-label="raised"></div>
+    <div class="swatch" style="background:#1a181d" data-label="hover"></div>
+    <div class="swatch" style="background:#262430" data-label="border"></div>
+    <div class="swatch" style="background:#b8a070" data-label="accent"></div>
+    <div class="swatch" style="background:#ccc5b8" data-label="text"></div>
+    <div class="swatch" style="background:#a85040" data-label="danger"></div>
+  </div>
+
+  <div class="mockup-wrapper">
+    <div class="mockup-label">Game View — Idle State</div>
+    <div class="phone-frame dir-c">
+      <div class="game-ui">
+        <div class="topbar">
+          <span class="topbar-title">ALCHEMICA</span>
+          <span class="topbar-badge">12/61</span>
+          <span class="topbar-score">Score: <span>2,450</span></span>
+        </div>
+        <div class="game-main">
+          <div class="shelf">
+            <div class="shelf-tabs">
+              <span class="shelf-tab active">All</span>
+              <span class="shelf-tab">Nature</span>
+              <span class="shelf-tab">Energy</span>
+              <span class="shelf-tab">Matter</span>
+            </div>
+            <div class="shelf-grid">
+              <div class="el-card"><span class="emoji">🔥</span><span class="name">Fire</span></div>
+              <div class="el-card"><span class="emoji">💧</span><span class="name">Water</span></div>
+              <div class="el-card"><span class="emoji">🌍</span><span class="name">Earth</span></div>
+              <div class="el-card"><span class="emoji">💨</span><span class="name">Air</span></div>
+              <div class="el-card fresh"><span class="emoji">☁️</span><span class="name">Steam</span></div>
+              <div class="el-card"><span class="emoji">🪨</span><span class="name">Stone</span></div>
+              <div class="el-card"><span class="emoji">🌊</span><span class="name">Ocean</span></div>
+              <div class="el-card"><span class="emoji">⚡</span><span class="name">Energy</span></div>
+              <div class="el-card"><span class="emoji">🌱</span><span class="name">Plant</span></div>
+              <div class="el-card fresh"><span class="emoji">🌋</span><span class="name">Lava</span></div>
+              <div class="el-card"><span class="emoji">❄️</span><span class="name">Ice</span></div>
+              <div class="el-card"><span class="emoji">🏔️</span><span class="name">Mountain</span></div>
+            </div>
+          </div>
+          <div class="chamber">
+            <span class="chamber-label">Mixing Chamber</span>
+            <div class="slots">
+              <div class="slot"><span class="slot-plus">+</span></div>
+              <span class="slot-plus" style="color:var(--text-muted)">+</span>
+              <div class="slot"><span class="slot-plus">+</span></div>
+            </div>
+            <div class="action-zone">
+              <span class="action-hint">Tap two elements to combine</span>
+            </div>
+          </div>
+        </div>
+        <div class="bottombar">
+          <div class="bottombar-item active"><span class="icon">⚗️</span><span class="lbl">Mix</span></div>
+          <div class="bottombar-item"><span class="icon">📋</span><span class="lbl">Recipe</span></div>
+          <div class="bottombar-item"><span class="icon">🏆</span><span class="lbl">Achieve</span></div>
+          <div class="bottombar-item"><span class="icon">⚙️</span><span class="lbl">Settings</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- DIRECTION D -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="section" id="sec-dir-d">
+  <div class="section-title">Direction D: Ember Workshop</div>
+  <div class="section-subtitle">
+    The forge is running. Orange-warm undertones push heat into every surface. This is the most emotionally intense option — the workshop feels active, almost alive. Best for evoking the "the room reacts to what you create" brainstorming insight.
+  </div>
+
+  <div class="swatch-row">
+    <div class="swatch" style="background:#0b0706" data-label="deep"></div>
+    <div class="swatch" style="background:#120d0a" data-label="surface"></div>
+    <div class="swatch" style="background:#18120e" data-label="raised"></div>
+    <div class="swatch" style="background:#201812" data-label="hover"></div>
+    <div class="swatch" style="background:#2c2018" data-label="border"></div>
+    <div class="swatch" style="background:#d49040" data-label="accent"></div>
+    <div class="swatch" style="background:#dcc8b0" data-label="text"></div>
+    <div class="swatch" style="background:#c04830" data-label="danger"></div>
+  </div>
+
+  <div class="mockup-wrapper">
+    <div class="mockup-label">Game View — Idle State</div>
+    <div class="phone-frame dir-d">
+      <div class="game-ui">
+        <div class="topbar">
+          <span class="topbar-title">ALCHEMICA</span>
+          <span class="topbar-badge">12/61</span>
+          <span class="topbar-score">Score: <span>2,450</span></span>
+        </div>
+        <div class="game-main">
+          <div class="shelf">
+            <div class="shelf-tabs">
+              <span class="shelf-tab active">All</span>
+              <span class="shelf-tab">Nature</span>
+              <span class="shelf-tab">Energy</span>
+              <span class="shelf-tab">Matter</span>
+            </div>
+            <div class="shelf-grid">
+              <div class="el-card"><span class="emoji">🔥</span><span class="name">Fire</span></div>
+              <div class="el-card"><span class="emoji">💧</span><span class="name">Water</span></div>
+              <div class="el-card"><span class="emoji">🌍</span><span class="name">Earth</span></div>
+              <div class="el-card"><span class="emoji">💨</span><span class="name">Air</span></div>
+              <div class="el-card fresh"><span class="emoji">☁️</span><span class="name">Steam</span></div>
+              <div class="el-card"><span class="emoji">🪨</span><span class="name">Stone</span></div>
+              <div class="el-card"><span class="emoji">🌊</span><span class="name">Ocean</span></div>
+              <div class="el-card"><span class="emoji">⚡</span><span class="name">Energy</span></div>
+              <div class="el-card"><span class="emoji">🌱</span><span class="name">Plant</span></div>
+              <div class="el-card fresh"><span class="emoji">🌋</span><span class="name">Lava</span></div>
+              <div class="el-card"><span class="emoji">❄️</span><span class="name">Ice</span></div>
+              <div class="el-card"><span class="emoji">🏔️</span><span class="name">Mountain</span></div>
+            </div>
+          </div>
+          <div class="chamber">
+            <span class="chamber-label">Mixing Chamber</span>
+            <div class="slots">
+              <div class="slot"><span class="slot-plus">+</span></div>
+              <span class="slot-plus" style="color:var(--text-muted)">+</span>
+              <div class="slot"><span class="slot-plus">+</span></div>
+            </div>
+            <div class="action-zone">
+              <span class="action-hint">Tap two elements to combine</span>
+            </div>
+          </div>
+        </div>
+        <div class="bottombar">
+          <div class="bottombar-item active"><span class="icon">⚗️</span><span class="lbl">Mix</span></div>
+          <div class="bottombar-item"><span class="icon">📋</span><span class="lbl">Recipe</span></div>
+          <div class="bottombar-item"><span class="icon">🏆</span><span class="lbl">Achieve</span></div>
+          <div class="bottombar-item"><span class="icon">⚙️</span><span class="lbl">Settings</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- DIRECTION E -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="section" id="sec-dir-e">
+  <div class="section-title">Direction E: Moonlit Brass</div>
+  <div class="section-subtitle">
+    Nearly neutral-gray base, like cold stone at night. Brass accents create maximum contrast against the cool backdrop. The laboratory is unheated; the brass instruments are the only source of warmth.
+  </div>
+
+  <div class="swatch-row">
+    <div class="swatch" style="background:#08080a" data-label="deep"></div>
+    <div class="swatch" style="background:#0e0e12" data-label="surface"></div>
+    <div class="swatch" style="background:#141418" data-label="raised"></div>
+    <div class="swatch" style="background:#1a1a1f" data-label="hover"></div>
+    <div class="swatch" style="background:#24242e" data-label="border"></div>
+    <div class="swatch" style="background:#c4a858" data-label="accent"></div>
+    <div class="swatch" style="background:#d0c8b8" data-label="text"></div>
+    <div class="swatch" style="background:#b05040" data-label="danger"></div>
+  </div>
+
+  <div class="mockup-wrapper">
+    <div class="mockup-label">Game View — Idle State</div>
+    <div class="phone-frame dir-e">
+      <div class="game-ui">
+        <div class="topbar">
+          <span class="topbar-title">ALCHEMICA</span>
+          <span class="topbar-badge">12/61</span>
+          <span class="topbar-score">Score: <span>2,450</span></span>
+        </div>
+        <div class="game-main">
+          <div class="shelf">
+            <div class="shelf-tabs">
+              <span class="shelf-tab active">All</span>
+              <span class="shelf-tab">Nature</span>
+              <span class="shelf-tab">Energy</span>
+              <span class="shelf-tab">Matter</span>
+            </div>
+            <div class="shelf-grid">
+              <div class="el-card"><span class="emoji">🔥</span><span class="name">Fire</span></div>
+              <div class="el-card"><span class="emoji">💧</span><span class="name">Water</span></div>
+              <div class="el-card"><span class="emoji">🌍</span><span class="name">Earth</span></div>
+              <div class="el-card"><span class="emoji">💨</span><span class="name">Air</span></div>
+              <div class="el-card fresh"><span class="emoji">☁️</span><span class="name">Steam</span></div>
+              <div class="el-card"><span class="emoji">🪨</span><span class="name">Stone</span></div>
+              <div class="el-card"><span class="emoji">🌊</span><span class="name">Ocean</span></div>
+              <div class="el-card"><span class="emoji">⚡</span><span class="name">Energy</span></div>
+              <div class="el-card"><span class="emoji">🌱</span><span class="name">Plant</span></div>
+              <div class="el-card fresh"><span class="emoji">🌋</span><span class="name">Lava</span></div>
+              <div class="el-card"><span class="emoji">❄️</span><span class="name">Ice</span></div>
+              <div class="el-card"><span class="emoji">🏔️</span><span class="name">Mountain</span></div>
+            </div>
+          </div>
+          <div class="chamber">
+            <span class="chamber-label">Mixing Chamber</span>
+            <div class="slots">
+              <div class="slot"><span class="slot-plus">+</span></div>
+              <span class="slot-plus" style="color:var(--text-muted)">+</span>
+              <div class="slot"><span class="slot-plus">+</span></div>
+            </div>
+            <div class="action-zone">
+              <span class="action-hint">Tap two elements to combine</span>
+            </div>
+          </div>
+        </div>
+        <div class="bottombar">
+          <div class="bottombar-item active"><span class="icon">⚗️</span><span class="lbl">Mix</span></div>
+          <div class="bottombar-item"><span class="icon">📋</span><span class="lbl">Recipe</span></div>
+          <div class="bottombar-item"><span class="icon">🏆</span><span class="lbl">Achieve</span></div>
+          <div class="bottombar-item"><span class="icon">⚙️</span><span class="lbl">Settings</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- DIRECTION F -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="section" id="sec-dir-f">
+  <div class="section-title">Direction F: Warm Parchment</div>
+  <div class="section-subtitle">
+    The lightest and warmest of the set. Backgrounds have visible warmth even at rest. Text carries a parchment quality. Feels like an illuminated manuscript or a well-used leather-bound journal.
+  </div>
+
+  <div class="swatch-row">
+    <div class="swatch" style="background:#0c0a06" data-label="deep"></div>
+    <div class="swatch" style="background:#13100a" data-label="surface"></div>
+    <div class="swatch" style="background:#1a1510" data-label="raised"></div>
+    <div class="swatch" style="background:#221c14" data-label="hover"></div>
+    <div class="swatch" style="background:#302820" data-label="border"></div>
+    <div class="swatch" style="background:#d8b050" data-label="accent"></div>
+    <div class="swatch" style="background:#e0d0b8" data-label="text"></div>
+    <div class="swatch" style="background:#c85838" data-label="danger"></div>
+  </div>
+
+  <div class="mockup-wrapper">
+    <div class="mockup-label">Game View — Idle State</div>
+    <div class="phone-frame dir-f">
+      <div class="game-ui">
+        <div class="topbar">
+          <span class="topbar-title">ALCHEMICA</span>
+          <span class="topbar-badge">12/61</span>
+          <span class="topbar-score">Score: <span>2,450</span></span>
+        </div>
+        <div class="game-main">
+          <div class="shelf">
+            <div class="shelf-tabs">
+              <span class="shelf-tab active">All</span>
+              <span class="shelf-tab">Nature</span>
+              <span class="shelf-tab">Energy</span>
+              <span class="shelf-tab">Matter</span>
+            </div>
+            <div class="shelf-grid">
+              <div class="el-card"><span class="emoji">🔥</span><span class="name">Fire</span></div>
+              <div class="el-card"><span class="emoji">💧</span><span class="name">Water</span></div>
+              <div class="el-card"><span class="emoji">🌍</span><span class="name">Earth</span></div>
+              <div class="el-card"><span class="emoji">💨</span><span class="name">Air</span></div>
+              <div class="el-card fresh"><span class="emoji">☁️</span><span class="name">Steam</span></div>
+              <div class="el-card"><span class="emoji">🪨</span><span class="name">Stone</span></div>
+              <div class="el-card"><span class="emoji">🌊</span><span class="name">Ocean</span></div>
+              <div class="el-card"><span class="emoji">⚡</span><span class="name">Energy</span></div>
+              <div class="el-card"><span class="emoji">🌱</span><span class="name">Plant</span></div>
+              <div class="el-card fresh"><span class="emoji">🌋</span><span class="name">Lava</span></div>
+              <div class="el-card"><span class="emoji">❄️</span><span class="name">Ice</span></div>
+              <div class="el-card"><span class="emoji">🏔️</span><span class="name">Mountain</span></div>
+            </div>
+          </div>
+          <div class="chamber">
+            <span class="chamber-label">Mixing Chamber</span>
+            <div class="slots">
+              <div class="slot"><span class="slot-plus">+</span></div>
+              <span class="slot-plus" style="color:var(--text-muted)">+</span>
+              <div class="slot"><span class="slot-plus">+</span></div>
+            </div>
+            <div class="action-zone">
+              <span class="action-hint">Tap two elements to combine</span>
+            </div>
+          </div>
+        </div>
+        <div class="bottombar">
+          <div class="bottombar-item active"><span class="icon">⚗️</span><span class="lbl">Mix</span></div>
+          <div class="bottombar-item"><span class="icon">📋</span><span class="lbl">Recipe</span></div>
+          <div class="bottombar-item"><span class="icon">🏆</span><span class="lbl">Achieve</span></div>
+          <div class="bottombar-item"><span class="icon">⚙️</span><span class="lbl">Settings</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- COMPARE -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="section" id="sec-compare">
+  <div class="section-title">Side-by-Side Comparison</div>
+  <div class="section-subtitle">
+    All six directions at a glance. Look at background warmth, accent intensity, and border visibility.
+  </div>
+
+  <div class="comparison-grid">
+    <!-- A -->
+    <div>
+      <div class="mockup-label">A: Subtle Warmth (Reference)</div>
+      <div class="phone-frame dir-a" style="aspect-ratio:19.5/9">
+        <div class="game-ui">
+          <div class="topbar"><span class="topbar-title">ALCHEMICA</span><span class="topbar-score" style="margin-left:auto">Score: <span>2,450</span></span></div>
+          <div class="game-main">
+            <div class="shelf"><div class="shelf-tabs"><span class="shelf-tab active">All</span><span class="shelf-tab">Nature</span></div><div class="shelf-grid"><div class="el-card"><span class="emoji">🔥</span></div><div class="el-card"><span class="emoji">💧</span></div><div class="el-card"><span class="emoji">🌍</span></div><div class="el-card"><span class="emoji">💨</span></div><div class="el-card fresh"><span class="emoji">☁️</span></div><div class="el-card"><span class="emoji">🪨</span></div></div></div>
+            <div class="chamber"><div class="slots"><div class="slot filled">🔥</div><span class="slot-plus" style="color:var(--accent)">+</span><div class="slot filled">🌍</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- B -->
+    <div>
+      <div class="mockup-label">B: Deep Brass</div>
+      <div class="phone-frame dir-b" style="aspect-ratio:19.5/9">
+        <div class="game-ui">
+          <div class="topbar"><span class="topbar-title">ALCHEMICA</span><span class="topbar-score" style="margin-left:auto">Score: <span>2,450</span></span></div>
+          <div class="game-main">
+            <div class="shelf"><div class="shelf-tabs"><span class="shelf-tab active">All</span><span class="shelf-tab">Nature</span></div><div class="shelf-grid"><div class="el-card"><span class="emoji">🔥</span></div><div class="el-card"><span class="emoji">💧</span></div><div class="el-card"><span class="emoji">🌍</span></div><div class="el-card"><span class="emoji">💨</span></div><div class="el-card fresh"><span class="emoji">☁️</span></div><div class="el-card"><span class="emoji">🪨</span></div></div></div>
+            <div class="chamber"><div class="slots"><div class="slot filled">🔥</div><span class="slot-plus" style="color:var(--accent)">+</span><div class="slot filled">🌍</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- C -->
+    <div>
+      <div class="mockup-label">C: Stone & Glass</div>
+      <div class="phone-frame dir-c" style="aspect-ratio:19.5/9">
+        <div class="game-ui">
+          <div class="topbar"><span class="topbar-title">ALCHEMICA</span><span class="topbar-score" style="margin-left:auto">Score: <span>2,450</span></span></div>
+          <div class="game-main">
+            <div class="shelf"><div class="shelf-tabs"><span class="shelf-tab active">All</span><span class="shelf-tab">Nature</span></div><div class="shelf-grid"><div class="el-card"><span class="emoji">🔥</span></div><div class="el-card"><span class="emoji">💧</span></div><div class="el-card"><span class="emoji">🌍</span></div><div class="el-card"><span class="emoji">💨</span></div><div class="el-card fresh"><span class="emoji">☁️</span></div><div class="el-card"><span class="emoji">🪨</span></div></div></div>
+            <div class="chamber"><div class="slots"><div class="slot filled">🔥</div><span class="slot-plus" style="color:var(--accent)">+</span><div class="slot filled">🌍</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- D -->
+    <div>
+      <div class="mockup-label">D: Ember Workshop</div>
+      <div class="phone-frame dir-d" style="aspect-ratio:19.5/9">
+        <div class="game-ui">
+          <div class="topbar"><span class="topbar-title">ALCHEMICA</span><span class="topbar-score" style="margin-left:auto">Score: <span>2,450</span></span></div>
+          <div class="game-main">
+            <div class="shelf"><div class="shelf-tabs"><span class="shelf-tab active">All</span><span class="shelf-tab">Nature</span></div><div class="shelf-grid"><div class="el-card"><span class="emoji">🔥</span></div><div class="el-card"><span class="emoji">💧</span></div><div class="el-card"><span class="emoji">🌍</span></div><div class="el-card"><span class="emoji">💨</span></div><div class="el-card fresh"><span class="emoji">☁️</span></div><div class="el-card"><span class="emoji">🪨</span></div></div></div>
+            <div class="chamber"><div class="slots"><div class="slot filled">🔥</div><span class="slot-plus" style="color:var(--accent)">+</span><div class="slot filled">🌍</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- E -->
+    <div>
+      <div class="mockup-label">E: Moonlit Brass</div>
+      <div class="phone-frame dir-e" style="aspect-ratio:19.5/9">
+        <div class="game-ui">
+          <div class="topbar"><span class="topbar-title">ALCHEMICA</span><span class="topbar-score" style="margin-left:auto">Score: <span>2,450</span></span></div>
+          <div class="game-main">
+            <div class="shelf"><div class="shelf-tabs"><span class="shelf-tab active">All</span><span class="shelf-tab">Nature</span></div><div class="shelf-grid"><div class="el-card"><span class="emoji">🔥</span></div><div class="el-card"><span class="emoji">💧</span></div><div class="el-card"><span class="emoji">🌍</span></div><div class="el-card"><span class="emoji">💨</span></div><div class="el-card fresh"><span class="emoji">☁️</span></div><div class="el-card"><span class="emoji">🪨</span></div></div></div>
+            <div class="chamber"><div class="slots"><div class="slot filled">🔥</div><span class="slot-plus" style="color:var(--accent)">+</span><div class="slot filled">🌍</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- F -->
+    <div>
+      <div class="mockup-label">F: Warm Parchment</div>
+      <div class="phone-frame dir-f" style="aspect-ratio:19.5/9">
+        <div class="game-ui">
+          <div class="topbar"><span class="topbar-title">ALCHEMICA</span><span class="topbar-score" style="margin-left:auto">Score: <span>2,450</span></span></div>
+          <div class="game-main">
+            <div class="shelf"><div class="shelf-tabs"><span class="shelf-tab active">All</span><span class="shelf-tab">Nature</span></div><div class="shelf-grid"><div class="el-card"><span class="emoji">🔥</span></div><div class="el-card"><span class="emoji">💧</span></div><div class="el-card"><span class="emoji">🌍</span></div><div class="el-card"><span class="emoji">💨</span></div><div class="el-card fresh"><span class="emoji">☁️</span></div><div class="el-card"><span class="emoji">🪨</span></div></div></div>
+            <div class="chamber"><div class="slots"><div class="slot filled">🔥</div><span class="slot-plus" style="color:var(--accent)">+</span><div class="slot filled">🌍</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- STATES -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="section" id="sec-states">
+  <div class="section-title">Interactive States</div>
+  <div class="section-subtitle">
+    Element card states across Direction A (reference). These apply identically across all directions via CSS custom properties.
+  </div>
+
+  <div class="mockup-wrapper dir-a" style="max-width:600px">
+    <div class="mockup-label">Element Card States</div>
+    <div class="states-row">
+      <div class="state-card" style="border:1px solid var(--shelf-card-border);background:var(--shelf-card-bg);border-radius:6px">
+        <span>🔥</span>
+        <span style="font-size:9px;font-family:'Courier New',monospace;color:var(--text-muted)">Fire</span>
+        <span class="state-label" style="color:var(--text-muted)">Default</span>
+      </div>
+      <div class="state-card" style="border:1px solid var(--border-mid);background:var(--bg-hover);border-radius:6px">
+        <span>💧</span>
+        <span style="font-size:9px;font-family:'Courier New',monospace;color:var(--text-muted)">Water</span>
+        <span class="state-label" style="color:var(--text-secondary)">Hover</span>
+      </div>
+      <div class="state-card" style="border:1px solid var(--border-hot);background:var(--shelf-card-bg);box-shadow:0 0 0 1px var(--accent-dim);border-radius:6px">
+        <span>🌍</span>
+        <span style="font-size:9px;font-family:'Courier New',monospace;color:var(--text-muted)">Earth</span>
+        <span class="state-label" style="color:var(--accent)">Selected</span>
+      </div>
+      <div class="state-card" style="border:1px solid var(--shelf-card-border);background:var(--shelf-card-bg);box-shadow:0 0 8px var(--material-glass-amber);border-radius:6px">
+        <span>☁️</span>
+        <span style="font-size:9px;font-family:'Courier New',monospace;color:var(--text-muted)">Steam</span>
+        <span class="state-label" style="color:var(--text-secondary)">Fresh</span>
+      </div>
+      <div class="state-card" style="border:1px solid var(--shelf-card-border);background:var(--shelf-card-bg);opacity:0.85;border-radius:6px">
+        <span>💨</span>
+        <span style="font-size:9px;font-family:'Courier New',monospace;color:var(--text-muted)">Air</span>
+        <span class="state-label" style="color:var(--text-muted)">Settled</span>
+      </div>
+      <div class="state-card" style="border:1px solid var(--shelf-card-border);background:var(--shelf-card-bg);box-shadow:0 0 3px rgba(220,200,180,0.04);border-radius:6px">
+        <span>⚡</span>
+        <span style="font-size:9px;font-family:'Courier New',monospace;color:var(--text-muted)">Energy</span>
+        <span class="state-label" style="color:var(--text-muted)">Power</span>
+      </div>
+    </div>
+
+    <div class="mockup-label" style="margin-top:32px">Slot States</div>
+    <div class="states-row">
+      <div style="width:56px;height:56px;border:2px dashed var(--border-mid);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-family:'Courier New',monospace;font-size:18px;position:relative">
+        +
+        <span class="state-label" style="color:var(--text-muted);font-family:'Courier New',monospace;font-size:8px">Empty</span>
+      </div>
+      <div style="width:56px;height:56px;border:2px solid var(--border-hot);border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--accent-dim);font-size:22px;position:relative">
+        🔥
+        <span class="state-label" style="color:var(--accent);font-family:'Courier New',monospace;font-size:8px">Filled</span>
+      </div>
+      <div style="width:56px;height:56px;border:2px solid var(--border-hot);border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--accent-dim);font-size:22px;position:relative;animation:breathe 2s ease-in-out infinite">
+        🌍
+        <span class="state-label" style="color:var(--accent);font-family:'Courier New',monospace;font-size:8px">Ready</span>
+      </div>
+    </div>
+
+    <div class="mockup-label" style="margin-top:32px">Action Zone States</div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin:12px 0">
+      <div style="padding:12px 16px;border:1px solid var(--border-subtle);border-radius:8px;background:var(--material-glass);text-align:center;min-width:140px">
+        <span style="font-family:'Courier New',monospace;font-size:10px;color:var(--text-muted);font-style:italic">Tap two elements</span>
+        <div style="font-size:8px;color:var(--text-muted);font-family:'Courier New',monospace;margin-top:4px">IDLE</div>
+      </div>
+      <div style="padding:12px 16px;border:1px solid var(--border-subtle);border-radius:8px;background:var(--material-glass);text-align:center;min-width:140px">
+        <div style="font-size:24px">🌋</div>
+        <div style="font-family:'Courier New',monospace;font-size:11px;color:var(--accent);font-weight:700">✦ Lava</div>
+        <div style="font-family:'Courier New',monospace;font-size:10px;color:var(--text-secondary)">+50 pts</div>
+        <div style="font-size:8px;color:var(--text-muted);font-family:'Courier New',monospace;margin-top:4px">NEW DISCOVERY</div>
+      </div>
+      <div style="padding:12px 16px;border:1px solid var(--border-subtle);border-radius:8px;background:var(--material-glass);text-align:center;min-width:140px">
+        <div style="font-size:24px">☁️</div>
+        <div style="font-family:'Courier New',monospace;font-size:11px;color:var(--text-primary)">Steam</div>
+        <div style="font-family:'Courier New',monospace;font-size:10px;color:var(--text-secondary)">+10 pts</div>
+        <div style="font-size:8px;color:var(--text-muted);font-family:'Courier New',monospace;margin-top:4px">KNOWN ELEMENT</div>
+      </div>
+      <div style="padding:12px 16px;border:1px solid var(--border-subtle);border-radius:8px;background:var(--material-glass);text-align:center;min-width:140px">
+        <div style="font-family:'Courier New',monospace;font-size:10px;color:var(--text-secondary);font-style:italic">Not yet...</div>
+        <div style="font-size:8px;color:var(--text-muted);font-family:'Courier New',monospace;margin-top:4px">NO REACTION</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes breathe {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(212, 168, 74, 0.2); }
+    50% { box-shadow: 0 0 8px 2px rgba(212, 168, 74, 0.35); }
+  }
+</style>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>

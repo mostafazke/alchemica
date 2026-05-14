@@ -1,20 +1,26 @@
 ---
 stepsCompleted: [1, 2]
 inputDocuments:
-  - _bmad-output/planning-artifacts/research/domain-alchemica-best-practices-research-2026-05-09.md
-  - _bmad-output/planning-artifacts/research/domain-casual-puzzle-idle-crafting-mobile-games-research-2026-05-08.md
+  - _bmad-output/planning-artifacts/ux-design-specification.md
+  - _bmad-output/planning-artifacts/architecture.md
+  - _bmad-output/planning-artifacts/DECISIONS.md
+  - copilot_CODE_BRIEF.md
+  - VISUAL_PHILOSOPHY.md
 project_name: Alchemica
 date: '2026-05-09'
+milestone: Phase 1 Visual Redesign
+previous_milestone: Alchemica Excellence v1
 ---
 
-# Alchemica - Epic Breakdown
+# Alchemica — Epic Breakdown (Phase 1 Visual Redesign)
 
 ## Overview
 
-This document provides the complete epic and story breakdown for Alchemica, decomposing the best-practices research findings into three implementable, independently-shippable epics organized around user value.
+This document decomposes the Phase 1 Visual Redesign into implementable epics and stories. The redesign transforms Alchemica from a navy-cold submarine control room into a warm-stone ancient workshop, implementing the material language (dark brass, apothecary glass, warm stone) and emotional design system described in the UX Design Specification and Visual Philosophy.
 
-**Milestone:** Alchemica Excellence v1 — 90-day roadmap
-**Source research:** `domain-alchemica-best-practices-research-2026-05-09.md`
+**Milestone:** Phase 1 Visual Redesign
+**Source documents:** UX Design Specification, Architecture, Code Brief, Visual Philosophy, DECISIONS.md
+**Previous milestone:** Alchemica Excellence v1 (complete)
 
 ---
 
@@ -22,348 +28,425 @@ This document provides the complete epic and story breakdown for Alchemica, deco
 
 ### Functional Requirements
 
-| ID | Requirement | Source |
-|---|---|---|
-| FR-01 | App Store title/subtitle/keyword metadata optimized for organic search | Research §6.1 |
-| FR-02 | 5 new App Store screenshots following best-practice template | Research §6.2 |
-| FR-03 | Shareable discovery card (canvas-rendered image) generated on new element discovery | Research §3.2 |
-| FR-04 | In-app rating prompt shown after session 5, post-daily-challenge | Research §6.3 |
-| FR-05 | Daily local push notification (streak reminder, 8 PM, opt-in) | Research §7.4 |
-| FR-06 | 3-step guided first-session onboarding sequence | Research §2.1 |
-| FR-07 | Discovery celebration: particle burst + full-width banner on new element discovery | Research §1.1 |
-| FR-08 | Hint offer trigger after 3rd consecutive failed combination (rewarded video) | Research §4.2 |
-| FR-09 | "Element of the Week" event banner in main UI | Research §3.3 |
-| FR-10 | Element category grouping in shelf view with per-category completion indicators | Research §1.2, §2.2 |
-| FR-11 | Weekly discovery leaderboard (anonymous, local device sort) | Research §3.3 |
-| FR-12 | Firebase Analytics instrumentation (10 core events) | Research §7.5 |
-| FR-13 | Space Science element pack (+50 elements, astronomy/physics theme) | Research §5.1 |
+FR1: Implement three-layer CSS token architecture (raw → semantic → component) replacing all hardcoded hex values
+FR2: Migrate background palette from navy-cold (#0d1b2e) to stone-warm (#0a0805) across all surfaces
+FR3: Migrate accent color from teal (#4af0c0) to warm gold (#d4a84a) globally
+FR4: Migrate text colors from cool parchment (#c8d8e8) to warm parchment (#d8cbb8)
+FR5: Implement material tokens (brass-highlight, brass-shadow, glass-clear, glass-amber, stone-warm)
+FR6: Implement energy state tokens (settled, fresh, power) for ElementCard visual states
+FR7: Rewrite ElementCard with 6 visual states (default, hover, selected, fresh, settled, power)
+FR8: Create MixingSlot component replacing Slot.svelte with 4 states (empty, filled, ready, reacting)
+FR9: Create ActionZone component replacing ResultDisplay.svelte with 4 states (idle, discovery, known, failure)
+FR10: Create ShelfGrid component replacing ElementGrid.svelte with CSS Grid and vertical scroll
+FR11: Create FilterTabs component with 44px touch targets and category count badges
+FR12: Rewrite TopBar with warm materials, discovery count primary, score secondary, compact mode
+FR13: Create BottomBar component with 4 tabs extracted from route layout, compact mode
+FR14: Rewrite DiscoveryOverlay with 1.2s development animation (scale 0.1→1.0, spring curve)
+FR15: Implement discovery animation sequence: overlay → badge → emoji scale → silence → sound → name → continue
+FR16: Implement failure animation: gentle drift-back (320ms), single rising particle, "Not yet" copy
+FR17: Implement known-element result: inline ActionZone display, "+N pts" float animation (600ms)
+FR18: Implement slot fill animation: scale 0.6→1.0 (180ms), opacity 0→1, glass-clink sound
+FR19: Implement auto-react sequence: breathe animation → settle delay 180ms → world contracts → radial shimmer
+FR20: Create frequency state store (`alchemica_frequency` in localStorage) with write-through persistence
+FR21: Create threshold constants file for energy state boundaries (FRESH_MAX, SETTLED_MIN)
+FR22: Implement AnimationController service wrapping canvas particle system with named methods
+FR23: Mount single overlay canvas covering full game area (pointer-events: none, z-index 30)
+FR24: Refactor MixingChamber as layout shell connecting ShelfGrid + Chamber + Canvas
+FR25: Implement font loading for Space Mono (Google Fonts CDN, display=swap, preconnect)
+FR26: Implement ghost/outlined button style system (no filled/solid backgrounds)
+FR27: Update PWA manifest theme_color and background_color from #0d1b2e to #0a0805
 
 ### Non-Functional Requirements
 
-| ID | Requirement | Source |
-|---|---|---|
-| NFR-01 | Discovery celebration animation ≤ 500ms total duration; 60fps on iOS, 30fps+ on Android | Research §7.2 |
-| NFR-02 | Shareable card renders within 300ms of trigger | Research §3.2 |
-| NFR-03 | Push notification permission request: show only after first daily challenge completion | Research §7.4 |
-| NFR-04 | Rating prompt: never shown more than once per 365 days; pre-screened with "Enjoying Alchemica?" gate | Research §6.3 |
-| NFR-05 | All new element recipes pass CVEA quality check (Combinable, Verifiable, Evocative, Anchored) | Research §5.2 |
-| NFR-06 | New analytics events must not block main thread; fire asynchronously | Research §7.5 |
+NFR1: All interactive elements ≥ 44×44px touch targets (Apple HIG / WCAG 2.5.5)
+NFR2: All text ≥ 11px minimum size
+NFR3: Text contrast WCAG AA: primary text ≥ 11:1, secondary ≥ 5.5:1, muted ≥ 3:1 (decorative only)
+NFR4: prefers-reduced-motion respected — disable scale/slide/particle, keep opacity fades
+NFR5: Focus-visible indicators on all interactive elements (2px accent outline, 2px offset)
+NFR6: ARIA roles and labels on all interactive components (role="button", aria-label, aria-pressed, aria-live)
+NFR7: Every tap produces visible feedback within 50ms
+NFR8: 60fps animation on supported devices
+NFR9: Canvas particle system with object pooling (max 120 particles), hardware concurrency scaling
+NFR10: No layout shift during any animation or state change
+NFR11: Landscape-locked, fluid scaling via clamp(), no media query breakpoints
+NFR12: 216px minimum game area height (iPhone SE) compatibility
+NFR13: Compact mode at viewport height < 350px (TopBar hides score, BottomBar icon-only)
+
+### Additional Requirements (Architecture)
+
+AR1: New components created alongside old — parallel creation, not rename (Decision D-07)
+AR2: Old components deleted only in cleanup commit after Phase 1 passes visual QA
+AR3: Frequency store separate from game save (Decision D-02) — cosmetic data, not game state
+AR4: AnimationController accessed via Svelte context (setContext/getContext), not module import (Decision D-11)
+AR5: No GSAP dependency — Web Animations API + CSS transitions cover all contracts (Decision D-05)
+AR6: Tailwind CSS stays in build, not used for game UI (Decision D-13)
+AR7: Routes switch imports from old to new components only after new components pass QA
+
+### UX Design Requirements
+
+UX-DR1: Implement "ancient workshop" material language — brass, glass, stone surfaces across all UI elements
+UX-DR2: No red for failure anywhere — failed combinations use "Not yet" language, gentle animations, single particle
+UX-DR3: No tutorial modals — first-session hints are contextual pulses that dissolve after first use
+UX-DR4: No filled/solid background buttons — all buttons ghost or outlined on warm stone surface
+UX-DR5: Discovery animation conveys emergence, not delivery — element fights to exist through resistance
+UX-DR6: Shelf becomes player portrait — visual frequency states make each player's shelf unique
+UX-DR7: Power elements create environmental stillness, not decoration — barely perceptible glow
+UX-DR8: Silence-then-sound timing in discovery sequence — 200ms gap before sound plays
+UX-DR9: Failure copy uses "Not yet" / "These aren't ready for each other" — never "No Reaction"
+UX-DR10: Score is secondary to discovery count in TopBar hierarchy
+UX-DR11: Category tabs emerge as elements are discovered — never show empty categories
+UX-DR12: Element detail popover on long-press (>500ms) showing metadata
+UX-DR13: Scrollbar styling matches warm stone palette (track: bg-deep, thumb: border-mid)
+UX-DR14: View Transitions API for BottomBar tab switches with horizontal slide
 
 ### FR Coverage Map
 
-| Epic | FRs Covered |
-|---|---|
-| Epic 1: Discovery & Growth | FR-01, FR-02, FR-03, FR-04, FR-05 |
-| Epic 2: Experience Depth | FR-06, FR-07, FR-08, FR-09 |
-| Epic 3: Engagement Systems | FR-10, FR-11, FR-12, FR-13 |
+| FR | Epic | Story |
+|----|------|-------|
+| FR1–FR6, FR25–FR27 | Epic 1 | 1.1 |
+| FR1–FR6 (verification) | Epic 1 | 1.2 |
+| FR7, FR20, FR21 | Epic 2 | 2.1 |
+| FR8, FR18 | Epic 2 | 2.2 |
+| FR9, FR16, FR17 | Epic 2 | 2.3 |
+| FR10, FR11 | Epic 2 | 2.4 |
+| FR12 | Epic 2 | 2.5 |
+| FR13 | Epic 2 | 2.6 |
+| FR22, FR23 | Epic 3 | 3.1 |
+| FR14, FR15, FR19 | Epic 3 | 3.2 |
+| FR24 | Epic 3 | 3.3 |
 
 ---
 
 ## Epic List
 
-1. **Epic 1: Discovery & Growth** — Maximize organic discoverability and install-to-retain conversion
-2. **Epic 2: Experience Depth** — Make the first 60 seconds irresistible and every session feel rewarding
-3. **Epic 3: Engagement Systems** — Build the long-term retention scaffolding that sustains a daily player for 6+ months
+| Epic | Title | Goal | Stories |
+|------|-------|------|---------|
+| Epic 1 | Design Foundation | Token architecture + palette migration — everything else builds on this | 2 stories |
+| Epic 2 | Core Components | The six Phase 1 components + frequency system | 6 stories |
+| Epic 3 | Animation & Integration | Canvas overlay, animation sequences, MixingChamber integration | 3 stories |
 
 ---
 
-## Epic 1: Discovery & Growth
+## Epic 1: Design Foundation
 
-**Goal:** Maximize organic discoverability and install-to-retain conversion through ASO optimization, viral sharing mechanics, and push notification infrastructure.
+**Goal:** Establish the three-layer CSS token architecture and migrate the entire palette from navy-cold to stone-warm. After this epic, every component in the app renders against the new warm background with correct text contrast, accent colors, and material tokens available. No component rewrites — just the foundation they'll build on.
 
-**User value:** Players can find Alchemica via organic search; they naturally share discoveries with friends; they return daily thanks to timely reminders.
+### Story 1.1: Token Architecture & Palette Migration
 
-**Success criteria:**
-- App Store metadata updated (title, subtitle, keyword field, 5 screenshots)
-- Shareable discovery card functional and tested on iOS + Android
-- Push notification permission flow live; daily reminder scheduled on opt-in
-- In-app rating prompt live with pre-screening gate
-
-**Dependencies:** None — this epic is independently shippable.
-
----
-
-### Story 1.1: ASO Metadata Overhaul
-
-**As a** potential new player browsing the App Store,
-**I want** to find Alchemica when I search "element game", "alchemy game", or "science puzzle",
-**so that** I can discover a game that matches exactly what I'm looking for.
+As a developer,
+I want the three-layer CSS token system (raw → semantic → component) defined in app.css with the warm stone palette replacing all hardcoded navy values,
+So that all subsequent component work uses consistent, overridable design tokens.
 
 **Acceptance Criteria:**
-- [ ] App Store Connect title updated to: `Alchemica: Element Discovery Lab`
-- [ ] iOS subtitle updated to: `Mix elements, uncover science. Daily challenges & achievements await!`
-- [ ] iOS keyword field updated: `alchemy,elements,science,crafting,puzzle,chemistry,discovery,chemistry game,little alchemy`
-- [ ] Google Play short description updated (first 80 chars optimized)
-- [ ] Google Play long description first 200 words contain all 7 target keywords naturally
 
-**Notes:** Pure metadata change — no code required. Verify keyword field is exactly 100 chars on iOS.
+**Given** the current app.css has hardcoded hex values (#0d1b2e, #c8d8e8, #4af0c0, etc.)
+**When** I replace them with the three-layer token architecture from Architecture §4
+**Then** Layer 1 (raw values) defines ~15 primitive color variables
+**And** Layer 2 (semantic tokens) maps raw values to UI roles (bg-deep, bg-surface, border-subtle, accent, text-primary, etc.)
+**And** all existing hardcoded hex values in app.css are replaced with semantic token references
+**And** the background shifts from #0d1b2e to var(--color-bg-deep) (#0a0805)
+**And** the accent shifts from #4af0c0 to var(--color-accent) (#d4a84a)
+**And** text color shifts from #c8d8e8 to var(--color-text-primary) (#d8cbb8)
 
----
+**Given** material tokens don't exist yet
+**When** I add them to Layer 2
+**Then** --material-brass-highlight, --material-brass-shadow, --material-glass-clear, --material-glass-amber, --material-stone-warm are defined per Code Brief
 
-### Story 1.2: App Store Screenshots (5 New)
+**Given** energy state tokens don't exist yet
+**When** I add them to Layer 2
+**Then** --energy-settled (opacity 0.85), --energy-fresh (amber glass box-shadow), --energy-power (barely visible 3px glow) are defined per Code Brief
 
-**As a** potential player viewing the App Store listing,
-**I want** to see compelling screenshots that show the discovery mechanic, daily challenge streak, achievements, and clean UI,
-**so that** I can immediately understand what Alchemica offers and want to download it.
+**Given** the font loading needs Space Mono
+**When** I add preconnect + preload links to app.html
+**Then** Space Mono 400/700 loads from Google Fonts CDN with display=swap
+**And** font-family declarations use the fallback stack: 'Space Mono', ui-monospace, 'Cascadia Code', 'Fira Code', monospace
 
-**Acceptance Criteria:**
-- [ ] Screenshot 1: Discovery moment in progress — mixing chamber active, "New Element!" banner visible; headline: "Discover 300+ elements through real science"
-- [ ] Screenshot 2: Daily challenge UI with streak counter visible (e.g., "14-day streak!"); headline: "A new science challenge every day"
-- [ ] Screenshot 3: Achievement grid with earned badges; headline: "Earn achievements. Explore everything."
-- [ ] Screenshot 4: Element shelf showing category view (once implemented in Epic 3) or current shelf; headline: "300+ elements to discover"
-- [ ] Screenshot 5: Full game UI (mixing chamber + shelf + top bar); headline: "Clean, distraction-free mixing experience"
-- [ ] All screenshots meet App Store (1290×2796px) and Google Play (1080×1920px) dimension requirements
+**Given** the PWA manifest has navy colors
+**When** I update vite.config.ts
+**Then** theme_color and background_color are both #0a0805
 
-**Notes:** Can use current screenshots as baseline; Screenshot 4 should be updated post-Epic 3 when category view is live.
+**Given** the :focus-visible outline is teal
+**When** I update it
+**Then** outline color uses var(--color-accent)
 
----
+**Given** scrollbar styles use navy colors
+**When** I update them
+**Then** scrollbar track uses var(--color-bg-deep), thumb uses var(--color-border-mid)
 
-### Story 1.3: Shareable Discovery Card
+**Given** prefers-reduced-motion is not globally handled
+**When** I add the reduced motion media query block
+**Then** a single block in app.css disables all transition-duration and animation-duration to 0.01ms
+**And** opacity fades are preserved via a prefers-reduced-motion: no-preference block where needed
 
-**As a** player who just discovered a new element,
-**I want** to share a branded image card of my discovery to social media or messaging,
-**so that** I can celebrate with friends and invite them to play Alchemica.
+**Given** buttons currently may use filled backgrounds
+**When** I add the ghost button base styles
+**Then** a .btn-primary and .btn-ghost class use transparent backgrounds with border-only styling per Code Brief Law 2
 
-**Acceptance Criteria:**
-- [ ] After discovering any new element, a "Share your discovery! 🎉" button appears in the discovery notification
-- [ ] Tapping share generates a canvas-rendered PNG card (no server call) containing:
-  - Element name + icon
-  - Discovery number (e.g., "Discovery #47 of 300")
-  - Game logo and tagline
-  - "Play Alchemica" CTA text
-- [ ] Card renders within 300ms of trigger
-- [ ] On daily challenge completion, a second shareable format is available: "I solved today's Alchemica challenge! 🧪"
-- [ ] Native share sheet opens with the generated image (iOS: `UIActivityViewController`; Android: `ACTION_SEND`)
-- [ ] Works offline (no external images fetched at share time)
+### Story 1.2: Token Verification Pass
 
-**Technical notes:** Use `HTMLCanvasElement` → `canvas.toBlob()` → Web Share API (`navigator.share({ files: [imageFile] })`). Capacitor's `@capacitor/share` plugin wraps this natively.
-
----
-
-### Story 1.4: In-App Rating Prompt
-
-**As a** player who has formed a habit of playing Alchemica,
-**I want** to be asked to rate the app at the right moment,
-**so that** my positive experience is captured as a review without feeling interrupted.
+As a developer,
+I want to verify every existing component renders correctly against the new token palette,
+So that the palette migration doesn't break the current UI before component rewrites begin.
 
 **Acceptance Criteria:**
-- [ ] Rating prompt triggers after the player's 5th session AND after completing a daily challenge
-- [ ] Pre-screening question shown first: "Enjoying Alchemica? ⚗️" → [Loving it!] / [Not really]
-- [ ] "Loving it!" → triggers native store rating API (`SKStoreReviewRequestAPI` on iOS / Play In-App Review on Android)
-- [ ] "Not really" → opens in-app feedback form (email link or text area) — does NOT open store rating
-- [ ] Prompt never shown more than once per 365 days
-- [ ] Prompt never shown immediately after an ad view
-- [ ] Session count tracked in persistent store
+
+**Given** Story 1.1 is complete and tokens are defined
+**When** I audit every existing .svelte component in src/lib/components/
+**Then** any remaining hardcoded hex values that reference the old navy palette are replaced with semantic tokens
+**And** no component renders with the old navy background, teal accent, or cool-parchment text
+
+**Given** the html,body styles in app.css use the new tokens
+**When** I load the game on a mobile device
+**Then** the background is warm stone (#0a0805), not navy (#0d1b2e)
+**And** text is warm parchment, not cool parchment
+**And** accent interactions (focus, selected states) use warm gold, not teal
+
+**Given** WCAG AA contrast requirements
+**When** I check text-on-background combinations
+**Then** --color-text-primary on --color-bg-surface ≥ 11:1
+**And** --color-text-secondary on --color-bg-surface ≥ 5.5:1
+**And** --color-text-muted is used only on decorative/non-essential labels
 
 ---
 
-### Story 1.5: Daily Push Notification (Streak Reminder)
+## Epic 2: Core Components
 
-**As a** player with an active streak,
-**I want** to receive a daily reminder before my streak window closes,
-**so that** I never accidentally break a streak I care about.
+**Goal:** Build the six Phase 1 components with all specified states, using the token foundation from Epic 1. Each component is created alongside its predecessor (parallel creation strategy). After this epic, all Phase 1 components exist and render correctly in isolation.
+
+### Story 2.1: ElementCard Rewrite + Frequency System
+
+As a player,
+I want each element card to visually reflect how much I've used it (settled vs. fresh vs. power),
+So that my shelf becomes a portrait of my play history, not a flat catalogue.
 
 **Acceptance Criteria:**
-- [ ] `@capacitor/local-notifications` used for scheduling (no server required)
-- [ ] Permission requested only after the player completes their FIRST daily challenge (not on launch)
-- [ ] Permission request framed as: "Get notified when tomorrow's challenge is ready?" (not generic "Allow notifications?")
-- [ ] Daily notification scheduled at 8:00 PM local time
-- [ ] Notification title personalised by streak: "⚗️ Keep your {N}-day streak alive!" (N > 0) or "🔬 Today's science challenge is ready" (N = 0)
-- [ ] Notification body: "A new element combination challenge awaits."
-- [ ] Tapping notification opens app directly to the daily challenge screen
-- [ ] Player can opt out from Settings screen
-- [ ] Notification re-schedules automatically each day (no server needed)
 
----
+**Given** the frequency store doesn't exist yet
+**When** I create src/lib/stores/frequency.ts per Architecture §3
+**Then** it exports a writable store keyed by element name with integer counts
+**And** it loads from localStorage key 'alchemica_frequency' on init
+**And** it writes through to localStorage on every update
+**And** it exports an incrementFrequency(elementKey) helper
 
-## Epic 2: Experience Depth
+**Given** threshold constants don't exist
+**When** I create src/lib/config/thresholds.ts per Architecture §3
+**Then** FRESH_MAX = 5 and SETTLED_MIN = 20 are exported as const
 
-**Goal:** Make the first 60 seconds irresistible for new players and make every discovery moment feel earned and shareable, while optimizing the monetization trigger to serve players at exactly the right pain point.
+**Given** the existing ElementCard.svelte needs rewriting
+**When** I rewrite it in place (not parallel — it keeps its filename)
+**Then** it is 56×56px with 6px radius
+**And** emoji is 20px centered, name is 11px --text-micro below
+**And** it supports 6 states: default, hover, selected, fresh, settled, power
+**And** it uses Layer 3 component tokens (--card-bg, --card-border, --card-glow)
+**And** it derives its energy state via $derived from the frequency store value and threshold constants
+**And** fresh state shows --energy-fresh amber glow box-shadow
+**And** settled state shows --energy-settled opacity 0.85
+**And** power state shows --energy-power barely-visible 3px glow
+**And** selected state shows --color-border-hot border with --color-accent-dim shadow
+**And** role="button", aria-label="{name}, {category}", aria-pressed for selected
 
-**User value:** New players understand the mechanic immediately and experience delight within the first minute; stuck players are helped, not blocked; every session session has a clear "next thing to discover" pull.
+### Story 2.2: MixingSlot Component
 
-**Success criteria:**
-- Guided 3-step onboarding completes for 100% of new installs
-- Discovery celebration (particle + banner) fires on every new element unlock
-- Hint rewarded video offer triggers after the 3rd consecutive failed combination
-- "Element of the Week" event banner visible in the main UI
-
-**Dependencies:** Epic 1 (shareable card reused in discovery celebration share button).
-
----
-
-### Story 2.1: Guided First-Session Onboarding
-
-**As a** new player opening Alchemica for the first time,
-**I want** to be guided through my first discovery without reading instructions,
-**so that** I experience the "aha moment" within my first 60 seconds.
+As a player,
+I want the mixing slots to look and feel like glass vessels in the workshop,
+So that filling a slot feels like placing an ingredient, not clicking a UI widget.
 
 **Acceptance Criteria:**
-- [ ] On first launch only, a guided sequence activates:
-  - **Step 1 (0–15s):** Animated hand highlight points to Fire + Water in the shelf; overlay text: "Try combining these →"; player completes the drag/tap combination; Steam appears
-  - **Step 2 (15–40s):** "Nice! You discovered Steam 🎉" confirmation; free exploration prompt: "Now try anything you like" — player gets 2 free combinations unsupervised
-  - **Step 3 (40–60s):** "You've discovered 3 elements! Keep exploring →" summary with element count
-- [ ] Onboarding is skippable with a "Skip tutorial" tap target
-- [ ] Once completed or skipped, onboarding never shows again (persisted flag)
-- [ ] All onboarding steps use show-don't-tell (no instruction text beyond element labels and short confirmations)
-- [ ] Onboarding works correctly in both portrait and landscape
 
----
+**Given** Slot.svelte exists and must not be deleted yet
+**When** I create MixingSlot.svelte alongside it
+**Then** it is 56×56px with 8px radius
+**And** it supports 4 states: empty (dashed --border-mid, "+" glyph), filled (solid --border-hot, --accent-dim bg, emoji), ready (filled + synchronized breathe CSS animation), reacting (scale pulse, shimmer)
+**And** clear button (×) appears only when filled, with 44×44px hit area
+**And** slot fill animation: scale 0.6→1.0 (180ms), opacity 0→1
+**And** role="button", aria-label="Mixing slot {A|B}: {name or empty}"
+**And** breathe animation respects prefers-reduced-motion
 
-### Story 2.2: Discovery Celebration Moment
+### Story 2.3: ActionZone Component
 
-**As a** player who just discovered a new element,
-**I want** the discovery to feel special and worth celebrating,
-**so that** I'm motivated to keep experimenting and sharing my discoveries.
-
-**Acceptance Criteria:**
-- [ ] On every new element discovery, a particle burst animation plays around the newly created element card (≤ 500ms, 60fps iOS / 30fps+ Android)
-- [ ] A full-width discovery banner slides in from the top, containing:
-  - Element icon (large, 48px)
-  - "✨ New! [Element Name]" headline
-  - One-sentence science fact about the element
-  - Discovery count: "Discovery #N of 300"
-  - Share button (links to Story 1.3 shareable card)
-- [ ] Banner auto-dismisses after 3 seconds; player can dismiss earlier with a tap
-- [ ] Banner does NOT block the mixing chamber (slides from top over the shelf area)
-- [ ] Re-discovery of an already-known element shows a smaller, non-intrusive toast: "Already discovered [Element Name]"
-- [ ] Science fact content is stored in element data (not hardcoded in the component)
-
----
-
-### Story 2.3: Stuck-Player Hint Trigger (Rewarded Video)
-
-**As a** player who is stuck and can't figure out what to combine next,
-**I want** to be offered a hint after I've tried several times without success,
-**so that** I can get unstuck without feeling forced to pay or watch ads.
+As a player,
+I want the result area to transform in place (like Duolingo) with "Not yet" failure language,
+So that results feel like the room responding, not a database reporting.
 
 **Acceptance Criteria:**
-- [ ] After 3 consecutive failed combinations (combinations that don't produce a new element), a non-intrusive prompt appears: "Stuck? 🔍 Watch a short video for a hint"
-- [ ] Prompt is dismissable — player can ignore it and keep trying
-- [ ] Accepting plays a rewarded AdMob video; on completion, a hint is revealed: one valid undiscovered combination using an element the player already has
-- [ ] Hint selection algorithm biases toward combinations the player is "close to" (one ingredient already on the shelf)
-- [ ] Failed combination counter resets after: (a) a successful discovery, (b) a hint is accepted, (c) session ends
-- [ ] Rewarded video is pre-cached after the 2nd failed combination (not on trigger) to eliminate loading delay
-- [ ] If no ad is available, fallback: offer hint for free with a brief "No ad available — here's a hint anyway" message
 
----
+**Given** ResultDisplay.svelte exists and must not be deleted yet
+**When** I create ActionZone.svelte alongside it
+**Then** it supports 4 states: idle ("Tap two elements to combine" italic --text-muted), discovery (emoji + "✦ NEW: {name}" + pts in --accent), known (emoji + name + recipe + pts in --text-primary), failure ("Not yet..." italic --text-secondary)
+**And** state transitions happen in place with no layout shift
+**And** "+N pts" floats upward via CSS @keyframes float-up over 600ms then fades
+**And** failure state never uses red, never says "No Reaction"
+**And** aria-live="assertive" for discoveries, aria-live="polite" for known results
+**And** the component accepts a result prop and a state prop
 
-### Story 2.4: Element of the Week Event Banner
+### Story 2.4: ShelfGrid + FilterTabs Components
 
-**As a** returning player,
-**I want** to see a themed weekly challenge or spotlight event in the main UI,
-**so that** I always have a fresh reason to open the app beyond the daily challenge.
-
-**Acceptance Criteria:**
-- [ ] A dismissable banner appears in the main UI (below the top bar, above the mixing chamber) when an active event is configured
-- [ ] Event data is defined in a local JSON config (no server required for v1): `{ id, title, description, startDate, endDate, targetElement, iconKey }`
-- [ ] Banner shows: event title, short description (max 60 chars), and days remaining ("3 days left")
-- [ ] Tapping the banner shows a modal with full event details and a "Try Now" CTA that focuses the target element in the shelf
-- [ ] Banner dismisses per-event (once dismissed, doesn't return for that event's ID)
-- [ ] When no event is active, banner is hidden — no empty space
-- [ ] Event JSON is version-controlled and can be updated via app update (no CMS needed for v1)
-
----
-
-## Epic 3: Engagement Systems
-
-**Goal:** Build the long-term retention scaffolding that sustains a daily player for 6+ months — organized content, competitive leaderboard, data-driven analytics, and new element content.
-
-**User value:** Long-term players have organized, completionist content to work through; competitive players have weekly rankings to motivate them; the team has data to improve the game; new players have fresh content to discover.
-
-**Success criteria:**
-- Category grouping with completion % live in shelf view
-- Weekly discovery leaderboard shows top players (local, anonymous)
-- 10 Firebase Analytics events instrumented and visible in dashboard
-- Space Science pack (+50 elements) live and discoverable
-
-**Dependencies:** Epic 2 (discovery celebration used when unlocking new pack elements).
-
----
-
-### Story 3.1: Element Category Grouping in Shelf
-
-**As a** player who has discovered 50+ elements,
-**I want** to browse my discovered elements organized by category with progress indicators,
-**so that** I always know which categories are "almost complete" and have clear next goals.
+As a player,
+I want to browse and filter my elements in a responsive grid with category tabs,
+So that I can find elements quickly as my collection grows.
 
 **Acceptance Criteria:**
-- [ ] Shelf view adds a category filter bar: tabs/chips for each category (e.g., Nature, Chemistry, Physics, Modern, Space)
-- [ ] Each category chip shows completion count: "Chemistry 8/24"
-- [ ] "All" tab remains available showing the current flat list
-- [ ] Within a category, elements are sorted alphabetically by default
-- [ ] Elements with undiscovered outgoing combinations show a subtle "◦" indicator (player has them but they lead to more)
-- [ ] Category assignments stored in element data (not computed at runtime)
-- [ ] "All" tab is the default on first use; last selected tab persists between sessions
-- [ ] Category filter works on both mobile and desktop/PWA layouts
+
+**Given** ElementGrid.svelte exists and must not be deleted yet
+**When** I create ShelfGrid.svelte alongside it
+**Then** it uses CSS Grid: repeat(auto-fill, minmax(56px, 1fr)) with 4px gap
+**And** it scrolls vertically within the shelf panel
+**And** it renders ElementCard instances for each unlocked element
+
+**Given** FilterTabs doesn't exist yet
+**When** I create FilterTabs.svelte as a child of ShelfGrid
+**Then** "All" tab is always first and always present
+**And** category tabs appear only when elements in that category are discovered (UX-DR11)
+**And** each tab shows a count badge of discovered elements in that category
+**And** tabs are 44px minimum height (NFR1)
+**And** role="tablist" with role="tab" children, aria-selected on active
+**And** filtering is instant with opacity crossfade (150ms)
+
+### Story 2.5: TopBar Rewrite
+
+As a player,
+I want the top bar to show my discovery progress prominently (not score-first),
+So that I feel like an explorer tracking discoveries, not a score chaser.
+
+**Acceptance Criteria:**
+
+**Given** the existing TopBar.svelte needs rewriting
+**When** I rewrite it in place
+**Then** it is 52px height + safe-area-inset-top
+**And** layout: Title | [discovered/total] badge | 🎯 daily challenge | Score
+**And** discovery count is visually primary (larger, brighter), score is secondary
+**And** warm stone background with brass-toned elements
+**And** compact mode (viewport height < 350px): hide score, show element count only
+**And** all text meets minimum 11px size
+
+### Story 2.6: BottomBar Component
+
+As a player,
+I want persistent tab navigation at the bottom of the screen,
+So that I can switch between Mix, Recipe, Achieve, and Settings views.
+
+**Acceptance Criteria:**
+
+**Given** the bottom navigation is currently inline in route layout
+**When** I create BottomBar.svelte
+**Then** it is 40px height + safe-area-inset-bottom
+**And** 4 tabs: Mix ⚗️ | Recipe 📋 | Achieve 🏆 | Settings ⚙️
+**And** active tab: accent icon + label, inactive: muted icon + muted label
+**And** tab switch uses SvelteKit goto() with View Transitions API
+**And** compact mode (viewport height < 350px): icon-only, no labels
+**And** role="tablist", each tab role="tab", aria-selected
+**And** all tabs ≥ 44px height touch target
 
 ---
 
-### Story 3.2: Weekly Discovery Leaderboard
+## Epic 3: Animation & Integration
 
-**As a** competitive player,
-**I want** to see how many discoveries I've made this week compared to other players,
-**so that** I have a motivating weekly goal beyond the daily challenge.
+**Goal:** Wire up the single overlay canvas, implement all animation sequences from the Code Brief, integrate new components into MixingChamber, and switch route imports from old to new. After this epic, the full Phase 1 visual redesign is playable.
 
-**Acceptance Criteria:**
-- [ ] A "This Week" leaderboard is accessible from the main navigation (tab or button)
-- [ ] Leaderboard shows: rank, anonymous display name (auto-generated adjective+element: "Curious Helium"), discoveries this week, and a trophy icon for rank 1–3
-- [ ] Player's own row is highlighted regardless of rank
-- [ ] Leaderboard resets every Monday at 00:00 UTC
-- [ ] V1 implementation: local-only simulated leaderboard using stored player history + generated ghost entries (avoids backend requirement for v1)
-- [ ] Ghost entries are deterministic (seeded by week number) so they don't change on refresh
-- [ ] A clear "v1: local scores only" label is shown until real network leaderboard ships
-- [ ] Leaderboard screen is reachable within 2 taps from main game
+### Story 3.1: Canvas Overlay + AnimationController
 
----
-
-### Story 3.3: Firebase Analytics Instrumentation
-
-**As a** member of the Alchemica team,
-**I want** key player actions tracked in Firebase Analytics,
-**so that** we can make data-driven decisions about onboarding, monetization, and content.
+As a developer,
+I want a single canvas overlay covering the full game area with an AnimationController service,
+So that all particle and effect animations run through one system without per-component canvas overhead.
 
 **Acceptance Criteria:**
-- [ ] `firebase` and `@capacitor-firebase/analytics` packages installed and configured
-- [ ] The following 10 events are instrumented:
 
-| Event name | Trigger | Key params |
-|---|---|---|
-| `session_start` | App comes to foreground | `session_number` |
-| `element_discovered` | New element unlocked | `element_key`, `discovery_number`, `session_number` |
-| `daily_challenge_completed` | Daily challenge marked done | `streak_count`, `target_element` |
-| `achievement_earned` | Badge awarded | `achievement_id` |
-| `hint_requested` | Player opens hint offer | `failed_attempts_count` |
-| `rewarded_ad_watched` | Rewarded video completes | `placement` (stuck\|daily\|achievement) |
-| `iap_initiated` | IAP purchase flow started | `product_id` |
-| `onboarding_completed` | Player finishes or skips tutorial | `completed` (true\|false), `step_reached` |
-| `share_triggered` | Player taps share on discovery card | `element_key`, `share_type` (discovery\|daily) |
-| `notification_permission_granted` | Push permission accepted | — |
+**Given** the existing particles.ts uses a per-chamber canvas
+**When** I create src/lib/effects/animation-controller.ts
+**Then** it exports an AnimationController class wrapping canvas particle logic
+**And** it exposes named methods: successBurst(cx, cy), failureParticle(cx, cy), screenFlash(color, opacity), radialShimmer(cx, cy), stop()
+**And** the existing pool logic (120 particles, hardware concurrency scaling) is preserved
+**And** particle colors shift from teal/neon to warm gold/amber/brass palette
+**And** visibility pause (stops RAF when tab hidden) is preserved
 
-- [ ] All events fire asynchronously (non-blocking)
-- [ ] Analytics disabled if user opts out (settings toggle)
-- [ ] No PII in any event params
-- [ ] Verified live in Firebase DebugView before shipping
+**Given** the canvas needs to cover the full game area
+**When** I mount it in the game layout
+**Then** it is position: absolute, inset: 0, pointer-events: none, z-index: 30
+**And** it sits above game content but below DiscoveryOverlay (z-index 50)
 
----
+**Given** other components need to call the controller
+**When** I set it up via Svelte context (setContext/getContext) per Decision D-11
+**Then** MixingChamber creates the controller on mount and provides it via context
+**And** child components access it via getContext
 
-### Story 3.4: Space Science Element Pack (+50 Elements)
+### Story 3.2: Discovery, Failure & Reaction Animations
 
-**As a** player who has discovered most of the base elements,
-**I want** a new themed expansion pack with astronomy and physics elements,
-**so that** I have fresh content to discover and a reason to return to Alchemica.
+As a player,
+I want the discovery moment to feel like emergence (not delivery), failure to feel like "not yet" (not rejection), and known results to feel efficient (not boring),
+So that every outcome of the mixing loop has the right emotional weight.
 
 **Acceptance Criteria:**
-- [ ] 50 new elements added to the element data table, all in the "Space" category
-- [ ] All 50 elements pass CVEA quality check: Combinable (≥2 input recipes), Verifiable (real science basis), Evocative (memorable name/icon), Anchored (Space category + cross-category links)
-- [ ] Each new element has: `key`, `name`, `icon`, `category: 'space'`, `scienceFact`, and at minimum 2 `recipes`
-- [ ] At least 20% of new recipes combine Space elements with existing base elements (creates discovery bridges into the new pack)
-- [ ] New elements are accessible from launch (no unlock gate for v1 — they are simply part of the graph)
-- [ ] Discovery celebration (Story 2.2) fires correctly for all 50 new elements
-- [ ] Category grouping (Story 3.1) shows "Space 0/50" correctly before any are discovered
-- [ ] Achievement thresholds reviewed: if 300 base + 50 new = 350 total, add a `badge_100` milestone at 100 discoveries
 
-**Suggested element seeds (for planning):** Hydrogen, Helium, Nebula, Star, Supernova, Black Hole, Comet, Asteroid, Meteorite, Crater, Moon, Solar Wind, Radiation, Plasma, Fusion, Neutron Star, Galaxy, Orbit, Gravity, Telescope, Satellite, Rocket, Cosmonaut, Space Station, Aurora, Solar System, Eclipse, Tides, Magnetosphere, Dark Matter, Pulsar, Quasar, Exoplanet, Atmosphere, Vacuum, Zero Gravity, Ion, Photon, X-Ray, Gamma Ray, Space Dust, Planetary Ring, Red Dwarf, White Dwarf, Binary Star, Accretion Disk, Cosmic Ray, Light Year, Parsec, Universe
+**Given** the DiscoveryOverlay exists and needs rewriting
+**When** I rewrite it in place
+**Then** overlay fades in (200ms) with backdrop rgba(0,0,0,0.85)
+**And** "✦ NEW DISCOVERY" badge appears
+**And** emoji scales 0.1→1.0 via Web Animations API with cubic-bezier(0.34, 1.56, 0.64, 1) over 1.2s
+**And** 200ms silence gap (setTimeout delay before sound, per Decision D-12)
+**And** sound plays after the gap
+**And** name + formula fade in (300ms)
+**And** "Continue →" ghost button fades in
+**And** screen-edge flash via canvas AnimationController.screenFlash()
+**And** focus trap active, role="dialog", aria-modal="true"
+**And** prefers-reduced-motion: skip emoji scale, show final state immediately
+
+**Given** a failed combination occurs
+**When** the failure animation plays
+**Then** elements drift back gently (320ms ease-out CSS transition)
+**And** a single particle rises via AnimationController.failureParticle() — rises, slows, disappears
+**And** ActionZone shows "Not yet" in --text-secondary italic
+**And** no red anywhere, no error sound, no shake
+**And** slots remain filled — player clears one to retry
+
+**Given** both slots are filled (ready state)
+**When** auto-react fires after 180ms
+**Then** both slots show synchronized breathe animation
+**And** world contracts (chamber container scale 0.97 via CSS transform)
+**And** radial shimmer via AnimationController.radialShimmer()
+**And** result sequence fires
+
+**Given** a known-element reaction occurs
+**When** the result displays
+**Then** result appears inline in ActionZone (no overlay)
+**And** "+N pts" CSS @keyframes float-up over 600ms, then fades
+**And** no ceremony — efficient and clean
+
+### Story 3.3: MixingChamber Integration & Route Switch
+
+As a player,
+I want to play the fully redesigned game with all new components wired together,
+So that the warm workshop experience is complete end-to-end.
+
+**Acceptance Criteria:**
+
+**Given** all new components are built (Epic 2) and animations work (3.1, 3.2)
+**When** I refactor MixingChamber.svelte as a layout shell
+**Then** it imports and composes: ShelfGrid (left panel), MixingSlot ×2 + ActionZone (right panel)
+**And** it mounts the single overlay canvas and creates the AnimationController
+**And** it provides the AnimationController via Svelte context
+**And** it wires MixingSlot fill/clear events to store updates
+**And** it wires auto-react to the reaction engine and routes results to ActionZone
+**And** it calls incrementFrequency() on both elements when a reaction fires
+
+**Given** the game route currently imports old components
+**When** I switch imports in game/+page.svelte from old to new
+**Then** the game renders with the new component set
+**And** all existing functionality works: element selection, reactions, discoveries, score, achievements
+
+**Given** old components still exist alongside new ones
+**When** the new components pass visual QA
+**Then** a separate cleanup commit deletes: Slot.svelte, ResultDisplay.svelte, ElementGrid.svelte
+**And** no other commit in this story deletes old files — cleanup is isolated
+
+**Given** the game should work end-to-end
+**When** I test the full mixing loop on a mobile viewport (375×667 landscape)
+**Then** selecting two elements → auto-react → result displays correctly
+**And** new discoveries show the full overlay animation sequence
+**And** failures show drift-back + particle + "Not yet"
+**And** known elements show inline result + score float
+**And** the shelf reflects frequency states (fresh glow on new elements)
+**And** TopBar shows updated discovery count
+**And** BottomBar tab navigation works between all views
 
 ---
 
