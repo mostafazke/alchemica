@@ -1,12 +1,9 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { get } from 'svelte/store';
-  import { unlockedElements, discoveries, score, hintBalance, purchasedNoAds } from '$lib/stores/game.js';
-  import { earnedAchievements, streakCount, lastCompletedDate } from '$lib/stores/achievements.js';
-  import type { AchievementId } from '$lib/types.js';
-  import { downloadSave, importSave } from '$lib/utils/storage.js';
+  import { purchasedNoAds, resetGame } from '$lib/stores/game.js';
+  import { streakCount } from '$lib/stores/achievements.js';
   import { soundMuted, hapticsMuted, notificationsEnabled, notificationsAsked, analyticsEnabled } from '$lib/stores/settings.js';
-  import { resetGame } from '$lib/stores/game.js';
   import { Capacitor } from '@capacitor/core';
   import { requestAndSchedule, cancelStreakNotification } from '$lib/effects/notifications.js';
   import {
@@ -21,16 +18,9 @@
 
   const isNative = Capacitor.isNativePlatform();
 
-  // Reset confirmation modal (custom — not window.confirm)
   let showResetModal = $state(false);
 
-  // Import save state
-  let importStatus: { ok: boolean; message: string } | null = $state(null);
-  let fileInputEl: HTMLInputElement | undefined = $state();
-
-  function handleBack() {
-    goto('/');
-  }
+  function handleBack() { goto('/'); }
 
   async function handleNotificationsToggle(enabled: boolean) {
     if (enabled) {
@@ -43,52 +33,10 @@
     }
   }
 
-  function handleResetClick() {
-    showResetModal = true;
-  }
-
   function handleResetConfirm() {
     resetGame();
     showResetModal = false;
     goto('/');
-  }
-
-  function handleResetCancel() {
-    showResetModal = false;
-  }
-
-  function handleExport() {
-    downloadSave();
-  }
-
-  function handleImportClick() {
-    fileInputEl?.click();
-  }
-
-  function handleFileChange(e: Event) {
-    const target = e.target as HTMLInputElement;
-    const file = target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      const json = ev.target?.result as string;
-      const result = importSave(json, {
-        setUnlocked: (keys) => unlockedElements.set(new Set(keys)),
-        setDiscoveries: (d) => discoveries.set(d),
-        setScore: (n) => score.set(n),
-        setEarnedAchievements: (ids: AchievementId[]) => earnedAchievements.set(new Set(ids)),
-        setStreakCount: (n) => streakCount.set(n),
-        setLastCompletedDate: (d) => lastCompletedDate.set(d),
-        setHintBalance: (n) => hintBalance.set(n),
-        setPurchasedNoAds: (v) => purchasedNoAds.set(v),
-      });
-      importStatus = result.ok
-        ? { ok: true, message: result.warning ? `Imported! Warning: ${result.warning}` : 'Save imported successfully!' }
-        : { ok: false, message: result.error ?? 'Import failed.' };
-      target.value = '';
-      setTimeout(() => { importStatus = null; }, 5000);
-    };
-    reader.readAsText(file);
   }
 
   async function handlePurchaseRemoveAds() { await purchaseRemoveAds(); }
@@ -105,164 +53,144 @@
   <div class="settings-body">
 
     <section class="settings-section">
-      <div class="section-label">Sound</div>
-      <label class="mute-toggle">
-        <input
-          type="checkbox"
-          checked={$soundMuted}
-          onchange={(e) => soundMuted.set((e.target as HTMLInputElement).checked)}
-        />
-        <span class="mute-label">
-          {$soundMuted ? '🔇 Achievement chime muted' : '🔊 Achievement chime on'}
-        </span>
-      </label>
-    </section>
-
-    <section class="settings-section">
-      <div class="section-label">Haptics</div>
-      <label class="mute-toggle">
-        <input
-          type="checkbox"
-          checked={$hapticsMuted}
-          onchange={(e) => hapticsMuted.set((e.target as HTMLInputElement).checked)}
-        />
-        <span class="mute-label">
-          {$hapticsMuted ? '🔇 Vibration off' : '📳 Vibration on'}
-        </span>
-      </label>
+      <div class="section-label">Audio & Feedback</div>
+      <div class="section-rows">
+        <div class="settings-row">
+          <span class="row-icon">🔊</span>
+          <div class="row-body">
+            <span class="row-label">Sound Effects</span>
+            <span class="row-desc">Achievement chimes and reaction sounds</span>
+          </div>
+          <label class="toggle-wrap" aria-label="Toggle sound effects">
+            <input class="sr-only" type="checkbox"
+              checked={!$soundMuted}
+              onchange={(e) => soundMuted.set(!(e.target as HTMLInputElement).checked)}
+            />
+            <span class="toggle-track" class:on={!$soundMuted}><span class="toggle-knob"></span></span>
+          </label>
+        </div>
+        <div class="settings-row">
+          <span class="row-icon">📳</span>
+          <div class="row-body">
+            <span class="row-label">Haptic Feedback</span>
+            <span class="row-desc">Vibration on reactions and actions</span>
+          </div>
+          <label class="toggle-wrap" aria-label="Toggle haptic feedback">
+            <input class="sr-only" type="checkbox"
+              checked={!$hapticsMuted}
+              onchange={(e) => hapticsMuted.set(!(e.target as HTMLInputElement).checked)}
+            />
+            <span class="toggle-track" class:on={!$hapticsMuted}><span class="toggle-knob"></span></span>
+          </label>
+        </div>
+      </div>
     </section>
 
     {#if isNative}
       <section class="settings-section">
         <div class="section-label">Notifications</div>
-        <label class="mute-toggle">
-          <input
-            type="checkbox"
-            checked={$notificationsEnabled}
-            onchange={(e) => handleNotificationsToggle((e.target as HTMLInputElement).checked)}
-          />
-          <span class="mute-label">
-            {$notificationsEnabled ? '🔔 Daily reminders on' : '🔕 Daily reminders off'}
-          </span>
-        </label>
-        <p class="save-hint">Reminds you at 8 PM when your daily challenge is ready.</p>
+        <div class="section-rows">
+          <div class="settings-row">
+            <span class="row-icon">🔔</span>
+            <div class="row-body">
+              <span class="row-label">Daily Reminders</span>
+              <span class="row-desc">Notified at 8 PM when your daily challenge is ready</span>
+            </div>
+            <label class="toggle-wrap" aria-label="Toggle daily reminders">
+              <input class="sr-only" type="checkbox"
+                checked={$notificationsEnabled}
+                onchange={(e) => handleNotificationsToggle((e.target as HTMLInputElement).checked)}
+              />
+              <span class="toggle-track" class:on={$notificationsEnabled}><span class="toggle-knob"></span></span>
+            </label>
+          </div>
+        </div>
       </section>
     {/if}
 
     <section class="settings-section">
-      <div class="section-label">Analytics</div>
-      <label class="mute-toggle">
-        <input
-          type="checkbox"
-          checked={$analyticsEnabled}
-          onchange={(e) => analyticsEnabled.set((e.target as HTMLInputElement).checked)}
-        />
-        <span class="mute-label">
-          {$analyticsEnabled ? '📊 Analytics on — helps us improve the game' : '🚫 Analytics off'}
-        </span>
-      </label>
-    </section>
-
-    <section class="settings-section">
-      <div class="section-label">Save Data</div>
-      <div class="save-actions">
-        <button class="action-btn export-btn" onclick={handleExport}>
-          ⬇ Export Save
-        </button>
-        <button class="action-btn import-btn" onclick={handleImportClick}>
-          ⬆ Import Save
-        </button>
-      </div>
-      {#if importStatus}
-        <div class="import-status" class:ok={importStatus.ok} class:error={!importStatus.ok}>
-          {importStatus.message}
+      <div class="section-label">Privacy</div>
+      <div class="section-rows">
+        <div class="settings-row">
+          <span class="row-icon">📊</span>
+          <div class="row-body">
+            <span class="row-label">Anonymous Analytics</span>
+            <span class="row-desc">Helps us understand how to improve the game</span>
+          </div>
+          <label class="toggle-wrap" aria-label="Toggle analytics">
+            <input class="sr-only" type="checkbox"
+              checked={$analyticsEnabled}
+              onchange={(e) => analyticsEnabled.set((e.target as HTMLInputElement).checked)}
+            />
+            <span class="toggle-track" class:on={$analyticsEnabled}><span class="toggle-knob"></span></span>
+          </label>
         </div>
-      {/if}
-      <p class="save-hint">
-        Export saves your progress as a JSON file.<br />
-        Import restores a previously exported save.
-      </p>
+      </div>
     </section>
 
     {#if isNative}
       <section class="settings-section">
         <div class="section-label">Purchases</div>
-        <div class="purchase-cards">
+        <div class="purchase-grid">
           {#if $purchasedNoAds}
-            <button class="purchase-card purchase-card-owned" disabled>
+            <div class="purchase-card purchase-card-owned">
               <span class="purchase-icon">✓</span>
               <span class="purchase-name">Ads Removed</span>
-              <span class="purchase-price">Owned</span>
-            </button>
+              <span class="purchase-status">Owned</span>
+            </div>
           {:else}
-            <button
-              class="purchase-card"
-              disabled={$isPurchasing}
-              onclick={handlePurchaseRemoveAds}
-            >
+            <button class="purchase-card" disabled={$isPurchasing} onclick={handlePurchaseRemoveAds}>
               <span class="purchase-icon">🚫</span>
               <span class="purchase-name">Remove Ads</span>
               <span class="purchase-price">{$removeAdsPrice}</span>
             </button>
           {/if}
-          <button
-            class="purchase-card"
-            disabled={$isPurchasing}
-            onclick={handlePurchaseHints}
-          >
+          <button class="purchase-card" disabled={$isPurchasing} onclick={handlePurchaseHints}>
             <span class="purchase-icon">💡</span>
             <span class="purchase-name">10 Hints</span>
             <span class="purchase-price">{$hintBundlePrice}</span>
           </button>
         </div>
         {#if $purchaseError}
-          <div class="import-status error">
-            {$purchaseError}
-          </div>
+          <p class="feedback-error">{$purchaseError}</p>
         {/if}
-        <button
-          class="restore-btn"
-          disabled={$isPurchasing}
-          onclick={handleRestore}
-        >
+        <button class="restore-btn" disabled={$isPurchasing} onclick={handleRestore}>
           {$isPurchasing ? 'Working…' : 'Restore Purchases'}
         </button>
       </section>
     {/if}
 
-    <section class="settings-section danger-section">
-      <div class="section-label">Danger Zone</div>
-      <button class="reset-btn" onclick={handleResetClick}>
-        ↺ Reset Game
-      </button>
-      <p class="save-hint">This will permanently erase all progress.</p>
+    <section class="settings-section">
+      <div class="section-label">Advanced</div>
+      <div class="section-rows">
+        <button class="settings-row row-danger" type="button" onclick={() => showResetModal = true}>
+          <span class="row-icon">↺</span>
+          <div class="row-body">
+            <span class="row-label danger-label">Reset Game</span>
+            <span class="row-desc">Permanently erase all progress and achievements</span>
+          </div>
+          <span class="row-chevron">›</span>
+        </button>
+      </div>
     </section>
 
   </div>
 
-  <!-- Reset confirmation modal -->
   {#if showResetModal}
-    <div class="modal-overlay" role="none" onclick={handleResetCancel}></div>
+    <div class="modal-overlay" role="none" onclick={() => showResetModal = false}></div>
     <div class="modal" role="alertdialog" aria-modal="true" aria-labelledby="reset-modal-title">
       <h2 id="reset-modal-title" class="modal-title">Reset Game?</h2>
       <p class="modal-body">This will permanently erase all your progress, discoveries, and achievements.</p>
       <div class="modal-actions">
-        <button class="modal-btn modal-btn-cancel" onclick={handleResetCancel}>Cancel</button>
+        <button class="modal-btn modal-btn-cancel" onclick={() => showResetModal = false}>Cancel</button>
         <button class="modal-btn modal-btn-reset" onclick={handleResetConfirm}>Reset</button>
       </div>
     </div>
   {/if}
-
-  <input
-    bind:this={fileInputEl}
-    type="file"
-    accept=".json,application/json"
-    style="display:none"
-    onchange={handleFileChange}
-  />
 </div>
 
 <style>
+  /* ─── Layout ────────────────────────────────────────────── */
   .settings-page {
     min-height: 100dvh;
     background: var(--color-bg-deep);
@@ -313,104 +241,124 @@
     flex: 1;
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
-  .settings-section {
-    padding: 16px;
-    border-top: 1px solid var(--color-border-subtle);
-  }
-  .settings-section:first-child {
-    border-top: none;
-  }
+
+  /* ─── Sections ──────────────────────────────────────────── */
+  .settings-section { padding-top: 8px; }
   .section-label {
     font-family: 'Space Mono', monospace;
-    font-size: 11px;
+    font-size: 10px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
     color: var(--color-text-muted);
-    margin-bottom: 10px;
+    padding: 8px 16px 6px;
   }
-  .mute-toggle {
+  .section-rows {
+    border-top: 1px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  /* ─── Rows ──────────────────────────────────────────────── */
+  .settings-row {
     display: flex;
     align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    min-height: 44px;
-    touch-action: manipulation;
+    gap: 12px;
+    min-height: 56px;
+    padding: 12px 16px;
+    background: var(--color-bg-surface);
+    width: 100%;
+    text-align: left;
+    border: none;
+    cursor: default;
+    font-family: inherit;
   }
-  .mute-toggle input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    accent-color: var(--color-accent);
-    cursor: pointer;
+  .settings-row + .settings-row { border-top: 1px solid var(--color-border-subtle); }
+  .row-icon {
+    font-size: 18px;
+    width: 24px;
     flex-shrink: 0;
+    text-align: center;
+    line-height: 1;
   }
-  .mute-label {
+  .row-body { flex: 1; min-width: 0; }
+  .row-label {
     font-family: 'Space Mono', monospace;
     font-size: 12px;
-    color: var(--color-text-secondary);
-    user-select: none;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    display: block;
   }
-  .save-actions {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-  .action-btn {
-    flex: 1;
-    padding: 10px 8px;
-    border-radius: 8px;
-    border: 1px solid var(--color-border-mid);
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    cursor: pointer;
-    transition: all 0.15s;
-    min-height: 44px;
-    touch-action: manipulation;
-  }
-  .export-btn {
-    background: var(--color-bg-surface);
-    color: var(--color-accent-text);
-    border-color: color-mix(in srgb, var(--color-accent) 25%, transparent);
-  }
-  .export-btn:hover { background: var(--color-bg-hover); border-color: var(--color-accent); }
-  .import-btn {
-    background: var(--color-bg-surface);
-    color: var(--color-text-secondary);
-    border-color: var(--color-border-mid);
-  }
-  .import-btn:hover { background: var(--color-bg-hover); border-color: color-mix(in srgb, var(--color-accent) 25%, transparent); }
-  .import-status {
-    padding: 8px 10px;
-    border-radius: 8px;
-    font-size: 12px;
-    margin-bottom: 8px;
-  }
-  .import-status.ok { background: rgba(80, 140, 60, 0.08); color: #5a8050; border: 1px solid rgba(80, 140, 60, 0.30); }
-  .import-status.error { background: rgba(160, 60, 30, 0.08); color: var(--raw-ember-700); border: 1px solid rgba(160, 60, 30, 0.30); }
-  .save-hint {
+  .row-desc {
     font-size: 11px;
     color: var(--color-text-muted);
-    line-height: 1.5;
+    display: block;
+    margin-top: 2px;
+    line-height: 1.4;
   }
-  .purchase-cards {
+
+  /* ─── Toggle switch ─────────────────────────────────────── */
+  .toggle-wrap { cursor: pointer; flex-shrink: 0; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+  .toggle-track {
+    display: block;
+    width: 46px; height: 28px;
+    border-radius: 14px;
+    background: var(--color-border-mid);
+    position: relative;
+    transition: background 0.2s ease;
+  }
+  .toggle-track.on { background: var(--color-accent); }
+  .toggle-knob {
+    display: block;
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 1px 4px rgba(60, 30, 10, 0.18);
+    transition: transform 0.2s ease;
+  }
+  .toggle-track.on .toggle-knob { transform: translateX(18px); }
+
+  /* ─── Danger row ────────────────────────────────────────── */
+  .row-danger {
+    cursor: pointer;
+    transition: background 0.15s;
+    touch-action: manipulation;
+  }
+  .row-danger:hover { background: color-mix(in srgb, #c0392b 5%, var(--color-bg-surface)); }
+  .danger-label { color: #c0392b; }
+  .row-chevron {
+    font-size: 22px;
+    color: var(--color-border-mid);
+    flex-shrink: 0;
+    line-height: 1;
+    font-weight: 300;
+  }
+
+  /* ─── Purchases ─────────────────────────────────────────── */
+  .purchase-grid {
     display: flex;
     gap: 8px;
-    margin-bottom: 10px;
+    padding: 8px 16px 4px;
   }
   .purchase-card {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    padding: 12px 8px;
-    border-radius: 8px;
+    gap: 5px;
+    padding: 14px 8px;
+    border-radius: 10px;
     border: 1px solid var(--color-border-mid);
     background: var(--color-bg-surface);
     color: var(--color-text-secondary);
     font-family: 'Space Mono', monospace;
     cursor: pointer;
     transition: all 0.15s;
-    min-height: 44px;
     touch-action: manipulation;
   }
   .purchase-card:not(:disabled):hover {
@@ -418,12 +366,27 @@
     background: var(--color-bg-hover);
   }
   .purchase-card:disabled { opacity: 0.5; cursor: not-allowed; }
-  .purchase-card-owned { border-color: var(--color-border-active); color: var(--color-accent-text); background: var(--color-accent-dim); }
-  .purchase-icon { font-size: 18px; line-height: 1; }
-  .purchase-name { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: inherit; }
-  .purchase-price { font-size: 11px; color: var(--color-accent-text); }
-  .purchase-card-owned .purchase-price { color: color-mix(in srgb, var(--color-accent) 50%, transparent); }
+  .purchase-card-owned {
+    border-color: var(--color-border-active);
+    color: var(--color-accent-text);
+    background: var(--color-accent-dim);
+    cursor: default;
+  }
+  .purchase-icon { font-size: 20px; line-height: 1; }
+  .purchase-name { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: inherit; }
+  .purchase-price { font-size: 12px; font-weight: 700; color: var(--color-accent-text); }
+  .purchase-status { font-size: 10px; color: color-mix(in srgb, var(--color-accent-text) 60%, transparent); }
+  .feedback-error {
+    margin: 0 16px 4px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    background: rgba(160, 60, 30, 0.08);
+    color: var(--raw-ember-700);
+    border: 1px solid rgba(160, 60, 30, 0.30);
+  }
   .restore-btn {
+    display: block;
     width: 100%;
     background: transparent;
     border: none;
@@ -431,35 +394,17 @@
     font-family: 'Space Mono', monospace;
     font-size: 11px;
     cursor: pointer;
-    padding: 8px 0 0;
-    text-decoration: underline;
+    padding: 8px 16px 14px;
     text-align: center;
-    min-height: 44px;
     touch-action: manipulation;
     transition: color 0.15s;
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
   .restore-btn:hover:not(:disabled) { color: var(--color-text-secondary); }
   .restore-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  .danger-section .reset-btn {
-    width: 100%;
-    padding: 10px 16px;
-    border-radius: 8px;
-    border: 1px solid #ff6b6b40;
-    background: transparent;
-    color: #ff6b6b;
-    font-family: 'Space Mono', monospace;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-    min-height: 44px;
-    touch-action: manipulation;
-    margin-bottom: 8px;
-  }
-  .danger-section .reset-btn:hover {
-    background: #2a0a0a;
-    border-color: #ff6b6b;
-  }
-  /* Reset confirmation modal */
+
+  /* ─── Modal ─────────────────────────────────────────────── */
   .modal-overlay {
     position: fixed;
     inset: 0;
@@ -482,7 +427,7 @@
   .modal-title {
     font-family: 'Space Mono', monospace;
     font-size: 14px;
-    color: #ff6b6b;
+    color: #c0392b;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin: 0 0 12px;
