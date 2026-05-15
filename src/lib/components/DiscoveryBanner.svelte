@@ -143,7 +143,7 @@
     padding: 10px 12px;
     background: linear-gradient(135deg, #0d1f10 0%, #071424 100%);
     border-bottom: 2px solid #ffe44a60;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 228, 74, 0.08);
+    box-shadow: 0 4px 20px rgba(60, 30, 10, 0.15), 0 0 30px rgba(200, 136, 10, 0.08);
     cursor: default;
   }
 
@@ -214,7 +214,7 @@
   .share-btn {
     padding: 4px 8px;
     background: transparent;
-    border: 1px solid rgba(74, 240, 192, 0.3);
+    border: 1px solid var(--color-border-mid);
     border-radius: 6px;
     color: var(--color-accent);
     font-size: 12px;

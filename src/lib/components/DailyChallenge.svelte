@@ -213,7 +213,7 @@
     font-size: 11px;
     font-family: 'Space Mono', monospace;
     background: transparent;
-    border: 1px solid rgba(74, 240, 192, 0.3);
+    border: 1px solid var(--color-border-mid);
     border-radius: 6px;
     color: var(--color-accent);
     cursor: pointer;
@@ -238,7 +238,7 @@
     border-radius: 14px;
     background: var(--color-bg-deep);
     border: 1px solid rgba(232, 184, 75, 0.4);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    box-shadow: 0 8px 32px rgba(60, 30, 10, 0.18);
     max-width: min(280px, 88vw);
     animation: notif-in 0.28s cubic-bezier(0.34, 1.3, 0.64, 1) both;
   }

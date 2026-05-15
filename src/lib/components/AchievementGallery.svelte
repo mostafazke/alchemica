@@ -37,7 +37,7 @@
 <style>
   .gallery-overlay {
     position: fixed; inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(26, 14, 5, 0.65);
     z-index: 400;
   }
   .gallery-panel {
@@ -51,7 +51,7 @@
     border: 1px solid var(--color-border-mid);
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 32px rgba(60, 30, 10, 0.18);
     animation: panel-appear 0.18s ease;
     display: flex;
     flex-direction: column;
@@ -100,8 +100,8 @@
     transition: border-color 0.2s;
   }
   .badge-card.earned {
-    border-color: rgba(74, 240, 192, 0.4);
-    background: rgba(74, 240, 192, 0.04);
+    border-color: var(--color-border-active);
+    background: var(--color-accent-dim);
   }
   .badge-card.locked {
     opacity: 0.45;

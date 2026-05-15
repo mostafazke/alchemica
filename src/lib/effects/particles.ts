@@ -22,7 +22,7 @@ interface Particle {
 const MAX_PARTICLES = 120;
 const pool: Particle[] = Array.from({ length: MAX_PARTICLES }, () => ({
   x: 0, y: 0, vx: 0, vy: 0, life: 0,
-  decay: 0.02, size: 3, color: '#4af0c0',
+  decay: 0.02, size: 3, color: '#c8880a',
   type: 'burst' as const, active: false,
 }));
 
@@ -34,7 +34,15 @@ let paused = false;
 // Scale particle count based on available CPU cores (0.5× on 2-core, 1× on 4-core, 2× on 8-core)
 const perfMultiplier = Math.max(0.5, Math.min(2, (navigator.hardwareConcurrency ?? 4) / 4));
 
-const BURST_COLORS = ['#4af0c0', '#ffe44a', '#ff6b6b', '#5ab4ff', '#d05aff', '#96c84a'];
+// Jewel-tones for cream background: warm amber, brass, ember, sage, plum, forest
+const BURST_COLORS = [
+  'rgba(200, 100, 20, 0.85)',  // deep amber-orange
+  'rgba(200, 136, 10, 0.85)',  // brass gold
+  'rgba(160, 60, 30, 0.80)',   // ember red
+  'rgba(80, 140, 50, 0.80)',   // sage green
+  'rgba(140, 60, 120, 0.75)',  // plum
+  'rgba(30, 130, 90, 0.78)',   // forest teal
+];
 
 export function initParticles(canvasEl: HTMLCanvasElement): void {
   canvas = canvasEl;
@@ -82,7 +90,7 @@ export function triggerSuccessParticles(cx: number, cy: number): void {
     p.life = 1;
     p.decay = 0.008 + Math.random() * 0.01;
     p.size = 3 + Math.random() * 6;
-    p.color = '#4af0c040';
+    p.color = 'rgba(200, 136, 10, 0.25)';
     p.type = 'bubble';
     p.active = true;
   }
@@ -103,7 +111,7 @@ export function triggerFailParticles(cx: number, cy: number): void {
     p.life = 1;
     p.decay = 0.03;
     p.size = 2 + Math.random() * 3;
-    p.color = '#ff405070';
+    p.color = 'rgba(120, 80, 40, 0.45)';
     p.type = 'fail';
     p.active = true;
   }
@@ -152,7 +160,7 @@ function animate(): void {
     ctx.globalAlpha = Math.max(0, p.life);
 
     if (p.type === 'bubble') {
-      ctx.strokeStyle = '#4af0c0';
+      ctx.strokeStyle = 'rgba(200, 136, 10, 0.60)';
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);

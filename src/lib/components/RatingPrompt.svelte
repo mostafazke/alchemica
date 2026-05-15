@@ -90,7 +90,7 @@
   .rating-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(26, 14, 5, 0.65);
     z-index: 500;
   }
   .rating-modal {
@@ -104,7 +104,7 @@
     border: 1px solid var(--color-border-mid);
     border-radius: 16px;
     padding: 24px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 32px rgba(60, 30, 10, 0.18);
     text-align: center;
   }
   .rating-title {

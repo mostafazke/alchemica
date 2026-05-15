@@ -36,7 +36,7 @@
   .sheet-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(26, 14, 5, 0.55);
     z-index: 299;
   }
   .bottom-sheet {

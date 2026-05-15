@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { get } from 'svelte/store';
 	import TopBar from '$lib/components/TopBar.svelte';
-	import ElementGrid from '$lib/components/ElementGrid.svelte';
+	import ShelfGrid from '$lib/components/ShelfGrid.svelte';
 	import MixingChamber from '$lib/components/MixingChamber.svelte';
 	import AchievementToast from '$lib/components/AchievementToast.svelte';
 	import FirstRunOverlay from '$lib/components/FirstRunOverlay.svelte';
@@ -25,7 +25,7 @@
 	<div class="lab-wrapper">
 		<div class="left-panel">
 			<DiscoveryBanner />
-			<ElementGrid />
+				<ShelfGrid />
 		</div>
 		<div class="right-panel">
 			<EventBanner />

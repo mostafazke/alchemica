@@ -70,21 +70,21 @@
     user-select: none;
   }
   .daily-pill.completed {
-    border-color: rgba(74, 240, 192, 0.35);
-    background: rgba(74, 240, 192, 0.06);
+    border-color: rgba(200, 136, 10, 0.35);
+    background: rgba(200, 136, 10, 0.06);
   }
   .daily-pill:hover {
     background: rgba(232, 184, 75, 0.16);
     border-color: rgba(232, 184, 75, 0.55);
   }
   .daily-pill.completed:hover {
-    background: rgba(74, 240, 192, 0.10);
-    border-color: rgba(74, 240, 192, 0.55);
+    background: rgba(200, 136, 10, 0.10);
+    border-color: rgba(200, 136, 10, 0.55);
   }
   .pill-label {
     font-family: 'Space Mono', monospace;
     font-size: 11px;
-    color: #e8b84b;
+    color: var(--color-accent);
     white-space: nowrap;
     line-height: 28px;
   }

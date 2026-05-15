@@ -59,7 +59,7 @@
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     cursor: pointer;
     padding: 0;
     min-width: 44px;
@@ -94,7 +94,7 @@
   /* Discovery — primary stat */
   .discovery-value {
     font-size: var(--text-title);
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     line-height: 1;
   }
   /* Score — secondary stat */

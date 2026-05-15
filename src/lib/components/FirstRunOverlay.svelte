@@ -96,7 +96,7 @@
     border-radius: 12px;
     background: var(--color-bg-deep);
     border: 1px solid var(--color-border-mid);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px color-mix(in srgb, var(--color-accent) 9%, transparent);
+    box-shadow: 0 8px 32px rgba(60, 30, 10, 0.18), 0 0 0 1px color-mix(in srgb, var(--color-accent) 9%, transparent);
     animation: card-in 0.3s cubic-bezier(0.34, 1.3, 0.64, 1) both;
     pointer-events: all;
     max-width: min(340px, 92vw);
@@ -151,7 +151,7 @@
     left: 50%;
     transform: translateX(-50%);
     flex-direction: row;
-    border-color: rgba(74, 240, 192, 0.3);
+    border-color: var(--color-border-mid);
   }
   .hint-icon {
     font-size: 28px;

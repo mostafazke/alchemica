@@ -83,13 +83,13 @@ export async function renderDiscoveryCard(opts: DiscoveryCardOptions): Promise<B
 
   // ── Background ──────────────────────────────────────────────
   const bg = ctx.createLinearGradient(0, 0, 0, CARD_H);
-  bg.addColorStop(0, '#071424');
-  bg.addColorStop(1, '#0a1e30');
+  bg.addColorStop(0, '#faf7f2');
+  bg.addColorStop(1, '#f0e8d8');
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, CARD_W, CARD_H);
 
-  // Subtle sci-fi grid
-  ctx.strokeStyle = 'rgba(74, 144, 226, 0.07)';
+  // Subtle warm grid
+  ctx.strokeStyle = 'rgba(180, 130, 60, 0.10)';
   ctx.lineWidth = 1;
   for (let x = 0; x < CARD_W; x += 60) {
     ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, CARD_H); ctx.stroke();
@@ -105,21 +105,21 @@ export async function renderDiscoveryCard(opts: DiscoveryCardOptions): Promise<B
 
   // ── "ALCHEMICA" wordmark ─────────────────────────────────────
   ctx.font = 'bold 28px "Space Mono", monospace, sans-serif';
-  ctx.fillStyle = '#4af0c0';
+  ctx.fillStyle = '#c8880a';
   ctx.textBaseline = 'middle';
   ctx.textAlign = 'left';
   ctx.fillText('ALCHEMICA', logoImg ? 136 : 48, 84);
 
   // ── Discovery badge (top-right) ──────────────────────────────
   ctx.font = '600 22px system-ui, sans-serif';
-  ctx.fillStyle = '#ffe44a';
+  ctx.fillStyle = '#c8880a';
   ctx.textAlign = 'right';
   ctx.textBaseline = 'middle';
   ctx.fillText(`DISCOVERY #${opts.discoveryNumber} / ${opts.totalElements}`, CARD_W - 48, 84);
 
   // ── NEW DISCOVERY label ──────────────────────────────────────
   ctx.font = 'bold 18px "Space Mono", monospace, sans-serif';
-  ctx.fillStyle = '#ffe44a';
+  ctx.fillStyle = '#c8880a';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
   ctx.fillText('✦ NEW DISCOVERY', CARD_W / 2, 220);
@@ -127,26 +127,26 @@ export async function renderDiscoveryCard(opts: DiscoveryCardOptions): Promise<B
   // ── Element symbol (large, centered) ────────────────────────
   const symbolFontSize = el.symbol.length <= 2 ? '200px' : '140px';
   ctx.font = `${symbolFontSize} system-ui, "Segoe UI Emoji", "Apple Color Emoji", sans-serif`;
-  ctx.fillStyle = '#ffffff';
+  ctx.fillStyle = '#1a0e05';
   ctx.textBaseline = 'middle';
   ctx.textAlign = 'center';
   ctx.fillText(el.symbol, CARD_W / 2, 420);
 
   // ── Element name ─────────────────────────────────────────────
   ctx.font = 'bold 72px system-ui, sans-serif';
-  ctx.fillStyle = '#e8f4ff';
+  ctx.fillStyle = '#1a0e05';
   ctx.textBaseline = 'alphabetic';
   ctx.textAlign = 'center';
   ctx.fillText(el.name, CARD_W / 2, 590);
 
   // ── Formula ──────────────────────────────────────────────────
   ctx.font = '32px "Space Mono", monospace, sans-serif';
-  ctx.fillStyle = '#4af0c0';
+  ctx.fillStyle = '#c8880a';
   ctx.textAlign = 'center';
   ctx.fillText(el.formula, CARD_W / 2, 645);
 
   // ── Divider ──────────────────────────────────────────────────
-  ctx.strokeStyle = 'rgba(74, 240, 192, 0.25)';
+  ctx.strokeStyle = 'rgba(200, 136, 10, 0.30)';
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.moveTo(80, 685);
@@ -155,19 +155,19 @@ export async function renderDiscoveryCard(opts: DiscoveryCardOptions): Promise<B
 
   // ── Science fact (desc) — word-wrapped ──────────────────────
   ctx.font = '26px system-ui, sans-serif';
-  ctx.fillStyle = '#8ab4d4';
+  ctx.fillStyle = '#3d2510';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
   wrapText(ctx, el.desc, CARD_W / 2, 725, CARD_W - 160, 38);
 
   // ── CTA footer ───────────────────────────────────────────────
   ctx.font = 'bold 26px system-ui, sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,0.45)';
+  ctx.fillStyle = 'rgba(26, 14, 5, 0.45)';
   ctx.textAlign = 'center';
   ctx.fillText('Play Alchemica — discover all the elements', CARD_W / 2, CARD_H - 52);
 
-  // ── Border glow ──────────────────────────────────────────────
-  ctx.strokeStyle = 'rgba(74, 240, 192, 0.35)';
+  // ── Border ───────────────────────────────────────────────────
+  ctx.strokeStyle = 'rgba(200, 136, 10, 0.45)';
   ctx.lineWidth = 3;
   ctx.strokeRect(16, 16, CARD_W - 32, CARD_H - 32);
 
@@ -195,15 +195,15 @@ export async function renderDailyCard(opts: DailyChallengeCardOptions): Promise<
   let logoImg: HTMLImageElement | null = null;
   try { logoImg = await loadImage('/icon-192.png'); } catch { /* skip */ }
 
-  // Background — warmer green tint for daily completion
+  // Background — warm parchment for daily completion
   const bg = ctx.createLinearGradient(0, 0, 0, CARD_H);
-  bg.addColorStop(0, '#0d1a08');
-  bg.addColorStop(1, '#0a1520');
+  bg.addColorStop(0, '#faf7f2');
+  bg.addColorStop(1, '#ede8d8');
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, CARD_W, CARD_H);
 
   // Grid
-  ctx.strokeStyle = 'rgba(74, 240, 192, 0.05)';
+  ctx.strokeStyle = 'rgba(180, 130, 60, 0.10)';
   ctx.lineWidth = 1;
   for (let x = 0; x < CARD_W; x += 60) {
     ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, CARD_H); ctx.stroke();
@@ -217,7 +217,7 @@ export async function renderDailyCard(opts: DailyChallengeCardOptions): Promise<
 
   // Wordmark
   ctx.font = 'bold 28px "Space Mono", monospace, sans-serif';
-  ctx.fillStyle = '#4af0c0';
+  ctx.fillStyle = '#c8880a';
   ctx.textBaseline = 'middle';
   ctx.textAlign = 'left';
   ctx.fillText('ALCHEMICA', logoImg ? 136 : 48, 84);
@@ -225,14 +225,14 @@ export async function renderDailyCard(opts: DailyChallengeCardOptions): Promise<
   // Streak badge (top-right)
   const streakText = opts.streakCount > 0 ? `🔥 Day ${opts.streakCount} streak` : '🔥 First challenge!';
   ctx.font = '600 24px system-ui, sans-serif';
-  ctx.fillStyle = '#ff9f43';
+  ctx.fillStyle = '#c8880a';
   ctx.textAlign = 'right';
   ctx.textBaseline = 'middle';
   ctx.fillText(streakText, CARD_W - 48, 84);
 
   // Daily badge label
   ctx.font = 'bold 18px "Space Mono", monospace, sans-serif';
-  ctx.fillStyle = '#4af0c0';
+  ctx.fillStyle = '#c8880a';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
   ctx.fillText('✦ DAILY CHALLENGE COMPLETE', CARD_W / 2, 220);
@@ -245,19 +245,19 @@ export async function renderDailyCard(opts: DailyChallengeCardOptions): Promise<
 
   // "I solved today's challenge!"
   ctx.font = 'bold 52px system-ui, sans-serif';
-  ctx.fillStyle = '#e8f4ff';
+  ctx.fillStyle = '#1a0e05';
   ctx.textBaseline = 'alphabetic';
   ctx.textAlign = 'center';
   ctx.fillText("I solved today's challenge!", CARD_W / 2, 565);
 
   // Target element symbol + name
   ctx.font = `52px system-ui, "Segoe UI Emoji", "Apple Color Emoji", sans-serif`;
-  ctx.fillStyle = '#ffe44a';
+  ctx.fillStyle = '#c8880a';
   ctx.textAlign = 'center';
   ctx.fillText(`${el.symbol}  ${el.name}`, CARD_W / 2, 635);
 
   // Divider
-  ctx.strokeStyle = 'rgba(74, 240, 192, 0.25)';
+  ctx.strokeStyle = 'rgba(200, 136, 10, 0.30)';
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.moveTo(80, 680);
@@ -266,19 +266,19 @@ export async function renderDailyCard(opts: DailyChallengeCardOptions): Promise<
 
   // Science fact
   ctx.font = '26px system-ui, sans-serif';
-  ctx.fillStyle = '#8ab4d4';
+  ctx.fillStyle = '#3d2510';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
   wrapText(ctx, el.desc, CARD_W / 2, 720, CARD_W - 160, 38);
 
   // CTA footer
   ctx.font = 'bold 26px system-ui, sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,0.45)';
+  ctx.fillStyle = 'rgba(26, 14, 5, 0.45)';
   ctx.textAlign = 'center';
   ctx.fillText('Play Alchemica — a new challenge every day', CARD_W / 2, CARD_H - 52);
 
   // Border
-  ctx.strokeStyle = 'rgba(74, 240, 192, 0.35)';
+  ctx.strokeStyle = 'rgba(200, 136, 10, 0.45)';
   ctx.lineWidth = 3;
   ctx.strokeRect(16, 16, CARD_W - 32, CARD_H - 32);
 

@@ -46,9 +46,9 @@
 		bottom: calc(80px + env(safe-area-inset-bottom, 0px));
 		left: 50%;
 		transform: translateX(-50%);
-		background: rgba(13, 27, 46, 0.92);
-		border: 1px solid rgba(232, 184, 75, 0.5);
-		color: #e8b84b;
+		background: var(--color-bg-surface);
+		border: 1px solid var(--color-border-active);
+		color: var(--color-accent);
 		font-size: 0.8rem;
 		font-weight: 600;
 		padding: 6px 16px;
@@ -57,13 +57,13 @@
 		pointer-events: none;
 		white-space: nowrap;
 		backdrop-filter: blur(4px);
-		box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+		box-shadow: 0 2px 12px var(--material-brass-shadow);
 		animation: fade-in 0.2s ease;
 	}
 
 	.offline-toast.online {
-		border-color: rgba(100, 200, 120, 0.5);
-		color: #6cc87a;
+		border-color: rgba(80, 140, 70, 0.45);
+		color: #5a8050;
 	}
 
 	@keyframes fade-in {

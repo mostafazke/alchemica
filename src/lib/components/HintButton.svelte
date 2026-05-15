@@ -164,7 +164,7 @@
     min-width: 220px; max-width: min(320px, 90vw);
     max-height: 45vh; overflow-y: auto;
     text-align: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 20px rgba(60, 30, 10, 0.12);
     animation: hint-pop 0.2s ease;
     z-index: 500;
   }

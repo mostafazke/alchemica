@@ -134,7 +134,7 @@
     border-radius: 14px;
     background: var(--color-bg-deep);
     border: 1px solid #4a6fa550;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    box-shadow: 0 8px 32px rgba(60, 30, 10, 0.18);
     max-width: min(360px, 92vw);
     animation: prompt-in 0.28s cubic-bezier(0.34, 1.3, 0.64, 1) both;
     pointer-events: all;
@@ -204,7 +204,7 @@
     background: color-mix(in srgb, var(--color-accent) 8%, transparent);
     border: 1px solid color-mix(in srgb, var(--color-accent) 25%, transparent);
     border-radius: 8px;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     font-family: 'Space Mono', monospace;
     font-size: 11px;
     font-weight: 700;
@@ -261,7 +261,7 @@
   .hint-name {
     font-family: 'Space Mono', monospace;
     font-size: 10px;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     white-space: nowrap;
   }
   .hint-plus {
@@ -283,7 +283,7 @@
   .trivia-riddle { font-style: italic; font-size: 11px !important; line-height: 1.4; color: var(--color-text-secondary) !important; }
   .btn-reveal {
     background: color-mix(in srgb, var(--color-accent) 8%, transparent); border: 1px solid color-mix(in srgb, var(--color-accent) 25%, transparent); border-radius: 6px;
-    color: var(--color-accent); font-family: 'Space Mono', monospace; font-size: 10px;
+    color: var(--color-accent-text); font-family: 'Space Mono', monospace; font-size: 10px;
     padding: 4px 10px; cursor: pointer; touch-action: manipulation;
     transition: background 0.15s; align-self: flex-end;
   }

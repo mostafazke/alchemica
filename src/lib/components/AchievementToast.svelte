@@ -69,12 +69,12 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    background: rgba(13, 27, 46, 0.95);
-    border: 1px solid rgba(74, 240, 192, 0.4);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-mid);
     border-radius: 12px;
     padding: 10px 18px;
     z-index: 500;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 20px var(--material-brass-shadow);
     animation: toast-in 0.2s ease;
     white-space: nowrap;
   }

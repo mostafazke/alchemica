@@ -27,6 +27,10 @@
 		goto('/game');
 	}
 
+	function toggleSound() {
+		soundMuted.update((m) => !m);
+	}
+
 	function getCurrentTierAndProgress() {
 		const discoveryCount = $discoveries.length;
 		const currentBadge = BADGES.find((b) => b.threshold <= discoveryCount) || BADGES[0];
@@ -35,14 +39,13 @@
 		if (nextBadge) {
 			const progress = discoveryCount - (BADGES[BADGES.indexOf(currentBadge) - 1]?.threshold ?? 0);
 			const needed = nextBadge.threshold - (BADGES[BADGES.indexOf(currentBadge) - 1]?.threshold ?? 0);
-			return `${currentBadge.name} • ${progress}/${needed} to ${nextBadge.name}`;
+			return `${currentBadge.name} · ${progress}/${needed} to ${nextBadge.name}`;
 		}
-		return `${currentBadge.name} • Master`;
+		return `${currentBadge.name} · Master Alchemist`;
 	}
 
 	let discoverySheetOpen = $state(false);
 	let achievementsOpen = $state(false);
-	let activeTab = $state<'discoveries' | 'play' | 'badges' | 'leaderboard' | 'settings'>('play');
 
 	let lastSeenCount = $state(
 		typeof localStorage !== 'undefined'
@@ -57,36 +60,50 @@
 			return;
 		}
 		discoverySheetOpen = true;
-		activeTab = 'discoveries';
 		lastSeenCount = $discoveries.length;
 		if (typeof localStorage !== 'undefined') {
 			localStorage.setItem('alchemica_last_seen_discoveries', String($discoveries.length));
 		}
 	}
-
 </script>
 
 <main class="menu">
+
+	<!-- Top bar: sound toggle (left) + settings (right) -->
+	<header class="top-bar">
+		<button class="icon-btn" onclick={toggleSound} aria-label="Toggle sound">
+			{$soundMuted ? '🔇' : '🔊'}
+		</button>
+		<button class="icon-btn" onclick={() => goto('/settings')} aria-label="Settings">
+			⚙️
+		</button>
+	</header>
+
+	<!-- Brand -->
 	<div class="brand">
 		<div class="logo-mark" aria-hidden="true">⚗</div>
 		<h1 class="title">Alchemica</h1>
 		<p class="tagline">Combine elements. Discover the world.</p>
 	</div>
 
+	<!-- Flex spacer pushes CTAs toward the center/lower half -->
+	<div class="spacer"></div>
 
+	<!-- Score & tier progress (only when player has started) -->
+	{#if $score > 0}
+		<div class="score-section">
+			<p class="score-stat">{$score} pts</p>
+			<p class="score-context">{getCurrentTierAndProgress()}</p>
+		</div>
+	{/if}
 
+	<!-- Primary CTA -->
 	<button class="play-btn" onclick={play}>
 		<span class="play-icon">⚗</span>
 		{$discoveries.length > 0 || $score > 0 ? 'Resume Game' : 'Play'}
 	</button>
 
-	{#if $score > 0}
-		<div class="score-section">
-			<p class="score-stat">Score: {$score}</p>
-			<p class="score-context">{getCurrentTierAndProgress()}</p>
-		</div>
-	{/if}
-
+	<!-- Daily challenge -->
 	<button class="daily-btn" onclick={openDaily} class:completed={$dailyCompleted}>
 		{#if $dailyCompleted}
 			<span class="daily-icon">✓</span>
@@ -104,53 +121,31 @@
 		<span class="arrow-icon">→</span>
 	</button>
 
+	<!-- Secondary actions grid -->
+	<div class="secondary-grid">
+		<button class="secondary-card" onclick={openDiscoveries} aria-label={discoverySheetOpen ? 'Close discoveries' : 'View discoveries'}>
+			<span class="secondary-icon">{discoverySheetOpen ? '✕' : '📋'}</span>
+			<span class="secondary-label">Discoveries</span>
+			{#if unreadCount > 0 && !discoverySheetOpen}
+				<span class="secondary-badge">{unreadCount}</span>
+			{/if}
+		</button>
+		<button class="secondary-card" onclick={() => { achievementsOpen = true; }} aria-label="View badges">
+			<span class="secondary-icon">🏆</span>
+			<span class="secondary-label">Badges</span>
+		</button>
+		<button class="secondary-card" onclick={() => goto('/leaderboard')} aria-label="Weekly leaderboard">
+			<span class="secondary-icon">🏅</span>
+			<span class="secondary-label">Ranking</span>
+		</button>
+	</div>
+
 	<BottomSheet open={discoverySheetOpen} onClose={() => { discoverySheetOpen = false; }}>
 		<DiscoveryLog />
 	</BottomSheet>
 
 	<AchievementGallery open={achievementsOpen} onClose={() => achievementsOpen = false} />
 
-	<!-- Bottom Navigation -->
-	<nav class="bottom-nav">
-		<button
-			class="nav-tab"
-			class:active={activeTab === 'discoveries'}
-			onclick={openDiscoveries}
-			aria-label={discoverySheetOpen ? 'Close discoveries' : 'View discoveries'}
-		>
-			<span class="nav-icon">{discoverySheetOpen ? '✕' : '📋'}</span>
-			{#if unreadCount > 0 && !discoverySheetOpen}
-				<span class="nav-badge">{unreadCount}</span>
-			{/if}
-		</button>
-
-		<button
-			class="nav-tab"
-			class:active={activeTab === 'badges'}
-			onclick={() => { achievementsOpen = true; activeTab = 'badges'; }}
-			aria-label="View badges"
-		>
-			<span class="nav-icon">🏆</span>
-		</button>
-
-		<button
-			class="nav-tab"
-			class:active={activeTab === 'leaderboard'}
-			onclick={() => { activeTab = 'leaderboard'; goto('/leaderboard'); }}
-			aria-label="Weekly leaderboard"
-		>
-			<span class="nav-icon">🏅</span>
-		</button>
-
-		<button
-			class="nav-tab"
-			class:active={activeTab === 'settings'}
-			onclick={() => { activeTab = 'settings'; goto('/settings'); }}
-			aria-label="Settings"
-		>
-			<span class="nav-icon">⚙️</span>
-		</button>
-	</nav>
 </main>
 
 <style>
@@ -160,22 +155,63 @@
 		align-items: center;
 		height: 100dvh;
 		background: var(--color-bg-deep);
-		padding: 1rem;
+		padding:
+			calc(0.75rem + env(safe-area-inset-top, 0px))
+			1.25rem
+			calc(1.25rem + env(safe-area-inset-bottom, 0px));
+		gap: 0.75rem;
+		overflow: hidden;
 	}
 
+	/* ── Top bar ─────────────────────────────────────── */
+	.top-bar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		flex-shrink: 0;
+	}
+
+	.icon-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		background: var(--color-accent-dim);
+		border: 1px solid var(--color-border-subtle);
+		border-radius: var(--radius-lg);
+		font-size: 1.1rem;
+		cursor: pointer;
+		color: var(--color-text-secondary);
+		transition: background 0.15s, border-color 0.15s;
+		-webkit-tap-highlight-color: transparent;
+		touch-action: manipulation;
+	}
+
+	.icon-btn:hover {
+		background: var(--color-bg-hover);
+		border-color: var(--color-border-active);
+	}
+
+	.icon-btn:active {
+		transform: scale(0.94);
+	}
+
+	/* ── Brand ───────────────────────────────────────── */
 	.brand {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.5rem;
+		gap: 0.35rem;
 		text-align: center;
 		flex-shrink: 0;
 	}
 
 	.logo-mark {
-		font-size: 2.5rem;
+		font-size: clamp(2rem, 6vw, 3rem);
 		line-height: 1;
-		filter: drop-shadow(0 0 12px #c9a84c88);
+		filter: drop-shadow(0 0 10px color-mix(in srgb, var(--raw-brass-500) 50%, transparent));
 	}
 
 	.title {
@@ -183,68 +219,111 @@
 		font-weight: 700;
 		letter-spacing: 0.12em;
 		text-transform: uppercase;
-		color: #c9a84c;
-		text-shadow: 0 0 24px #c9a84c55;
+		color: var(--raw-brass-500);
+		text-shadow: 0 0 20px color-mix(in srgb, var(--raw-brass-500) 30%, transparent);
 		margin: 0;
 	}
 
 	.tagline {
-		font-size: clamp(0.65rem, 1.5vw, 0.85rem);
-		color: var(--color-text-primary);
-		opacity: 0.65;
+		font-size: clamp(0.65rem, 1.8vw, 0.8rem);
+		color: var(--color-text-muted);
 		letter-spacing: 0.04em;
 		margin: 0;
 	}
 
+	/* ── Spacer ──────────────────────────────────────── */
+	.spacer {
+		flex: 1;
+		min-height: 0.5rem;
+		max-height: 3rem;
+	}
+
+	/* ── Score ───────────────────────────────────────── */
 	.score-section {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.15rem;
-		margin-top: 0.75rem;
+		gap: 0.1rem;
 		flex-shrink: 0;
 	}
 
 	.score-stat {
 		font-family: 'Space Mono', monospace;
-		font-size: 0.75rem;
-		color: var(--color-accent);
+		font-size: 0.8rem;
+		font-weight: 700;
+		color: var(--color-accent-text);
 		margin: 0;
-		opacity: 0.9;
-		font-weight: 600;
 	}
 
 	.score-context {
 		font-family: 'Space Mono', monospace;
 		font-size: 0.6rem;
-		color: var(--color-text-secondary);
+		color: var(--color-text-muted);
 		margin: 0;
-		opacity: 0.7;
-		letter-spacing: 0.03em;
+		letter-spacing: 0.02em;
 	}
 
-	/* Daily challenge button — now interactive */
+	/* ── Primary CTA ─────────────────────────────────── */
+	.play-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.6rem;
+		padding: 0.95rem 1.5rem;
+		width: min(320px, 100%);
+		background: linear-gradient(135deg, var(--raw-brass-700), var(--raw-brass-500));
+		color: var(--raw-ink-900);
+		font-family: 'Space Mono', monospace;
+		font-size: 1rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		border: none;
+		border-radius: var(--radius-xl);
+		cursor: pointer;
+		box-shadow: 0 6px 20px color-mix(in srgb, var(--raw-brass-700) 35%, transparent);
+		transition: all 0.15s ease;
+		-webkit-tap-highlight-color: transparent;
+		touch-action: manipulation;
+		flex-shrink: 0;
+	}
+
+	.play-btn:hover {
+		background: linear-gradient(135deg, var(--raw-brass-500), var(--raw-brass-300));
+		box-shadow: 0 8px 28px color-mix(in srgb, var(--raw-brass-700) 50%, transparent);
+		transform: translateY(-1px);
+	}
+
+	.play-btn:active {
+		transform: scale(0.97);
+		box-shadow: 0 3px 12px color-mix(in srgb, var(--raw-brass-700) 30%, transparent);
+	}
+
+	.play-icon {
+		font-size: 1.15rem;
+		line-height: 1;
+	}
+
+	/* ── Daily challenge ─────────────────────────────── */
 	.daily-btn {
 		display: flex;
 		align-items: center;
 		gap: 0.75rem;
 		padding: 0.65rem 1rem;
+		width: min(320px, 100%);
 		background: transparent;
-		border: 2px solid #c9a84c60;
-		border-radius: 8px;
-		min-width: 180px;
-		max-width: 240px;
+		border: 1.5px solid var(--color-border-mid);
+		border-radius: var(--radius-lg);
 		cursor: pointer;
-		transition: all 0.15s ease;
+		transition: border-color 0.15s, background 0.15s;
 		-webkit-tap-highlight-color: transparent;
 		touch-action: manipulation;
-		margin-top: 1rem;
 		flex-shrink: 0;
 	}
 
 	.daily-btn:hover {
-		border-color: #c9a84c;
-		background: #c9a84c08;
+		border-color: var(--color-border-hot);
+		background: var(--color-accent-dim);
 	}
 
 	.daily-btn:active {
@@ -255,13 +334,8 @@
 		border-color: var(--color-border-active);
 	}
 
-	.daily-btn.completed:hover {
-		border-color: var(--color-accent);
-		background: color-mix(in srgb, var(--color-accent) 3%, transparent);
-	}
-
 	.daily-icon {
-		font-size: 1.25rem;
+		font-size: 1.2rem;
 		line-height: 1;
 		flex-shrink: 0;
 	}
@@ -276,10 +350,10 @@
 
 	.daily-label {
 		font-family: 'Space Mono', monospace;
-		font-size: 8px;
+		font-size: 9px;
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
-		color: #c9a84c;
+		color: var(--color-accent-text);
 	}
 
 	.daily-status {
@@ -287,122 +361,81 @@
 		color: var(--color-text-primary);
 	}
 
-	.daily-btn.completed .daily-status { color: var(--color-accent); }
-	.completed-text { color: var(--color-accent); }
+	.completed-text { color: var(--color-accent-text); }
 
 	.arrow-icon {
 		font-size: 1rem;
-		color: #c9a84c;
+		color: var(--color-text-muted);
 		flex-shrink: 0;
-		opacity: 0.6;
-		transition: opacity 0.15s ease;
+		transition: color 0.15s, transform 0.15s;
 	}
 
 	.daily-btn:hover .arrow-icon {
-		opacity: 1;
+		color: var(--color-accent-text);
+		transform: translateX(2px);
 	}
 
-	/* Primary play/resume CTA */
-	.play-btn {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.6rem;
-		padding: 0.9rem 2.5rem;
-		background: linear-gradient(135deg, #c9a84c, #d9b85c);
-		color: var(--color-bg-deep);
-		font-family: 'Space Mono', monospace;
-		font-size: 1rem;
-		font-weight: 700;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		border: none;
-		border-radius: 14px;
-		cursor: pointer;
-		box-shadow: 0 6px 24px #c9a84c45;
-		transition: all 0.15s ease;
-		-webkit-tap-highlight-color: transparent;
-		touch-action: manipulation;
+	/* ── Secondary grid ──────────────────────────────── */
+	.secondary-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0.5rem;
+		width: min(320px, 100%);
 		flex-shrink: 0;
-		margin-top: 0.5rem;
-		width: min(260px, 80%);
 	}
 
-	.play-btn:hover {
-		background: linear-gradient(135deg, #d9b85c, #e9ca70);
-		box-shadow: 0 8px 28px #c9a84c60;
-		transform: translateY(-1px);
-	}
-
-	.play-btn:active {
-		transform: scale(0.97);
-		box-shadow: 0 4px 16px #c9a84c40;
-	}
-
-	.play-icon {
-		font-size: 1.2rem;
-		line-height: 1;
-	}
-
-	/* Bottom Navigation */
-	.bottom-nav {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0;
-		width: 100%;
-		margin: 0 -1rem -1rem;
-		padding: 0.5rem 0.5rem 0.75rem;
-		flex-shrink: 0;
-		background: linear-gradient(to bottom, transparent, var(--color-bg-deep));
-	}
-
-	.nav-tab {
+	.secondary-card {
 		position: relative;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: 0.2rem;
-		padding: 0.6rem 1rem;
-		min-width: 52px;
-		min-height: 52px;
-		background: transparent;
-		border: none;
+		gap: 0.3rem;
+		padding: 0.75rem 0.5rem;
+		background: var(--color-bg-surface);
+		border: 1px solid var(--color-border-subtle);
+		border-radius: var(--radius-md);
 		cursor: pointer;
-		color: var(--color-text-secondary);
-		transition: color 0.15s ease;
+		transition: border-color 0.15s, background 0.15s;
 		-webkit-tap-highlight-color: transparent;
 		touch-action: manipulation;
-		border-bottom: 2px solid transparent;
 	}
 
-	.nav-tab:hover {
-		color: var(--color-text-primary);
+	.secondary-card:hover {
+		border-color: var(--color-border-mid);
+		background: var(--color-bg-raised);
 	}
 
-	.nav-tab.active {
-		color: #c9a84c;
-		border-bottom-color: #c9a84c;
+	.secondary-card:active {
+		transform: scale(0.96);
 	}
 
-	.nav-icon {
-		font-size: 1.3rem;
+	.secondary-icon {
+		font-size: 1.4rem;
 		line-height: 1;
 	}
 
-	.nav-badge {
+	.secondary-label {
+		font-family: 'Space Mono', monospace;
+		font-size: 9px;
+		text-transform: uppercase;
+		letter-spacing: 0.4px;
+		color: var(--color-text-muted);
+		white-space: nowrap;
+	}
+
+	.secondary-badge {
 		position: absolute;
-		top: 2px;
-		right: 2px;
+		top: 4px;
+		right: 4px;
 		background: var(--color-accent);
-		color: var(--color-bg-deep);
-		font-size: 10px;
+		color: #fff;
+		font-size: 9px;
 		font-weight: 700;
 		border-radius: 10px;
 		padding: 1px 5px;
-		min-width: 18px;
+		min-width: 16px;
 		text-align: center;
+		line-height: 1.4;
 	}
-
 </style>

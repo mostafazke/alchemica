@@ -51,7 +51,7 @@
     border: 1px solid var(--color-border-mid);
     border-radius: 16px;
     padding: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--color-accent)20;
+    box-shadow: 0 8px 32px rgba(60, 30, 10, 0.15), 0 0 0 1px var(--color-accent)20;
     animation: detail-appear 0.18s ease;
   }
   @keyframes detail-appear {
@@ -87,7 +87,7 @@
   }
   .detail-formula {
     font-family: 'Space Mono', monospace;
-    font-size: 12px; color: var(--color-accent); margin-bottom: 2px;
+    font-size: 12px; color: var(--color-accent-text); margin-bottom: 2px;
   }
   .detail-category {
     font-size: 11px; color: var(--color-text-muted);

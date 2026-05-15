@@ -99,7 +99,7 @@
     gap: 8px;
     padding: 8px 10px;
     background: linear-gradient(90deg, var(--color-bg-hover) 0%, var(--color-bg-surface) 100%);
-    border-bottom: 1px solid rgba(74, 191, 255, 0.25);
+    border-bottom: 1px solid var(--color-border-mid);
     cursor: pointer;
     flex-shrink: 0;
     transition: background 0.15s;
@@ -164,7 +164,7 @@
   .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(4, 10, 20, 0.7);
+    background: rgba(26, 14, 5, 0.70);
     z-index: 600;
     backdrop-filter: blur(2px);
   }
@@ -176,10 +176,10 @@
     z-index: 601;
     width: min(320px, 90vw);
     background: var(--color-bg-deep);
-    border: 1px solid rgba(74, 191, 255, 0.3);
+    border: 1px solid var(--color-border-mid);
     border-radius: 18px;
     padding: 20px;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(74, 191, 255, 0.1);
+    box-shadow: 0 12px 40px rgba(60, 30, 10, 0.20), 0 0 0 1px rgba(180, 130, 60, 0.25);
     display: flex;
     flex-direction: column;
     gap: 14px;

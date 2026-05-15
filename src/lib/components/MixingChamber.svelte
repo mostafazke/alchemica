@@ -1,13 +1,12 @@
 <script lang="ts">
-  import { onMount, getContext } from 'svelte';
-  import type { AnimationController } from '../effects/animation-controller.js';
+  import { onMount, setContext } from 'svelte';
+  import { writable } from 'svelte/store';
+  import { AnimationController } from '../effects/animation-controller.js';
   import { get } from 'svelte/store';
-  import Slot from './Slot.svelte';
-  import ResultDisplay from './ResultDisplay.svelte';
-  import { slots, combo } from '../stores/game.js';
-  import { unlockedElements } from '../stores/game.js';
+  import MixingSlot from './MixingSlot.svelte';
+  import ActionZone from './ActionZone.svelte';
+  import { slots, combo, score, unlockedElements } from '../stores/game.js';
   import { applyReaction } from '../game/reactions.js';
-  import { initParticles, triggerSuccessParticles, triggerFailParticles } from '../effects/particles.js';
   import { hapticSuccess, hapticFail } from '../utils/touch.js';
   import { toastQueue } from '../stores/toast.js';
   import { discoveryBannerQueue } from '../stores/discoveryBanner.js';
@@ -18,13 +17,24 @@
   import { ELEMENTS } from '../data/elements.js';
   import { failedComboCount, stuckPromptVisible } from '../stores/hintPrompt.js';
   import { warmupAd } from '../effects/admob.js';
+  import { incrementFrequency } from '../stores/frequency.js';
+
+  // Context provision: writable store set at init; populated after mount so children
+  // that call getContext receive the store synchronously and subscribe for the value.
+  const controllerStore = writable<AnimationController | undefined>(undefined);
+  setContext('animationController', controllerStore);
 
   let canvasEl: HTMLCanvasElement;
-  const controller = getContext<AnimationController | undefined>('animationController');
+  let controller: AnimationController | undefined;
   let result: string | null = $state(null);
   let isNew: boolean = $state(false);
   let attempted: boolean = $state(false);
   let contracting = $state(false);
+  let pts = $state(0);
+
+  const actionState = $derived(
+    !attempted ? 'idle' : result ? (isNew ? 'discovery' : 'known') : 'failure'
+  ) as 'idle' | 'discovery' | 'known' | 'failure';
 
   function dismissOverlay() {
     result = null;
@@ -62,12 +72,15 @@
   });
 
   onMount(() => {
-    initParticles(canvasEl);
+    controller = new AnimationController(canvasEl);
+    controllerStore.set(controller);
+    return () => controller?.destroy();
   });
 
   function doReaction() {
     if (!$slots.a || !$slots.b) return;
     const prevCombo = get(combo);
+    const prevScore = get(score);
     const reaction = applyReaction($slots.a, $slots.b);
     result = reaction.result;
     isNew = reaction.isNew;
@@ -77,10 +90,14 @@
     const cy = canvasEl.parentElement!.offsetHeight * 0.38;
 
     if (reaction.result) {
+      // Wire frequency store so ElementCard energy states update in real time
+      incrementFrequency($slots.a);
+      incrementFrequency($slots.b);
+      pts = get(score) - prevScore;
       // Reset stuck-player state on any successful combination
       failedComboCount.set(0);
       stuckPromptVisible.set(false);
-      triggerSuccessParticles(cx, cy);
+      controller?.successBurst(cx, cy);
       hapticSuccess();
       if (!get(soundMuted)) {
         if (!reaction.isNew) playReactionSuccess();
@@ -99,7 +116,7 @@
         }]);
       }
     } else {
-      triggerFailParticles(cx, cy);
+      pts = 0;
       controller?.failureParticle(cx, cy);
       hapticFail();
       if (!get(soundMuted)) playFailure();
@@ -118,9 +135,9 @@
   <canvas bind:this={canvasEl} class="particle-canvas"></canvas>
 
   <div class="slots-row">
-    <Slot which="a" />
+    <MixingSlot which="a" isReady={canReact} isReacting={contracting} />
     <div class="plus-sign">+</div>
-    <Slot which="b" />
+    <MixingSlot which="b" isReady={canReact} isReacting={contracting} />
   </div>
 
   {#if $combo > 1}
@@ -132,7 +149,7 @@
   {#if isNew && attempted && result !== null}
     <DiscoveryOverlay {result} onDismiss={dismissOverlay} />
   {:else}
-    <ResultDisplay {result} {isNew} {attempted} />
+    <ActionZone state={actionState} {result} {pts} />
   {/if}
 
   <div class="utility-row">

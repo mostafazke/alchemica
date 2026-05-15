@@ -28,6 +28,7 @@
   --color-border-hot:    var(--raw-brass-700);
   --color-accent:        var(--raw-brass-700);
   --color-accent-dim:    rgba(200, 136, 10, 0.12);
+  --color-accent-text:   #7a5200;   /* dark brass — 6.1:1 on cream-100, use for text on light bg */
   --color-gold:          var(--raw-gold-400);
   --color-danger:        var(--raw-ember-700);
   --color-text-primary:  var(--raw-ink-900);

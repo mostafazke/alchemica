@@ -96,7 +96,7 @@
 		touch-action: manipulation;
 		transition: color 0.15s, border-color 0.15s;
 	}
-	.back-btn:hover { color: var(--color-accent); border-color: var(--color-border-active); }
+	.back-btn:hover { color: var(--color-accent-text); border-color: var(--color-border-active); }
 	.lb-title-block {
 		display: flex;
 		align-items: center;
@@ -139,7 +139,7 @@
 		text-align: center;
 	}
 	.player-name-text {
-		color: var(--color-accent);
+		color: var(--color-accent-text);
 	}
 
 	/* ── List ───────────────────────────────────────────────── */
@@ -179,7 +179,7 @@
 		font-weight: 700;
 	}
 	.lb-row--top3 .lb-rank { font-size: 18px; }
-	.lb-row--player .lb-rank { color: var(--color-accent); }
+	.lb-row--player .lb-rank { color: var(--color-accent-text); }
 	.lb-name {
 		flex: 1;
 		font-size: 12px;
@@ -188,7 +188,7 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
-	.lb-row--player .lb-name { color: var(--color-accent); }
+	.lb-row--player .lb-name { color: var(--color-accent-text); }
 	.you-tag {
 		font-size: 10px;
 		color: color-mix(in srgb, var(--color-accent) 50%, transparent);
@@ -199,7 +199,7 @@
 		font-weight: 700;
 		color: var(--color-text-primary);
 	}
-	.lb-row--player .lb-count { color: var(--color-accent); }
+	.lb-row--player .lb-count { color: var(--color-accent-text); }
 	.count-label {
 		font-size: 9px;
 		color: var(--color-text-muted);

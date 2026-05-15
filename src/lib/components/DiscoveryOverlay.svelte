@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, getContext } from 'svelte';
+  import type { Writable } from 'svelte/store';
   import { ELEMENTS } from '../data/elements.js';
   import { QUIPS } from '../data/quips.js';
   import { shareDiscoveryCard } from '../utils/share.js';
@@ -13,7 +14,9 @@
   const el = $derived(ELEMENTS[result] ?? null);
   const quip = $derived(QUIPS[result] ?? null);
 
-  const controller = getContext<AnimationController | undefined>('animationController');
+  // MixingChamber provides the controller as a writable store so we can subscribe
+  // safely even though the canvas element isn't mounted until onMount.
+  const controllerStore = getContext<Writable<AnimationController | undefined>>('animationController');
 
   let exiting = $state(false);
   let shareMsg: string | null = $state(null);
@@ -35,8 +38,8 @@
   }
 
   onMount(() => {
-    // Screen-edge flash via AnimationController (no-op until canvas mounted in Story 3.3)
-    controller?.screenFlash('#d4a84a', 0.5);
+    // Screen-edge flash via AnimationController
+    $controllerStore?.screenFlash('#d4a84a', 0.5);
 
     // WAA emoji spring scale (skip for reduced-motion)
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -142,7 +145,7 @@
     position: absolute;
     inset: 0;
     z-index: 10;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(26, 14, 5, 0.90);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -307,7 +310,7 @@
     animation: fade-in 300ms ease 400ms both;
   }
   .discovery-continue-btn:hover {
-    background: rgba(74, 240, 192, 0.08);
+    background: var(--color-accent-dim);
     border-color: var(--color-accent);
   }
   @media (prefers-reduced-motion: reduce) {

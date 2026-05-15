@@ -297,7 +297,7 @@
     flex-shrink: 0;
   }
   .back-btn:hover {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     border-color: color-mix(in srgb, var(--color-accent) 25%, transparent);
   }
   .settings-title {
@@ -305,7 +305,7 @@
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     margin: 0;
   }
   .settings-body {
@@ -368,7 +368,7 @@
   }
   .export-btn {
     background: var(--color-bg-surface);
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     border-color: color-mix(in srgb, var(--color-accent) 25%, transparent);
   }
   .export-btn:hover { background: var(--color-bg-hover); border-color: var(--color-accent); }
@@ -384,11 +384,11 @@
     font-size: 12px;
     margin-bottom: 8px;
   }
-  .import-status.ok { background: #0a2a1a; color: var(--color-accent); border: 1px solid color-mix(in srgb, var(--color-accent) 25%, transparent); }
-  .import-status.error { background: #2a0a0a; color: #ff6b6b; border: 1px solid #ff6b6b40; }
+  .import-status.ok { background: rgba(80, 140, 60, 0.08); color: #5a8050; border: 1px solid rgba(80, 140, 60, 0.30); }
+  .import-status.error { background: rgba(160, 60, 30, 0.08); color: var(--raw-ember-700); border: 1px solid rgba(160, 60, 30, 0.30); }
   .save-hint {
     font-size: 11px;
-    color: #2a4060;
+    color: var(--color-text-muted);
     line-height: 1.5;
   }
   .purchase-cards {
@@ -418,10 +418,10 @@
     background: var(--color-bg-hover);
   }
   .purchase-card:disabled { opacity: 0.5; cursor: not-allowed; }
-  .purchase-card-owned { border-color: color-mix(in srgb, var(--color-accent) 25%, transparent); color: var(--color-accent); background: #0a2a1a; }
+  .purchase-card-owned { border-color: var(--color-border-active); color: var(--color-accent-text); background: var(--color-accent-dim); }
   .purchase-icon { font-size: 18px; line-height: 1; }
   .purchase-name { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: inherit; }
-  .purchase-price { font-size: 11px; color: var(--color-accent); }
+  .purchase-price { font-size: 11px; color: var(--color-accent-text); }
   .purchase-card-owned .purchase-price { color: color-mix(in srgb, var(--color-accent) 50%, transparent); }
   .restore-btn {
     width: 100%;
@@ -463,7 +463,7 @@
   .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(26, 14, 5, 0.65);
     z-index: 500;
   }
   .modal {
@@ -477,7 +477,7 @@
     border: 1px solid var(--color-border-mid);
     border-radius: 16px;
     padding: 24px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 32px rgba(60, 30, 10, 0.18);
   }
   .modal-title {
     font-family: 'Space Mono', monospace;
