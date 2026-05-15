@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import OfflineIndicator from '$lib/components/OfflineIndicator.svelte';
+	import ElementSprite from '$lib/components/ElementSprite.svelte';
 	import { onMount } from 'svelte';
 	import { onNavigate, goto } from '$app/navigation';
 	import { initAdMob } from '$lib/effects/admob.js';
@@ -44,6 +45,7 @@
 	});
 </script>
 
+<ElementSprite />
 {@render children()}
 <OfflineIndicator />
 

@@ -110,7 +110,7 @@
   .rating-title {
     font-family: 'Space Mono', monospace;
     font-size: 15px;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     letter-spacing: 0.5px;
     margin: 0 0 12px;
   }
@@ -123,7 +123,7 @@
   .rating-email {
     font-family: 'Space Mono', monospace;
     font-size: 13px;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     margin: 0 0 20px;
   }
   .rating-actions {
@@ -150,14 +150,14 @@
   .rating-btn-accept {
     background: var(--color-accent);
     border: 1px solid var(--color-accent);
-    color: var(--color-bg-deep);
+    color: var(--color-text-primary);
     font-weight: 700;
   }
   .rating-btn-accept:hover { background: var(--color-accent); border-color: var(--color-accent); }
   .rating-btn-ok {
     background: var(--color-accent);
     border: 1px solid var(--color-accent);
-    color: var(--color-bg-deep);
+    color: var(--color-text-primary);
     font-weight: 700;
     min-width: 100px;
   }

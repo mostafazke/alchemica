@@ -1,8 +1,10 @@
 <script lang="ts">
   import type { Element } from '../types.js';
+  import ElementIcon from './ElementIcon.svelte';
 
-  let { element, onClose }: {
+  let { element, elementKey = null, onClose }: {
     element: Element | null;
+    elementKey?: string | null;
     onClose: () => void;
   } = $props();
 </script>
@@ -12,7 +14,7 @@
   <div class="detail-card" role="dialog" aria-label="Element details">
     <button class="detail-close" onclick={onClose} aria-label="Close">✕</button>
     <div class="detail-symbol-row">
-      <div class="detail-icon {element.color}">{element.symbol}</div>
+      <div class="detail-icon {element.color}">{#if elementKey}<ElementIcon key={elementKey} />{:else}{element.symbol}{/if}</div>
       <div class="detail-header">
         <div class="detail-name">{element.name}</div>
         <div class="detail-formula">{element.formula}</div>
@@ -78,7 +80,7 @@
   .detail-icon {
     width: 52px; height: 52px;
     display: flex; align-items: center; justify-content: center;
-    border-radius: 12px; font-size: 28px; flex-shrink: 0;
+    border-radius: 12px; padding: 10px; flex-shrink: 0;
   }
   .detail-header { min-width: 0; }
   .detail-name {

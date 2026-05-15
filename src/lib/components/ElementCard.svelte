@@ -3,6 +3,7 @@
   import { slots } from '../stores/game.js';
   import { createLongPress, haptic } from '../utils/touch.js';
   import ElementDetail from './ElementDetail.svelte';
+  import ElementIcon from './ElementIcon.svelte';
   import { onboardingStep } from '../stores/onboarding.js';
   import { elementFrequency } from '../stores/frequency.js';
   import { FREQUENCY_THRESHOLDS } from '../config/thresholds.js';
@@ -59,7 +60,7 @@
   aria-label="{el.name}, {el.category}"
   aria-pressed={isSelected}
 >
-  <div class="el-icon {el.color}">{el.symbol}</div>
+  <div class="el-icon {el.color}"><ElementIcon key={elementKey} /></div>
   {#if mode === 'grid'}
     <div class="el-grid-name">{el.name}{#if hasMore}<span class="has-more-dot" aria-label="has undiscovered combinations">◦</span>{/if}</div>
     <div class="long-press-dot" aria-hidden="true"></div>
@@ -71,7 +72,7 @@
     </div>
   {/if}
 </button>
-<ElementDetail element={detailOpen ? el : null} onClose={() => detailOpen = false} />
+<ElementDetail element={detailOpen ? el : null} elementKey={detailOpen ? elementKey : null} onClose={() => detailOpen = false} />
 {/if}
 
 <style>
@@ -112,24 +113,24 @@
     box-shadow: 0 0 8px var(--color-accent-dim);
   }
   .element-card.onboard-highlight {
-    border-color: #ffe44a;
-    background: #1a1800;
-    box-shadow: 0 0 12px #ffe44a50, 0 0 0 1px #ffe44a30;
+    border-color: var(--color-accent);
+    background: var(--color-bg-raised);
+    box-shadow: 0 0 12px rgba(200, 136, 10, 0.45), 0 0 0 1px rgba(200, 136, 10, 0.30);
     animation: onboard-pulse 1.4s ease-in-out infinite;
   }
   @keyframes onboard-pulse {
-    0%, 100% { box-shadow: 0 0 10px #ffe44a40, 0 0 0 1px #ffe44a30; }
-    50%       { box-shadow: 0 0 20px #ffe44a70, 0 0 0 2px #ffe44a50; }
+    0%, 100% { box-shadow: 0 0 10px rgba(200, 136, 10, 0.35), 0 0 0 1px rgba(200, 136, 10, 0.25); }
+    50%       { box-shadow: 0 0 22px rgba(200, 136, 10, 0.60), 0 0 0 2px rgba(200, 136, 10, 0.45); }
   }
 
   /* ─── List-mode inner elements ─── */
   .el-icon {
     width: 34px; height: 34px;
     display: flex; align-items: center; justify-content: center;
-    border-radius: 6px; font-size: 18px; flex-shrink: 0;
+    border-radius: 6px; padding: 4px; flex-shrink: 0;
   }
   .el-info { min-width: 0; }
-  .el-formula { font-family: 'Space Mono', monospace; font-size: var(--text-micro); color: var(--color-accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .el-formula { font-family: 'Space Mono', monospace; font-size: var(--text-micro); color: var(--color-accent-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .el-name { font-size: 12px; font-weight: 600; color: var(--color-text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .el-category { font-size: var(--text-micro); color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
@@ -146,7 +147,7 @@
     text-align: center;
   }
   .element-card.grid-tile .el-icon {
-    width: 24px; height: 24px; font-size: 20px;
+    width: 24px; height: 24px; padding: 3px;
   }
   .el-grid-name {
     font-size: var(--text-micro);

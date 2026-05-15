@@ -2,6 +2,7 @@
   import { activeEvent, dismissEvent, daysRemaining } from '../stores/event.js';
   import { ELEMENTS } from '../data/elements.js';
   import { slots } from '../stores/game.js';
+  import ElementIcon from './ElementIcon.svelte';
 
   let modalOpen = $state(false);
 
@@ -75,7 +76,7 @@
         <div class="modal-target">
           <span class="target-label">Target element</span>
           <div class="target-el">
-            <span class="target-symbol {targetEl.color}">{targetEl.symbol}</span>
+            <span class="target-symbol {targetEl.color}"><ElementIcon key={ev.targetElement} /></span>
             <div class="target-info">
               <span class="target-name">{targetEl.name}</span>
               <span class="target-formula">{targetEl.formula}</span>
@@ -122,7 +123,7 @@
     font-family: 'Space Mono', monospace;
     font-size: 11px;
     font-weight: 700;
-    color: #4abfff;
+    color: var(--color-accent-text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -158,7 +159,7 @@
     touch-action: manipulation;
     transition: color 0.15s;
   }
-  .event-dismiss:hover { color: #ff6b6b; }
+  .event-dismiss:hover { color: var(--color-danger); }
 
   /* ── Modal overlay ────────────────────────────────────────────── */
   .modal-overlay {
@@ -211,9 +212,7 @@
     font-family: 'Space Mono', monospace;
     font-size: 14px;
     font-weight: 700;
-    color: #4abfff;
-  }
-  .modal-days {
+    color: var(--color-accent-text);
     font-family: 'Space Mono', monospace;
     font-size: 10px;
     color: var(--color-text-muted);
@@ -235,7 +234,7 @@
     touch-action: manipulation;
     transition: color 0.15s, border-color 0.15s;
   }
-  .modal-close:hover { color: #ff6b6b; border-color: #ff6b6b40; }
+  .modal-close:hover { color: var(--color-danger); border-color: color-mix(in srgb, var(--color-danger) 25%, transparent); }
 
   .modal-desc {
     font-size: 13px;
@@ -273,7 +272,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    padding: 8px;
     flex-shrink: 0;
   }
   .target-info {
@@ -289,7 +288,7 @@
   .target-formula {
     font-family: 'Space Mono', monospace;
     font-size: 11px;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
   }
 
   /* Try Now CTA */
@@ -297,7 +296,7 @@
     background: linear-gradient(135deg, var(--color-bg-raised), var(--color-bg-raised));
     border: 1px solid var(--color-border-active);
     border-radius: 10px;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     font-family: 'Space Mono', monospace;
     font-size: 13px;
     font-weight: 700;

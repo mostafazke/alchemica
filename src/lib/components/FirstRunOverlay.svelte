@@ -169,7 +169,7 @@
     font-family: 'Space Mono', monospace;
     font-size: 12px;
     font-weight: 700;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -184,7 +184,7 @@
     background: color-mix(in srgb, var(--color-accent) 8%, transparent);
     border: 1px solid color-mix(in srgb, var(--color-accent) 25%, transparent);
     border-radius: 8px;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     font-family: 'Space Mono', monospace;
     font-size: 11px;
     font-weight: 700;

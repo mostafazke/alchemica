@@ -2,6 +2,7 @@
   import { ELEMENTS } from '../data/elements.js';
   import { shareDiscovery } from '../utils/share.js';
   import type { Discovery } from '../types.js';
+  import ElementIcon from './ElementIcon.svelte';
 
   let { discovery }: { discovery: Discovery } = $props();
   const el = $derived(ELEMENTS[discovery.key]);
@@ -19,7 +20,7 @@
 
 {#if el}
 <div class="disc-item">
-  <div class="disc-icon {el.color}">{el.symbol}</div>
+  <div class="disc-icon {el.color}"><ElementIcon key={discovery.key} /></div>
   <div class="disc-info">
     <div class="disc-name">{el.name}</div>
     <div class="disc-formula">{el.formula}</div>
@@ -45,7 +46,7 @@
   }
   .disc-info { min-width: 0; flex: 1; }
   .disc-name { font-size: 11px; font-weight: 600; color: var(--color-text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .disc-formula { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--color-accent); }
+  .disc-formula { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--color-accent-text); }
   .disc-recipe { font-size: 11px; color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .share-btn {
     flex-shrink: 0;

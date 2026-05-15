@@ -4,6 +4,7 @@
   import { isAdReady, requestAdHint } from '../effects/admob.js';
   import { getHint, type SmartHint } from '../game/reactions.js';
   import { ELEMENTS } from '../data/elements.js';
+  import ElementIcon from './ElementIcon.svelte';
   import { Capacitor } from '@capacitor/core';
   import { soundMuted } from '../stores/settings.js';
   import { playHint } from '../effects/sound.js';
@@ -98,15 +99,15 @@
 
       {:else if activeHint.mode === 'trivia'}
         <!-- ── Trivia revealed ── -->
-        <span class="hint-label">It's {hintElResult?.symbol} {hintElResult?.name}! Make it:</span>
+        <span class="hint-label">It's {hintElResult?.name}! Make it:</span>
         <div class="hint-pair">
           <span class="hint-el">
-            <span class="hint-symbol">{hintElA.symbol}</span>
+            <span class="hint-symbol"><ElementIcon key={activeHint.a} /></span>
             <span class="hint-name">{hintElA.name}</span>
           </span>
           <span class="hint-plus">+</span>
           <span class="hint-el">
-            <span class="hint-symbol">{hintElB.symbol}</span>
+            <span class="hint-symbol"><ElementIcon key={activeHint.b} /></span>
             <span class="hint-name">{hintElB.name}</span>
           </span>
         </div>
@@ -114,18 +115,18 @@
       {:else}
         <!-- ── Goal: show target element then recipe ── -->
         <div class="hint-result-header">
-          <span class="hint-result-symbol">{hintElResult?.symbol}</span>
+          <span class="hint-result-symbol"><ElementIcon key={activeHint.result} /></span>
           <span class="hint-result-name">{hintElResult?.name}</span>
         </div>
         <span class="hint-label">How to discover it:</span>
         <div class="hint-pair">
           <span class="hint-el">
-            <span class="hint-symbol">{hintElA.symbol}</span>
+            <span class="hint-symbol"><ElementIcon key={activeHint.a} /></span>
             <span class="hint-name">{hintElA.name}</span>
           </span>
           <span class="hint-plus">+</span>
           <span class="hint-el">
-            <span class="hint-symbol">{hintElB.symbol}</span>
+            <span class="hint-symbol"><ElementIcon key={activeHint.b} /></span>
             <span class="hint-name">{hintElB.name}</span>
           </span>
         </div>
@@ -175,19 +176,19 @@
   .hint-label { font-size: 11px; color: var(--color-text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 8px; }
   .hint-pair { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 4px; }
   .hint-el { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-  .hint-symbol { font-size: 22px; }
-  .hint-name { font-size: 11px; color: var(--color-accent); font-family: 'Space Mono', monospace; }
+  .hint-symbol { width: 22px; height: 22px; display: inline-flex; flex-shrink: 0; }
+  .hint-name { font-size: 11px; color: var(--color-accent-text); font-family: 'Space Mono', monospace; }
   .hint-plus { font-size: 16px; color: var(--color-text-muted); }
   /* Goal mode — target element header */
   .hint-result-header { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 6px; }
-  .hint-result-symbol { font-size: 28px; line-height: 1; }
+  .hint-result-symbol { width: 28px; height: 28px; display: inline-flex; flex-shrink: 0; }
   .hint-result-name { font-size: 15px; font-family: 'Space Mono', monospace; font-weight: 700; color: var(--color-text-primary); }
   /* Trivia mode */
   .hint-trivia { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; text-align: left; margin: 0 0 6px; font-style: italic; }
   .hint-formula { display: block; font-size: 10px; color: var(--color-text-muted); font-family: 'Space Mono', monospace; margin-bottom: 10px; }
   .hint-reveal-btn {
     background: color-mix(in srgb, var(--color-accent) 8%, transparent); border: 1px solid color-mix(in srgb, var(--color-accent) 25%, transparent); border-radius: 6px;
-    color: var(--color-accent); font-family: 'Space Mono', monospace; font-size: 11px;
+    color: var(--color-accent-text); font-family: 'Space Mono', monospace; font-size: 11px;
     padding: 5px 14px; cursor: pointer; touch-action: manipulation;
     transition: background 0.15s;
   }
@@ -200,7 +201,7 @@
     min-width: 44px; min-height: 44px;
     display: flex; align-items: center; justify-content: center;
   }
-  .hint-dismiss:hover { color: #ff6b6b; }
+  .hint-dismiss:hover { color: var(--color-danger); }
   .ad-btn {
     padding: 6px 16px;
     border-radius: 8px;

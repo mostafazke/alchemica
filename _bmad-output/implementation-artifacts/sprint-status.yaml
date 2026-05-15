@@ -25,7 +25,7 @@
 #   - done: Retrospective has been completed
 
 generated: '2026-05-09'
-last_updated: '2026-05-15'  # Path D sprint change applied — added Epic 4 (light theme pivot)
+last_updated: '2026-05-16'  # 4-2 wcag done; 4-3 animation/particles done; all epics complete
 project: Alchemica
 project_key: NOKEY
 tracking_system: file-system
@@ -34,13 +34,13 @@ milestone: Phase 1 Visual Redesign
 
 development_status:
   # Epic 1: Design Foundation
-  epic-1: in-progress
+  epic-1: done
   1-1-token-architecture-palette-migration: done
   1-2-token-verification-pass: done
   epic-1-retrospective: optional
 
   # Epic 2: Core Components
-  epic-2: in-progress
+  epic-2: done
   2-1-elementcard-rewrite-frequency-system: done
   2-2-mixingslot-component: done
   2-3-actionzone-component: done
@@ -50,16 +50,16 @@ development_status:
   epic-2-retrospective: optional
 
   # Epic 3: Animation & Integration
-  epic-3: in-progress
+  epic-3: done
   3-1-canvas-overlay-animationcontroller: done
   3-2-discovery-failure-reaction-animations: done
-  3-3-mixingchamber-integration-route-switch: ready-for-dev  # spec for light theme direction
+  3-3-mixingchamber-integration-route-switch: done
   3-4-firebase-analytics-instrumentation: done  # was originally numbered 3-3 in file system
-  epic-3-retrospective: optional
+  epic-3-retrospective: done
 
   # Epic 4: Light Theme Foundation (Path D Pivot — approved 2026-05-14)
-  epic-4: in-progress
-  4-1-light-token-redesign: review
-  4-2-wcag-reverification: backlog
-  4-3-animation-rework-light-bg: backlog
+  epic-4: done
+  4-1-light-token-redesign: done
+  4-2-wcag-reverification: done
+  4-3-animation-rework-light-bg: done  # retired particles.ts; animation-controller.ts is canonical
   epic-4-retrospective: optional

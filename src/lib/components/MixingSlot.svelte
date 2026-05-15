@@ -4,6 +4,7 @@
   import { slots } from '../stores/game.js';
   import { soundMuted } from '../stores/settings.js';
   import { playSlotPlace, playSlotClear } from '../effects/sound.js';
+  import ElementIcon from './ElementIcon.svelte';
 
   let { which, isReady = false, isReacting = false }: {
     which: 'a' | 'b';
@@ -53,7 +54,7 @@
 >
   {#if el}
     {#key elementKey}
-      <div class="slot-icon {el.color} entering">{el.symbol}</div>
+      <div class="slot-icon {el.color} entering"><ElementIcon key={elementKey} /></div>
     {/key}
     <div class="slot-name">{el.name}</div>
     <button

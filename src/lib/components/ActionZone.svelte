@@ -1,5 +1,6 @@
 <script lang="ts">
   import { ELEMENTS } from '../data/elements.js';
+  import ElementIcon from './ElementIcon.svelte';
 
   const FAIL_MSGS = [
     'Not yet…',
@@ -38,7 +39,7 @@
   <!-- Discovery live region: assertive so screen reader announces immediately -->
   <div aria-live="assertive" aria-atomic="true" class="live-region">
     {#if zoneState === 'discovery' && el}
-      <div class="zone-icon">{el.symbol}</div>
+      <div class="zone-icon"><ElementIcon key={result} /></div>
       <div class="zone-label discovery-label">✦ NEW: {el.name}</div>
       {#if el.recipe}
         <div class="zone-recipe">{el.recipe}</div>
@@ -54,7 +55,7 @@
   <!-- Known / failure live region: polite for less intrusive announcements -->
   <div aria-live="polite" aria-atomic="true" class="live-region">
     {#if zoneState === 'known' && el}
-      <div class="zone-icon zone-icon-sm">{el.symbol}</div>
+      <div class="zone-icon zone-icon-sm"><ElementIcon key={result} /></div>
       <div class="zone-label known-label">{el.name}</div>
       {#if el.recipe}
         <div class="zone-recipe">{el.recipe}</div>
@@ -139,7 +140,7 @@
 
   /* ── Discovery ────────────────────────────────────────────────────────── */
   .discovery-label {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     font-weight: 700;
     font-size: var(--text-body);
   }

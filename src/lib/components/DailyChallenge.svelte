@@ -11,6 +11,7 @@
   import { logDailyChallengeCompleted } from '../effects/analytics.js';
   import { shouldShowRating } from '../effects/rating.js';
   import RatingPrompt from './RatingPrompt.svelte';
+  import ElementIcon from './ElementIcon.svelte';
 
   const isNative = Capacitor.isNativePlatform();
   const element = $derived(ELEMENTS[$dailyChallengeTarget] ?? null);
@@ -82,7 +83,7 @@
       <div class="complete-text">
         <span class="complete-heading">Daily Complete!</span>
         {#if element}
-          <span class="complete-element">{element.symbol} {element.name}</span>
+          <span class="complete-element">{element.name}</span>
         {/if}
       </div>
     </div>
@@ -94,7 +95,7 @@
       <span class="today-label">Today</span>
       <span class="target-element">
         {#if element}
-          <span class="target-symbol">{element.symbol}</span>
+          <span class="target-symbol"><ElementIcon key={$dailyChallengeTarget} /></span>
           <span class="target-name">{element.name}</span>
         {:else}
           <span class="target-name">—</span>
@@ -158,10 +159,10 @@
     gap: 6px;
   }
   .target-symbol {
-    font-size: 14px;
-    color: var(--color-text-secondary);
-    font-family: 'Space Mono', monospace;
-    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    width: 20px;
+    height: 20px;
   }
   .target-name {
     font-family: 'Space Mono', monospace;

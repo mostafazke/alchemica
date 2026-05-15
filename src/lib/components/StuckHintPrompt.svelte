@@ -7,6 +7,7 @@
   import { getStuckHint, type SmartHint } from '../game/reactions.js';
   import { ELEMENTS } from '../data/elements.js';
   import { logHintRequested } from '../effects/analytics.js';
+  import ElementIcon from './ElementIcon.svelte';
 
   type Mode = 'offer' | 'watching' | 'revealed' | 'fallback';
 
@@ -97,17 +98,17 @@
           {:else}
             <!-- Goal or revealed trivia: show target element + combo -->
             <div class="hint-result-row">
-              <span class="hint-res-sym">{hintElResult.symbol}</span>
+              <span class="hint-res-sym"><ElementIcon key={hint.result} /></span>
               <span class="hint-res-name">{hintElResult.name}</span>
             </div>
             <div class="hint-pair">
               <span class="hint-el">
-                <span class="hint-sym">{hintElA.symbol}</span>
+                <span class="hint-sym"><ElementIcon key={hint.a} /></span>
                 <span class="hint-name">{hintElA.name}</span>
               </span>
               <span class="hint-plus">+</span>
               <span class="hint-el">
-                <span class="hint-sym">{hintElB.symbol}</span>
+                <span class="hint-sym"><ElementIcon key={hint.b} /></span>
                 <span class="hint-name">{hintElB.name}</span>
               </span>
             </div>
@@ -255,8 +256,10 @@
     gap: 2px;
   }
   .hint-sym {
-    font-size: 22px;
-    line-height: 1;
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    flex-shrink: 0;
   }
   .hint-name {
     font-family: 'Space Mono', monospace;
@@ -273,7 +276,7 @@
     display: flex; align-items: center; gap: 6px;
     margin-bottom: 2px;
   }
-  .hint-res-sym { font-size: 20px; line-height: 1; }
+  .hint-res-sym { width: 20px; height: 20px; display: inline-flex; flex-shrink: 0; }
   .hint-res-name {
     font-family: 'Space Mono', monospace; font-size: 12px;
     font-weight: 700; color: var(--color-text-primary);

@@ -43,7 +43,7 @@
   .disc-count {
     font-family: 'Space Mono', monospace;
     font-size: 10px;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
   }
   .disc-list {
     flex: 1;

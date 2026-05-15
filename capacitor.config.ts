@@ -12,12 +12,12 @@ const config: CapacitorConfig = {
     SplashScreen: {
       launchShowDuration: 2000,
       launchAutoHide: true,
-      backgroundColor: '#0d1b2e',  // matches vite.config.ts theme_color
+      backgroundColor: '#f5f0e8',  // matches vite.config.ts theme_color
       androidScaleType: 'CENTER_CROP',
     },
     StatusBar: {
-      style: 'DARK',
-      backgroundColor: '#0d1b2e',
+      style: 'LIGHT',
+      backgroundColor: '#f5f0e8',
       overlaysWebView: true,
     },
     AdMob: {

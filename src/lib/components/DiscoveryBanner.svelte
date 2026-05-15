@@ -3,6 +3,7 @@
   import { discoveryBannerQueue } from '../stores/discoveryBanner.js';
   import { shareDiscoveryCard } from '../utils/share.js';
   import type { DiscoveryBannerPayload } from '../stores/discoveryBanner.js';
+  import ElementIcon from './ElementIcon.svelte';
 
   const DISPLAY_MS = 8000;
   const EXIT_MS = 280;
@@ -90,7 +91,7 @@
   >
     <div class="banner-inner">
       <div class="banner-left">
-        <span class="banner-symbol">{el.symbol}</span>
+        <span class="banner-symbol {el.color}"><ElementIcon key={current.elementKey} /></span>
       </div>
       <div class="banner-body">
         <span class="banner-headline">✨ New! {el.name}</span>
@@ -159,8 +160,9 @@
     border-radius: 10px;
   }
   .banner-symbol {
-    font-size: 28px;
-    line-height: 1;
+    display: block;
+    width: 28px;
+    height: 28px;
   }
 
   .banner-body {

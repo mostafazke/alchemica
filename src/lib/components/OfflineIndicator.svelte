@@ -48,7 +48,7 @@
 		transform: translateX(-50%);
 		background: var(--color-bg-surface);
 		border: 1px solid var(--color-border-active);
-		color: var(--color-accent);
+		color: var(--color-accent-text);
 		font-size: 0.8rem;
 		font-weight: 600;
 		padding: 6px 16px;

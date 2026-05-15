@@ -5,6 +5,7 @@
   import { QUIPS } from '../data/quips.js';
   import { shareDiscoveryCard } from '../utils/share.js';
   import type { AnimationController } from '../effects/animation-controller.js';
+  import ElementIcon from './ElementIcon.svelte';
 
   let {
     result,
@@ -111,7 +112,7 @@
     <div class="discovery-badge">✦ NEW DISCOVERY</div>
 
     <!-- Element emoji: 72×72px with category color class, WAA scale target -->
-    <div class="discovery-emoji {el.color}" bind:this={emojiEl}>{el.symbol}</div>
+    <div class="discovery-emoji {el.color}" bind:this={emojiEl}><ElementIcon key={result} /></div>
 
     <!-- Name + formula fade in at 300ms -->
     <div class="discovery-name discovery-delayed">{el.name}</div>
@@ -208,6 +209,7 @@
     border-radius: 8px;
     font-size: 36px;
     flex-shrink: 0;
+    padding: 10px;
     /* Initial scale: WAA will animate to 1.0; shown at 1.0 for reduced-motion */
     transform: scale(0.1);
   }
