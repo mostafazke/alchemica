@@ -153,14 +153,14 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		height: 100dvh;
+		min-height: 100dvh;
 		background: var(--color-bg-deep);
 		padding:
 			calc(0.75rem + env(safe-area-inset-top, 0px))
 			1.25rem
 			calc(1.25rem + env(safe-area-inset-bottom, 0px));
-		gap: 0.75rem;
-		overflow: hidden;
+		gap: 0.5rem;
+		overflow-y: auto;
 	}
 
 	/* ── Top bar ─────────────────────────────────────── */
@@ -234,8 +234,8 @@
 	/* ── Spacer ──────────────────────────────────────── */
 	.spacer {
 		flex: 1;
-		min-height: 0.5rem;
-		max-height: 3rem;
+		min-height: 0;
+		max-height: 2rem;
 	}
 
 	/* ── Score ───────────────────────────────────────── */

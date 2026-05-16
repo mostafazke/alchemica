@@ -63,7 +63,6 @@
   <div class="el-icon {el.color}"><ElementIcon key={elementKey} /></div>
   {#if mode === 'grid'}
     <div class="el-grid-name">{el.name}{#if hasMore}<span class="has-more-dot" aria-label="has undiscovered combinations">◦</span>{/if}</div>
-    <div class="long-press-dot" aria-hidden="true"></div>
   {:else}
     <div class="el-info">
       <div class="el-formula">{el.formula}</div>
@@ -159,15 +158,7 @@
     max-width: 100%;
     font-family: 'Space Mono', monospace;
   }
-  .long-press-dot {
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: var(--color-border-mid);
-    margin-top: 1px;
-    transition: background 0.15s;
-  }
-  .element-card:hover .long-press-dot,
-  .element-card.selected .long-press-dot { background: var(--color-border-active); }
+
   .has-more-dot {
     color: color-mix(in srgb, var(--color-accent) 50%, transparent);
     font-size: 8px;
@@ -177,13 +168,13 @@
   }
 
   /* ─── Category icon backgrounds (game-semantic colors — do not tokenize) ─── */
-  :global(.cat-fire)     { background: #2d1810; color: #ff6b35; }
-  :global(.cat-water)    { background: #0d2040; color: #5ab4ff; }
-  :global(.cat-earth)    { background: #1a2010; color: #96c84a; }
-  :global(.cat-air)      { background: #1a1a2e; color: #c8c8ff; }
-  :global(.cat-metal)    { background: #2a2a1a; color: #c8b460; }
-  :global(.cat-energy)   { background: #2d1a40; color: #d05aff; }
-  :global(.cat-gas)      { background: #1a2a2a; color: #80d0c0; }
-  :global(.cat-compound) { background: #2a1a2a; color: #d080a0; }
-  :global(.cat-space)    { background: #0a0a1e; color: #7eb8f7; }
+  :global(.cat-fire)     { background: rgba(255,107, 53,0.15); color: #ff6b35; }
+  :global(.cat-water)    { background: rgba( 90,180,255,0.15); color: #5ab4ff; }
+  :global(.cat-earth)    { background: rgba(150,200, 74,0.15); color: #96c84a; }
+  :global(.cat-air)      { background: rgba(200,200,255,0.15); color: #c8c8ff; }
+  :global(.cat-metal)    { background: rgba(200,180, 96,0.15); color: #c8b460; }
+  :global(.cat-energy)   { background: rgba(208, 90,255,0.15); color: #d05aff; }
+  :global(.cat-gas)      { background: rgba(128,208,192,0.15); color: #80d0c0; }
+  :global(.cat-compound) { background: rgba(208,128,160,0.15); color: #d080a0; }
+  :global(.cat-space)    { background: rgba(126,184,247,0.15); color: #7eb8f7; }
 </style>

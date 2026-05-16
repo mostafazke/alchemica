@@ -161,6 +161,19 @@
     {/if}
 
     <section class="settings-section">
+      <div class="section-label">Credits</div>
+      <div class="section-rows">
+        <div class="settings-row">
+          <span class="row-icon">🎨</span>
+          <div class="row-body">
+            <span class="row-label">Element Icons</span>
+            <span class="row-desc">Icons by Lorc, Delapouite et al. — <a class="credit-link" href="https://game-icons.net" target="_blank" rel="noopener noreferrer">game-icons.net</a> (CC BY 3.0)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="settings-section">
       <div class="section-label">Advanced</div>
       <div class="section-rows">
         <button class="settings-row row-danger" type="button" onclick={() => showResetModal = true}>
@@ -192,7 +205,7 @@
 <style>
   /* ─── Layout ────────────────────────────────────────────── */
   .settings-page {
-    min-height: 100dvh;
+    height: 100dvh;
     background: var(--color-bg-deep);
     display: flex;
     flex-direction: column;
@@ -294,6 +307,11 @@
     margin-top: 2px;
     line-height: 1.4;
   }
+  .credit-link {
+    color: var(--color-accent-text, #a78bfa);
+    text-decoration: none;
+  }
+  .credit-link:hover { text-decoration: underline; }
 
   /* ─── Toggle switch ─────────────────────────────────────── */
   .toggle-wrap { cursor: pointer; flex-shrink: 0; }

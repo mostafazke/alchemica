@@ -3,6 +3,8 @@ import type { Discovery, Slots, AchievementId } from '../types.js';
 import { BASIC_ELEMENTS } from '../data/elements.js';
 import { earnedAchievements, streakCount, lastCompletedDate } from './achievements.js';
 import { backfillAchievements } from '../game/achievements.js';
+import { getDailyChallengeKeyForPlayer } from '../game/daily.js';
+import { dailyChallengeTarget } from './daily.js';
 
 const SAVE_KEY = 'alchemica_v1';
 const SAVE_VERSION = 3;
@@ -107,6 +109,10 @@ if (saved) {
 
 // Back-calculate achievements from v1 saves (ACHV-06). Silent — no toast or chime.
 backfillAchievements(get(unlockedElements).size);
+
+// Override daily challenge target to prefer an undiscovered element for this player.
+// Uses the same date seed so the result is stable for the whole day.
+dailyChallengeTarget.set(getDailyChallengeKeyForPlayer(get(unlockedElements)));
 
 /** Unix timestamp (ms) when the hint cooldown expires. 0 = no cooldown active. */
 export const hintCooldownEndsAt = writable<number>(

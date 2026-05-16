@@ -32,6 +32,26 @@ export function getDailyChallengeKey(): string {
 }
 
 /**
+ * Returns today's daily challenge key, preferring elements the player has NOT yet
+ * discovered. Falls back to the default key if all non-basic elements are unlocked.
+ * Uses the same date seed so the selection is stable within a day for each player.
+ */
+export function getDailyChallengeKeyForPlayer(unlockedKeys: Set<string>): string {
+  const dateStr = getTodayDateStr();
+  const seed = dateStr.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  const pool = Object.keys(ELEMENTS)
+    .filter((k) => ELEMENTS[k].category !== 'basic')
+    .sort();
+
+  const undiscovered = pool.filter((k) => !unlockedKeys.has(k));
+  if (undiscovered.length > 0) {
+    return undiscovered[seed % undiscovered.length];
+  }
+  // All non-basic elements discovered — fall back to global default
+  return pool[seed % pool.length];
+}
+
+/**
  * Marks today's daily challenge as complete and updates the streak.
  * Idempotent — calling multiple times on the same day has no effect.
  *
